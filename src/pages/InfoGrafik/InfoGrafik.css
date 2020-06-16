@@ -1,0 +1,130 @@
+.tajuk-page1 p{
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 39px;
+    text-align: right;
+    margin-right: 64px;
+    letter-spacing: 0.1em;
+    color: #D33732;
+}
+
+.tajuk-page2 p {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 87px;
+    margin-bottom: 32px;
+    text-align: right;
+    margin-right: 64px;
+    letter-spacing: 0.1em;
+    color: #D33732;
+}
+
+.tajuk-page3 p {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 72px;
+    text-align: right;
+    margin-right: 64px;
+    letter-spacing: 0.1em;
+    color: #D33732;
+}
+
+.notification {
+    height: 36px;
+    width: 36px;
+    position: relative;
+    margin-left: 1299px;
+    margin-top: 18px;
+}
+
+.notification button{
+    border: none;
+    background-color: white;
+}
+
+
+.notification-counter {
+    width: 20px;
+    height: 20px;
+    background-color: #C04B3E;
+    position: absolute;
+    top : -7px;
+    right: -4px;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+}
+.drop-down-menu {
+    margin-top: 77px;
+    display: flex;
+    font-size:12px;
+}
+.spacer{
+    flex: 1;
+}
+.drop-down-kementrian {
+    margin-left: 100px;
+}
+
+.drop-down-jangka {
+    margin-right: 38px;
+}
+
+.drop-down-waktu {
+    margin-right: 32px;
+}
+
+.drop-down-kementrian option{
+    position: absolute;
+    bottom: 30px;
+}
+
+.drop-down-kementrian select{
+    height: 25px;
+    width: 200px;
+    color: white;
+    font-weight: bold;
+    background-color:#343A40;
+    border-radius: 0px 0px 5px 5px; 
+}
+
+.drop-down-kementrian label,
+.drop-down-waktu label,
+.drop-down-jangka label {
+    margin-top: 6px;
+    margin-left: 4px;
+}
+
+.drop-down-waktu select,
+.drop-down-jangka select {
+    height: 25px;
+    width: 103px;
+    color: white;
+    font-weight: bold;
+    background-color:#343A40;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.drop-down-jangka select {
+    width: 200px;
+}
+
+.material-icons {
+    color: #C04B3E;
+}
+
+.infografik-statistik {
+    border-radius: 10px;
+    margin-right: 153px;
+    margin-top: 32px;
+    background-color: white;
+    padding-left: 50px;
+    padding-right: 10px;
+    box-shadow: 0px 5px 3px rgba(0,0,0,0.5);
+}
+
+.dashboard-section{
+    margin-left: 100px;
+}

@@ -1,0 +1,139 @@
+.artikel-container{
+    margin: 163px auto 0;
+    height: fit-content;
+    width: 1078px;
+    background-image: linear-gradient(to right,#D33732,#FC801A);
+}
+
+.judul-artikel {
+    font-family: 'Open-Sans', sans-serif;
+    line-height: 40px;
+    width: 500px;
+    font-size: 32px;
+    position: relative;
+    font-weight: bold;
+    color: white;
+    top: 38px;
+    left: 42px;
+}
+
+.logo-artikel {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    right: -500px;
+}
+
+.gambar-infografis {
+    width: 900px;
+}
+
+.card-artikel{
+    margin: 239px auto;
+    width: 900px;
+    overflow: hidden;
+    height: fit-content;
+    background-color: red;
+}
+
+.nama-artikel{
+    font-family: 'Open-Sans', sans-serif;
+    font-size: 32px;
+    width: 600px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    bottom: 38px;
+    left: 42px; 
+}
+
+.tanggal-artikel{
+    font-family: 'Open-Sans', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: -380px; 
+}
+
+.artikel-body {
+    width: 993px;
+    height: fit-content;
+    margin: 64px auto 79px;
+    /* background-color: violet; */
+
+}
+
+.artikel-text {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 30px;
+    /* background-color: blue; */
+    height: fit-content;
+}
+
+.artikel-media {
+    border-top: 1px solid black;
+    padding-top: 12px;
+    display: flex;
+    align-items: center;
+    width: 480px;
+    margin-top: 10px;
+    margin-left: 513px;
+}
+
+.artikel-unduh {
+    font-size: 24px;
+    font-weight: bold;
+    color: #D33732;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.artikel-social ul li {
+    display: inline-block;
+}
+
+.spacer {
+    flex:1px;
+}
+.artikel-social-media-logo {
+    line-height: 34px;
+    /* padding-left: 10px; */
+    height: 34px;
+    text-align: center;
+    width: 34px;
+    border-radius: 50%;
+    color: #ACACAC;
+    background-color: #C04B3E;
+    margin-left: 20px;
+}
+.artikel-social-media-logo:hover{
+    color: white;
+}
+
+.artikel-terkait {
+    margin: 64px auto 79px;
+    width: fit-content;
+}
+
+.artikel-terkait-head {
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+}
+
+.artikel-terkait-news{
+    margin-top: 24px;
+    display: grid;
+    grid-column-gap: 32px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.artikel-terkait-card {
+    height: 150px;
+    background-color: black;
+    width: 300px;
+    border-radius: 10px;
+}

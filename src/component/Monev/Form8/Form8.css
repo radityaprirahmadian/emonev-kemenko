@@ -1,0 +1,88 @@
+.monev-8-container{
+    width: 1238px;
+    height: 580px;
+    margin-left: 100px;
+    margin-top: 40px;
+    margin-bottom: 46px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 34px;
+    padding-top: 11px;
+}
+
+.form-monev-8 p{
+    margin-bottom: 16px;
+}
+
+.form-monev-8 input{
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.form-monev-8 .monev-jangka{
+    height: 42px;
+    width: 183px; 
+    margin-left: 76px;
+}
+
+.form-monev-8 .monev-eselon{
+    height: 42px;
+    width: 403px; 
+    margin-left: 98px;
+}
+
+.form-monev-8 .monev-nip{
+    height: 42px;
+    width: 269px; 
+    margin-left: 186px;
+}
+
+.form-monev-8 .monev-lampiran{
+    height: 241px;
+    width: 955px; 
+    margin-left: 85px;
+}
+
+.monev-navigation-button-8{
+    display: flex;
+    margin-top: 51px;
+}
+.previous-last{
+    width: 50px;
+    height: 46px;
+    padding: 0px;
+    margin-left: 868px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+}
+
+.preview-monev {
+    width: 225px;
+    height: 46px;
+    padding: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    margin-left: 35px;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 0.021em;
+}
+
+.preview-monev:active,
+.previous-last:active {
+    background-color: #C04B3E;
+}

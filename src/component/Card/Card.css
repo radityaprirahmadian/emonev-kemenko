@@ -1,0 +1,68 @@
+.container-for-card{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    /* margin: 32px 38px 0 88px; */
+    /* border: 1px solid black; */
+    box-sizing: border-box;
+
+}
+
+.card-container {
+    /* margin-right:  */
+    width: 400px;
+    height: 500px;
+    background-color: white;
+}
+
+.date-and-button{
+    display: flex;
+    flex-direction: row;
+    margin-top: 8px;
+    /* border: 1px solid black; */
+}
+
+.bottom-card ul li{
+    display: inline-block;
+}
+
+.card-date{
+    /* border: 1px solid black; */
+}
+
+.spacer{
+    flex:1;
+}
+
+.detail-button{
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: #8E4134;
+    color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 0px;
+    border:none;
+    margin-top: 0px;
+    margin-right: 9px;
+    /* margin */
+}
+
+.card-background{
+    width: 400px;
+    height: 400px;
+}
+
+.card-title-bottom{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 11px 0 0 7px;
+}
+
+.card-date {
+    margin: 0 0 0 7px
+}

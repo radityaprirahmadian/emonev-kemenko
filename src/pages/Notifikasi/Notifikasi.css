@@ -1,0 +1,122 @@
+.input-dan-tajuk {
+    margin-left: 84px;
+    display: flex;
+}
+
+.input-dan-tajuk button {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #8E4134;
+    color: white;
+    width: 225px;
+    height: 46px;
+    border:none;
+    padding: 0px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    box-shadow: 6px 8px 7px 6px rgba(0,0,0,0.1);
+}
+
+/* .clear{
+    clear: both;
+} */
+
+.input-dan-tajuk .tambah-notifikasi img{
+    width: 24px;
+    height: 24px;
+    margin-left: 17px;
+    
+}
+
+.input-dan-tajuk button p{
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 45px;    
+}
+
+.spacer{
+    flex: 1;
+}
+
+.tajuk-notifikasi{
+    margin-right: 28px;
+    margin-top: 7px;
+}
+
+.tajuk-notifikasi p{
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.notifikasi-card {
+    margin-left: 84px;
+    margin-top: 19px;
+    width: 1200px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
+    background-color: white;
+    margin-bottom: 40px;
+}
+
+.notifikasi-card-header{
+    height: 41px;
+    border-radius: 5px 5px 0 0;
+    padding-left: 11px;
+    line-height: 50px;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.notifikasi-card-body{
+    height: 178px;
+    display: flex;
+    border-bottom: 1px solid grey;
+}
+
+.notifikasi-photo{
+    margin-left: 11px;
+    margin-top: 49px;
+}
+
+.notifikasi-photo img{
+    height: 80px;
+}
+.notifikasi-detail{
+    margin-left: 11px;
+    width: 1076px;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    line-height: 15px;
+    /* border: 1px solid black; */
+}
+
+.notifikasi-detail p{
+    font-weight: bold;
+    margin-top: 11px;
+}
+.notifikasi-detail .isi-notifikasi{
+    width: 1076px;
+    height: 86px;
+    margin-top: 10px;   
+    letter-spacing: 0.01em;
+    line-height: 15px;
+    /* border: 1px solid black; */
+}
+
+.notifikasi-detail .pengirim-notifikasi{
+    text-align: right;
+    margin-top: 13px;
+}
+
+.notifikasi-detail .pengirim-notifikasi span{
+    font-weight: bold;
+}
+
+.notifikasi-detail .tanggal-notifikasi{
+    margin-top: 6px;
+}
+
+
+

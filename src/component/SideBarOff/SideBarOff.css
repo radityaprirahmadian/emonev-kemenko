@@ -1,0 +1,143 @@
+.side-bar-off{
+    width: 68px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: white;
+    box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
+}
+
+.side-bar{
+	background-color: white;
+	top: 0;
+	font-family: 'Open Sans', sans-serif;
+	left: 0;
+	bottom: 0;
+	width: 256px;
+	position: fixed;
+	z-index: 9999;
+    overflow-x: hidden;
+    box-shadow: 6px 0px 18px rgba(0, 0, 0, 0.06);
+	/* margin-left: -256px; */
+}
+
+.side-bar-avatar {
+    display: flex;
+    margin-left: 24px;
+    margin-top: 25px;
+}
+
+.side-bar-avatar img{
+    height: 64px;
+    width: 58.48px;
+}
+
+.side-bar-avatar .avatar-identity {
+    margin-left: 14.52px;
+    margin-right: 26px;
+    overflow: hidden;
+	font-weight: 600;
+	font-style: normal;
+}
+
+.side-bar-avatar .avatar-identity .user-name{
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+.side-bar-avatar .avatar-identity .user-position,
+.side-bar-avatar .avatar-identity .user-ministry{
+	font-size: 16px;
+	letter-spacing: 0.02em;
+    color: #90A0B7;
+    margin-top: 5px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.space1r {
+    height: 100px;
+    width: 2px;
+}
+
+.avatar-off img{
+    width: 53px;
+    height: 58px;
+    margin: 9px 5px 0 10px;
+}
+
+.side-bar-menu-off {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-bar-menu-on{
+	width: 208px;
+	margin-left: 16px;
+    margin-right: 32px;
+}
+
+.side-bar-menu-on ul li i{
+    text-align: center;
+}
+
+.side-bar-menu ul li a{
+    text-decoration: none;
+    color: #ACACAC;
+}
+
+.side-bar-menu .label-menu {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 600;
+}
+
+.side-bar-item i{
+    color: #ACACAC;
+}
+.side-bar-item .active i,
+.side-bar-menu ul li .active{
+    color:#C04B3E;
+}
+
+.side-bar-menu{
+	margin-top:61px;
+}
+
+.side-bar-menu-off ul{
+    margin-top: 86px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-bar-item{
+    font-size: 24px;
+    color: #ACACAC;
+    margin: 0;
+    margin-bottom: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.toggle-button{
+    margin-top: 55px;
+    position: fixed;
+    bottom: 145px;
+}
+
+.logout-button{
+    position: fixed;
+    bottom: 10px;
+}
+
+/* .logout-button{
+    position: fixed;
+    bottom: 10px;
+    left: 22px;
+} */
+

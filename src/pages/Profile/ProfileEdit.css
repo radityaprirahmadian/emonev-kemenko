@@ -1,0 +1,120 @@
+.title-profile-page{
+    text-align: right;
+    margin-right: 28px;
+    margin-top: 23px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.container-fluid{
+    margin-left: 102px;
+    margin-top: 7px;
+    width: 1264px;
+}
+
+.col {
+    padding: 0;
+}
+
+.form-profile-page .data{
+    margin-bottom: 16px;
+    height: 76px;
+}
+
+.form-profile-page label{
+    margin-left: 22px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.form-profile-page input{
+    height: 48px;
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 22px;
+    width: 654px;
+    line-height: 48px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+.form-profile-page .persist{
+    height: 48px;
+    border: 1px solid grey;
+    background-color: #656A6A;
+    color: white;
+    border-radius: 5px;
+    padding-left: 22px;
+    width: 654px;
+    line-height: 48px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+.photo-profile-page{
+    margin-left: 165px;
+}
+
+.photo-profile-page label {
+    margin-top: 93px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.photo-profile-container{
+    border-radius: 5px;
+    width: 365px;
+    height: 324px;
+    background-color: white;
+    border: 1px solid grey;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+}
+
+.button-submit-profile {
+    margin-left: 13px;
+}
+
+.button-password {
+    position: relative;
+}
+
+.button-submit-profile-edit{
+    margin-left: 8px;
+    margin-top: 18px;
+    width: 168px;
+    height: 46px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #C04B3E;
+    color: white;
+    border:none;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+}
+
+.photo-profile {
+    width: 180px;
+    height: 180px;
+    margin: 28px auto 20px;
+    box-sizing: border-box;
+    border: 2px solid grey;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.photo-profile img{
+    width: 180px;
+    height: 180px;
+}
+
+.photo-profile-container u{
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #8E4134;
+    cursor: pointer;
+}

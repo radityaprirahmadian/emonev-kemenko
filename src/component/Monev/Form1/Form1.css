@@ -1,0 +1,70 @@
+.monev-1-container{
+    width: 1238px;
+    height: 280px;
+    margin-left: 100px;
+    margin-top: 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 34px;
+    padding-top: 19px;
+    
+}
+
+.form-monev-1 p{
+    margin-bottom: 16px;
+}
+
+.form-monev-1 input{
+    height: 42px;
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.form-monev-1 .monev-tahun{
+    margin-left: 162px;
+    width: 183px;
+}
+
+.form-monev-1 .monev-id-program{
+    margin-left: 123px;
+    width: 269px; 
+}
+
+.form-monev-1 .monev-instansi{
+    margin-left: 150px;
+    width: 366px; 
+}
+
+.gnrm-navigation-button{
+    display: flex;
+    margin-top: 34px;
+}
+.previous,
+.forward {
+    width: 50px;
+    height: 46px;
+    padding: 0px;
+    margin-left: 1066px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px 0 0 5px;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+}
+
+.forward {
+    margin-left: 2px;
+    border-radius: 0 5px 5px 0;
+}
+
+.forward:active,
+.previous:active {
+    background-color: #C04B3E;
+}

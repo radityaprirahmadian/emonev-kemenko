@@ -1,0 +1,143 @@
+.gnrm-container{
+    width: 1238px;
+    height: fit-content;
+    margin-left: 100px;
+    background-color: white;
+    margin-top: 16px;
+    margin-bottom: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 34px;
+    padding-top: 19px;
+    
+}
+
+.gnrm-title{
+    margin-bottom: 25px;
+}
+
+.form-gnrm div{
+    margin-bottom: 16px;
+}
+
+i.material-icons {
+    font-size: 36px;
+    color: white;
+}
+
+.form-gnrm input{
+    height: 42px;
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.form-gnrm textarea{
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.form-gnrm .gnrm-tahun{
+    margin-left: 162px;
+    height: 42px;
+    width: 183px;
+}
+
+.form-gnrm .gnrm-id-program{
+    margin-left: 123px;
+    height: 42px;
+    width: 269px; 
+}
+
+.form-gnrm .gnrm-instansi{
+    margin-left: 150px;
+    height: 42px;
+    width: 366px; 
+}
+
+.gnrm-navigation-button{
+    display: flex;
+    margin-top: 34px;
+    margin-bottom: 23px;
+}
+.previous,
+.forward {
+    width: 50px;
+    height: 46px;
+    padding: 0px;
+    right: -1066px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px 0 0 5px;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+}
+
+.forward {
+    right: -1068px;
+    border-radius: 0 5px 5px 0;
+}
+input[type="file"] {
+    display: none;
+}
+
+.label_lampiran{
+    margin-left: 78px;
+    cursor: pointer;
+    width: 135px;
+    height: 42px;
+    background-color: #DB9B2E;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 42px;
+}
+
+.forward:active,
+.previous:active,
+.previous-last-1:active {
+    background-color: #C04B3E;
+}
+
+.preview-gnrm,
+.simpan-gnrm {
+    width: 225px;
+    height: 46px;
+    padding: 0px;
+    font-size: 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    margin-left: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 0.021em;
+}
+
+.simpan-gnrm {
+    background-color: #848988;
+}
+
+.previous-last-1{
+    width: 50px;
+    height: 46px;
+    padding: 0px;
+    margin-left: 637px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #8E4134;
+    color: white;
+    border:none;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+}

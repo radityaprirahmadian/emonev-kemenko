@@ -1,0 +1,246 @@
+.top-bar {
+    background-color: none;
+    height: 101px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+    left: 0;     
+    z-index: 10;   
+}
+
+.top-bar-default {
+    background-color: #D33732;
+    height: 101px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+    left: 0;     
+    z-index: 10;
+}
+
+.top-bar.scroll{
+    background-color: #D33732;
+}
+
+.top-bar li>.active .top-bar-menu-container{
+    border-bottom: 2px solid #D33732;
+}
+.top-bar.scroll li>.active .top-bar-menu-container{
+    border-bottom: 2px solid black;
+}
+
+.top-bar-default li>.active .top-bar-menu-container {
+    border-bottom: 2px solid black;
+}
+
+.top-bar.scroll .top-bar-menu-container:hover,
+.top-bar-default .top-bar-menu-container:hover{
+    border-bottom: 2px solid #FCCB82;
+}
+
+.top-bar-menu-container{
+    height: fit-content;
+    width: fit-content;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 1px;
+    border-bottom: 2px solid rgba(0,0,0,0);
+    
+}
+
+.top-bar-menu-container.no-2 {
+    position: relative;
+    box-sizing: border-box;
+}
+.top-bar-menu-2 .top-bar-menu-container.no-2:hover {
+    background-color: #3F5064;
+    padding: 10px 10px 0 10px;
+    border-bottom: 2px solid rgba(0,0,0,0);
+    border-radius: 10px 10px 0 0;
+    transition: none;
+}
+
+.jarak {
+    width: 225px;
+    height: 101px;
+    display: none;
+    background-color: #3F5064;
+}
+
+.top-bar-menu-container:hover{
+    border-bottom: 2px solid #FC801A;
+    transition: all 0.2s ease-in-out;
+}
+
+.top-bar-menu-2 > .top-bar-menu-container:hover{
+    border-bottom: 2px solid rgba(0,0,0,0);
+}
+
+.sub-menu-hover {
+    display: none;
+    margin-top: 61px;
+}
+
+.top-bar-menu-container:hover .jarak {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 28px;
+}
+.top-bar-menu-container:hover .sub-menu-hover {
+    display: inline-block;
+    width: 1170px;
+    height: 600px;
+    border-radius: 10px;
+    left: -500px;
+    position: absolute;
+    background-color: #3F5064;
+}
+
+.top-bar-menu-container:hover .sub-menu-hover ul {
+    display: block;
+}
+
+.menu-kementrian {
+    width: 240px;
+    height: fit-content;
+    margin: 17px 0 25px 14px;
+    color: white;
+}
+
+.menu-kementrian ul li {
+    /* background-color: #3F5064; */
+    width: 250px;
+    border-radius: 10px 0 0 10px;
+    margin-bottom: 5px;
+    height: 90px;
+    line-height: 90px;
+}
+
+.menu-kementrian ul li:hover {
+    background-color: #FCCB82;
+    color: black;
+}
+
+.sub-menu-kementrian,
+.sub-menu-2-kementrian {
+    display: none;
+    color: black;
+    position: absolute;
+    top: 17px;
+    background-color: #FCCB82;
+    height: 566px;
+    overflow: auto;
+
+}
+
+
+
+.menu-kementrian ul li:hover .sub-menu-kementrian {
+    display: inline-block;
+    width:468px;
+    left: 257px;
+    border-radius: 10px 0 0 10px;
+}
+
+.menu-kementrian ul li:hover .sub-menu-kementrian ul {
+    display: flex;
+    flex-flow: row wrap;
+    padding-top: 16px;
+    padding-left: 32px;
+}
+
+.sub-menu-kementrian ul li {
+    height: 64px;
+    margin-bottom: 16px;
+    width: 370px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+    padding: 10px 5px 10px 5px;
+}
+
+.sub-menu-kementrian ul li .titit {
+    height: 44px;
+    width: fit-content;
+    overflow: hidden;
+}
+
+.sub-menu-kementrian ul li:hover {
+    background-color: #242424;
+    color: white;
+}
+
+.sub-menu-kementrian ul li:hover .sub-menu-2-kementrian {
+    display: inline-block;
+    position: absolute;
+    width: 462px;
+    right: -100px;
+    z-index: 999;
+    border-radius: 0 10px 10px 0;
+}
+
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 0 10px 10px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #272727; 
+    border-radius: 10px;
+}
+
+.top-bar-navigation {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+}
+
+
+.top-bar-navigation .logo-kemenko {
+    height: 98px;
+    padding-left: 11px;
+}
+
+.logo-simonev{
+    height: 58px;
+}
+
+.top-bar-logo-simonev {
+    margin-right: 61px;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.top-bar-menu ul li {
+    display: inline-block;
+}
+
+.top-bar-menu ul li a{
+    text-decoration: none;
+}
+
+.top-bar-menu-3 {
+    margin-right: 26px;
+}
+
+.top-bar-menu-2 {
+    margin-right: 55px;
+}
+
+.top-bar-menu-1 {
+    margin-right: 60px;
+}
+
+
