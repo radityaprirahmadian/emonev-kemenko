@@ -30,8 +30,9 @@
 }
 
 .side-bar-avatar img{
-    height: 64px;
+    height: 58.48px;
     width: 58.48px;
+    border-radius: 50%;
 }
 
 .side-bar-avatar .avatar-identity {
@@ -65,8 +66,9 @@
 
 .avatar-off img{
     width: 53px;
-    height: 58px;
+    height: 53px;
     margin: 9px 5px 0 10px;
+    border-radius: 50%;
 }
 
 .side-bar-menu-off {
@@ -127,7 +129,7 @@
 .toggle-button{
     margin-top: 55px;
     position: fixed;
-    bottom: 145px;
+    bottom: 90px;
 }
 
 .logout-button{

@@ -116,5 +116,10 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     color: #8E4134;
+}
+
+.photo-profile-container .upload_foto{
+    margin: 0;
     cursor: pointer;
+    text-decoration: underline;
 }

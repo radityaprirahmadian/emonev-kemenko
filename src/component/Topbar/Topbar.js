@@ -132,7 +132,12 @@ const Topbar = (props) => {
                     <header className={props.kunci ? "top-bar" : "top-bar-default"}>
                         <nav className="top-bar-navigation">
                             <div className="top-bar-logo">
-                                <img src={logo_gif} alt="logo kemenko" className="logo-kemenko"/>
+                                <img src={logo_gif} alt="logo kemenko" className="logo-kemenko" />
+                                <div className="top-bar-logo-title"> 
+                                    <h1>Kementerian Koordinator Bidang</h1>
+                                    <h1>Pembangunan Manusia dan Kebudayaan</h1>
+                                    <h1>Republik Indonesia</h1>
+                                </div>
                             </div>
 
                             <div className="spacer"/>

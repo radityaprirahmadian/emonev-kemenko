@@ -141,6 +141,7 @@ const Infografis = (props) => {
                                                     // document={document}
                                                     key={index}
                                                     document={document}
+                                                    tanggal={document.tanggal_dibuat}
                                                     id={document.gnrm_id}
                                                     instansi={document.instansi}
                                                     // tahun={document.form.tahun}

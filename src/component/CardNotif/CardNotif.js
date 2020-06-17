@@ -17,7 +17,7 @@ const CardNotif = (props) => {
     let str = date + ' ' + month + ' ' + mydate.getFullYear() + ' , ' + hour + ':' + minute;
 
     return(
-        <div className="notifikasi-card-body">
+        <div className="notifikasi-card-body" >
             <div className="notifikasi-photo">
                 <img src={avatar}/>
             </div>

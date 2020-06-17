@@ -10,12 +10,40 @@ import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import Scroll, { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
 
+const datas = {
+    kegiatan_prioritas: [
+        {
+            nama_kegiatan: 'Revolusi mental dalam sistem pendidikan untuk memperkuat nilai integritas, etos kerja, gotong royong, dan budi pekerti',
+            program_prioritas: [
+                'Pengembangan budaya belajar dan lingkungan sekolah yang menyenangkan dan bebas dari kekerasan (bullying free school environment)',
+                'Penguatan pendidikan agama, nilai toleransi beragama, dan budi pekerti dalam sistem pendidikan',
+                'Peningkatan kepeloporan dan kesukarelawanan pemuda, serta pengembangan pendidikan kepramukaan'
+            ]
+        },
+        {
+            nama_kegiatan: 'Revolusi mental dalam tata kelola pemerintahan untuk penguatan budaya birokrasi yang bersih, melayani, dan responsif',
+            program_prioritas: [
+                'Peningkatan budaya kerja pelayanan publik yang ramah, cepat, efektif, efisien, dan terpercaya',
+                'Penerapan disiplin, reward dan punishment dalam birokrasi ',
+            ]
+        },
+        {
+            nama_kegiatan: 'Revolusi mental dalam sistem sosial untuk memperkuat ketahanan, kualitas dan peran keluarga dan masyarakat dalam pembentukan karakter ',
+            program_prioritas: [
+                'Penyiapan kehidupan berkeluarga dan kecakapan hidup',
+                'Peningkatan ketahanan keluarga berdasarkan siklus hidup dengan memperhatikan kesinambungan antargenerasi, sebagai upaya penguatan fungsi dan nilai keluarga ',
+            ]
+        },
+
+    ]
+}
+    
+
 
 const FormGNRM = (props) => {
     const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview } = useContext(ArtikelContext)
     
     const Link = Scroll.Link;
-    
 
     const { token } = useContext(AuthContext)
     const history = useHistory()
@@ -27,6 +55,9 @@ const FormGNRM = (props) => {
         tahun: '',
         id_program: '',
         instansi:'',
+        kp: '',
+        prop: '',
+        gerakan: '',
 		kegiatan: {
 			nama_program: '',
 			penjelasan_kegiatan: '',
@@ -61,6 +92,9 @@ const FormGNRM = (props) => {
         tahun,
         id_program,
         instansi,
+        kp,
+        prop,
+        gerakan,
         kegiatan,
         nama_program,
         penjelasan_kegiatan,
@@ -118,9 +152,18 @@ const FormGNRM = (props) => {
 							[event.target.name]: event.target.value,
 					  },
 			})
-		else setData({ ...data, [event.target.name]: event.target.value })
-	}
+        else 
+            setData({ ...data, [event.target.name]: event.target.value })    
+    }
+    
 
+    const [ indexKP , setIndexKP] = useState();
+
+    const onSetIndex = (event,index) => {
+        setIndexKP(index) 
+    }
+    
+    console.log(indexKP)
     const onSubmit = async (event) => {
 		event.preventDefault()
 
@@ -166,12 +209,11 @@ const FormGNRM = (props) => {
 		const config = {
 			headers: {
                 'Content-Type': 'multipart/form-data',
-                'X-Requested-With': 'XMLHttpRequest',
 				'X-Auth-Token': `aweuaweu ${token}`,
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config,)
+		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
         history.push('/gnrm')
         alert(res.data.message)
         resetDocument()
@@ -251,6 +293,7 @@ const FormGNRM = (props) => {
     // },[])
 
     console.log(media)
+
 
     return(
       <Fragment>
@@ -340,6 +383,36 @@ const FormGNRM = (props) => {
                                         value={kegiatan.nama_program}
                                         onChange={(event) => onChange(event,'kegiatan')}
                                     />
+                                </div>
+                                <div>
+                                    <label>Kegiatan Prioritas</label>
+                                    <select className="admin-role" style={{height: "42px", 
+                                                marginLeft: "93px", 
+                                                width: "955px"}} name="kp" onChange={(event) => onChange(event)}>
+                                        <option value="" defaultValue="" hidden></option>
+                                        {
+                                            datas.kegiatan_prioritas.map((kegiatan,index) => {
+                                                return(
+                                                    <option key={index} value={kegiatan.nama_kegiatan}>{kegiatan.nama_kegiatan}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Program Prioritas</label>
+                                    <select className="admin-role" style={{height: "42px", 
+                                                marginLeft: "93px", 
+                                                width: "955px"}} name="prop" onChange={(event) => onChange(event)}>
+                                        <option value="" defaultValue="" hidden></option>
+                                        {
+                                            datas.kegiatan_prioritas[0].program_prioritas.map((kegiatan,index) => {
+                                                return(
+                                                    <option key={index} value={kegiatan}>{kegiatan}</option>
+                                                )
+                                            })
+                                        }
+                                    </select>
                                 </div>
                                 <div>
                                     <label>Penjelasan</label>

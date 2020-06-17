@@ -1,6 +1,5 @@
 import React,{useState,Fragment, useContext, useEffect} from 'react';
 import './SideBarOff.css';
-import avatar from '../../assets/avatar.png';
 import anjay from '../../assets/anjay.png';
 import {Link, NavLink , useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
@@ -56,6 +55,13 @@ const SideBarOff = (props) => {
         history.push('/login');
     }
 
+    const [ avatar, setAvatar ] = useState();
+
+    useEffect(() => {
+        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        setAvatar(wow)
+    },[userDetail])
+
         return(
             <Fragment>
                 {
@@ -93,7 +99,7 @@ const SideBarOff = (props) => {
                                                         <i className="fas fa-home"></i>
                                                     </div>
                                                     <div className="col-md-10">
-                                                        <div className="label-menu">Rencana Pelaksaan Program</div>
+                                                        <div className="label-menu">Rencana Pelaksanaan Program</div>
                                                     </div>
                                                 </div>
                                             </NavLink>

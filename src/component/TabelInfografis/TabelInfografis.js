@@ -29,6 +29,9 @@ const TabelInfografis = (props) => {
         setGambar(gams)
     }
 
+    const tahun1 = new Date(props.tanggal)
+    const tahun = tahun1.getFullYear()
+
     const onDelete = (e) => {
         e.preventDefault()
         props.delete(props.id)
@@ -38,7 +41,7 @@ const TabelInfografis = (props) => {
     return(
         <Fragment>
             <tr>
-                <td>{props.tahun}</td>
+                <td>{tahun}</td>
                 <td>{props.nama}</td>
                 <td className={user && user.role === 'owner' ? '' : 'd-none'}>{props.instansi}</td>
                 <td>{props.status ? <i className='fas fa-check-circle' style={{fontSize:'24px', lineHeight:'50px', color:'green'}}></i> : ''}</td>

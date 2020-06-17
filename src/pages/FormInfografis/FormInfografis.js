@@ -95,6 +95,16 @@ const FormInfografis = (props) => {
                                     </input>
                                 </div>
                                 <div>
+                                    <label>Deskripsi</label>
+                                    <textarea  
+                                        type="text"
+                                        style={{width:'955px', height:'159px' , marginLeft:'142px'}} 
+                                        name='deskripsi'
+                                        value={infografisDetail && infografisDetail.penjelasan_kegiatan}
+                                    >
+                                    </textarea>
+                                </div>
+                                <div>
                                     <label>Lampiran Infografis</label>
                                     <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH FILE</label>
                                     <input 

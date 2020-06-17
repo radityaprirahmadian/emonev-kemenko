@@ -9,7 +9,14 @@ import Popup from '../../component/Popup/Popup';
 
 const Profile = (props) => {
     const { token, userDetail,} = useContext(AuthContext);
-    // const [ user, setUser ] = useState();
+    const [ foto, setFoto ] = useState();
+
+    useEffect(() => {
+        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        setFoto(wow)
+    },[userDetail])
+
+    console.log(foto)
 
         return(
             <Fragment>
@@ -67,7 +74,7 @@ const Profile = (props) => {
                                     <label>Photo Profile</label><br/>
                                     <div className="photo-profile-container">
                                         <div className="photo-profile">
-                                            <img src={bg_card}></img>
+                                            <img src={foto}></img>
                                         </div>
                                     </div>
                                     <Link to={`/edit-profile/${userDetail && userDetail._id}`}>

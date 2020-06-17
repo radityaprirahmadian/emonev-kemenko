@@ -46,7 +46,6 @@ import io from 'socket.io-client'
 import SocketState from './context/SocketContext/SocketContext';
 import LupaPassword from './pages/LupaPassword/LupaPassword'
 
-
 const App = () => {
   const [ id , setId ] = useState('')
   const [ notifs, setNotifs] = useState([])

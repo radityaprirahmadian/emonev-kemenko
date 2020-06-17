@@ -205,10 +205,24 @@
 
 }
 
+.top-bar-logo-title h1{
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    line-height: 11px;
+    font-weight: 600;
+}
+
+.top-bar-logo {
+    margin-left: 10px;
+}
+
+
 
 .top-bar-navigation .logo-kemenko {
-    height: 98px;
+    height: 65px;
     padding-left: 11px;
+    margin-left: 14px;
 }
 
 .logo-simonev{

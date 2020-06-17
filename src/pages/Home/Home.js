@@ -15,23 +15,24 @@ import statistik from '../../assets/statistik.png';
 import {Bar} from 'react-chartjs-2';
 
 
-const data = {
-    labels: ['KEMENPAN', `KEMENKO POLHUKAM`, 'KEMENKO MARITIM', 'KEMENKO PEREKONOMIAN', 'KEMENDAGRI', 'KEMENKO PMK'],
-    datasets: [
-      {
-        label: 'Jumlah Program Kementrian',
-        color: 'black',
-        backgroundColor: 'rgba(255,99,132,0.2)',
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
-        data: [65, 59, 80, 81, 56, 70]
-      }
-    ]
-  };
 
 const Home = () => {
+
+    const data = {
+        labels: ['Kemendagri', 'Kemenko Maritim', 'Kemenko PMK','Kemenko Perekonomian', `Kemenko Polhukam`, 'Kemenpan RB', ],
+        datasets: [
+          {
+            label: 'Jumlah Program Kementrian',
+            color: 'black',
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+            hoverBorderColor: 'rgba(255,99,132,1)',
+            data: [65, 59, 80, 81, 56, 70]
+          }
+        ]
+      };
     const { loadUser, token } = useContext(AuthContext);
     const [documents , setDocuments] = useState([])
     console.log(documents)
@@ -46,16 +47,81 @@ const Home = () => {
         }  
     }
 
+    const [filterCard,setFilterCard] = useState({
+        page:'1',
+        nama_instansi: '',
+    })
+
+    const [datak,setData] = useState([])
+    console.log(datak)
+    const [documentCard,setDocumentCard] = useState([])
+    const [documentCardLenght,setDocumentCardLength] = useState([])
+    
+    const {
+        page,
+        nama_instansi
+    } = filterCard
+
+    console.log(page)
+    console.log(documentCard)
+
+    const getDocumentCardLength = async () => {
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&instansi=${nama_instansi}`)
+            setDocumentCardLength(res.data.infografis)
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
+
+    const Statistika = async () => {
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
+            console.log(res.data.statistik)
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
+
+    const getDocumentCard = async () => {
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&limit=2&page=${page}&instansi=${nama_instansi}`)
+            setDocumentCard(res.data.infografis)
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
+
+    const onChange = (e) => {
+        setFilterCard({...filterCard,[e.target.name]:e.target.value})
+    }
     const { pathname } = useLocation();
 
     useEffect(() =>{
+        Statistika()
         getAllDocument()
-    },[])
+        getDocumentCard()
+        getDocumentCardLength()
+    },[filterCard])
 
     useEffect(() => {
       window.scrollTo(0, 0);
     }, [pathname]);
     
+    const [instansi, setInstansi] = useState([])
+    useEffect(() => {
+        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        .then(res => {
+            setInstansi(res.data.instansi)
+            console.log('wow')
+        })
+        .catch(err => {
+            console.log('wow', +err)
+        })
+    }, [])
 
     const [hidden, setHidden] = useState([
         true,
@@ -76,7 +142,7 @@ const Home = () => {
             change.unshift(pop);
             setHidden([...change]);
           }
-        }, 2000);
+        }, 5000);
         return () => {
           cleanup = true;
         };
@@ -123,6 +189,35 @@ const Home = () => {
     
         setHidden([...change]);
       };
+
+      console.log(documentCardLenght && documentCardLenght.length)
+      const onNextFilter = (e) => {
+        if(page < (documentCardLenght && documentCardLenght.length / 2)) {
+            e.preventDefault()
+            const a = parseInt(page)
+            return setFilterCard({
+                ...filterCard,
+                page: JSON.stringify(a + 1)
+            })
+        } else { 
+            e.preventDefault()
+            return filterCard;
+        }
+    }
+
+    const onPrevFilter = (e) => {
+        if(page > 1 ) {
+            e.preventDefault()
+                const a = parseInt(page)
+                return setFilterCard({
+                    ...filterCard,
+                    page: JSON.stringify(a - 1)
+                })
+        } else {
+            e.preventDefault()
+            return filterCard;
+        }
+    }
       
         return(
             <Fragment>
@@ -192,60 +287,44 @@ const Home = () => {
                                 <div className="row">
                                     <div className="col-4">
                                         <div className="home-section-4-title">
-                                            Filter Kementrian
+                                            Filter Kementerian/ Lembaga/ Pemerintah Daerah
                                         </div>
 
                                         <div className="section-4-filter">
-                                            <select className="filter-a">
-                                                <option value="" disabled selected hidden>Pilih Kementrian</option>
-                                                <option value="kemenko-pmk">KEMENKO PMK</option>
-                                                <option value="kemenpan">KEMENPAN</option>
-                                                <option value="kemenko-polhukam">KEMENKO POLHUKAM</option>
-                                                <option value="kemenko-maritim">KEMENKO MARITIM</option>
-                                                <option value="kemenko-perekonomian">KEMENKO PEREKONOMIAN</option>
-                                                <option value="kemendagri">KEMENDAGRI</option>
+                                            <select className="filter-a" name="nama_instansi" onChange={onChange}>
+                                                <option value="" disabled selected hidden>Pilih Kementerian</option>
+                                            {
+                                                instansi ? 
+                                                    instansi.map((instansi,index) => {
+                                                        return (
+                                                                <option value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                            )
+                                                    })
+                                                : ''
+                                            }    
                                             </select>
                                             <br/>
                                             <select className="filter-a">
-                                                <option value="" disabled selected hidden>Waktu</option>
-                                                <option value="triwulan">TRIWULAN</option>
-                                                <option value="enambulan">NAMBULAN</option>
-                                                <option value="bulanan">BULANAN</option>
-                                                <option value="tahunan">TAHUNAN</option>
+                                                <option value="" disabled selected hidden>Pilih Pemerintah Daerah</option>
                                             </select>
                                         </div>
                                     </div>
                                     
-                                    <div className="col-8">
-                                        {/* {
-                                            datas.post.slice(0,7).map((post, index) => {
+                                    <div className="col-8" style={{display:'flex' , flexDirection:'row'}}>
+                                        {
+                                            documentCard.map((doc, index) => {
                                                 return (
-                                                    <Link to={'/artikel/'+ (post.id)} className={hidden[index] ? "home-other-news" : "d-none"}>
-                                                        <Card kunci={post.id}/>
-                                                    </Link>
+                                                    <Card key={index}
+                                                    doc={doc}/>
                                                     );
                                                 })
-                                        } */}
-                                        {/* <div style={{ padding: `0 ${chevronWidth}px` }}>
-                                            <ItemsCarousel
-                                            
-                                            requestToChangeActive={setActiveItemIndex}
-                                            activeItemIndex={activeItemIndex}
-                                            numberOfCards={2}
-                                            gutter={20}
-                                            leftChevron={<button>{'<'}</button>}
-                                            rightChevron={<button>{'>'}</button>}
-                                            outsideChevron
-                                            chevronWidth={chevronWidth}
-                                        >
-                                            <div style={{ height: 200, background: '#EEE' }}>First card</div>
-                                            <div style={{ height: 200, background: '#EEE' }}>Second card</div>
-                                            <div style={{ height: 200, background: '#EEE' }}>Third card</div>
-                                            <div style={{ height: 200, background: '#EEE' }}>Fourth card</div>
-                                                
-                                                
-                                            </ItemsCarousel>
-                                        </div> */}
+                                        }
+                                    <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                    </div>
+                                    <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
+                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +350,9 @@ const Home = () => {
                             <div className="home-section-3-title">
                                 Gallery
                             </div>
+                            
                             <Gallery/>
+                            
                             <Link to='/gallery'>
                             <button className="button-lihat-gallery">
                                 LIHAT GALLERY LAINNYA

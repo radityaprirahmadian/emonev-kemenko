@@ -12,6 +12,7 @@ const ProfileEdit = (props) => {
     const { token, getUserDetail, userDetail } = useContext(AuthContext);
     const history = useHistory();
     const [seen, setSeen] = useState(false)
+    const [foto, setFoto] = useState([])
 
     // const [user, setUser] = useState ({
     //     name: name,
@@ -56,6 +57,14 @@ const ProfileEdit = (props) => {
 
     console.log(props.match.params.id)
 
+    const [ fotos, setFotos] = useState();
+    const onChangeFiles = (event) => {
+        setFoto([...event.target.files])
+        if(event.target.files && event.target.files[0]){
+            setFotos(URL.createObjectURL(event.target.files[0]))
+        }
+    }
+
     useEffect (() => {
         const getUserToUpdate = async () => {
             const config = {
@@ -84,6 +93,13 @@ const ProfileEdit = (props) => {
         
     }
 
+
+
+    useEffect(() => {
+        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        setFotos(wow)
+    },[userDetail])
+
     const updateUserData = async (formData) => {
         console.log(formData)
         const config = {
@@ -100,8 +116,34 @@ const ProfileEdit = (props) => {
         }
     }
 
+    const updateUserPhoto = async () => {
+		const formData = new FormData()
+
+		for (let i = 0; i < foto.length; i++) {
+			formData.append(`foto`, foto[i])
+		}
+
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1])
+        }
+        
+        const config = {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        try {
+            await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
     const onSubmitEdit = (e) => {
         e.preventDefault();
+        updateUserPhoto()
         updateUserData({nama,email,kontak,password})
         history.push(`/profile/${props.match.params.id}`)
         
@@ -111,6 +153,8 @@ const ProfileEdit = (props) => {
         e.preventDefault()
         setSeen(!seen)
     }
+
+    console.log(foto)
         return(
             <Fragment>
                 <SideBarOff/>
@@ -120,8 +164,8 @@ const ProfileEdit = (props) => {
                         PROFIL
                     </div>
                     <div className="container-fluid">
-                        <div className="row">
                             <form id="form-profile" onSubmit={onSubmitEdit}>
+                            <div className="row">
                             <div className="col"> 
                             
                                 <div className="form-profile-page">
@@ -148,7 +192,7 @@ const ProfileEdit = (props) => {
                                     <div className="data">
                                         <label>Password</label><br/>
                                         <input className="show-profile" type={seen ? "text" : "password"} name='password' value={password} onChange={onChange}></input>
-                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
+                                        <button className="button-password" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white', position:'relative'}} onClick={handlePassword}>
                                             <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
                                         </button>
                                     </div>
@@ -163,20 +207,31 @@ const ProfileEdit = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            </form>
 
                             <div className="col">
                                 <div className="photo-profile-page">
                                     <label>Photo Profile</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
-                                                <img src={bg_card}></img>
+                                                <img src={fotos}></img>
                                             </div>
-                                            <u><h1>Ganti Foto</h1></u>
+                                            <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
+                                            <input 
+                                                id="testing"
+                                                className="gnrm-penjelasan" 
+                                                style={{height: "42px", 
+                                                        marginLeft: "28px", 
+                                                        width: "955px"}} 
+                                                onChange={onChangeFiles}
+                                                type="file"
+                                                accept="image/*"
+                                                name="media"
+                                            />
                                         </div>
                                     <button 
                                         type="submit"
                                         className="button-submit-profile"
+                                        disabled    
                                     > EDIT PROFIL
                                     </button>
 
@@ -190,8 +245,8 @@ const ProfileEdit = (props) => {
                                 </div>
 
                             </div>
-
                         </div>
+                            </form>
                     </div>
                 </div>
             </Fragment>

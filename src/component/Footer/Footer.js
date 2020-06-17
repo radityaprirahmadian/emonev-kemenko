@@ -9,6 +9,10 @@ import logo_kemenko2 from '../../assets/logo_kemenko2.png';
 import home from '../../assets/home.png';
 import mail from '../../assets/mail.png';
 import phone from '../../assets/phone.png';
+import facebook from '../../assets/facebook.png';
+import twitter from '../../assets/twitter.png';
+import instagram from '../../assets/instagram.png';
+import youtube from '../../assets/youtube.png';
 
 
 const Footer = () => {
@@ -18,7 +22,7 @@ const Footer = () => {
             <Fragment>
                 <nav className="footer">
                     <div className="row" >
-                        <div className="col-5" >
+                        <div className="col-6" >
                             <div className="footer-left">
                                 <div className="footer-left-menu">
                                     <div className="footer-left-title">
@@ -81,50 +85,73 @@ const Footer = () => {
                                         <p>Social Media</p>                
                                     </div>
 
-                                    <div className="footer-left-social-logo">
-                                        <ul>
-                                            <li>
-                                                <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
-                                                    <div className="social-media-container">
-                                                        <i className='fab fa-facebook-f' style={{fontSize:'24px'}}></i> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://twitter.com/kemenkopmk" target="_blank">
-                                                    <div className="social-media-container">
-                                                        <i className='fab fa-twitter' style={{fontSize:'24px'}}></i> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://instagram.com/kemenko_pmk" target="_blank">
-                                                    <div className="social-media-container">
-                                                        <i className='fab fa-instagram' style={{fontSize:'24px'}}></i> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
-                                                    <div className="social-media-container">
-                                                        <i className='fab fa-youtube' style={{fontSize:'24px'}}></i> 
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                        </ul>
+                                    <div className="footer-left-social-logo"> 
+                                        <div className="row">
+                                            <div className="col-sm-1">
+                                                <ul>
+                                                    <li>
+                                                        <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
+                                                            <div className="social-media-container">
+                                                                <img src={facebook} alt='facebook'/> 
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://twitter.com/kemenkopmk" target="_blank">
+                                                            <div className="social-media-container">
+                                                                <img src={twitter} alt='twitter'/> 
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://instagram.com/kemenko_pmk" target="_blank">
+                                                            <div className="social-media-container">
+                                                                <img src={instagram} alt='instagram'/>  
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
+                                                            <div className="social-media-container">
+                                                                <img src={youtube} alt='youtube'/>  
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className="col-sm-11" style={{paddingLeft:'0'}}>
+                                                <ul>
+                                                    <li>
+                                                        <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
+                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan</h1>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://twitter.com/kemenkopmk" target="_blank">
+                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>@kemenkopmk</h1>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://instagram.com/kemenko_pmk" target="_blank">
+                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>kemenko_pmk</h1>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
+                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>Kemenko PMK</h1>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>  
                                 </div>
                             </div>
                         </div>
 
-                        <div className="col-1" style={{height:'360px'}}>
-                                <div className="center-line">
-                                    <img src={line} alt="garis ganggu"/>
-                                </div>
-                        </div>
-
-                        <div className="col-6" style={{height:'360px'}}>
+                        <div className="col-6" style={{height:'360px', display:'inline-block'}}>
+                            <img src={line} alt="garis" style={{position:'absolute', left:'0', top:'55px'}}/>
+                                    
                             <div className="footer-right">
                                 <div className="footer-right-logo">
                                     <img src={logo_kemenko2} alt="gabungan" style={{marginRight:'155.42px', height:'125px'}}/>
@@ -134,24 +161,24 @@ const Footer = () => {
                                 <div className="footer-right-info">
                                     <div className="footer-right-title">
                                         <p>
-                                        Kementrian Koordinator Bidang<br/>
-                                        Pembangunan Manusia dan Kebudayaan<br/>
-                                        Republik Indonesia
+                                        Sekretariat Revolusi Mental<br/>
+                                        Kementerian Koordinator Bidang<br/>
+                                        Pembangunan Manusia dan Kebudayaan
                                         </p>                
                                     </div>
 
                                     <div className="footer-right-menu">
                                         <ul>
                                             <img src={home} className="logo-home"/>
-                                            <li>Jl. Medan Merdeka Barat No. 3. Jakarta Pusat</li>
+                                            <li>Jalan Medan Merdeka Barat No. 3. Jakarta Pusat 10110</li>
                                             <div className="clear"/>
 
                                             <img src={phone} className="logo-phone"/>
-                                            <li> (+62) 21 345 9444</li>
+                                            <li> (021) 33506031 ext 528/521</li>
                                             <div className="clear"/>
 
                                             <img src={mail} className="logo-mail"/>
-                                            <li>roinfohumas@kemenkopmk.go.id</li>
+                                            <li>sekretariat.revolusimentail@gmail.com</li>
                                             <div className="clear"/>
                                         </ul>
                                     </div>

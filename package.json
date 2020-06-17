@@ -15,6 +15,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "input-moment": "^0.4.0",
+    "jquery": "^3.5.1",
     "react": "^16.13.1",
     "react-avatar-editor": "^12.0.0-beta.0",
     "react-bootstrap": "^1.0.0",

@@ -1,15 +1,31 @@
-import React,{Component,Fragment} from 'react';
+import React,{Component,Fragment, useEffect, useState, useContext} from 'react';
 import './Card.css';
 import bg_card from '../../assets/bg_card.png';
+import {Link} from 'react-router-dom'
+import { AuthContext } from '../../context/Auth/AuthContext';
 
 
-class Card extends Component{
-    render(){
+const Card = (props) => {
+    const { token } = useContext(AuthContext)
+    const [nama,setNama] = useState('')
+
+    const truncate = (str, n) => {
+        return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
+    }
+
+    useEffect(() => {
+        truncate(props.doc.nama_program , 30)
+    },[props])
+
+    const mydate = new Date(props.doc.tanggal_dibuat);
+    const date = mydate.getDate();
+    let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
+    let tanggal = date + ' ' + month + ' ' + mydate.getFullYear();
+
+    console.log(props)
         return(
             <Fragment>
-                
-            <div className="container-for-card">
-                <div className="card-container">
+                <div className="card-container" style={{marginRight:'20px'}}>
                     <div className="top-card">
                         <div className="card-background">
                             <img src={bg_card}/>
@@ -18,25 +34,28 @@ class Card extends Component{
 
                     <div className="bottom-card">
                         <div className="card-title-bottom">
-                            <h4>Pembangunan Tanah Papua</h4>
+                            <h4>{nama}</h4>
                         </div>
 
                         <div className="date-and-button">
                                 <div className="card-date">
-                                    <h4>7 April 2020</h4>
+                                    <h4>{tanggal}</h4>
                                 </div>
                                 <div className="spacer"></div>
-                                <button className="detail-button">
-                                            LIHAT DETAIL
-                                </button>
-                                
+                                {
+                                    !token ?
+                                        <Link to={`/artikel/` + (props.doc.gnrm_id)}>
+                                            <button className="detail-button">
+                                                        LIHAT DETAIL
+                                            </button>   
+                                        </Link>
+                                    : ''
+                                }
                         </div>
                     </div>
                 </div>
-            </div>
         </Fragment>
         );
-    }
 }
 
 export default Card;

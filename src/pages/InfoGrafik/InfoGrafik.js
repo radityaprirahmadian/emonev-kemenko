@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useContext, useEffect } from 'react';
+import React, { Component, Fragment, useContext, useEffect, useState } from 'react';
 import SearchBar from '../../component/SearchBar/SearchBar';
 import Card from "../../component/Card/Card";
 import SideBarOff from "../../component/SideBarOff/SideBarOff";
@@ -12,6 +12,7 @@ import { AuthContext } from '../../context/Auth/AuthContext'
 import Notification from '../../component/Notification/Notification';
 import {Bar} from 'react-chartjs-2';
 import Popup from '../../component/Popup/Popup';
+import axios from 'axios'
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
 
 
@@ -34,13 +35,86 @@ const data = {
 
 
 const Dashboard = (props) => {
-    const { isAuthenticated, login, role, email, password, user } = useContext(AuthContext);
+    const { isAuthenticated, login, userDetail , role, email, password, user } = useContext(AuthContext);
     const { notifNew , setNotifNew } = useContext(NotifContext)
+
+    console.log(userDetail)
 
     useEffect(() => {
       setNotifNew(props.notif)
     },[props.notif])
 
+    const [filterCard,setFilterCard] = useState({
+        page:'1',
+    })
+
+    const [documentCard,setDocumentCard] = useState([])
+    const [documentCardLength,setDocumentCardLength] = useState([])
+    
+    const {
+        page,
+    } = filterCard
+
+    console.log(page)
+    console.log(documentCard)
+
+    const getDocumentCardLength = async () => {
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&instansi=${userDetail.instansi.nama_pendek}`)
+            setDocumentCardLength(res.data.infografis)
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
+
+    const getDocumentCard = async () => {
+      try {
+            if(userDetail.role === 'admin'){
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
+                setDocumentCard(res.data.infografis.reverse())
+            } else {
+                const res = await axios.get('https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3')
+                setDocumentCard(res.data.infografis.reverse())
+            }
+      }
+      catch(err) {
+          console.log(err)
+      }  
+    }
+
+    useEffect(() =>{
+        getDocumentCard()
+        getDocumentCardLength()
+    },[filterCard])
+
+      const onNextFilter = (e) => {
+        if(page < (documentCardLength && documentCardLength.length / 2)) {
+            e.preventDefault()
+            const a = parseInt(page)
+            return setFilterCard({
+                ...filterCard,
+                page: JSON.stringify(a + 1)
+            })
+        } else { 
+            e.preventDefault()
+            return filterCard;
+        }
+    }
+
+    const onPrevFilter = (e) => {
+        if(page > 1 ) {
+            e.preventDefault()
+                const a = parseInt(page)
+                return setFilterCard({
+                    ...filterCard,
+                    page: JSON.stringify(a - 1)
+                })
+        } else {
+            e.preventDefault()
+            return filterCard;
+        }
+    }
   return (
       <Fragment>
             <SideBarOff/>
@@ -123,10 +197,26 @@ const Dashboard = (props) => {
 
                   <div className="dashboard-section">
                     <div className="tajuk-page2">
-                        <p>INFOGRAFIK TERKINI</p>
+                        <p>INFOGRAFIS TERKINI</p>
                     </div>
-                    <Card />
-                  </div>
+                    <div style={{display:'flex' , flexDirection:'row'}}>
+                        {
+                                                documentCard.map((doc, index) => {
+                                                    return (
+                                                        <Card 
+                                                        key={index}
+                                                        doc={doc}/>
+                                                        );
+                                                    })
+                                            }
+                                        <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                        </div>
+                                        <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
+                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                        </div>
+                    </div>
+                    </div>
                 
                   <div className="tajuk-page3">
                       <p>GALLERY</p>
