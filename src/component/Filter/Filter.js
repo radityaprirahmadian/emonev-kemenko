@@ -60,13 +60,9 @@ const Filter = (props) => {
                         </select>
                     </div>
                     <div className="filter-pelaporan">
-                        <label className="nama-filter">Periode Pelaporan</label>
-                        <select className="input-filter-pelaporan" name="periode" onChange={onChange}>
+                        <label className="nama-filter">Nama Program</label>
+                        <select className="input-filter-pelaporan" name="nama_program" onChange={onChange}>
                             <option defaultValue="" hidden></option>
-                            <option value="">Semua Periode</option>
-                            <option value="tahunan">Tahunan</option>
-                            <option value="triwulan">Triwulan</option>
-                            <option value="bulanan">Bulanan</option>
                         </select>
                     </div>
 

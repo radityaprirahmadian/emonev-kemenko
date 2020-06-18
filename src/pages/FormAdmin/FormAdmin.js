@@ -71,6 +71,7 @@ const FormAdmin = (props) => {
             }
             try {
                 await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
+                history.push('/admin')
             }
             catch (err) {
                 console.log(err)
@@ -86,7 +87,6 @@ const FormAdmin = (props) => {
                 username,
                 password
             })
-            history.push('/admin')
         }
 
         const handlePassword = (e) => {
@@ -102,7 +102,7 @@ const FormAdmin = (props) => {
                   <h1> FORM ADMIN</h1>
               </div>
               <div className="admin-1-container">
-                    <form id='form-admin' className="form-admin-1" onSubmit={onSubmit}>
+                    <form id='form-admin' className="form-admin-1" onSubmit={onSubmit} autoComplete="off">
                         <div>
                             <label>Nama</label>
                             <input 
@@ -141,7 +141,6 @@ const FormAdmin = (props) => {
                                     <label>Level</label>
                                     <select className="admin-role" name="role" onChange={onChange} required>
                                         <option value="" defaultValue="" hidden></option>
-                                        <option value="super_admin">Super Admin</option>
                                         <option value="admin">Admin</option>
                                     </select>
                                 </Fragment>
@@ -170,7 +169,12 @@ const FormAdmin = (props) => {
                                 required 
                             />
                             <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
-                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    {
+                                        seen ?
+                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                        :
+                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    }
                             </button>
                         </div>
                     </form>

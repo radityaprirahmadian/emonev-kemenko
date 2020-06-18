@@ -56,11 +56,21 @@ const FormMonev =  (props) => {
     }  = data
 
     const [media, setMedia] = useState([])
+    const [berkas,setBerkas] = useState([])
+    const [mediaUrl, setMediaUrl] = useState([])
+    console.log(berkas)
 
     const onChangeFiles = (event) => {
 		setMedia(event.target.files)
     }
 
+    const onChangeMedia = (event) => {
+        setMedia([...media , ...event.target.files])
+    }
+
+    const onChangeBerkas = (event) => {
+        setBerkas([...berkas , ...event.target.files])
+    }
     const onChange = (event, property) => {
 		if (property)
 			setData({
@@ -80,6 +90,10 @@ const FormMonev =  (props) => {
 
 		for (let i = 0; i < media.length; i++) {
 			formData.append(`media`, media[i])
+        }
+
+        for (let i = 0; i < berkas.length; i++) {
+			formData.append(`berkas`, berkas[i])
 		}
 
 		for (let pair of formData.entries()) {
@@ -93,9 +107,14 @@ const FormMonev =  (props) => {
 			},
 		}
 
-		const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=monev',formData,config,)
-        history.push('/monev')
-        alert(res.data.message)
+        try {
+            const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=monev',formData,config,)
+            alert(res.data.message)
+            history.push('/monev')
+        }
+        catch(err){
+            alert(err.data.message)
+        }
     }
     
     const onEdit = async (event) => {
@@ -105,6 +124,10 @@ const FormMonev =  (props) => {
 
 		for (let i = 0; i < media.length; i++) {
 			formData.append(`media`, media[i])
+        }
+        
+        for (let i = 0; i < berkas.length; i++) {
+			formData.append(`berkas`, berkas[i])
 		}
 
 		for (let pair of formData.entries()) {
@@ -143,11 +166,53 @@ const FormMonev =  (props) => {
         }
     },[])
     
+    const urlToFile = async (url) => {
+        const getFileName = (url) => {
+            const split = url.split('/')
+            return split[split.length -1]
+        }
+        
+        const name = getFileName(url)
+        
+        try {
+            const res = await fetch(url)
+            const blob = res.blob()
+            return new File([blob],name)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
     useEffect(() => {
         if (documentDetail) {
             setData(documentDetail && documentDetail.form)
             setInstansi(documentDetail.instansi)
             setMedia(documentDetail.form.lampiran.media)
+            setMedia(documentDetail.form.lampiran.berkas)
+
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
+            const berkasFileUrl = documentDetail.form.lampiran.berkas.map(berkas => `https://test.bariqmbani.me${berkas.path}`)
+                        
+            console.log(mediaUrl)
+
+            const files = []
+            mediaFileUrl.forEach(async url =>{
+                const file = await urlToFile(url)
+                console.log(file)
+                files.push(file)
+            })
+
+            const berkas = []
+            berkasFileUrl.forEach(async url =>{
+                const file = await urlToFile(url)
+                console.log(file)
+                berkas.push(file)
+            })
+
+
+            setMedia(files)  
+            setBerkas(berkas)       
         }
     },[documentDetail])
 
@@ -219,7 +284,7 @@ const FormMonev =  (props) => {
                         </div>
                         <div className="form-monev">
                             <div>
-                                <label>Penjelasan</label>
+                                <label style={{textAlign:'right', clear:'both' , float:'left'}} >Penjelasan</label>
                                 <textarea 
                                     className="monev-penjelasan" 
                                     style={{height:"220px",
@@ -292,7 +357,7 @@ const FormMonev =  (props) => {
                                 />
                             </div>
                             <div>
-                                <label>Metodologi Monitoring <br/> dan Evaluasi</label>
+                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Metodologi Monitoring <br/> dan Evaluasi</label>
                                 <textarea 
                                     className="monev-gambaran" 
                                     style={{height:"220px",
@@ -337,7 +402,7 @@ const FormMonev =  (props) => {
                         </div>
                         <div className="form-monev">
                             <div>
-                                <label>Hasil Monitoring</label>
+                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Hasil Monitoring</label>
                                 <textarea 
                                     className="monev-hasil-monitoring" 
                                     style={{height:"400px",
@@ -351,7 +416,7 @@ const FormMonev =  (props) => {
                                 />
                             </div>
                             <div>
-                                <label>Evaluasi Program</label>
+                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Evaluasi Program</label>
                                 <textarea 
                                     className="monev-evaluasi-program" 
                                     style={{height:"400px",
@@ -396,7 +461,7 @@ const FormMonev =  (props) => {
                         </div>
                         <div className="form-monev">
                             <div>
-                                <label>Penjelasan</label>
+                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                 <textarea 
                                     className="monev-penjelasan" 
                                     style={{height:"300px",
@@ -441,7 +506,7 @@ const FormMonev =  (props) => {
                         </div>
                         <div className="form-monev">
                             <div>
-                                <label>Penjelasan</label>
+                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                 <textarea 
                                     className="monev-penjelasan" 
                                     style={{height:"300px",
@@ -487,27 +552,126 @@ const FormMonev =  (props) => {
                         <div className="form-monev">
                             <div>
                                 <label>Lampiran Media</label>
+                                <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH FILE</label>
                                 <input 
-                                    className="monev-penjelasan" 
-                                    style={{height:"241px",
-                                            width: "955px",
-                                            marginLeft: "85px" 
-                                    }}
-                                    type="file" 
-                                    name="name" 
-                                />
+                                        id="testing"
+                                        className="gnrm-penjelasan" 
+                                        style={{height: "42px", 
+                                                marginLeft: "28px", 
+                                                width: "955px"}} 
+                                        onChange={onChangeMedia}
+                                        type="file"
+                                        accept="image/*"
+                                        name="media"
+                                        multiple
+                                    />
+                                    <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                marginTop:'10px',
+                                                border: '1px solid black',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                    >
+                                        {
+                                        media.map((media,index) => {
+                                            return(
+                                                <div key={media.lastModified}>
+                                                        <div style={{width:'150px', 
+                                                                    height:'150px', 
+                                                                    backgroundColor:'black', 
+                                                                    marginRight:'35px', 
+                                                                    position:'relative'}}
+                                                        >
+                                                            <div style={{position:'absolute', 
+                                                                        backgroundColor:'#C04B3E' , 
+                                                                        width:'25px' , 
+                                                                        height:'25px', 
+                                                                        borderRadius:'50%', 
+                                                                        top:'-7px', 
+                                                                        right:'-7px', 
+                                                                        lineHeight:'25px', 
+                                                                        textAlign:'center',
+                                                                        cursor:'pointer'}}
+                                                            > X </div>
+                                                        </div>
+                                                        <div style={{marginTop:'10px' , 
+                                                                    width:'150px' , 
+                                                                    height:'20px', 
+                                                                    overflow:'hidden', 
+                                                                    lineHeight:'20px'}}
+                                                        >{media.name}</div>
+                                                    
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    </div>
+
                             </div>
                             <div>
                                 <label>Lampiran Berkas</label>
-                                <input className="monev-penjelasan" 
-                                    type="file" 
-                                    name="name" 
-                                    style={{height:"241px",
-                                            width: "955px",
-                                            marginLeft: "85px" 
-                                    }}
-                                />
+                                <label htmlFor='testingg' className='label_lampiran' style={{marginLeft:'74px'}}><span style={{marginRight:'15px'}}>+</span> PILIH FILE</label>
+                                    <input 
+                                        id="testingg"
+                                        className="gnrm-penjelasan" 
+                                        style={{height: "42px", 
+                                                marginLeft: "23px", 
+                                                width: "955px"}} 
+                                        onChange={onChangeBerkas}
+                                        type="file"
+                                        accept="application/pdf"
+                                        name="media"
+                                        multiple
+                                    />
                             </div>
+                            
+                                    <div style={{height: "fit-content", 
+                                                marginLeft: "208px",
+                                                marginTop:'10px', 
+                                                width: "955px",
+                                                border: '1px solid black',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                    >
+                                        {
+                                        berkas.map((berkas,index) => {
+                                            return(
+                                                <div key={berkas.lastModified}>
+                                                        <div style={{width:'150px', 
+                                                                    height:'150px', 
+                                                                    backgroundColor:'black', 
+                                                                    marginRight:'35px', 
+                                                                    position:'relative'}}
+                                                        >
+                                                            <div style={{position:'absolute', 
+                                                                        backgroundColor:'#C04B3E' , 
+                                                                        width:'25px' , 
+                                                                        height:'25px', 
+                                                                        borderRadius:'50%', 
+                                                                        top:'-7px', 
+                                                                        right:'-7px', 
+                                                                        lineHeight:'25px', 
+                                                                        textAlign:'center',
+                                                                        cursor:'pointer'}}
+                                                            > X </div>
+                                                        </div>
+                                                        <div style={{marginTop:'10px' , 
+                                                                    width:'150px' , 
+                                                                    height:'20px', 
+                                                                    overflow:'hidden', 
+                                                                    lineHeight:'20px'}}
+                                                        >{berkas.name}</div>
+                                                    
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    </div>
                         </div>
                         
                         <div className="monev-navigation-button">

@@ -93,10 +93,11 @@ const Instansi = (props) => {
 
 
 
+
     return(
         <Fragment>
                 <SideBarOff/>
-                <Popup notif={props.notif}/>
+                    <Popup notif={props.notif}/>
                         <div className="input-dan-tajuk">
                             <Link to='/formulir-instansi'>
                                 <button className="tambah-laporan">
@@ -129,8 +130,8 @@ const Instansi = (props) => {
                                         <th width='572px'>Nama Instansi</th>
                                         <th width='258px'>Nama Pendek</th>
                                         <th width='258px'>Jenis</th>
-                                        <th width='59px'></th>
-                                        <th width='59px'></th>
+                                        <th width='42px'></th>
+                                        <th width='42px'></th>
                                     </tr>
                                 </thead>
                                 <tbody className="table-body-monev">

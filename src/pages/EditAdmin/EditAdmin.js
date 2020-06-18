@@ -2,7 +2,7 @@ import React,{Component,Fragment, useContext, useState, useEffect} from 'react';
 import '../Profile/ProfileEdit.css';
 import axios from 'axios';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
-import bg_card from '../../assets/bg_card.png';
+import lock from '../../assets/lock.png';
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
@@ -10,6 +10,7 @@ import Popup from '../../component/Popup/Popup';
 const EditAdmin = (props) => {
     const { user, token, getUserDetail, userDetail } = useContext(AuthContext);
     const history = useHistory();
+    const [foto, setFoto] = useState([])
 
     const [userData, setUserData] = useState ({
         instansi : {
@@ -28,6 +29,14 @@ const EditAdmin = (props) => {
     console.log(userData)
     console.log(nama)
     console.log(username)
+
+    const [ fotos, setFotos] = useState();
+    const onChangeFiles = (event) => {
+        setFoto([...event.target.files])
+        if(event.target.files && event.target.files[0]){
+            setFotos(URL.createObjectURL(event.target.files[0]))
+        }
+    }
 
     useEffect (() => {
         const getUserToUpdate = async () => {
@@ -66,18 +75,45 @@ const EditAdmin = (props) => {
             }
         }
         try {
-            await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            alert(res.data.message)
+            history.push(`/admin`)
         }
         catch (err) {
             console.log(err)
         }
     }
 
+    const updateUserPhoto = async () => {
+		const formData = new FormData()
+
+		for (let i = 0; i < foto.length; i++) {
+			formData.append(`foto`, foto[i])
+		}
+
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1])
+        }
+        
+        const config = {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        try {
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            console.log(res.data.message)
+        }
+        catch (err) {
+            console.log(err.data)
+        }
+    }
+
     const onSubmitEdit = (e) => {
         e.preventDefault();
+        updateUserPhoto()
         updateUserData({nama,email,kontak,role,username})
-        history.push(`/admin`)
-        
     }
 
         return(
@@ -122,11 +158,9 @@ const EditAdmin = (props) => {
                                     <div className="data">
                                         <label>Username</label><br/>
                                         <div className="persist">{username}</div>
-                                    </div>
-
-                                    <div className="data">
-                                        <label>Password</label><br/>
-                                        <div className="show-profile" type="text"></div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
                                     <div className="data">
@@ -146,12 +180,24 @@ const EditAdmin = (props) => {
                                     <label>Photo Profile</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
-                                                <img src={bg_card}></img>
+                                                <img src={fotos}></img>
                                             </div>
-                                            <u><h1>Ganti Foto</h1></u>
+                                            <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
+                                            <input 
+                                                id="testing"
+                                                className="gnrm-penjelasan" 
+                                                style={{height: "42px", 
+                                                        marginLeft: "28px", 
+                                                        width: "955px"}} 
+                                                onChange={onChangeFiles}
+                                                type="file"
+                                                accept="image/*"
+                                                name="media"
+                                            />
                                         </div>
                                     <button 
-                                    disabled
+                                        disabled
+                                        style={{pointer:'none'}}
                                         className="button-submit-profile"
                                     > EDIT PROFIL
                                     </button>

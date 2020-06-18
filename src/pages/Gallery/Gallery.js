@@ -18,7 +18,7 @@ class GalleryPage extends Component {
                         GALLERY
                     </div>
                     <Gallery/>
-                    <div className="gallery-pagination">
+                    {/* <div className="gallery-pagination">
                         <i class="material-icons">chevron_left</i>
                         <ul> 
                             <li>1</li>
@@ -28,7 +28,7 @@ class GalleryPage extends Component {
                             <li>5</li>
                         </ul>
                         <i class="material-icons">chevron_right</i>
-                    </div>
+                    </div> */}
                 <Footer/>
             </Fragment>
         );

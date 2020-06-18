@@ -36,6 +36,7 @@ const FormInstansi = (props) => {
 
         const [seen, setSeen] = useState(false)
         const [logo,setLogo] = useState([])
+        const [logoss,setLogos] = useState([])
 
         const [mediaUrl,setMediaUrl] = useState([])
         console.log(logo)
@@ -71,6 +72,9 @@ const FormInstansi = (props) => {
 
         const onChangeFiles = (event) => {
             setLogo([...event.target.files])
+            if(event.target.files && event.target.files[0]){
+                setLogos(URL.createObjectURL(event.target.files[0]))
+            }
         }
 
         const getInstansiDetail = async () => {
@@ -97,9 +101,10 @@ const FormInstansi = (props) => {
             }
             try {
                 await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
+                history.push('/instansi')
             }
             catch (err) {
-                console.log(err)
+                console.log(err.data)
             }
         }
 
@@ -122,17 +127,23 @@ const FormInstansi = (props) => {
                 },
             }
 
-            const res = await axios.post('https://test.bariqmbani.me/api/v1/instansi',formData,config,)
+            try {
+                const res = await axios.post('https://test.bariqmbani.me/api/v1/instansi',formData,config,)
+                addNewAdmin({
+                    nama,
+                    instansi,
+                    role,
+                    username,
+                    password
+                })
+                alert(res.data.message)                
+            }
 
-            addNewAdmin({
-                nama,
-                instansi,
-                role,
-                username,
-                password
-            })
+            catch(err) {
+                alert(err.data.message)
+            }
             
-            history.push('/instansi')
+            
         }
 
         const editInstansi = async (data) => {
@@ -153,9 +164,14 @@ const FormInstansi = (props) => {
                     'X-Auth-Token': `aweuaweu ${token}`,
                 },
             }
-
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
-            history.push('/instansi')
+            try {
+                const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
+                alert(res.data.message)
+                history.push('/instansi')
+            }
+            catch(err) {
+                alert(err.data.message)
+            }
         }
         const onSubmit = (e) => {
             e.preventDefault()
@@ -213,15 +229,26 @@ const FormInstansi = (props) => {
                     const file = await urlToFile(mediaFileUrl)
                     console.log(file)
                     files.push(file)
+                
+                    setLogos(URL.createObjectURL(files[0]))
                 }
 
                 masuk()
+                
                 setLogo(files)         
                 setMediaUrl(mediaFileUrl)
             }
         },[instansiDetail])
 
+        console.log(logoss)
+
         console.log(logo)
+
+        const [selected, setSelected] = useState('')
+
+        const wow = (e) => {
+
+        }
 
         return(
             <Fragment>
@@ -262,9 +289,10 @@ const FormInstansi = (props) => {
                                 </div>
                                 <div>
                                     <label>Jenis</label>
-                                        <select className="admin-instansi" style={{marginLeft:'174px'}}name="jenis" onChange={onChangeInstansi}  required>
+                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required>
                                             <option value="" defaultValue="" hidden></option>
                                             <option value='Kementerian'>Kementerian</option>
+                                            <option value='Pemerintah Daerah'>Pemerintah Deaera</option>
                                         </select>
                                 </div>
                                 <div>
@@ -299,7 +327,7 @@ const FormInstansi = (props) => {
                                                     marginTop:'5px',
                                                     marginLeft: "214px", 
                                                     width: "178px",
-                                                    border: '1px solid black',
+                                                    border: '1px solid #acacac',
                                                     padding: '10px',
                                                 }} 
                                         >
@@ -307,13 +335,14 @@ const FormInstansi = (props) => {
                                                     logo.map((logos,index) => {
                                                         return(
                                                             <div key={index}>
-                                                                    <div style={{width:'120px', 
+                                                                <div>
+                                                                    <img src={logoss} alt='logo'
+                                                                                style={{width:'120px', 
                                                                                 height:'120px', 
-                                                                                backgroundColor:'black', 
-                                                                                margin:'auto', 
+                                                                                marginLeft:'15px', 
                                                                                 position:'relative'}}
-                                                                    >
-                                                                    </div>
+                                                                    />
+                                                                </div>
                                                                     <div style={{margin:'10px auto 0' , 
                                                                                 width:'120px', 
                                                                                 height:'20px', 
@@ -344,6 +373,9 @@ const FormInstansi = (props) => {
 
                         <Element id="admin_form" name="admin_form">
                             <div className="admin-1-container" style={{marginBottom:'227px'}}>
+                            <div className="gnrm-title">
+                                FORM ADMIN
+                            </div>
                                     <div>
                                         <label>Nama</label>
                                         <input 
@@ -357,9 +389,8 @@ const FormInstansi = (props) => {
                                     </div>
                                     <div>
                                                 <label>Level</label>
-                                                <select className="admin-role" name="role" onChange={onChange} required>
+                                                <select className="admin-role" name="role" style={{border: '1px solid #ACACAC'}}onChange={onChange} required>
                                                     <option value="" defaultValue="" hidden></option>
-                                                    <option value="super_admin">Super Admin</option>
                                                     <option value="admin">Admin</option>
                                                 </select>
 
@@ -386,7 +417,12 @@ const FormInstansi = (props) => {
                                             required 
                                         />
                                         <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
-                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                        {
+                                                seen ?
+                                                    <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                :
+                                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            }
                                         </button>
                                     </div>
 
@@ -429,9 +465,10 @@ const FormInstansi = (props) => {
                             </div>
                             <div>
                                 <label>Jenis</label>
-                                    <select className="admin-instansi" style={{marginLeft:'174px'}}name="jenis" onChange={onChangeInstansi}  required>
+                                    <select className="admin-instansi" style={{marginLeft:'174px'}} name="jenis" onChange={onChangeInstansi} defaultValue={newInstansi.jenis} required>
                                         <option value="" defaultValue="" hidden></option>
-                                        <option value='Kementerian'>Kementerian</option>
+                                        <option value='Kementerian'>Kementerian/Lembaga</option>
+                                        <option value='Pemerintah Daerah'>Pemerintah Daerah</option>
                                     </select>
                             </div>
                             <div>
@@ -459,7 +496,6 @@ const FormInstansi = (props) => {
                                     type="file"
                                     accept="image/*"
                                     name="logo"
-                                    required
                                 />
                                 <div>
                                     <div style={{height: "178px", 
@@ -474,13 +510,12 @@ const FormInstansi = (props) => {
                                         logo.map((logo,index) => {
                                             return(
                                                 <div key={index}>
-                                                        <div style={{width:'120px', 
-                                                                    height:'120px', 
-                                                                    backgroundColor:'black', 
-                                                                    margin:'auto', 
-                                                                    position:'relative'}}
-                                                        >
-                                                        </div>
+                                                        <img src={logoss} alt='logo'
+                                                                                style={{width:'120px', 
+                                                                                height:'120px', 
+                                                                                marginLeft:'15px', 
+                                                                                position:'relative'}}
+                                                        />
                                                         <div style={{margin:'10px auto 0' , 
                                                                     width:'120px', 
                                                                     height:'20px', 

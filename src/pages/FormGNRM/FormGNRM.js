@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/Auth/AuthContext'
 import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import Scroll, { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
+import plus2 from '../../assets/plus2.png'
 
 const datas = {
     kegiatan_prioritas: [
@@ -45,6 +46,7 @@ const FormGNRM = (props) => {
     
     const Link = Scroll.Link;
 
+    console.log(documentDetail)
     const { token } = useContext(AuthContext)
     const history = useHistory()
     const [ panjang, setPanjang] = useState('0')
@@ -55,8 +57,8 @@ const FormGNRM = (props) => {
         tahun: '',
         id_program: '',
         instansi:'',
-        kp: '',
-        prop: '',
+        // kp: '',
+        // prop: '',
         gerakan: '',
 		kegiatan: {
 			nama_program: '',
@@ -92,8 +94,8 @@ const FormGNRM = (props) => {
         tahun,
         id_program,
         instansi,
-        kp,
-        prop,
+        // kp,
+        // prop,
         gerakan,
         kegiatan,
         nama_program,
@@ -343,16 +345,6 @@ const FormGNRM = (props) => {
 
                             <div className="gnrm-navigation-button">
                                 <Link 
-                                    to="identitas"
-                                    spy={true}
-                                    smooth={true}
-                                    duration={500}
-                                    offset={-30}
-                                >
-                                
-                                    <button className="previous"><i className="material-icons">expand_less</i></button>
-                                </Link>
-                                <Link 
                                     to="kegiatan"
                                     spy={true}
                                     smooth={true}
@@ -384,7 +376,7 @@ const FormGNRM = (props) => {
                                         onChange={(event) => onChange(event,'kegiatan')}
                                     />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <label>Kegiatan Prioritas</label>
                                     <select className="admin-role" style={{height: "42px", 
                                                 marginLeft: "93px", 
@@ -413,9 +405,9 @@ const FormGNRM = (props) => {
                                             })
                                         }
                                     </select>
-                                </div>
+                                </div> */}
                                 <div>
-                                    <label>Penjelasan</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                     <textarea 
                                         className="gnrm-penjelasan" 
                                         style={{height: "283px", 
@@ -459,7 +451,7 @@ const FormGNRM = (props) => {
                             </div>
                             <div className="form-gnrm">
                                 <div>
-                                    <label>Indikator Capaian</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Indikator Capaian</label>
                                     <textarea 
                                         className="gnrm-indikator" 
                                         style={{height: "150px", 
@@ -472,7 +464,7 @@ const FormGNRM = (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Sasaran</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Sasaran</label>
                                     <textarea 
                                         className="gnrm-sasaran" 
                                         style={{height: "130px", 
@@ -486,7 +478,7 @@ const FormGNRM = (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Target</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Target</label>
                                     <textarea 
                                         className="gnrm-target" 
                                         style={{height: "130px", 
@@ -530,7 +522,7 @@ const FormGNRM = (props) => {
                             </div>
                             <div className="form-gnrm">
                                 <div>
-                                    <label>Penjelasan</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                     <textarea 
                                         className="gnrm-penjelasan" 
                                         style={{height: "300px", 
@@ -632,7 +624,7 @@ const FormGNRM = (props) => {
                             </div>
                             <div className="form-gnrm">
                                 <div>
-                                    <label>Mekanisme Pelaksanaan <br/>Kegiatan</label>
+                                    <label style={{textAlign:'left', clear:'both' , float:'left'}}>Mekanisme Pelaksanaan <br/>Kegiatan</label>
                                     <textarea 
                                         className="gnrm-penjelasan" 
                                         style={{height: "400px", 
@@ -705,7 +697,7 @@ const FormGNRM = (props) => {
                                             />
                                         </div>
                                         <div>
-                                            <label>Penjelasan</label>
+                                            <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                             <textarea 
                                                 className="gnrm-penjelasan" 
                                                 style={{height: "400px", 
@@ -749,7 +741,7 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Penjelasan</label>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                     <textarea 
                                                         className="gnrm-penjelasan" 
                                                         style={{height: "400px", 
@@ -796,7 +788,7 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Penjelasan</label>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                     <textarea 
                                                         className="gnrm-penjelasan" 
                                                         style={{height: "400px", 
@@ -817,7 +809,7 @@ const FormGNRM = (props) => {
                                 <label className="tambah-lembaga" >
                                     Tambah Lembaga 
                                 </label>
-                                <i className="fas fa-plus" style={{fontSize:'24px', marginLeft:'70px',cursor:'pointer'}} onClick={addForm}/>
+                                    <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addForm}/>
                             </div>         
 
 
@@ -1046,26 +1038,26 @@ const FormGNRM = (props) => {
                             <div className="judul-preview" style={{textAlign:"center", fontSize:'12px'}}>
                                 <h1 style={{lineHeight:'25px', fontWeight:'bold'}}>
                                     Proteksi Input Program Gerakan Nasioal Revolusi Mental (GNRM) Tahun 
-                                    <span style={{color:'#D33732'}}> {data.tahun}</span>
+                                    <span> {data.tahun}</span>
                                 </h1>
                                 
-                                <h1 style={{lineHeight:'15px'}}>Dilarang menyalin, menyimpan, memperbanyakan sebagian atau seluruh isi laporan ini dalam bentuk <br/> apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sekretariat Revolusi Mental</h1><br/>
+                                <h1 style={{lineHeight:'15px'}}>Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh isi laporan ini dalam bentuk <br/> apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sekretariat Revolusi Mental</h1><br/>
 
                                 <h1 style={{lineHeight:'35px', fontWeight:'bold'}}>
                                     PROGRAM PELAKSANAAN GNRM 
-                                    <span style={{color:'#D33732'}}> {data.tahun}</span>
+                                    <span > {data.tahun}</span>
                                 </h1>
                                 
                                 <h1 style={{lineHeight:'15px'}}> 
                                     ID Laporan : 
-                                    <span style={{color:'#D33732'}}> {data.id_program}</span>
+                                    <span > {data.id_program}</span>
                                 </h1>
 
                                 <h1 style={{lineHeight:'15px'}}> 
                                     Program 
-                                    <span style={{color:'#D33732'}}> {documentDetail && documentDetail.instansi} </span> 
+                                    <span > {documentDetail && documentDetail.instansi} </span> 
                                     GNRM TAHUN 
-                                    <span style={{color:'#D33732'}}> {data.tahun}</span>
+                                    <span > {data.tahun}</span>
                                 </h1>
                             </div>
                         </div>
@@ -1185,7 +1177,7 @@ const FormGNRM = (props) => {
                                         <br/>
                                         <br/>
                                         <h1>TTD</h1>
-                                        <h1>{data.penanggung_jawab.nip}</h1>
+                                        <h1>NIP. {data.penanggung_jawab.nip}</h1>
                                     </div>
                                 </div>
 

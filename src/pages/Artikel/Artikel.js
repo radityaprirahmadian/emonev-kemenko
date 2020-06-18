@@ -10,6 +10,7 @@ import { InfografisContext } from '../../context/Infografis/InfografisContext';
 const Artikel = (props) => {
     const { infografisDetail, setInfografis } = useContext(InfografisContext)
     const [ gambar , setGambar ] = useState([]); 
+    const [ infografisRelated, setInfografisRelated] = useState([])
     
     const tanggal = new Date(infografisDetail && infografisDetail.tanggal_dibuat)
     let hari = tanggal.getDate()
@@ -84,7 +85,7 @@ const Artikel = (props) => {
 
                         <div className="artikel-media">
                             <div className="artikel-unduh" onClick={onDownload}>
-                                Undur Artikel
+                                Unduh Artikel
                             </div>
 
                             <div className="spacer"></div>
@@ -131,7 +132,7 @@ const Artikel = (props) => {
 
                         <div className="artikel-terkait-news">
                             <div className="artikel-terkait-card">
-
+                                
                             </div>
                             <div className="artikel-terkait-card">
 

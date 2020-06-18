@@ -20,7 +20,7 @@ const data = {
   labels: ['KEMENPAN', `KEMENKO POLHUKAM`, 'KEMENKO MARITIM', 'KEMENKO PEREKONOMIAN', 'KEMENDAGRI', 'KEMENKO PMK'],
   datasets: [
     {
-      label: 'Jumlah Program Kementrian',
+      label: 'Jumlah Kegiatan Kementerian',
       color: 'black',
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderColor: 'rgba(255,99,132,1)',
@@ -142,7 +142,7 @@ const Dashboard = (props) => {
                       />
                     </div>
 
-                    <div className="drop-down-menu">
+                    {/* <div className="drop-down-menu">
                       <div className={user && user.role !== 'owner' ? "d-none" : "drop-down-kementrian"}>
                         <form> 
                             <select>
@@ -192,7 +192,7 @@ const Dashboard = (props) => {
                         </form>
                       </div>
 
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="dashboard-section">

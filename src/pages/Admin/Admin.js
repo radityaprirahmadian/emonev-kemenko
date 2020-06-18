@@ -22,9 +22,9 @@ const Admin = (props) => {
 
     const [ users , setUsers] = useState([]);
     
-    const [ filterUsers, setFilterUsers ] = useState({
-        limit: '',
-        page: '',
+    const [ filter, setFilter ] = useState({
+        limit: '10',
+        page: '1',
         nama: '',
         instansi: '',
         totalUser: ''
@@ -36,9 +36,24 @@ const Admin = (props) => {
         nama,
         instansi,
         totalUser,
-    } = filterUsers
+    } = filter
 
-    console.log(filterUsers)
+    console.log(filter)
+
+    const getAllUserLength = async () => {
+        const config= {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`
+            }
+        }
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user`, config)
+            setFilter({...filter, totalUser: res.data.users.length})
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
 
     const getAllUser = async () => {
         const config= {
@@ -56,6 +71,22 @@ const Admin = (props) => {
         }  
     }
 
+    // const getAllUser = async () => {
+    //     const config= {
+    //         headers: {
+    //             'X-Auth-Token': `aweuaweu ${token}`
+    //         }
+    //     }
+    //     try {
+    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+    //         // console.log(res)
+    //         setUsers(res.data.users)
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
+
     const deleteUser = async (id) => {
         const config = {
             headers: {
@@ -65,11 +96,16 @@ const Admin = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
             getAllUser()
+            getAllUserLength()
         }
         catch (err) {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        getAllUserLength()
+    },[])
 
     useEffect(() => {  
         getAllUser()
@@ -112,8 +148,8 @@ const Admin = (props) => {
                                 user && user.role === 'owner' ? 
                                     <FilterAdmin 
                                         getUser={getAllUser}
-                                        setFilter={setFilterUsers} 
-                                        filterUser={filterUsers} 
+                                        setFilter={setFilter} 
+                                        filterUser={filter} 
                                         nama={nama} 
                                         instansi={instansi}
                                     /> 
@@ -122,7 +158,7 @@ const Admin = (props) => {
                             }
 
                             <div className="table-container">
-                                <table className="table-admin">
+                                <table className="table-admin" style={{marginRight:'20px'}}>
                                     <thead className="table-head-admin">
                                         <tr>
                                             <th width='258px'>Nama</th>
@@ -154,8 +190,8 @@ const Admin = (props) => {
                             </div>
 
                             <Pagination
-                                setFilter={setFilterUsers}
-                                filter={filterUsers}
+                                setFilter={setFilter}
+                                filter={filter}
                                 total={totalUser}
                                 limit={limit}
                                 page={page}

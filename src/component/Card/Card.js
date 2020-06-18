@@ -8,6 +8,8 @@ import { AuthContext } from '../../context/Auth/AuthContext';
 const Card = (props) => {
     const { token } = useContext(AuthContext)
     const [nama,setNama] = useState('')
+    const [gambar,setGambar] = useState([])
+
 
     const truncate = (str, n) => {
         return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
@@ -15,6 +17,8 @@ const Card = (props) => {
 
     useEffect(() => {
         truncate(props.doc.nama_program , 30)
+        const i = props.doc.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+        setGambar(i)
     },[props])
 
     const mydate = new Date(props.doc.tanggal_dibuat);
@@ -28,7 +32,7 @@ const Card = (props) => {
                 <div className="card-container" style={{marginRight:'20px'}}>
                     <div className="top-card">
                         <div className="card-background">
-                            <img src={bg_card}/>
+                            <img src={gambar[0]} style={{width:'400px', height:'400px' , overflow:'hidden'}} />
                         </div>
                     </div>
 

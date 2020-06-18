@@ -2,7 +2,7 @@ import React,{Component,Fragment,useContext,useEff} from 'react';
 import './TabelAdmin.css';
 import axios from 'axios';
 import {Link,useHistory} from 'react-router-dom'
-import trash from '../../assets/trash.png';
+import hapus from '../../assets/hapus.png';
 import edit from '../../assets/edit.png';
 import { AuthContext } from '../../context/Auth/AuthContext';
 
@@ -26,7 +26,7 @@ const TabelAdmin = (props) => {
                     </td>
                     <td>
                         <button className="button-delete" onClick={() => props.delete(props.id)}>
-                            <img src={trash}/>
+                            <img src={hapus}/>
                         </button>
                     </td>
                 </tr>            

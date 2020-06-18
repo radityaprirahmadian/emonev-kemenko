@@ -93,7 +93,7 @@ const Login = (props) => {
                                     <h2>E-Report</h2>
                                 </div>
     
-                                <form className="form-login" onSubmit={onSubmit}> 
+                                <form className="form-login" autocomplete="off" onSubmit={onSubmit}> 
                                     <input 
                                         type="text" 
                                         className="username" 
@@ -116,7 +116,7 @@ const Login = (props) => {
     
                                     <br/>
                                     <div >
-                                        <label className="ingat-saya">Ingat Saya
+                                        <label className="ingat-saya">Tetap Masuk
                                             <input type="checkbox" className="checkbox" onClick={setChecked}/>
                                             <span className="checkmark"></span>
                                         </label>

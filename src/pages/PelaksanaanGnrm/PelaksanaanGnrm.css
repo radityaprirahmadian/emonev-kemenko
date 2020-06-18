@@ -4,6 +4,10 @@
     display: flex;
 }
 
+.input-dan-tajuk a {
+    text-decoration: none;
+}
+
 .input-dan-tajuk .tambah-program {
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
@@ -18,7 +22,7 @@
     letter-spacing: 0.02em;
     display: flex;
     align-items: center;
-    box-shadow: 6px 8px 7px 6px rgba(0,0,0,0.1);
+    box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.1);
 }
 
 /* .clear{

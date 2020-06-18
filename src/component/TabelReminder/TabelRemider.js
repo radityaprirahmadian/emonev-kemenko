@@ -2,7 +2,7 @@ import React,{Component,Fragment,useContext,useEffect,useState} from 'react';
 import { AuthContext } from '../../context/Auth/AuthContext';
 import axios from 'axios'
 import './TabelReminder.css';
-import trash from '../../assets/trash.png';
+import hapus from '../../assets/hapus.png';
 
 const TabelReminder = (props) => {
     
@@ -32,7 +32,7 @@ const TabelReminder = (props) => {
                     <td>{str}</td>
                     <td>
                         <button className="button-delete" onClick={() => props.delete(props.id)}>
-                            <img src={trash}/>
+                            <img src={hapus}/>
                         </button>
                     </td>
                 </tr>

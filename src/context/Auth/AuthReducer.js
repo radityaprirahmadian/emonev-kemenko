@@ -23,11 +23,11 @@ export default (state, action) => {
                 userDetail : action.payload
             }
 
-        case 'AUTH_ERROR':
-            localStorage.removeItem('token')
-            return{
-                isAuthenticated: false
-            }
+        // case 'AUTH_ERROR':
+        //     localStorage.removeItem('token')
+        //     return{
+        //         isAuthenticated: false
+        //     }
 
         case 'LOGIN_FAIL':
 			return {

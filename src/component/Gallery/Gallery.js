@@ -96,7 +96,7 @@ console.log(userDetail)
                             return(
                                 <Fragment>
                                     <div className="gallery-item" onClick={(e) => onOpen(e,index,galler)}>
-                                        <img src={galler[0]} alt={`gallery-${index}`} ></img>
+                                        <img src={galler[0]} alt={`gallery-${index}`} style={{cursor:'pointer'}}></img>
                                     </div>
                                         {
                                             open ? 

@@ -5,6 +5,7 @@ import {Link,useHistory} from 'react-router-dom';
 import axios from 'axios'
 import './FormInfografis.css'
 import objectToFormData from '../../objectToFormDataUtil'
+import lock from '../../assets/lock.png'
 import { AuthContext } from '../../context/Auth/AuthContext'
 import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import { InfografisContext } from '../../context/Infografis/InfografisContext';
@@ -15,9 +16,23 @@ const FormInfografis = (props) => {
     const { token } = useContext(AuthContext)
     const history = useHistory()
 
+    const [infog,setInfog] = useState({
+        penjelasan_kegiatan: ''
+    })
+
+
+    const {
+        penjelasan_kegiatan
+    } = infog
+
     console.log(infografisDetail)
+    console.log(infog)
 
     const [ infografis , setInfografisDoc ] = useState([])
+
+    const onChange = (e) => {
+		setInfog({[e.target.name]:e.target.value})
+    }
 
     const onChangeFiles = (event) => {
 		setInfografisDoc([...infografis , ...event.target.files])
@@ -27,8 +42,8 @@ const FormInfografis = (props) => {
     
     const onEdit = async (event) => {
         event.preventDefault()
-        
-        const formData = new FormData()
+
+        const formData = objectToFormData(infog)
 
 		for (let i = 0; i < infografis.length; i++) {
 			formData.append(`infografis`, infografis[i])
@@ -37,7 +52,7 @@ const FormInfografis = (props) => {
         for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
         }
-        
+
 		const config = {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -45,8 +60,14 @@ const FormInfografis = (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}`,formData,config)
-        history.push('/infografis')
+        try {
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}`,formData,config)
+            alert(res.data.message)
+            history.push('/infografis')
+        }
+        catch(err) {
+            alert(err.data.message)
+        }
     }
     
     const urlToFile = async (url) => {
@@ -67,10 +88,28 @@ const FormInfografis = (props) => {
         }
     }
 
+
     useEffect(() => {
         setInfografis(props.match.params.id)
     },[])
 
+    useEffect(() => {
+        if(infografisDetail){
+            setInfog({penjelasan_kegiatan: infografisDetail && infografisDetail.penjelasan_kegiatan})
+
+            const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}`)
+            
+            const files = []
+            mediaFileUrl.forEach(async url =>{
+                const file = await urlToFile(url)
+                console.log(file)
+                files.push(file)
+            })
+
+            setInfografisDoc(files)   
+        }
+
+    },[infografisDetail])
     return(
         <Fragment>
             <SideBarOff/>
@@ -93,14 +132,18 @@ const FormInfografis = (props) => {
                                         value={infografisDetail && infografisDetail.nama_program}
                                     >
                                     </input>
+                                    <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'90px' , left:'1260px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'absolute'}}/>
+                                    </div>
                                 </div>
                                 <div>
-                                    <label>Deskripsi</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Deskripsi</label>
                                     <textarea  
                                         type="text"
                                         style={{width:'955px', height:'159px' , marginLeft:'142px'}} 
-                                        name='deskripsi'
-                                        value={infografisDetail && infografisDetail.penjelasan_kegiatan}
+                                        name='penjelasan_kegiatan'
+                                        value={penjelasan_kegiatan}
+                                        onChange={onChange}
                                     >
                                     </textarea>
                                 </div>

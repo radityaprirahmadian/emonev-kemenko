@@ -21,8 +21,8 @@ const Footer = () => {
         return(
             <Fragment>
                 <nav className="footer">
-                    <div className="row" >
-                        <div className="col-6" >
+                    <div className="row">
+                        <div className="col-6" style={{height:'360px'}}>
                             <div className="footer-left">
                                 <div className="footer-left-menu">
                                     <div className="footer-left-title">

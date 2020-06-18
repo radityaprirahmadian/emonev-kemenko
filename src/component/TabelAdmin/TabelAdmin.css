@@ -12,13 +12,13 @@
     padding-top: 22px;
     padding-bottom: 10px;
     font-weight: bold;
-    border: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
 }
 
 .table-body-admin td{
     padding-left: 15px;
     line-height: 40px;
-    border: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
 }
 
 .table-body-admin td:last-child{
@@ -38,6 +38,7 @@
     height: 15px;
     width: 12px;
     border: none;
+    background-color: white;
     line-height: 0px;
 
 }
@@ -46,6 +47,7 @@
     position: relative;
     padding: 0px;
     bottom: -5px;
+    background-color: white;
     left: -5px;
     height: 15px;
     width: 12px;

@@ -1,7 +1,7 @@
 import React,{Component,Fragment, useContext, useEffect, useState} from 'react';
 import './Profile.css';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
-import bg_card from '../../assets/bg_card.png';
+import lock from '../../assets/lock.png';
 import {Link} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import axios from 'axios'
@@ -39,7 +39,7 @@ const Profile = (props) => {
 
                                 <div className="data">
                                     <label>Instansi</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama}</div>
+                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
                                 </div>
 
                                 <div className="data">
@@ -50,11 +50,6 @@ const Profile = (props) => {
                                 <div className="data">
                                     <label>Username</label><br/>
                                     <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
-                                </div>
-
-                                <div className="data">
-                                    <label>Password</label><br/>
-                                    <div className="show-profile" type="password"></div>
                                 </div>
 
                                 <div className="data">

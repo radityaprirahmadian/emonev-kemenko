@@ -2,7 +2,7 @@ import React,{Component,Fragment, useContext, useState, useEffect} from 'react';
 import './ProfileEdit.css';
 import axios from 'axios';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
-import bg_card from '../../assets/bg_card.png';
+import lock from '../../assets/lock.png';
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
@@ -176,26 +176,35 @@ const ProfileEdit = (props) => {
 
                                     <div className="data">
                                         <label>Instansi</label><br/>
-                                        <div className="persist" type="text">{userDetail && userDetail.instansi.nama}</div>
+                                        <div className="persist" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
                                     <div className="data">
                                         <label>Role</label><br/>
                                         <div className="persist" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
                                     <div className="data">
                                         <label>Username</label><br/>
                                         <div className="persist" type="text">{userDetail && userDetail.username}</div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
-                                    <div className="data">
+                                    {/* <div className="data">
                                         <label>Password</label><br/>
                                         <input className="show-profile" type={seen ? "text" : "password"} name='password' value={password} onChange={onChange}></input>
                                         <button className="button-password" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white', position:'relative'}} onClick={handlePassword}>
                                             <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
                                         </button>
-                                    </div>
+                                    </div> */}
 
                                     <div className="data">
                                         <label>Email</label><br/>

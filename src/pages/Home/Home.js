@@ -22,7 +22,7 @@ const Home = () => {
         labels: ['Kemendagri', 'Kemenko Maritim', 'Kemenko PMK','Kemenko Perekonomian', `Kemenko Polhukam`, 'Kemenpan RB', ],
         datasets: [
           {
-            label: 'Jumlah Program Kementrian',
+            label: 'Jumlah Kegiatan Kementrian',
             color: 'black',
             backgroundColor: 'rgba(255,99,132,0.2)',
             borderColor: 'rgba(255,99,132,1)',
@@ -39,7 +39,7 @@ const Home = () => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis`)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true`)
                 setDocuments(res.data.infografis)
         }
         catch (err) {
@@ -67,7 +67,7 @@ const Home = () => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&instansi=${nama_instansi}`)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&instansi=${nama_instansi}`)
             setDocumentCardLength(res.data.infografis)
         }
         catch (err) {
@@ -87,7 +87,7 @@ const Home = () => {
 
     const getDocumentCard = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&limit=2&page=${page}&instansi=${nama_instansi}`)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&limit=2&page=${page}&instansi=${nama_instansi}`)
             setDocumentCard(res.data.infografis)
         }
         catch (err) {
@@ -219,6 +219,17 @@ const Home = () => {
         }
     }
       
+    let tanggal = new Date(Date.now())
+    console.log(tanggal)
+    let bulans = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][tanggal.getMonth()];
+    const [ bulan , setBulan ] = useState('')
+
+    useEffect(() => {
+        setBulan(bulans)
+    }, [])
+    const onChangeBulan = (e) => {
+        return setBulan(e.target.value)
+    }
         return(
             <Fragment>
                 <Topbar kunci={true}/>
@@ -226,9 +237,11 @@ const Home = () => {
                         <div className="home-section-1">
                             {
                                 documents.slice((documents.length - 7)).map((document, index) => {
+                                    const i = document.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+                                    console.log(i)
                                     return (
                                         <div key={index} className={hidden[index] ? "home-pic" : "d-none"}>
-                                            <img src={background} style={{width: '100%' , height: '768px'}}/>
+                                            <img src={i[0]} style={{width: '100%' , height: '768px'}}/>
                                         </div>
                                         );
                                     })
@@ -330,8 +343,26 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="home-section-2">
-                            <div className="home-section-2-title">
-                                Statistik Bulan April
+                            <div>
+                                <div className="home-section-2-title" style={{display:'inline-block', position:'absolute'}}>
+                                    Statistik Bulan {bulan}
+                                </div>
+                                <select className="reminder-tujuan" type="text" name="bulan" onChange={onChangeBulan} style={{display:'inline-block', marginLeft:'1000px', borderRadius:'10px' , width: '212px' , height: '56px'}}>
+                                    <option defaultValue='' hidden></option>
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Maret">Maret</option>
+                                    <option value="April">April</option>
+                                    <option value="Mei">Mei</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Agustus">Agustus</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="Desember">Desember</option>
+
+                                </select>
                             </div>
                             <div className="home-statistik">
                                 <Bar

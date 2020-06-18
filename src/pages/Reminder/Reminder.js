@@ -21,8 +21,8 @@ const Reminder = (props) => {
     console.log(allReminder)
 
     const [ filter, setFilter ] = useState({
-        limit: '',
-        page: '',
+        limit: '10',
+        page: '1',
         total: ''
     })
 
@@ -32,6 +32,20 @@ const Reminder = (props) => {
         total
     } = filter
 
+    const getReminderLength = async () => {
+        const config= {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`
+            }
+        }
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel`, config)
+            setFilter({...filter, total: res.data.notifikasi.length})
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
     const getAllReminder = async () => {
         const config= {
             headers: {
@@ -57,6 +71,7 @@ const Reminder = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/notifikasi/${id}`, config)
             getAllReminder()
+            getReminderLength()
         }
         catch (err) {
             console.log(err.message)  
@@ -64,12 +79,12 @@ const Reminder = (props) => {
     }
 
     useEffect(() => {
-        getAllReminder()
+        getReminderLength()
     },[])
 
     useEffect(() => {
         getAllReminder()
-    },[limit])
+    },[limit,page])
     
     return(
         <Fragment>
@@ -98,7 +113,7 @@ const Reminder = (props) => {
                     </div>
                     <div className="table-container">
                         <table className="table-reminder-owner"  style={{marginRight:'20px'}}>
-                            <thead className="table-head-reminder-owner">
+                            <thead className="table-head-reminder">
                                 <tr>
                                     <th width='191px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi Tujuan</th>
                                     <th width='125px'>Akun Tujuan</th>
@@ -108,7 +123,7 @@ const Reminder = (props) => {
                                     <th width='42px'></th>
                                 </tr>
                             </thead>
-                            <tbody className="table-body-reminder-owner">
+                            <tbody className="table-body-reminder">
                                 {
                                     allReminder.map((reminder,index) => {
                                         return(

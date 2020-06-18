@@ -32,9 +32,9 @@ const FilterInfografis = (props) => {
                     <form id="filter-admin">
                         <div className="filter-nama">
                             <h6 className="nama-filter">Tahun</h6>
-                            <select className="input-filter-nama" name="instansi" onChange={onChange} >
+                            <select className="input-filter-nama" name="tahun" onChange={onChange} >
                                 <option value="" defaultValue="" hidden></option>
-                                <option value="" defaultValue="">SEMUA TAHUN</option>
+                                <option value="" defaultValue="">Semua</option>
                                 <option value="2019">2019</option>
                                 <option value="2020">2020</option>
                                 <option value="2021">2021</option>
@@ -45,9 +45,9 @@ const FilterInfografis = (props) => {
                             <h6 className="nama-filter">Status</h6>
                             <select className="input-filter-nama-instansi" style={{width:'120px'}}name="status" onChange={onChange} >
                                 <option value="" defaultValue="" hidden></option>
-                                <option value="" defaultValue="">SEMUA STATUS</option>
-                                <option value="true">SUDAH ADA</option>
-                                <option value="false">BELUM ADA</option>
+                                <option value="" defaultValue="">Semua</option>
+                                <option value="true">Sudah Ada</option>
+                                <option value="false">Belum Ada</option>
                             </select>
                         </div>
 

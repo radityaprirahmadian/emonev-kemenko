@@ -39,12 +39,12 @@ const TabelGNRM = (props) => {
                     <Download id={props.id}/>
                 </td>
                 <td>
-                    <button className="button-download">
+                    <button className="button-download" style={{backgroundColor:'white'}}>
                         <img src={edit} onClick={onClickEdit}/>
                     </button>
                 </td>
                 <td>
-                    <button className="button-download">
+                    <button className="button-download" style={{backgroundColor:'white'}}>
                         <img src={hapus} onClick={() => props.delete(props.id)}/>
                     </button>
                 </td>

@@ -11,6 +11,10 @@ const ProfileAdmin = (props) => {
     const { token } = useContext(AuthContext);
     const [ userDetail, setUserDetail ] = useState();
     console.log(userDetail)
+    const [ avatar, setAvatar ] = useState();
+    console.log(avatar)
+    console.log(userDetail)
+
     useEffect (() => {
         const getUserToShow = async () => {
             const config = {
@@ -22,6 +26,8 @@ const ProfileAdmin = (props) => {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserDetail(res.data.user)
+                const wow = `https://test.bariqmbani.me${res.data.user.foto}`
+                setAvatar(wow)
             }
             catch (err) {
                 console.log(err)
@@ -29,6 +35,9 @@ const ProfileAdmin = (props) => {
         }
         getUserToShow()
     }, [])
+
+
+
 
         return(
             <Fragment>
@@ -51,7 +60,7 @@ const ProfileAdmin = (props) => {
 
                                 <div className="data">
                                     <label>Instansi</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama}</div>
+                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
                                 </div>
 
                                 <div className="data">
@@ -86,7 +95,7 @@ const ProfileAdmin = (props) => {
                                     <label>Photo Profile</label><br/>
                                     <div className="photo-profile-container">
                                         <div className="photo-profile">
-                                            <img src={bg_card}></img>
+                                            <img src={avatar}></img>
                                         </div>
                                     </div>
                                     <Link to={`/edit-admin/${userDetail && userDetail._id}`}>

@@ -8,7 +8,7 @@ import Login from '../Login/Login';
 import FormAdmin from '../../pages/FormAdmin/FormAdmin';
 import FormReminder from '../../pages/FormReminder/FormReminder';
 import Home from '../../pages/Home/Home';
-import logo_gif from '../../assets/logo_gif.gif'
+import logo_gif_1 from '../../assets/logo_gif.gif'
 import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'
@@ -132,12 +132,7 @@ const Topbar = (props) => {
                     <header className={props.kunci ? "top-bar" : "top-bar-default"}>
                         <nav className="top-bar-navigation">
                             <div className="top-bar-logo">
-                                <img src={logo_gif} alt="logo kemenko" className="logo-kemenko" />
-                                <div className="top-bar-logo-title"> 
-                                    <h1>Kementerian Koordinator Bidang</h1>
-                                    <h1>Pembangunan Manusia dan Kebudayaan</h1>
-                                    <h1>Republik Indonesia</h1>
-                                </div>
+                                <img src={logo_gif_1} alt="logo kemenko" className="logo-kemenko" />
                             </div>
 
                             <div className="spacer"/>

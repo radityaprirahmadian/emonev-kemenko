@@ -72,7 +72,7 @@ const SideBarOff = (props) => {
                                 <img src={avatar} alt="avatar"/>
                                     <div className="avatar-identity">
                                         <p className ="user-name">{userDetail && userDetail.nama}</p>
-                                        <p className ="user-position">{(user && user.role) === 'owner' ? 'Owner' : ((user && user.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</p>
+                                        <p className ="user-position">{(user && user.role) === 'owner' ? 'Super Admin' : ((user && user.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</p>
                                         <p className ="user-ministry">{user && user.instansi.nama_pendek}</p>
                                     </div>
                             </div>
@@ -96,7 +96,7 @@ const SideBarOff = (props) => {
                                             <NavLink to="/gnrm" activeClassName="active">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="fas fa-home"></i>
+                                                        <i className="far fa-hospital"></i>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Rencana Pelaksanaan Program</div>
@@ -108,7 +108,7 @@ const SideBarOff = (props) => {
                                             <NavLink to="/infografis" activeClassName="active">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="fas fa-home"></i>
+                                                        <i className="far fa-file"></i>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Infografis</div>
@@ -120,7 +120,7 @@ const SideBarOff = (props) => {
                                             <NavLink to="/monev" activeClassName="active">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="far fa-bell"></i>
+                                                        <i className="far fa-file-alt"></i>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Laporan Monev</div>
@@ -135,10 +135,10 @@ const SideBarOff = (props) => {
                                                         <NavLink to="/instansi" activeClassName="active">
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <i className="fas fa-user-friends"></i>
+                                                                    <i className="fas fa-building"></i>
                                                                 </div>
                                                                 <div className="col-md-10">
-                                                                    <div className="label-menu">Instansi</div>
+                                                                    <div className="label-menu">Kelola Instansi</div>
                                                                 </div>
                                                             </div>
                                                         </NavLink> 
@@ -198,12 +198,12 @@ const SideBarOff = (props) => {
                                         </li>
                                         <li className="side-bar-item">
                                             <div className="logout-button" style={{color:'black'}} onClick={()=>handleLogout()}>
-                                                <div className="row">
+                                                <div className="row" style={{width:'200px'}}>
                                                     <div className="col-md-2" >
                                                         <i className="fas fa-sign-out-alt" style={{color:'black'}} ></i>
                                                     </div>
                                                     <div className="col-md-10" >
-                                                        <div className="label-menu">Keluarrrrrrrrrr</div>
+                                                        <div className="label-menu">Keluar</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,17 +229,17 @@ const SideBarOff = (props) => {
                                         </li>
                                         <li className="side-bar-item">
                                             <NavLink to="/gnrm" activeClassName="active">
-                                                <i className="fas fa-home"></i>
+                                                <i className="far fa-hospital"></i>
                                             </NavLink>
                                         </li>
                                         <li className="side-bar-item">
                                             <NavLink to="/infografis" activeClassName="active">
-                                                <i className="fas fa-home"></i>
+                                                <i className="far fa-file"></i>
                                             </NavLink>
                                         </li>
                                         <li className="side-bar-item">
                                             <NavLink to="/monev" activeClassName="active">
-                                                <i className="far fa-bell"></i>
+                                                <i className="far fa-file-alt"></i>
                                             </NavLink>
                                         </li>
                                             {
@@ -247,7 +247,7 @@ const SideBarOff = (props) => {
                                                     <Fragment>
                                                         <li className="side-bar-item">
                                                                 <NavLink to="/instansi" activeClassName="active">
-                                                                <i className="fas fa-user-friends"></i>
+                                                                <i className="fas fa-building"></i>
                                                                 </NavLink> 
                                                         </li>
                                                         <li className="side-bar-item">

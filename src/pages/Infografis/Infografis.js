@@ -11,6 +11,7 @@ import Popup from '../../component/Popup/Popup'
 const Infografis = (props) => {
     const { user, token } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
+    console.log(documents)
     const [ filter, setFilter ] = useState({
         limit: '10',
         page: '1',
@@ -57,10 +58,10 @@ const Infografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=${status}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
                 setDocuments(res.data.infografis)
             } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=${status}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
                 setDocuments(res.data.infografis)
             }
         }
@@ -127,10 +128,10 @@ const Infografis = (props) => {
                                         <th width='276px'>Nama Program</th>
                                         <th width='193px' className={user && user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
                                         <th width='59px'>Status</th>
-                                        <th width='59px'></th>
-                                        <th width='59px'></th>
-                                        <th width='59px'></th>
-                                        <th width='59px'></th>
+                                        <th width='42px'></th>
+                                        <th width='42px'></th>
+                                        <th width='42px'></th>
+                                        <th width='42px'></th>
                                     </tr>
                                 </thead>
                                 <tbody className="table-body">
@@ -144,6 +145,7 @@ const Infografis = (props) => {
                                                     tanggal={document.tanggal_dibuat}
                                                     id={document.gnrm_id}
                                                     instansi={document.instansi}
+                                                    tahun={document.tahun}
                                                     // tahun={document.form.tahun}
                                                     nama={document.nama_program}
                                                     status={document.status}

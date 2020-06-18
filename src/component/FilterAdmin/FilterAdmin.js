@@ -1,7 +1,9 @@
-import React,{Component,Fragment} from 'react';
+import React,{Component,Fragment,useState,useEffect} from 'react';
 import './FilterAdmin.css';
+import axios from 'axios';
 
 const FilterAdmin = (props) => {
+    const [allInstansi, setAllInstansi] = useState([])
         const onChange = (e) => {
             return props.setFilter({
                 ...props.filterUser,
@@ -9,6 +11,17 @@ const FilterAdmin = (props) => {
             })
         }
 
+        useEffect(() => {
+            axios.get('https://test.bariqmbani.me/api/v1/instansi')
+            .then(res => {
+                setAllInstansi(res.data.instansi)
+                console.log('wow')
+            })
+            .catch(err => {
+                console.log('wow', +err)
+            })
+        }, [])
+        
         const onSubmit = (e) => {
             e.preventDefault()
             props.getUser()
@@ -28,9 +41,15 @@ const FilterAdmin = (props) => {
                             <h6 className="nama-filter">Nama Instansi</h6>
                             <select className="input-filter-nama-instansi" name="instansi" onChange={onChange} >
                                 <option value="" defaultValue="" hidden></option>
-                                <option value="" defaultValue="">SEMUA INSTANSI</option>
-                                <option value="Kemenko PMK">KEMENKO PMK</option>
-                                <option value="Kemenpan">KEMENPAN</option>
+                                <option value="" defaultValue="">Semua</option>
+                                {
+                                allInstansi.map((instansi,index) => {
+                                    return(
+                                        <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                    )
+                                })
+
+                            }
                             </select>
                         </div>
     

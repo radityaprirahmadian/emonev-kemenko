@@ -115,17 +115,27 @@ const NewPassword = () => {
                     <h1>Halo {userDetail && userDetail.nama},</h1>
                     <h1>Untuk menjaga akun Anda harap mengganti password Anda terlebih dahulu.</h1>
 
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={onSubmit} autoComplete="off">
                         <div>
                             <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} placeholder="Password baru"/>
                             <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'#F9F3D0'}} onClick={handlePassword}>
-                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    {
+                                        seen1 ?
+                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                        :
+                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    }
                             </button>
                         </div>
                         <div>
                             <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} placeholder="Konfirmasi Password Baru"/>
                             <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'#F9F3D0' }} onClick={confirmPassword}>
-                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    {
+                                        seen2 ?
+                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                        :
+                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                    }
                             </button>
                         </div>
 
@@ -135,7 +145,7 @@ const NewPassword = () => {
                             disable ?
                                 <Fragment>
                                     <div className="pesan-ubah" style={{color:'red' , left: '156px'}}>{err}</div>
-                                    <button className="button-ubah" type="submit" disabled>UBAH PASSWORD</button>
+                                    <button className="button-ubah" type="submit" disabled style={{backgroundColor:'grey'}}>UBAH PASSWORD</button>
                                 </Fragment>
                             :
                                 <Fragment>

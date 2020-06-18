@@ -27,14 +27,13 @@ const LupaPassword = (props) => {
             }
         }
         try {
-            await axios.post(`https://test.bariqmbani.me/api/v1/lupa-password`,data)
-            console.log('SUKSES')
-            alert('SILAHKAN CEK EMAIL ANDA')
+            const res = await axios.post(`https://test.bariqmbani.me/api/v1/lupa-password`,data)
+            alert(res.data.message)
             history.push('/login')
         }
         catch (err) {
             console.log(err)
-            alert('EMAIL SALAH')
+            alert(err.data.message)
         }
     }
 
@@ -169,7 +168,7 @@ const LupaPassword = (props) => {
                             </div>
                             <div className="body-ubah">
                                 <h1>Masukkan alamat email Anda yang terkait dengan akun Anda</h1>
-                                <form onSubmit={onSubmitEmail}>
+                                <form onSubmit={onSubmitEmail} autoComplete='off'>
                                     <div>
                                         <input className="input-ubah"  type="email" name="email" value={email} onChange={onChangeEmail} placeholder="Alamat E-Mail"/>
                                     </div>
@@ -188,24 +187,34 @@ const LupaPassword = (props) => {
                                 <h1>Halo {user && user.nama},</h1>
                                 <h1>Silahkan mengisi password baru anda</h1>
 
-                                <form onSubmit={onSubmit}>
+                                <form onSubmit={onSubmit} autoComplete="off">
                                     <div>
                                         <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} placeholder="Password baru"/>
                                         <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'#F9F3D0'}} onClick={handlePassword}>
-                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            {
+                                                seen1 ?
+                                                    <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                :
+                                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            }
                                         </button>
                                     </div>
                                     <div>
                                         <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} placeholder="Konfirmasi Password Baru"/>
                                         <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'#F9F3D0' }} onClick={confirmPassword}>
-                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            {
+                                                seen2 ?
+                                                    <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                :
+                                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            }
                                         </button>
                                     </div>
                                     {
                                         disable ?
                                             <Fragment>
                                                 <div className="pesan-ubah" style={{color:'red' , left: '156px'}}>{err}</div>
-                                                <button className="button-ubah" type="submit" disabled>UBAH PASSWORD</button>
+                                                <button className="button-ubah" type="submit" disabled style={{color:'grey'}}>UBAH PASSWORD</button>
                                             </Fragment>
                                         :
                                             <Fragment>
