@@ -39,7 +39,7 @@ const Home = () => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`)
                 setDocuments(res.data.infografis)
         }
         catch (err) {
@@ -67,7 +67,7 @@ const Home = () => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&instansi=${nama_instansi}`)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true&instansi=${nama_instansi}`)
             setDocumentCardLength(res.data.infografis)
         }
         catch (err) {
@@ -77,7 +77,7 @@ const Home = () => {
 
     const Statistika = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
             console.log(res.data.statistik)
         }
         catch (err) {
@@ -87,7 +87,7 @@ const Home = () => {
 
     const getDocumentCard = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&limit=2&page=${page}&instansi=${nama_instansi}`)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true&limit=2&page=${page}&instansi=${nama_instansi}`)
             setDocumentCard(res.data.infografis)
         }
         catch (err) {
@@ -113,7 +113,7 @@ const Home = () => {
     
     const [instansi, setInstansi] = useState([])
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
         .then(res => {
             setInstansi(res.data.instansi)
             console.log('wow')
@@ -237,7 +237,7 @@ const Home = () => {
                         <div className="home-section-1">
                             {
                                 documents.slice((documents.length - 7)).map((document, index) => {
-                                    const i = document.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+                                    const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
                                     console.log(i)
                                     return (
                                         <div key={index} className={hidden[index] ? "home-pic" : "d-none"}>

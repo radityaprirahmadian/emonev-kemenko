@@ -12,7 +12,7 @@ const Profile = (props) => {
     const [ foto, setFoto ] = useState();
 
     useEffect(() => {
-        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setFoto(wow)
     },[userDetail])
 

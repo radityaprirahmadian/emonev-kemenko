@@ -57,7 +57,7 @@ const App = () => {
     if (!cleanup) {
       console.log("test");
       
-      const socket = io('https://test.bariqmbani.me')
+      const socket = io('https://api.simonev.revolusimental.go.id')
       socket.on("connect", () => {
         socket.emit("notif_subscribe", { user: id });
       });

@@ -58,7 +58,7 @@ const SideBarOff = (props) => {
     const [ avatar, setAvatar ] = useState();
 
     useEffect(() => {
-        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setAvatar(wow)
     },[userDetail])
 

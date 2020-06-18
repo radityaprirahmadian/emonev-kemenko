@@ -47,7 +47,7 @@ const Admin = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user`, config)
             setFilter({...filter, totalUser: res.data.users.length})
         }
         catch (err) {
@@ -62,7 +62,7 @@ const Admin = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
             // console.log(res)
             setUsers(res.data.users)
         }
@@ -78,7 +78,7 @@ const Admin = (props) => {
     //         }
     //     }
     //     try {
-    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
     //         // console.log(res)
     //         setUsers(res.data.users)
     //     }
@@ -94,7 +94,7 @@ const Admin = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
             getAllUser()
             getAllUserLength()
         }

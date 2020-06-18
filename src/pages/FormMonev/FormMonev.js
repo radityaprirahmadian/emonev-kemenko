@@ -108,7 +108,7 @@ const FormMonev =  (props) => {
 		}
 
         try {
-            const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=monev',formData,config,)
+            const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=monev',formData,config,)
             alert(res.data.message)
             history.push('/monev')
         }
@@ -141,7 +141,7 @@ const FormMonev =  (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
+		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
         history.push('/monev')
         alert(res.data.message)
 
@@ -191,8 +191,8 @@ const FormMonev =  (props) => {
             setMedia(documentDetail.form.lampiran.media)
             setMedia(documentDetail.form.lampiran.berkas)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
-            const berkasFileUrl = documentDetail.form.lampiran.berkas.map(berkas => `https://test.bariqmbani.me${berkas.path}`)
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
+            const berkasFileUrl = documentDetail.form.lampiran.berkas.map(berkas => `https://api.simonev.revolusimental.go.id${berkas.path}`)
                         
             console.log(mediaUrl)
 

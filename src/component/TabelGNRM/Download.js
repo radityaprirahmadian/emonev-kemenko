@@ -23,7 +23,7 @@ const Download = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${id}?type=${type}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=${type}`,config)
                 setDocument(res.data.document)
                 setHide(true)
             }

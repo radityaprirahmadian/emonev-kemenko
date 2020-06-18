@@ -16,7 +16,7 @@ const FilterInfografis = (props) => {
         }
 
         useEffect(() => {
-            axios.get('https://test.bariqmbani.me/api/v1/instansi')
+            axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
                 console.log('wow')

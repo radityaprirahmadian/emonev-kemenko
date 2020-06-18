@@ -60,7 +60,7 @@ const Dashboard = (props) => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&instansi=${userDetail.instansi.nama_pendek}`)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=false&instansi=${userDetail.instansi.nama_pendek}`)
             setDocumentCardLength(res.data.infografis)
         }
         catch (err) {
@@ -71,10 +71,10 @@ const Dashboard = (props) => {
     const getDocumentCard = async () => {
       try {
             if(userDetail.role === 'admin'){
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=false&limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
                 setDocumentCard(res.data.infografis.reverse())
             } else {
-                const res = await axios.get('https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3')
+                const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/infografis?status=false&limit=3')
                 setDocumentCard(res.data.infografis.reverse())
             }
       }

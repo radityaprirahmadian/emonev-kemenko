@@ -17,7 +17,7 @@ const Card = (props) => {
 
     useEffect(() => {
         truncate(props.doc.nama_program , 30)
-        const i = props.doc.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+        const i = props.doc.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
         setGambar(i)
     },[props])
 

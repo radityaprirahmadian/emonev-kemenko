@@ -7,7 +7,7 @@ const Megamenu = (props) => {
     useEffect(() => {
         const getAllDocument = async () => {
             try {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&instansi=${props.instansi}`)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true&instansi=${props.instansi}`)
                     setDocuments(res.data.infografis)
             }
             catch (err) {

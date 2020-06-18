@@ -79,7 +79,7 @@ const NewPassword = () => {
             }
     
             try {
-                await axios.put(`https://test.bariqmbani.me/api/v1/user/${userDetail && userDetail._id}`,formData,config)
+                await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${userDetail && userDetail._id}`,formData,config)
             
             } 
             catch(err){

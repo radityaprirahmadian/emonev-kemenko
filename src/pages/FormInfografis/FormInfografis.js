@@ -61,7 +61,7 @@ const FormInfografis = (props) => {
 		}
 
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/infografis/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             history.push('/infografis')
         }
@@ -97,7 +97,7 @@ const FormInfografis = (props) => {
         if(infografisDetail){
             setInfog({penjelasan_kegiatan: infografisDetail && infografisDetail.penjelasan_kegiatan})
 
-            const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}`)
+            const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://api.simonev.revolusimental.go.id${gambar.path}`)
             
             const files = []
             mediaFileUrl.forEach(async url =>{

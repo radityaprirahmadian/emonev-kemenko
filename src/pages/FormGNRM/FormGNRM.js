@@ -186,7 +186,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=gnrm',formData,config,)
+		const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm',formData,config,)
         history.push('/gnrm')
         alert(res.data.message)
         resetDocument()
@@ -215,7 +215,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
+		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
         history.push('/gnrm')
         alert(res.data.message)
         resetDocument()
@@ -259,7 +259,7 @@ const FormGNRM = (props) => {
             setMedia(documentDetail.form.lampiran.media)
             setPanjang(documentDetail && documentDetail.form.pihak_terkait.length)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             
                         
             console.log(mediaUrl)

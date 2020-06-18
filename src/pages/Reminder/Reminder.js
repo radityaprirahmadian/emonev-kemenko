@@ -39,7 +39,7 @@ const Reminder = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/tabel`, config)
             setFilter({...filter, total: res.data.notifikasi.length})
         }
         catch (err) {
@@ -53,7 +53,7 @@ const Reminder = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
             setAllReminder(res.data.notifikasi)
             console.log(res.data)
         }
@@ -69,7 +69,7 @@ const Reminder = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/notifikasi/${id}`, config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`, config)
             getAllReminder()
             getReminderLength()
         }

@@ -30,7 +30,7 @@ const Topbar = (props) => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`)
                 setDocuments(res.data.infografis)
         }
         catch (err) {
@@ -45,7 +45,7 @@ const Topbar = (props) => {
     }, [token])
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
         .then(res => {
             setInstansi(res.data.instansi)
             console.log('wow')
