@@ -1,4 +1,4 @@
-import React,{Component,Fragment,useState,useContext,useEffect} from 'react';
+import React,{Fragment,useState,useContext,useEffect} from 'react';
 import './FormGNRM.css';
 import logo_kemenko from '../../assets/logo_kemenko.png'
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
@@ -11,42 +11,11 @@ import Scroll, { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
 import plus2 from '../../assets/plus2.png'
 
-const datas = {
-    kegiatan_prioritas: [
-        {
-            nama_kegiatan: 'Revolusi mental dalam sistem pendidikan untuk memperkuat nilai integritas, etos kerja, gotong royong, dan budi pekerti',
-            program_prioritas: [
-                'Pengembangan budaya belajar dan lingkungan sekolah yang menyenangkan dan bebas dari kekerasan (bullying free school environment)',
-                'Penguatan pendidikan agama, nilai toleransi beragama, dan budi pekerti dalam sistem pendidikan',
-                'Peningkatan kepeloporan dan kesukarelawanan pemuda, serta pengembangan pendidikan kepramukaan'
-            ]
-        },
-        {
-            nama_kegiatan: 'Revolusi mental dalam tata kelola pemerintahan untuk penguatan budaya birokrasi yang bersih, melayani, dan responsif',
-            program_prioritas: [
-                'Peningkatan budaya kerja pelayanan publik yang ramah, cepat, efektif, efisien, dan terpercaya',
-                'Penerapan disiplin, reward dan punishment dalam birokrasi ',
-            ]
-        },
-        {
-            nama_kegiatan: 'Revolusi mental dalam sistem sosial untuk memperkuat ketahanan, kualitas dan peran keluarga dan masyarakat dalam pembentukan karakter ',
-            program_prioritas: [
-                'Penyiapan kehidupan berkeluarga dan kecakapan hidup',
-                'Peningkatan ketahanan keluarga berdasarkan siklus hidup dengan memperhatikan kesinambungan antargenerasi, sebagai upaya penguatan fungsi dan nilai keluarga ',
-            ]
-        },
-
-    ]
-}
-    
-
-
 const FormGNRM = (props) => {
     const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview } = useContext(ArtikelContext)
     
     const Link = Scroll.Link;
 
-    console.log(documentDetail)
     const { token } = useContext(AuthContext)
     const history = useHistory()
     const [ panjang, setPanjang] = useState('0')
@@ -57,8 +26,8 @@ const FormGNRM = (props) => {
         tahun: '',
         id_program: '',
         instansi:'',
-        // kp: '',
-        // prop: '',
+        kp: '',
+        prop: '',
         gerakan: '',
 		kegiatan: {
 			nama_program: '',
@@ -87,15 +56,16 @@ const FormGNRM = (props) => {
 			nama: '',
 			jabatan: '',
 			nip: '',
-		},
+        },
+        deleted_media: []
     })
     
     const {
         tahun,
         id_program,
         instansi,
-        // kp,
-        // prop,
+        kp,
+        prop,
         gerakan,
         kegiatan,
         nama_program,
@@ -115,12 +85,17 @@ const FormGNRM = (props) => {
         jabatan,
         nip
     } = data
-    console.log(data)
 
     const [media, setMedia] = useState([])
     const [mediaUrl, setMediaUrl] = useState([])
     const [form, setForm] = useState([])
-
+    const [proyek, setProyek] = useState([])
+    const [kpOptions, setKpOptions] = useState([])
+    const [propOptions, setPropOptions] = useState([])
+    const [gerakanOptions, setGerakanOptions] = useState([])
+    const [selectedKp, setSelectedKp] = useState(false)
+    const [deletedMedia, setDeletedMedia] = useState([])
+    
     const setPreview = (e) => {
         e.preventDefault()
         preview()
@@ -135,9 +110,12 @@ const FormGNRM = (props) => {
 
     const onChangeFiles = (event) => {
         setMedia([...media , ...event.target.files])
+        event.target.value = null
     }
 
     const onChange = (event, property, array = false, index) => {
+        if (event.target.name === 'kp') setSelectedKp(event.target.value)
+        
 		if (property)
 			setData({
 				...data,
@@ -158,14 +136,6 @@ const FormGNRM = (props) => {
             setData({ ...data, [event.target.name]: event.target.value })    
     }
     
-
-    const [ indexKP , setIndexKP] = useState();
-
-    const onSetIndex = (event,index) => {
-        setIndexKP(index) 
-    }
-    
-    console.log(indexKP)
     const onSubmit = async (event) => {
 		event.preventDefault()
 
@@ -186,7 +156,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm',formData,config,)
+		const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=gnrm',formData,config,)
         history.push('/gnrm')
         alert(res.data.message)
         resetDocument()
@@ -196,17 +166,15 @@ const FormGNRM = (props) => {
     console.log(lebar)
     
     const onEdit = async (event) => {
-		event.preventDefault()
+        event.preventDefault()
 
 		const formData = objectToFormData(data)
 
-		for (let i = 0; i < media.length; i++) {
-			formData.append(`media`, media[i])
-		}
-
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-		}
+        if (media.length > 0) {
+            for (let i = 0; i < media.length; i++) {
+                formData.append(`media`, media[i])
+            }
+        }  else formData.append('media', new File([null], 'blob'))
 
 		const config = {
 			headers: {
@@ -215,7 +183,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
+		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
         history.push('/gnrm')
         alert(res.data.message)
         resetDocument()
@@ -223,6 +191,16 @@ const FormGNRM = (props) => {
     }
     
     useEffect(() => {
+        (async () => {
+            const proyekData = await axios.get('https://test.bariqmbani.me/api/v1/proyek')
+
+            const { proyek, gerakan } = proyekData.data
+            
+            setProyek(proyek)
+            setGerakanOptions(gerakan)
+            setKpOptions((proyek.map(proyek => proyek.kp)))
+        })()
+
         if(props.match.params.id) {
             resetDocument()
             getDocumentDetail({id,type})
@@ -235,22 +213,23 @@ const FormGNRM = (props) => {
         }
     },[])
 
-    const urlToFile = async (url) => {
-        const getFileName = (url) => {
-            const split = url.split('/')
-            return split[split.length -1]
+    useEffect(() => {
+        const getProp = (kp) => {
+            let kpIndex
+            proyek.forEach((proyek, index) => {
+                if (proyek.kp === kp) kpIndex = index
+            })
+            return proyek[kpIndex].prop
         }
-        
-        const name = getFileName(url)
-        
-        try {
-            const res = await fetch(url)
-            const blob = res.blob()
-            return new File([blob],name)
-        }
-        catch(err) {
-            console.log(err)
-        }
+
+        if(selectedKp) setPropOptions(getProp(selectedKp))
+
+    }, [selectedKp])
+    
+    
+    const getFileName = (url) => {
+        const split = url.split('/')
+        return split[split.length - 1]
     }
 
     useEffect(() => {
@@ -258,44 +237,47 @@ const FormGNRM = (props) => {
             setData(documentDetail && documentDetail.form)
             setMedia(documentDetail.form.lampiran.media)
             setPanjang(documentDetail && documentDetail.form.pihak_terkait.length)
+            setSelectedKp(documentDetail.form.kp)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
-            
-                        
-            console.log(mediaUrl)
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
 
             const files = []
-            mediaFileUrl.forEach(async url =>{
-                const file = await urlToFile(url)
-                console.log(file)
-                files.push(file)
+            mediaFileUrl.forEach(url => {
+                fetch(url).then(res => res.blob()).then(blob => {
+                    const objectURL = URL.createObjectURL(blob)
+                    blob.name = getFileName(url)
+                    files.push(blob)
+                })
             })
 
             setMedia(files)         
             setMediaUrl(mediaFileUrl)
+            
+            return (() => {
+                if (isEditing) resetDocument()
+                editDocumentFalse()
+            })
+            
         }
     },[documentDetail])
-
     
-    const onDeleteMedia = (e,x) => {
-        console.log(x)
-        e.preventDefault()
-        let meds = media.splice(x,1)
-        setMedia(media)
-        console.log(media)
+    const onDeleteMedia = (isFile, filename, data) => {
+        setMediaUrl(mediaUrl.filter(media => getFileName(media) !== filename))
+        if (isFile) setMedia(media.filter(media => media !== data))
+        else setMedia(media.filter(media => media.name !== filename))
+        const deleted = [...deletedMedia, filename]
+        setDeletedMedia(deleted)
     }
 
-    
-    // useEffect(() => {
-    //     console.log(documentDetail)
-    //     if (documentDetail){
+    useEffect(() => {
+        setData({ ...data, deleted_media: deletedMedia })
+    }, [deletedMedia])
 
-            
-    //     }
-    // },[])
 
-    console.log(media)
-
+    console.log('coba', mediaUrl)
+    console.log('coba', documentDetail)
+    console.log('coba media', media)
+    console.log('coba delted', deletedMedia)
 
     return(
       <Fragment>
@@ -376,6 +358,93 @@ const FormGNRM = (props) => {
                                         onChange={(event) => onChange(event,'kegiatan')}
                                     />
                                 </div>
+                                <div>
+                                    <label>Kegiatan Prioritas</label>
+                                    {
+                                        documentDetail ?
+                                        <select 
+                                            onChange={onChange} 
+                                            class="gnrm-select"
+                                            name="kp"
+                                            style={{marginLeft: '70px'}}
+                                        >
+                                            {
+                                                kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 116 ? `${kp.substr(0, 113)}...` : kp}</option>)
+                                            }
+                                        </select> :
+                                        <select 
+                                            onChange={onChange} 
+                                            class="gnrm-select"
+                                            name="kp"
+                                            style={{marginLeft: '70px'}}
+                                        >
+                                            <option selected={true} hidden></option>
+                                            {
+                                                kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 116 ? `${kp.substr(0, 113)}...` : kp}</option>)
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <div>
+                                    <label>Proyek Prioritas</label>
+                                    {
+                                        documentDetail && selectedKp && propOptions ?
+                                        <select 
+                                            onChange={onChange} 
+                                            class="gnrm-select selectpicker"
+                                            name="prop"
+                                            style={{marginLeft: '83px'}}
+                                        >
+                                            {
+                                                propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                            }
+                                            {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
+                                        </select> :
+                                        <select 
+                                            onChange={onChange} 
+                                            class="gnrm-select selectpicker"
+                                            name="prop"
+                                            style={{marginLeft: '83px'}}
+                                        >
+                                            <option selected={true} hidden></option>
+                                            {
+                                                propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                            }
+                                            {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
+                                        </select>
+                                    }
+                                </div>
+                                
+                                {
+                                    selectedKp === 'Penguatan pusat-pusat perubahan gerakan revolusi mental' &&
+                                    <div>
+                                        <label>Gerakan</label>
+                                        {
+                                            documentDetail ?
+                                            <select 
+                                                onChange={onChange} 
+                                                class="gnrm-select"
+                                                name="gerakan"
+                                                style={{marginLeft: '145px'}}
+                                            >
+                                                {
+                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                }
+                                            </select> :
+                                            <select 
+                                                onChange={onChange} 
+                                                class="gnrm-select"
+                                                name="gerakan"
+                                                style={{marginLeft: '145px'}}
+                                            >
+                                                <option selected={true} hidden></option>
+                                                {
+                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                }
+                                            </select>
+                                        }
+                                    </div>
+                                }
                                 {/* <div>
                                     <label>Kegiatan Prioritas</label>
                                     <select className="admin-role" style={{height: "42px", 
@@ -860,7 +929,9 @@ const FormGNRM = (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <div style={{height: "fit-content", 
+                                    {
+                                        media && media.length > 0 ? (
+                                            <div style={{height: "fit-content", 
                                                 marginLeft: "208px", 
                                                 width: "955px",
                                                 border: '1px solid black',
@@ -868,41 +939,100 @@ const FormGNRM = (props) => {
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
                                             }} 
-                                    >
-                                    {
-                                        media.map((media,index) => {
-                                            return(
-                                                <div key={media.lastModified}>
-                                                        <div style={{width:'150px', 
-                                                                    height:'150px', 
-                                                                    backgroundColor:'black', 
-                                                                    marginRight:'35px', 
-                                                                    position:'relative'}}
-                                                        >
-                                                            <div style={{position:'absolute', 
-                                                                        backgroundColor:'#C04B3E' , 
-                                                                        width:'25px' , 
-                                                                        height:'25px', 
-                                                                        borderRadius:'50%', 
-                                                                        top:'-7px', 
-                                                                        right:'-7px', 
-                                                                        lineHeight:'25px', 
-                                                                        textAlign:'center',
-                                                                        cursor:'pointer'}}
-                                                            onClick={(e) => onDeleteMedia(e,index)}> X </div>
-                                                        </div>
-                                                        <div style={{marginTop:'10px' , 
-                                                                    width:'150px' , 
-                                                                    height:'20px', 
-                                                                    overflow:'hidden', 
-                                                                    lineHeight:'20px'}}
-                                                        >{media.name}</div>
-                                                    
-                                                </div>
-                                            )
-                                        })
+                                            >
+                                                {
+                                                    media.map((media,index) => {
+                                                        const objectURL = URL.createObjectURL(media)
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'}}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer'}}
+                                                                        onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px'}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {media.name}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                border: '1px solid black',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    mediaUrl.map((url,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'}}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer'}}
+                                                                        onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px'}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {getFileName(url)}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
                                     }
-                                    </div>
                                 </div>
                             </div>
                         
