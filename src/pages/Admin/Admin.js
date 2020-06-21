@@ -5,7 +5,6 @@ import './Admin.css';
 
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import Popup from '../../component/Popup/Popup';
-import SearchBar from '../../component/SearchBar/SearchBar';
 import plus from '../../assets/plus.png';
 import Filter from '../../component/Filter/Filter';
 import TabelGNRM from '../../component/TabelGNRM/TabelGNRM';
@@ -47,7 +46,7 @@ const Admin = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user`, config)
             setFilter({...filter, totalUser: res.data.users.length})
         }
         catch (err) {
@@ -62,7 +61,7 @@ const Admin = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
             // console.log(res)
             setUsers(res.data.users)
         }
@@ -78,7 +77,7 @@ const Admin = (props) => {
     //         }
     //     }
     //     try {
-    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
     //         // console.log(res)
     //         setUsers(res.data.users)
     //     }
@@ -94,7 +93,7 @@ const Admin = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
+            await axios.delete(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
             getAllUser()
             getAllUserLength()
         }

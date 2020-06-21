@@ -2,9 +2,11 @@
 
 .home-section-2{
     width: 100%;
-    height: 664px;
-    background-color: #3F5064; 
+    height: 951px;
+    position: relative;
+    background-color: #59CBA6; 
     padding-top: 29.77px;  
+    color: black;
 }
 
 .home-statistik {
@@ -17,25 +19,33 @@
     padding-right: 10px;
 }
 .home-section-4 {
-    height: 856px;
-    z-index: 99;
+    background-image: linear-gradient(to right bottom , #E76975 , #FDB99B);
+    height: 1024px;
+    position: relative;
 }
 
-/* .home-pic {
-    
-    z-index:-1;
-} */
+#curve {
+    position: absolute;
+    bottom: 0;
+}
+
+.home-pic {
+    margin:0;
+    height: 770px;
+}
 
 .home-desc{
+    width: 100%;
     position: relative;
     color: white;
-
+    
 }
 
 
 .container-fluid.costum-container {
+    margin: 0px 0px 0px 36px;
     margin-left: 36px;
-    margin-top: 149px;
+    padding-top: 149px;
 }
 .home-kementrian {
     font-size: 36px;
@@ -56,7 +66,8 @@
     font-size: 48px;
     font-weight: bold;
     width: 298px;
-    color: #D33732;
+    color: white;
+    line-height: 59px;
     margin-bottom: 32px;
 }
 
@@ -76,6 +87,8 @@
     top: -563px;
     height: 420px;
     left: 36px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
 }
 
 .home-title {
@@ -99,7 +112,7 @@
     position: absolute;
     bottom: 0;
     border-radius: 10px;
-    background-color: #D33732;
+    background-color: #424FC8;
     color: white;
     border: none;
     margin-top: 67px;
@@ -132,25 +145,32 @@
 }
   
 .home-other {
-    margin-top: 60px;
+    width: 95%;
+    margin: 60px auto 0;
     display: grid;
     grid-column-gap: 16px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     position: absolute;
     left: 36px;
     bottom: 4px;
+    padding-bottom: 2px;
+
 }
 
 .home-other-news {
     font-size: 12px;
     line-height: 14px;
     font-weight: 600;
+    margin: auto;
     width: 200px;
     height: 100px;
     color: white;
     border-top: 4px solid white;
     padding-top: 12px;
+    padding-left: 4px;
     overflow: hidden;
+    background-image: linear-gradient(to bottom , #424FC8, #8380EA);
+    border-radius: 0 0 10px 10px;
 }
 
 .home-other a{
@@ -172,6 +192,10 @@
     width: auto;
 }
 
+.home-section-3{
+    position: relative;
+}
+
 .home-section-3-title{
     margin: 32px auto;
     font-weight: bold;
@@ -182,17 +206,18 @@
 .home-section-2-title{
     font-weight: bold;
     font-size: 48px;
-    color: white;
+    color: black;
     margin-left: 46px;
 }
 
 .button-lihat-gallery{
-    margin: 25px 0px 80px 960px;
+    margin: 0 0px 80px 960px;
     font-weight: bold;
     font-size: 16px;
     width: 273px;
     height: 75px;
+    color:white;
     border-radius: 10px;
     border: none;
-    background-color: #C4C4C4;
+    background-color: #424FC8;
 }

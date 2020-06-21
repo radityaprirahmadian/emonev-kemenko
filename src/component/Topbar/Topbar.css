@@ -1,5 +1,5 @@
 .top-bar {
-    background-color: none;
+    background-image: linear-gradient(to right , #47807F , #005B61);
     height: 101px;
     position: fixed;
     top: 0;
@@ -10,7 +10,7 @@
 }
 
 .top-bar-default {
-    background-color: #D33732;
+    background-image: linear-gradient(to right , #47807F , #005B61);
     height: 101px;
     position: fixed;
     top: 0;
@@ -25,19 +25,19 @@
 }
 
 .top-bar li>.active .top-bar-menu-container{
-    border-bottom: 2px solid #D33732;
+    border-bottom: 2px solid white;
 }
 .top-bar.scroll li>.active .top-bar-menu-container{
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 
 .top-bar-default li>.active .top-bar-menu-container {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
 }
 
 .top-bar.scroll .top-bar-menu-container:hover,
 .top-bar-default .top-bar-menu-container:hover{
-    border-bottom: 2px solid #FCCB82;
+    border-bottom: 2px solid white;
 }
 
 .top-bar-menu-container{
@@ -221,6 +221,7 @@
 
 .top-bar-navigation .logo-kemenko {
     padding-left: 11px;
+    height: 80px;
     margin-left: 14px;
 }
 

@@ -38,10 +38,10 @@ const Infografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?`, config)
                 setFilter({...filter, totalDoc: res.data.infografis.length})
             } else {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?&instansi=${user && user.instansi.nama_pendek}`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?&instansi=${user && user.instansi.nama_pendek}`, config)
                 setFilter({...filter, totalDoc: res.data.infografis.length})
             }
         }
@@ -58,10 +58,10 @@ const Infografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
                 setDocuments(res.data.infografis)
             } else {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
                 setDocuments(res.data.infografis)
             }
         }
@@ -77,7 +77,7 @@ const Infografis = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/infografis/${id}`, config)
+            await axios.delete(`https://test.bariqmbani.me/api/v1/infografis/${id}`, config)
             getAllDocument()
         }
         catch (err) {

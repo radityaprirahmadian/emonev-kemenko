@@ -1,24 +1,24 @@
 .container-for-card{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px;
     /* margin: 32px 38px 0 88px; */
-    /* border: 1px solid black; */
-    box-sizing: border-box;
+
 
 }
 
 .card-container {
     /* margin-right:  */
-    width: 400px;
-    height: 500px;
-    background-color: white;
+    width: 420px;
+    border: 2px solid white;
+    border-radius: 10px;
+    height: 574px;
+    color: white;
 }
 
 .date-and-button{
     display: flex;
     flex-direction: row;
-    margin-top: 8px;
+    margin-top: 62px;
     /* border: 1px solid black; */
 }
 
@@ -27,7 +27,7 @@
 }
 
 .card-date{
-    /* border: 1px solid black; */
+    line-height: 30px;
 }
 
 .spacer{
@@ -35,14 +35,14 @@
 }
 
 .detail-button{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 30px;
-    background-color: #8E4134;
+    background-color: #424FC8;
     color: white;
-    width: 150px;
-    height: 50px;
+    width: 110px;
+    height: 30px;
     font-size: 16px;
     font-weight: bold;
     margin-left: 0px;
@@ -52,17 +52,31 @@
     /* margin */
 }
 
-.card-background{
-    width: 400px;
-    height: 400px;
+.card-background {
+    width: 420px;
+    box-sizing: border-box;
+}
+
+.card-title-bottom-inf {
+    font-weight: normal;
+    margin: 0 0 0 10px;
+}
+
+.card-background img{
+    width: 396px;
+    box-sizing: border-box;
+    height: 404px;
+    overflow: hidden;
+    margin: 10px;
+    border-radius: 10px;
 }
 
 .card-title-bottom{
     font-size: 16px;
     font-weight: bold;
-    margin: 11px 0 0 7px;
+    margin: 11px 0 0 10px;
 }
 
 .card-date {
-    margin: 0 0 0 7px
+    margin: 0 0 0 10px
 }

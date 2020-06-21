@@ -46,7 +46,7 @@ const EditAdmin = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserData(res.data.user)
             }
@@ -75,7 +75,7 @@ const EditAdmin = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             history.push(`/admin`)
         }
@@ -102,7 +102,7 @@ const EditAdmin = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
             console.log(res.data.message)
         }
         catch (err) {

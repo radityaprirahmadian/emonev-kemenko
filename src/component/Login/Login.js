@@ -7,6 +7,14 @@ import { Link, useHistory, withRouter } from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import NewPassword from '../NewPassword/NewPassword';
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
+import aset_1 from '../../assets/decoration/aset_1.png'
+import aset_2 from '../../assets/decoration/aset_2.png'
+import aset_3 from '../../assets/decoration/aset_3.png'
+import aset_4 from '../../assets/decoration/aset_4.png'
+import aset_5 from '../../assets/decoration/aset_5.png'
+import aset_6 from '../../assets/decoration/aset_6.png'
+import aset_7 from '../../assets/decoration/aset_7.png'
+
 
 const Login = (props) => {
     const { isAuthenticated, login, fail, token, loadUser, user, remember, rememberToken, userDetail } = useContext(AuthContext);
@@ -87,59 +95,64 @@ const Login = (props) => {
 
                     <Fragment>
                         <div className="login-page">
-                            <div className="login-page-left">
-                                <div className="login-page-left-title">
-                                    <h1>LOGIN</h1>
-                                    <h2>E-Report</h2>
-                                </div>
-    
-                                <form className="form-login" autocomplete="off" onSubmit={onSubmit}> 
-                                    <input 
-                                        type="text" 
-                                        className="username" 
-                                        name="username" 
-                                        value={username} 
-                                        placeholder="Username" 
-                                        required
-                                        onChange={onChange}
-                                    /> <br/>
-    
-                                    <input 
-                                        type="password" 
-                                        className="password" 
-                                        name="password" 
-                                        value={password}
-                                        required
-                                        placeholder="Password"
-                                        onChange={onChange}
-                                    />
-    
-                                    <br/>
-                                    <div >
-                                        <label className="ingat-saya">Tetap Masuk
-                                            <input type="checkbox" className="checkbox" onClick={setChecked}/>
-                                            <span className="checkmark"></span>
-                                        </label>
+                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
+                                <div className="col-5 login" style={{width:'424px'}}>
+                                    <div className="login-page-left-title">
+                                        <h1>LOGIN</h1>
+                                        <h1>E-REPORT</h1>
                                     </div>
-    
-                                    <button className="button-login" type="submit">MASUK</button>
-                                </form>
+                                    <img src={aset_1} alt='decoration 1' style={{bottom:'23px' , left: '16px'}}/>
+                                    <img src={aset_2} alt='decoration 2' style={{top:'17px' , right: '18px'}}/>
+                                    <img src={aset_3} alt='decoration 3' style={{bottom:'23px' , right: '34px'}}/> 
+                                </div>
+
+                                
+                                <div className="col-7 login" style={{width:'693px'}}>
+                                    <form className="form-login" autoComplete="off" onSubmit={onSubmit}> 
+                                        <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'32px', marginLeft:'15px'}}>Nama Akun</label><br/>
+                                        <input 
+                                            type="text" 
+                                            className="username" 
+                                            name="username" 
+                                            value={username} 
+                                            required
+                                            onChange={onChange}
+                                        /> <br/>
+
+                                        <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'27px',marginLeft:'15px'}}>Kata Sandi</label><br/>
+                                        <input 
+                                            type="password" 
+                                            className="password" 
+                                            name="password" 
+                                            value={password}
+                                            required
+                                            onChange={onChange}
+                                        />
+
+                                        <br/>
+                                        <div >
+                                            <label className="ingat-saya">Tetap Masuk
+                                                <input type="checkbox" className="checkbox" onClick={setChecked}/>
+                                                <span className="checkmark"></span>
+                                            </label>
+                                        </div>
+        
+                                        <button className="button-login" type="submit">MASUK</button>
+                                    </form>
+                                    <Link to='/lupa-password'>
+                                        <div style={{marginLeft:'241px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Password?</div>
+                                    </Link>
+
+                                    <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
+                                    <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
+                                    <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
+                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '39px'}}/> 
+                                </div>
                             
-                            <Link to='/lupa-password'>
-                                <div style={{marginLeft:'300px', fontWeight:'bold' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Password?</div>
-                            </Link>
-                            </div>
-                            
-    
-    
-                            
-                            <div className="spacer"></div>
-                            
-                            <div className="login-page-right">
-                                <img src={login_cover} className="login-cover"/>
                             </div>
                         </div>
                         </Fragment>
+
                 }
 
                 

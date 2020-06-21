@@ -1,11 +1,13 @@
 .footer {
-    height: 360px;
+    height: 536px;
     position: relative;
     bottom:0;
     width: 100%;
-    background-color: #3F5064;
-    color: white;
+    background-image: linear-gradient(to bottom , #59CBA6 , #FDE47F);
+    color: black;
     box-sizing: border-box;
+    padding: 180px 17px 2px 20px;
+    overflow: hidden;
 }
 
 .footer-left {
@@ -30,7 +32,7 @@
 
 .footer-left-menu ul li a{
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 .footer-left-menu ul li a:hover{
@@ -61,6 +63,14 @@
     z-index: 999;
 
 }
+
+.curve_footer {
+    position: absolute;
+    width:100%;
+    top: 0;
+    left: 0;
+    right: 0;
+}
 .footer-left-social-logo ul li {
     display: block;
 }
@@ -80,12 +90,9 @@
 } */
 
 .social-media-container i:hover{
-    color: white;
+    color: black;
 }
 
-.footer-right-info{
-    margin-right: 5px;
-} 
 
 .footer-right-title {
     font-size: 12px;
@@ -109,8 +116,26 @@
     margin-left: 32px;
 }
 
-
-
 .clear {
     clear: both;
+}
+
+
+.footer-head {
+    color: black;
+    height: 37px;
+    font-size: 24px;
+}
+
+tbody .footer-head {
+    height: 45px;
+}
+
+.footer-head-title{
+    font-weight: 700;
+}
+
+.footer-head-title-sosial{
+    font-weight: 700;
+    overflow: visible;
 }

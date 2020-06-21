@@ -22,7 +22,7 @@ const ArtikelState = props => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${data.id}?type=${data.type}`,config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${data.id}?type=${data.type}`,config)
             dispatch({
                 type: 'GET_DOCUMENT_DETAIL',
                 payload: res.data.document
