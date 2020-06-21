@@ -18,7 +18,7 @@ const InfografisState = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis/${id}`,config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis/${id}`,config)
             dispatch({
                 type: 'SET_INFOGRAFIS',
                 payload: res.data.infografis

@@ -4,7 +4,6 @@ import './App.css';
 import Footer from './component/Footer/Footer';
 import { BrowserRouter , Route, Link, Switch } from "react-router-dom";
 import Login from './component/Login/Login';
-import Sidebar from './component/Sidebar/Sidebar';
 import SearchBar from './component/SearchBar/SearchBar';
 import Card from './component/Card/Card';
 import SideBarOff from './component/SideBarOff/SideBarOff';
@@ -57,7 +56,7 @@ const App = () => {
     if (!cleanup) {
       console.log("test");
       
-      const socket = io('https://api.simonev.revolusimental.go.id')
+      const socket = io('https://test.bariqmbani.me')
       socket.on("connect", () => {
         socket.emit("notif_subscribe", { user: id });
       });

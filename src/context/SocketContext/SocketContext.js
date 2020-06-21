@@ -7,7 +7,7 @@ export const SocketContext = createContext();
 
 
 const SocketState = (props) => {
-    const socket = io('https://api.simonev.revolusimental.go.id')
+    const socket = io('https://test.bariqmbani.me')
     const [notifs, setNotifs] = useState([])
 
     const getNotif = (id) => {

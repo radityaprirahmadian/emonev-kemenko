@@ -37,7 +37,7 @@ const AuthState = (props) => {
             }
         }
         try {
-            const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/auth', config)
+            const res = await axios.get('https://test.bariqmbani.me/api/v1/auth', config)
             dispatch({
                 type: 'USER_LOADED',
                 payload: res.data.user
@@ -60,7 +60,7 @@ const AuthState = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
             dispatch({
                 type: 'GET_USER_DETAIL',
                 payload: res.data.user
@@ -80,7 +80,7 @@ const AuthState = (props) => {
         }
 
         try {
-            const res = await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/auth?remember=${ingat}`,formData,config)
+            const res = await axios.post(`https://test.bariqmbani.me/api/v1/auth?remember=${ingat}`,formData,config)
             dispatch({
                     type: 'LOGIN',
                     payload: res.data

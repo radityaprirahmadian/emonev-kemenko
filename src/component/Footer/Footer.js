@@ -3,13 +3,14 @@ import {AuthContext} from '../../context/Auth/AuthContext';
 import './Footer.css';
 import line from '../../assets/line.png';
 import logo_gabungan from '../../assets/logo_gabungan.png';
-import logo_gnrm from '../../assets/logo_gnrm.png';
+import logo_gnrm_1 from '../../assets/logo_gnrm_1.png';
 import { BrowserRouter , Route, Link, Switch, NavLink } from "react-router-dom";
 import logo_kemenko2 from '../../assets/logo_kemenko2.png';
 import home from '../../assets/home.png';
 import mail from '../../assets/mail.png';
 import phone from '../../assets/phone.png';
 import facebook from '../../assets/facebook.png';
+import subtract from '../../assets/Subtract.png';
 import twitter from '../../assets/twitter.png';
 import instagram from '../../assets/instagram.png';
 import youtube from '../../assets/youtube.png';
@@ -20,7 +21,8 @@ const Footer = () => {
 
         return(
             <Fragment>
-                <nav className="footer">
+                
+                <div className="footer">
                     <div className="row">
                         <div className="col-6" style={{height:'360px'}}>
                             <div className="footer-left">
@@ -123,22 +125,22 @@ const Footer = () => {
                                                 <ul>
                                                     <li>
                                                         <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
-                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan</h1>
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://twitter.com/kemenkopmk" target="_blank">
-                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>@kemenkopmk</h1>
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>@kemenkopmk</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://instagram.com/kemenko_pmk" target="_blank">
-                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>kemenko_pmk</h1>
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>kemenko_pmk</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
-                                                            <h1 style={{fontSize:'14px', lineHeight:'28px', fontWeight:'600'}}>Kemenko PMK</h1>
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Kemenko PMK</h1>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -149,20 +151,20 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-6" style={{height:'360px', display:'inline-block'}}>
-                            <img src={line} alt="garis" style={{position:'absolute', left:'0', top:'55px'}}/>
+                        <div className="col-6" style={{height:'360px', display:'inline-block' , paddingLeft: '0'}}>
+                            <img src={line} alt="garis" style={{position:'absolute', left:'-15px', top:'55px', height:'290px'}}/>
                                     
                             <div className="footer-right">
                                 <div className="footer-right-logo">
-                                    <img src={logo_kemenko2} alt="gabungan" style={{marginRight:'155.42px', height:'125px'}}/>
-                                    <img src={logo_gnrm} alt="gabungan" />
+                                    <img src={logo_kemenko2} alt="gabungan" style={{marginRight:'18.42px', height:'125px'}}/>
+                                    <img src={logo_gnrm_1} alt="gabungan" />
                                 </div>
 
                                 <div className="footer-right-info">
                                     <div className="footer-right-title">
                                         <p>
                                         Sekretariat Revolusi Mental<br/>
-                                        Kementerian Koordinator Bidang<br/>
+                                        Kementerian Koordinator Bidang
                                         Pembangunan Manusia dan Kebudayaan
                                         </p>                
                                     </div>
@@ -186,7 +188,8 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                </nav>
+                    <img src={subtract} className="curve_footer"></img>
+                </div>
             </Fragment>
         );
 }

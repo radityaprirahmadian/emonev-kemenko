@@ -22,13 +22,13 @@ const Artikel = (props) => {
     const download = async () => {
         setTimeout(() => {
             const response = {
-                file: `https://api.simonev.revolusimental.go.id/api/v1/infografis/${props.match.params.id}/download`
+                file: `https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}/download`
             }
             window.open(response.file)
         }, 100)
         
         // try {
-        //     await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis/${props.match.params.id}/download`)
+        //     await axios.get(`https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}/download`)
         // }
         // catch (err) {
         //     console.log(err)
@@ -45,7 +45,7 @@ const Artikel = (props) => {
     },[])
 
     useEffect(() => {
-        const wow = infografisDetail && infografisDetail.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
+        const wow = infografisDetail && infografisDetail.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
         setGambar(wow)
     },[infografisDetail])
 

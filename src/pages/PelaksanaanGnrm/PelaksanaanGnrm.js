@@ -46,7 +46,7 @@ const GNRM  = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm`, config)
             setFilter({...filter, totalDoc: res.data.document.length})
         }
         catch (err) {
@@ -60,7 +60,7 @@ const GNRM  = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
             setDocuments(res.data.document)
         }
         catch (err) {
@@ -75,7 +75,7 @@ const GNRM  = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=gnrm`,config)
+            await axios.delete(`https://test.bariqmbani.me/api/v1/document/${id}?type=gnrm`,config)
             getAllDocument()
             getDocumentLength()
         }

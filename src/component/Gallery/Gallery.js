@@ -20,21 +20,21 @@ console.log(userDetail)
         try {
             if(userDetail){
                 if(userDetail.role === 'admin'){
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?instansi=${userDetail.instansi.nama_pendek}`)
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri?instansi=${userDetail.instansi.nama_pendek}`)
                     console.log(res)
-                    const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
+                    const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                     setGallery(wowo)
                 } else {
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri`)
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri`)
                     console.log(res)
-                    const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
+                    const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                     setGallery(wowo)
                 }
             }
             else {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri`)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri`)
                 console.log(res)
-                const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
+                const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                 setGallery(wowo)
             }
         }
@@ -54,7 +54,7 @@ console.log(userDetail)
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/galeri/${identifier}`,config)
+            await axios.delete(`https://test.bariqmbani.me/api/v1/galeri/${identifier}`,config)
             setIdentifier(null)
             getAllGallery()
             setGalleriIndex(galleriIndex+1)
@@ -95,8 +95,10 @@ console.log(userDetail)
                         gallery.map((galler,index) => {
                             return(
                                 <Fragment>
+
                                     <div className="gallery-item" onClick={(e) => onOpen(e,index,galler)}>
-                                        <img src={galler[0]} alt={`gallery-${index}`} style={{cursor:'pointer'}}></img>
+                                        <div className='test_gallery'></div>
+                                        <img src={galler[0]} alt={`gallery-${index}`} style={{cursor:'pointer' }}></img>
                                     </div>
                                         {
                                             open ? 

@@ -39,7 +39,7 @@ const NotifState = (props) => {
             }
         }
         try {
-            const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/notifikasi',config)
+            const res = await axios.get('https://test.bariqmbani.me/api/v1/notifikasi',config)
             dispatch({
                 type: 'GET_ALL_REMINDER',
                 payload: res.data.notifikasi

@@ -1,14 +1,14 @@
 import React,{Component,Fragment, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from '../../assets/logo.png';
-import logo_simonev from '../../assets/logo_simonev.png';
+import logo_simonev_1 from '../../assets/logo_simonev_1.png';
 import './Topbar.css';
 import { BrowserRouter , Route, Link, Switch, NavLink } from "react-router-dom";
 import Login from '../Login/Login';
 import FormAdmin from '../../pages/FormAdmin/FormAdmin';
 import FormReminder from '../../pages/FormReminder/FormReminder';
 import Home from '../../pages/Home/Home';
-import logo_gif_1 from '../../assets/logo_gif.gif'
+import logo_gif_1 from '../../assets/log_gif_1.gif'
 import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'
@@ -30,7 +30,7 @@ const Topbar = (props) => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true`)
                 setDocuments(res.data.infografis)
         }
         catch (err) {
@@ -45,7 +45,7 @@ const Topbar = (props) => {
     }, [token])
 
     useEffect(() => {
-        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
+        axios.get('https://test.bariqmbani.me/api/v1/instansi')
         .then(res => {
             setInstansi(res.data.instansi)
             console.log('wow')
@@ -373,7 +373,7 @@ const Topbar = (props) => {
                             <div className="spacer"/>
                             
                             <div className="top-bar-logo-simonev">
-                                <img src={logo_simonev} alt="logo kemenko" className="logo-simonev"/>
+                                <img src={logo_simonev_1} alt="logo kemenko" className="logo-simonev"/>
                             </div>
                         </nav>
                         

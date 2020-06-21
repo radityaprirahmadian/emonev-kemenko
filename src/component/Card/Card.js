@@ -11,20 +11,20 @@ const Card = (props) => {
     const [gambar,setGambar] = useState([])
 
 
-    const truncate = (str, n) => {
-        return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
-    }
+    // const truncate = (str, n) => {
+    //     return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
+    // }
 
-    useEffect(() => {
-        truncate(props.doc.nama_program , 30)
-        const i = props.doc.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
-        setGambar(i)
-    },[props])
+    // useEffect(() => {
+    //     truncate(props.doc.nama_program , 30)
+    //     const i = props.doc.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+    //     setGambar(i)
+    // },[props])
 
-    const mydate = new Date(props.doc.tanggal_dibuat);
-    const date = mydate.getDate();
-    let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
-    let tanggal = date + ' ' + month + ' ' + mydate.getFullYear();
+    // const mydate = new Date(props.doc.tanggal_dibuat);
+    // const date = mydate.getDate();
+    // let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
+    // let tanggal = date + ' ' + month + ' ' + mydate.getFullYear();
 
     console.log(props)
         return(
@@ -32,25 +32,28 @@ const Card = (props) => {
                 <div className="card-container" style={{marginRight:'20px'}}>
                     <div className="top-card">
                         <div className="card-background">
-                            <img src={gambar[0]} style={{width:'400px', height:'400px' , overflow:'hidden'}} />
+                            <img src={bg_card}/>
                         </div>
                     </div>
 
                     <div className="bottom-card">
+                        <div className="card-title-bottom-inf"> 
+                            <h4>Infografis</h4>
+                        </div>
                         <div className="card-title-bottom">
-                            <h4>{nama}</h4>
+                            <h4>WOW</h4>
                         </div>
 
                         <div className="date-and-button">
                                 <div className="card-date">
-                                    <h4>{tanggal}</h4>
+                                    <h4>1 Juli 1998</h4>
                                 </div>
                                 <div className="spacer"></div>
                                 {
                                     !token ?
-                                        <Link to={`/artikel/` + (props.doc.gnrm_id)}>
+                                        <Link to={`/artikel/` + 12}>
                                             <button className="detail-button">
-                                                        LIHAT DETAIL
+                                                        Baca Detail
                                             </button>   
                                         </Link>
                                     : ''

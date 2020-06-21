@@ -60,7 +60,7 @@ const FormInstansi = (props) => {
         }
 
         useEffect(() => {
-            axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
+            axios.get('https://test.bariqmbani.me/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
                 console.log('wow')
@@ -84,7 +84,7 @@ const FormInstansi = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,config)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,config)
                 setInstansiDetail(res.data.instansi)
             }
             catch (err) {
@@ -100,7 +100,7 @@ const FormInstansi = (props) => {
                 }
             }
             try {
-                await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/user`,formData,config)
+                await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
                 history.push('/instansi')
             }
             catch (err) {
@@ -128,7 +128,7 @@ const FormInstansi = (props) => {
             }
 
             try {
-                const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/instansi',formData,config,)
+                const res = await axios.post('https://test.bariqmbani.me/api/v1/instansi',formData,config,)
                 addNewAdmin({
                     nama,
                     instansi,
@@ -165,7 +165,7 @@ const FormInstansi = (props) => {
                 },
             }
             try {
-                const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,formData,config,)
+                const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
                 alert(res.data.message)
                 history.push('/instansi')
             }
@@ -222,7 +222,7 @@ const FormInstansi = (props) => {
                     kontak: instansiDetail.kontak
                 })
 
-                const mediaFileUrl = `https://api.simonev.revolusimental.go.id${instansiDetail.logo}`
+                const mediaFileUrl = `https://test.bariqmbani.me${instansiDetail.logo}`
                 
                 const files = []
                 const masuk = async () => {

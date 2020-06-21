@@ -240,7 +240,6 @@ const FormGNRM = (props) => {
             setSelectedKp(documentDetail.form.kp)
 
             const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
-
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
