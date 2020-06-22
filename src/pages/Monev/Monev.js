@@ -8,23 +8,27 @@ import SearchBar from '../../component/SearchBar/SearchBar';
 import Card from '../../component/Card/Card';
 import SearchBarAdmin from '../../component/SearchBarAdmin/SeacrhBarAdmin';
 import plus from '../../assets/plus.png';
-import Filter from '../../component/Filter/Filter';
+import FilterMonev from '../../component/FilterMonev/FilterMonev';
 import TabelGNRM from '../../component/TabelGNRM/TabelGNRM';
 import Pagination from '../../component/Pagination/Pagination';
 import TabelMonev from '../../component/TabelMonev/TabelMonev';
 import {Link} from 'react-router-dom';
 import Notification from '../../component/Notification/Notification';
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Monev =  (props) =>{
     const { resetDocument , editDocumentFalse } = useContext(ArtikelContext)
-    const { user, token } = useContext(AuthContext)
+    const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
     console.log(documents)
 
     const [ filter, setFilter ] = useState({
-        limit: '',
-        page: '',
+        limit: '10',
+        page: '1',
         tahun: '',
         periode: '',
         instansi: '',
@@ -41,6 +45,21 @@ const Monev =  (props) =>{
     } = filter
 
     console.log(filter)
+
+    const getDocumentLength = async () => {
+        const config= {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`
+            }
+        }
+        try {
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
+            setFilter({...filter, totalDoc: res.data.document.length})
+        }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
 
     const getAllDocument = async () => {
         const config= {
@@ -67,6 +86,7 @@ const Monev =  (props) =>{
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/document/${id}?type=monev`,config)
             getAllDocument()
+            getDocumentLength()
         }
         catch (err) {
             console.log(err)
@@ -78,11 +98,9 @@ const Monev =  (props) =>{
         resetDocument()
     }
 
-    const [ lebar , setLebar] = useState('')
     useEffect(() => {
-        setLebar(window.screen.width) 
-        console.log(lebar)
-    } , [window.screen.width])
+        getDocumentLength()
+    },[])
 
     useEffect(() => {
         getAllDocument()
@@ -92,6 +110,12 @@ const Monev =  (props) =>{
             <Fragment>
                 <SideBarOff/>
                 <Popup notif={props.notif}/>
+                    <div className="background-after-login">
+                        <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                        <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                        <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                        <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                    </div>
                 {
                     user && user.role === 'owner' ?
                         ''
@@ -99,11 +123,11 @@ const Monev =  (props) =>{
                         <Notification/>
                 }
                         <div className="input-dan-tajuk">
-                            <Link to='/formulir-monev'>
-                                <button className="tambah-laporan" onClick={() => handleReset()}>
+                            <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-monev`}>
+                                <button className="tambah-program" onClick={() => handleReset()}>
                                     <img src={plus}></img>
                                     <div className="spacer"></div>
-                                    <p className="text-input-laporan">
+                                    <p className="text-input-program">
                                         Input Laporan
                                     </p>
                                 </button>
@@ -114,7 +138,7 @@ const Monev =  (props) =>{
                             </div>
                         </div>
                         
-                        <Filter
+                        <FilterMonev
                             getDocument={getAllDocument}
                             setFilterDoc={setFilter}
                             filterDoc={filter}
@@ -124,11 +148,12 @@ const Monev =  (props) =>{
                         />
 
                         <div className="table-container">
-                            <table className="table-monev">
+                            <table className="table-monev" style={{marginRight:'20px'}}>
                                 <thead className="table-head-monev">
                                     <tr>
                                         <th width='159px'>Tahun</th>
-                                        <th width='276px'>Nama Gerakan</th>
+                                        <th width='276px'>Kegiatan Prioritas</th>
+                                        <th width='193px'>Proyek Prioritas</th>
                                         <th width='193px'>Instansi</th>
                                         <th width='204px'>Periode Pelaporan</th>
                                         <th width='193px'>Penanggung Jawab</th>
@@ -142,13 +167,18 @@ const Monev =  (props) =>{
                                         documents.map((document,index) => {
                                             return(
                                                 <TabelMonev
+                                                    document={document}
                                                     key={index}
+                                                    kp={document.form.kp}
+                                                    prop={document.form.prop}
                                                     id={document._id}
                                                     tahun={document.form.tahun}
                                                     instansi={document.instansi}
+                                                    pihak={document.form.pihak_terkait}
+                                                    // edit={}
+                                                    delete={deleteDocument}    
                                                     periode={document.form.id_laporan}
                                                     penanggung_jawab={document.form.penanggung_jawab.nama}
-                                                    delete={deleteDocument}
                                                 />
                                             )
                                         })

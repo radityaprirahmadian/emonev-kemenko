@@ -48,6 +48,12 @@ i.material-icons {
     width: 183px;
 }
 
+.form-gnrm select {
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding: 5px;
+    height: 42px;
+}
 .form-gnrm .gnrm-id-program{
     margin-left: 123px;
     height: 42px;
@@ -85,6 +91,10 @@ i.material-icons {
     right: -1068px;
     border-radius: 0 5px 5px 0;
 }
+
+.forward.tes{
+    right: -1120px;
+}
 input[type="file"] {
     display: none;
 }
@@ -92,9 +102,9 @@ input[type="file"] {
 .label_lampiran{
     margin-left: 78px;
     cursor: pointer;
-    width: 135px;
+    width: 170px;
     height: 42px;
-    background-color: #DB9B2E;
+    background-color: #FDE47F;
     text-align: center;
     border-radius: 5px;
     line-height: 42px;

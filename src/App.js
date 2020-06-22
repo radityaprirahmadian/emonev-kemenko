@@ -44,6 +44,8 @@ import Popup from './component/Popup/Popup'
 import io from 'socket.io-client'
 import SocketState from './context/SocketContext/SocketContext';
 import LupaPassword from './pages/LupaPassword/LupaPassword'
+import ProfileInstansi from './pages/ProfileInstansi/ProfileInstansi'
+import ProfileInstansiEdit from './pages/ProfileInstansi/ProfileInstansiEdit'
 
 const App = () => {
   const [ id , setId ] = useState('')
@@ -88,183 +90,213 @@ const App = () => {
                     <Route path="/" exact component={Home} />
                     <Route path="/login" render={(props) => <Login {...props} setId={setId} />}/>
                     <Route path='/artikel/:id' component={Artikel}/>
-                    <Route path="/dashboard">
+                    <Route path="/:role/dashboard">
                       <PrivateRoute
                         exact
-                        path="/dashboard"
+                        path="/:role/dashboard"
                         component={Dashboard}
                         notif={notifs}
                       />
                     </Route>
-                    <Route path="/gnrm" >
+                    <Route path="/:role/rencana-pelaksanaan-program" >
                       <PrivateRoute
                         exact 
-                        path="/gnrm" 
+                        path="/:role/rencana-pelaksanaan-program" 
                         component={GNRM}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/monev">
+                    <Route path="/:role/laporan-monev">
                       <PrivateRoute
                         exact
-                        path="/monev"
+                        path="/:role/laporan-monev"
                         component={Monev}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/infografis">
+                    <Route path="/:role/infografis">
                       <PrivateRoute
                         exact
-                        path="/infografis"
+                        path="/:role/infografis"
                         component={Infografis}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-infografis/:id">
+                    <Route path="/:role/formulir-kabar-gnrm/">
                       <PrivateRoute
                         exact
-                        path="/formulir-infografis/:id"
+                        path="/:role/formulir-kabar-gnrm/"
                         component={FormInfografis}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-gnrm/">
+                    <Route path="/:role/formulir-kabar-gnrm-edit/:id">
                       <PrivateRoute
                         exact
-                        path="/formulir-gnrm/"
+                        path="/:role/formulir-kabar-gnrm-edit/:id"
+                        component={FormInfografis}
+                        notif={notifs} 
+                      />
+                    </Route>
+                    <Route path="/:role/formulir-gnrm/">
+                      <PrivateRoute
+                        exact
+                        path="/:role/formulir-gnrm/"
                         component={FormGNRM}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-gnrm-edit/:id">
+                    <Route path="/:role/formulir-gnrm-edit/:id">
                       <PrivateRoute
                         exact
-                        path="/formulir-gnrm-edit/:id"
+                        path="/:role/formulir-gnrm-edit/:id"
                         component={FormGNRM}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-instansi/">
+                    <Route path="/:role/formulir-instansi/">
                       <PrivateRoute
                         exact
-                        path="/formulir-instansi/"
+                        path="/:role/formulir-instansi/"
                         component={FormInstansi}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-instansi-edit/:id">
+                    <Route path="/:role/formulir-instansi-edit/:id">
                       <PrivateRoute
                         exact
-                        path="/formulir-instansi-edit/:id"
+                        path="/:role/formulir-instansi-edit/:id"
                         component={FormInstansi}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-monev/">
+                    <Route path="/:role/formulir-monev/">
                       <PrivateRoute
                         exact
-                        path="/formulir-monev/"
+                        path="/:role/formulir-monev/"
                         component={FormMonev}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/formulir-monev-edit/:id">
+                    <Route path="/:role/formulir-monev-edit/:id">
                       <PrivateRoute
                         exact
-                        path="/formulir-monev-edit/:id"
+                        path="/:role/formulir-monev-edit/:id"
                         component={FormMonev}
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/edit-admin/:id">
-                      <PrivateRoute path="/edit-admin/:id">
+                    <Route path="/:role/edit-admin/:id">
+                      <PrivateRoute path="/:role/edit-admin/:id">
                         <PrivateRouteAdmin
                           exact
-                          path="/edit-admin/:id"
+                          path="/:role/edit-admin/:id"
                           component={EditAdmin}
                           notif={notifs} 
                         />
                       </PrivateRoute>
                     </Route>
-                    <Route path="/profile/:id" >
+                    <Route path="/:role/profile/:id" >
                       <PrivateRoute
                         exact
-                        path="/profile/:id" 
+                        path="/:role/profile/:id" 
                         component={Profile}
                         notif={notifs}
                       />
                     </Route>
-                    <Route path="/edit-profile/:id">
+                    <Route path="/:role/edit-profile/:id">
                       <PrivateRoute
                         exact
-                        path="/edit-profile/:id"
+                        path="/:role/edit-profile/:id"
                         component={ProfileEdit}
                         notif={notifs}
                       />
                     </Route> 
-                    <Route path="/admin">
-                      <PrivateRoute path="/admin">
+                    <Route path="/:role/kelola-admin">
+                      <PrivateRoute path="/:role/kelola-admin">
                         <PrivateRouteAdmin
                         exact
-                        path="/admin"
+                        path="/:role/kelola-admin"
                         component={Admin}
                         notif={notifs}
                       />
                       </PrivateRoute>
                     </Route> 
-                    <Route path="/profile-admin/:id">
-                      <PrivateRoute path="/profile-admin/:id">
+                    <Route path="/:role/kelola-profile-admin/:id">
+                      <PrivateRoute path="/:role/kelola-profile-admin/:id">
                         <PrivateRouteAdmin
                         exact
-                        path="/profile-admin/:id"
+                        path="/:role/kelola-profile-admin/:id"
                         component={ProfileAdmin}
                         notif={notifs}
                       />
                       </PrivateRoute>
                     </Route> 
-                    {/* <Route path="/admin/formulir-admin/:id">
+                    {/* <Route path="/:role/admin/formulir-admin/:id">
                       <PrivateRoute
                         exact
-                        path="/admin/formulir-admin/:id"
+                        path="/:role/admin/formulir-admin/:id"
                         component={FormAdmin}
                         />
                     </Route> */}
-                    <Route path="/formulir-admin">
-                      <PrivateRoute path="/formulir-admin/">
+                    <Route path="/:role/formulir-tambah-admin">
+                      <PrivateRoute path="/:role/formulir-tambah-admin/">
                         <PrivateRouteAdmin
                         exact
-                        path="/formulir-admin"
+                        path="/:role/formulir-tambah-admin"
                         component={FormAdmin}
                         notif={notifs}
                         />
                       </PrivateRoute>
                     </Route>  
                     <Route path="/gallery" component={GalleryPage}/>
-                    <Route path="/reminder">
-                      <PrivateRoute
+                    <Route path="/:role/reminder">
+                      <PrivateRoute path="/:role/reminder">
+                        <PrivateRouteAdmin
                         exact
-                        path="/reminder"
+                        path="/:role/reminder"
                         component={Reminder}
                         notif={notifs}
-                      />
+                        />
+                      </PrivateRoute>
                     </Route> 
-                    <Route path="/formulir-reminder">
-                      <PrivateRoute
+                    <Route path="/:role/formulir-reminder">
+                      <PrivateRoute path="/:role/formulir-reminder">
+                        <PrivateRouteAdmin
                         exact
-                        path="/formulir-reminder"
+                        path="/:role/formulir-reminder"
                         component={FormReminder}
                         notif={notifs}
-                      />
+                        />
+                      </PrivateRoute>
                     </Route> 
-                    <Route path="/notifikasi" >
+                    <Route path="/:role/notifikasi" >
                       <PrivateRoute
                         exact
-                        path="/notifikasi"
+                        path="/:role/notifikasi"
                         component={Notifikasi}
                         notif={notifs}
                         setId={setId}
                       />
                     </Route> 
+                    <Route path="/:role/profile-instansi/:id" >
+                      <PrivateRoute
+                        exact
+                        path="/:role/profile-instansi/:id"
+                        component={ProfileInstansi}
+                        notif={notifs}
+                        setId={setId}
+                      />
+                    </Route>
+                    <Route path="/:role/edit-profile-instansi/:id" >
+                      <PrivateRoute
+                        exact
+                        path="/:role/edit-profile-instansi/:id"
+                        component={ProfileInstansiEdit}
+                        notif={notifs}
+                        setId={setId}
+                      />
+                    </Route>
                     {/* {/* <Route path="/preview-gnrm/:id">
                       <PrivateRoute
                         exact
@@ -273,10 +305,10 @@ const App = () => {
                         notif={notifs}
                       />
                     </Route>  */}
-                    <Route path="/instansi">
+                    <Route path="/:role/kelola-instansi">
                       <PrivateRoute
                         exact
-                        path="/instansi"
+                        path="/:role/kelola-instansi"
                         component={Instansi}
                         notif={notifs}
                       />

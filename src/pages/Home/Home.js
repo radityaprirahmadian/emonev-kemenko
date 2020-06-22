@@ -98,8 +98,9 @@ const Home = () => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis`)
-                console.log(res.data.infografis)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar`)
+                setDocuments(res.data.kabar)
+                console.log(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
@@ -122,28 +123,28 @@ const Home = () => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&instansi=${nama_instansi}`)
-            setDocumentCardLength(res.data.infografis)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${nama_instansi}`)
+            setDocumentCardLength(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
         }  
     }
 
-    const Statistika = async () => {
-        try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
-            console.log(res.data.statistik)
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
+    // const Statistika = async () => {
+    //     try {
+    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
+    //         console.log(res.data.statistik)
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
 
     const getDocumentCard = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true&limit=2&page=${page}&instansi=${nama_instansi}`)
-            setDocumentCard(res.data.infografis)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=2&page=${page}&instansi=${nama_instansi}`)
+            setDocumentCard(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
@@ -156,7 +157,7 @@ const Home = () => {
     const { pathname } = useLocation();
 
     useEffect(() =>{
-        Statistika()
+        // Statistika()
         getAllDocument()
         getDocumentCard()
         getDocumentCardLength()
@@ -292,16 +293,16 @@ const Home = () => {
                     <div className="home" style={{margin:'0'}}>
                         <div className="home-section-1">
                             {
-                                datas.post.slice((datas.post.length - 7)).map((data, index) => {
-                                // documents.slice((documents.length - 7)).map((document, index) => {
-                                //     const i = document.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
-                                //     console.log(i)
+                                // datas.post.slice((datas.post.length - 7)).map((data, index) => {
+                                documents.slice(0,7).map((document, index) => {
+                                    const i = document.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+                                    console.log(i)
                                     return (
                                         <Fragment>
                                             <div key={index} className={hidden[index] ? "home-pic" : "d-none"} style={{height:'768px'}}>
-                                                <div style={{backgroundColor:'rgba(0,0,0,0.4)', width:'100%' , height:'768px',  position:'absolute'}}>
+                                                <div style={{backgroundColor:'rgba(0,0,0,0.8)', width:'100%' , height:'768px',  position:'absolute'}}>
                                                 </div>
-                                                    <img src={data.img} style={{width: '100%' , height: '768px'}}/>
+                                                    <img src={i[index]} style={{width: '100%' , height: '768px'}}/>
                                                 
                                             </div>
                                         </Fragment>
@@ -311,52 +312,53 @@ const Home = () => {
 
                             <div className="home-desc">
                                 {
-                                    datas.post.slice((datas.post.length - 7 )).map((datas,index) => {
-                                    // documents.slice((documents.length - 7)).map((document, index) => {
+                                    // datas.post.slice((datas.post.length - 7 )).map((datas,index) => {
+                                    documents.slice(0,7).map((document, index) => {
                                     return (
-                                            // <ArtikelHome
-                                            //     key={index}
-                                            //     document={document}
-                                            //     hidden={hidden}
-                                            //     index={index}
-                                            //     tanggal_dibuat={document.tanggal_dibuat}
-                                            //     nama_program={document.nama_program}
-                                            //     instansi={document.instansi}
-                                            //     gnrm_id={document.gnrm_id}    
-                                            // />
                                             <ArtikelHome
                                                 key={index}
-                                                document={datas}
+                                                document={document}
                                                 hidden={hidden}
                                                 index={index}
-                                                tanggal_dibuat={datas.date}
-                                                nama_program={datas.title}
-                                                instansi={datas.nama}
-                                                gnrm_id={index}  />
+                                                tanggal_dibuat={document.tanggal_dibuat}
+                                                judul={document.judul}
+                                                instansi={document.instansi.nama_pendek}
+                                                _id={document._id}    
+                                            />
+                                            // <ArtikelHome
+                                            //     key={index}
+                                            //     document={datas}
+                                            //     hidden={hidden}
+                                            //     index={index}
+                                            //     tanggal_dibuat={datas.date}
+                                            //     nama_program={datas.title}
+                                            //     instansi={datas.nama}
+                                            //     gnrm_id={index}  />
                                             );
                                         })
                                 }
 
 
                                 <div className="home-other">
-                                    {/* {documents.slice((documents.length - 7)).map((document, index) => {
+                                    {documents.slice(0,7).map((document, index) => {
+                                        const i = `https://test.bariqmbani.me${document.instansi.logo}`
                                         return (
-                                            <Link to={'/artikel/'+ (document.gnrm_id)} className={hidden[index] ? "d-none" : "home-other-news"}>
+                                            <Link to={'/artikel/'+ (document._id)} className={hidden[index] ? "d-none" : "home-other-news"}>
                                                 <div key={index}>
                                                     <div className="home-news-logo">
-                                                        <img className="logo-bos" src={logo_kemenko} style={{}}/>  
+                                                        <img className="logo-bos" src={i} alt='logo_kementerian' style={{}}/>  
                                                     </div>
         
         
                                                     <div className="home-news-title">
-                                                        {document.nama_program}  
+                                                        {document.judul.lenght > 25 ? document.judul.substr(0,22)`...` : document.judul }  
                                                     </div>
                                                 </div>
                                             </Link>
                                             );
                                         })
-                                    } */}
-                                    {
+                                    }
+                                    {/* {
                                         datas.post.slice((datas.post.length - 7)).map((datas, index) => {
                                         return (
                                             <Link to={'/artikel/'+ (datas.index)} className={hidden[index] ? "d-none" : "home-other-news"}>
@@ -373,7 +375,7 @@ const Home = () => {
                                             </Link>
                                             );
                                         })
-                                    }
+                                    } */}
 
                                     <div className="button-home-prev" onClick={onPrev}>
                                         <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
@@ -415,11 +417,10 @@ const Home = () => {
                                     
                                     <div className="col-8" style={{display:'flex' , flexDirection:'row'}}>
                                         {
-                                            datas.post.slice(6).map((doc, index) => {
+                                            documentCard.map((doc, index) => {
                                                 return (
-                                                    // <Card key={index}
-                                                    // doc={doc}/>
-                                                    <Card/>
+                                                    <Card key={index}
+                                                    doc={doc}/>
                                                     );
                                                 })
                                         }

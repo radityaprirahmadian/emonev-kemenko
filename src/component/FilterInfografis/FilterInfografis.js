@@ -1,78 +1,95 @@
-import React,{Component,Fragment,useState,useEffect} from 'react';
+import React,{Component,Fragment,useState,useEffect,useContext} from 'react';
 import axios from 'axios'
+import { AuthContext } from '../../context/Auth/AuthContext';
 
 const FilterInfografis = (props) => {
-    const [allInstansi, setAllInstansi] = useState([])
-        const onChange = (e) => {
-            return props.setFilter({
-                ...props.filter,
-                [e.target.name]: e.target.value
-            })
+    const {token,user} = useContext(AuthContext)
+    const [ filterTahun , setFilterTahun ] = useState([])
+    const [ filterInstansi , setFilterInstansi ] = useState([])
+    
+    const onChange = (e) => {
+        return props.setFilter({
+            ...props.filter,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        props.getDocument()
+    }
+
+    const getDocumentLength = async () => {
+        const config= {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`
+            }
         }
-
-        const onSubmit = (e) => {
-            e.preventDefault()
-            props.getDocument()
+        try {
+            if(user && user.role === 'owner') {
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+                console.log(res)
+                setFilterTahun(res.data.filter.tahun)
+                setFilterInstansi(res.data.filter.instansi)
+            } else {
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+                setFilterTahun(res.data.filter.tahun)
+            }
         }
+        catch (err) {
+            console.log(err)  
+        }  
+    }
 
-        useEffect(() => {
-            axios.get('https://test.bariqmbani.me/api/v1/instansi')
-            .then(res => {
-                setAllInstansi(res.data.instansi)
-                console.log('wow')
-            })
-            .catch(err => {
-                console.log('wow', +err)
-            })
-        }, [])
+    useEffect(() => {
+        getDocumentLength()
+    }, [])
 
-        return(
-            <Fragment>
-                <div className="filter-container">
-                    <form id="filter-admin">
-                        <div className="filter-nama">
-                            <h6 className="nama-filter">Tahun</h6>
-                            <select className="input-filter-nama" name="tahun" onChange={onChange} >
-                                <option value="" defaultValue="" hidden></option>
-                                <option value="" defaultValue="">Semua</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
-                        </div>
-                        <div className="filter-nama-instansi" style={{width:'120px'}}>
-                            <h6 className="nama-filter">Status</h6>
-                            <select className="input-filter-nama-instansi" style={{width:'120px'}}name="status" onChange={onChange} >
-                                <option value="" defaultValue="" hidden></option>
-                                <option value="" defaultValue="">Semua</option>
-                                <option value="true">Sudah Ada</option>
-                                <option value="false">Belum Ada</option>
-                            </select>
-                        </div>
-
-                        <div className="filter-instansi">
+    return(
+        <Fragment>
+            <div className="filter-container">
+                <form id="filter-admin">
+                    <div className="filter-nama">
+                        <h6 className="nama-filter">Tahun</h6>
+                        <select className="input-filter-tahun" name="tahun" onChange={onChange} >
+                            <option value="" defaultValue="" hidden></option>
+                            <option value="" defaultValue="">Semua</option>
+                            {
+                                filterTahun.map((tahun,index) => {
+                                    return(
+                                        <option key={index} value={tahun}>{tahun}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                    
+                    {
+                    user && user.role === 'owner' ?
+                        <div className="filter-instansi" style={{marginLeft:'-79px'}}>
                             <label className="nama-filter">Instansi</label>
                             <select className="input-filter-instansi" name="instansi" onChange={onChange}>
                                 <option value="" defaultValue="" hidden></option>
                                 <option value="">Semua Instansi</option>
                                 {
-                                    allInstansi.map((instansi,index) => {
+                                    filterInstansi.map((instansi,index) => {
                                         return(
-                                            <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                            <option key={index} value={instansi}>{instansi}</option>
                                         )
                                     })
 
                                 }
                             </select>
                         </div>
-    
-                        <button className="button-submit-filter" onClick={onSubmit} style={{marginLeft:'40px'}}>FILTER</button>
-                    </form>
+                        : ''
+                    }
 
-                </div>
-            </Fragment>           
-        );
-    }
+                    <button className="button-submit-filter-info" onClick={onSubmit} style={{marginLeft:'40px'}}>FILTER</button>
+                </form>
+
+            </div>
+        </Fragment>           
+    );
+}
 
 export default FilterInfografis;

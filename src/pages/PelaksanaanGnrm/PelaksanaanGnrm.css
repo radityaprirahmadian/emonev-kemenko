@@ -8,12 +8,22 @@
     text-decoration: none;
 }
 
+.background-after-login {
+    background-color: #59CBA6;
+    position: fixed;
+    top: 0;
+    bottom : 0;
+    left: 0;
+    right: 0;
+    z-index: -9999;
+}
+
 .input-dan-tajuk .tambah-program {
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #8E4134;
+    background-color: #E76975;
     width: 220px;
     height: 46px;
     text-decoration: none;
@@ -37,7 +47,7 @@
 }
 
 .input-dan-tajuk .tambah-program .text-input-program{
-    font-weight: bold;
+    font-weight: 600;
     font-size: 16px;
     margin-right: 45px;    
     color: white;
@@ -53,17 +63,19 @@
     margin-top: 23px;
     margin-bottom: 16px;
     text-align: right;
-    color: #D33732;
+    color: black;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 900;
     letter-spacing: 0.1em;
 }
 
 .tajuk-page-2{
     margin-right: 28px;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     text-align: right;
-    color: #D33732;
+    color: black;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 900;
     letter-spacing: 0.1em;
 }

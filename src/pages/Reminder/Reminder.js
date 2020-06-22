@@ -12,6 +12,10 @@ import Notification from '../../component/Notification/Notification';
 import TabelAdminOwner from '../../component/TabelAdmin/TabelAdminOwner';
 import TabelReminderOwner from '../../component/TabelReminder/TabelReminderOwner';
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Reminder = (props) => {
     const { user, token } = useContext(AuthContext)
@@ -90,6 +94,12 @@ const Reminder = (props) => {
         <Fragment>
             <SideBarOff/>
             <Popup notif={props.notif}/>
+                <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                    <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                    <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                    <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                </div>
                 {
                     user && user.role === 'owner' ?
                         ''
@@ -97,11 +107,11 @@ const Reminder = (props) => {
                         <Notification/>
                 }
                     <div className="input-dan-tajuk">
-                        <Link to='/formulir-reminder'>
-                            <button className="tambah-reminder">
+                        <Link to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/formulir-reminder`}>
+                            <button className="tambah-program">
                                 <img src={plus}></img>
                                 <div className="spacer"></div>
-                                <p className="text-input-reminder">
+                                <p className="text-input-program">
                                     Buat Reminder
                                 </p>
                             </button>
@@ -112,7 +122,7 @@ const Reminder = (props) => {
                         </div>
                     </div>
                     <div className="table-container">
-                        <table className="table-reminder-owner"  style={{marginRight:'20px'}}>
+                        <table className="table-reminder-owner"  style={{marginRight:'20px' , backgroundColor: 'white'}}>
                             <thead className="table-head-reminder">
                                 <tr>
                                     <th width='191px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi Tujuan</th>

@@ -19,7 +19,7 @@
 
 .form-profile-page .data{
     margin-bottom: 16px;
-    height: 76px;
+    height: fit-content;
 }
 
 .form-profile-page label{

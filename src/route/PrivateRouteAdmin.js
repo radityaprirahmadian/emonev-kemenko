@@ -9,7 +9,7 @@ const PrivateRouteAdmin = ({ component: Component, notif, ...rest }) => {
 			{...rest}
 			render={props =>
 				user && user.role === 'admin' ? (
-					<Redirect to="/dashboard" />
+					<Redirect to={`/admin/dashboard`} />
 				) : (
 					<Component {...props} notif={notif}/>
 				)

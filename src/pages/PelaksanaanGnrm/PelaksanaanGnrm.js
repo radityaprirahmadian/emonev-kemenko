@@ -14,18 +14,23 @@ import Pagination from '../../component/Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Notification from '../../component/Notification/Notification';
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const GNRM  = (props) => {
     const { resetDocument , editDocumentFalse } = useContext(ArtikelContext)
-    const { user, token } = useContext(AuthContext)
+    const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
+    const [ filterValue , setFilterValue ] = useState({})
     console.log(documents)
 
     const [ filter, setFilter ] = useState({
         limit: '10',
         page: '1',
         tahun: '',
-        periode: '',
+        kp: '',
         instansi: '',
         totalDoc: ''
     })
@@ -34,7 +39,7 @@ const GNRM  = (props) => {
         limit,
         page,
         tahun,
-        periode,
+        kp,
         instansi,
         totalDoc,
     } = filter
@@ -47,6 +52,7 @@ const GNRM  = (props) => {
         }
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm`, config)
+            setFilterValue(res.data.filter)
             setFilter({...filter, totalDoc: res.data.document.length})
         }
         catch (err) {
@@ -60,7 +66,7 @@ const GNRM  = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}`, config)
             setDocuments(res.data.document)
         }
         catch (err) {
@@ -89,10 +95,6 @@ const GNRM  = (props) => {
         resetDocument()
     }
 
-
-    const lebar = window.screen.width
-    console.log(lebar)
-
     useEffect(() => {
         getDocumentLength()
     },[])
@@ -104,7 +106,13 @@ const GNRM  = (props) => {
         return(
             <Fragment>
                 <SideBarOff/>
-                <Popup notif={props.notif}/>
+                <div className="background-after-login">
+                        <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                        <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                        <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                        <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                    </div>
+                    <Popup notif={props.notif}/>
                 {
                     user && user.role === 'owner' ?
                         ''
@@ -113,7 +121,7 @@ const GNRM  = (props) => {
                 }
                         <div style={{marginRight:'20px'}}>
                             <div className="input-dan-tajuk">
-                                <Link to="/formulir-gnrm">
+                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-gnrm`}>
                                     <button className="tambah-program" onClick={() => handleReset()}>
                                         <img src={plus}></img>
                                         <div className="spacer"></div>
@@ -129,23 +137,22 @@ const GNRM  = (props) => {
                             </div>
                         
                         <Filter
+                            filterValue={filterValue}
                             getDocument={getAllDocument}
                             setFilterDoc={setFilter}
                             filterDoc={filter}
-                            instansi={instansi}
-                            periode={periode}
-                            tahun={tahun}
                         />
 
                         <div className="table-container">
                             <table className="table-gnrm">
                                 <thead className="table-head">
                                     <tr>
-                                        <th width='159px'>Tahun</th>
-                                        <th width='276px'>Nama Program</th>
+                                        <th width='70px'>Tahun</th>
+                                        <th width='276px'>Kegiatan Prioritas</th>
+                                        <th width='276px'>Proyek Prioritas</th>
                                         <th width='193px'>Instansi</th>
                                         <th width='204px'>Pihak Terkait</th>
-                                        <th width='193px'>Pejabat Eselon</th>
+                                        <th width='133px'>Pejabat Eselon</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>
@@ -158,9 +165,10 @@ const GNRM  = (props) => {
                                                 <TabelGNRM
                                                     document={document}
                                                     key={index}
+                                                    kp={document.form.kp}
+                                                    prop={document.form.prop}
                                                     id={document._id}
                                                     tahun={document.form.tahun}
-                                                    nama={document.form.kegiatan.nama_program}
                                                     instansi={document.instansi}
                                                     pihak={document.form.pihak_terkait}
                                                     pejabat={document.form.penanggung_jawab.nama}

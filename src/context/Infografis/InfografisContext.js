@@ -6,7 +6,8 @@ export const InfografisContext = createContext()
 
 const InfografisState = (props) => {
     const initialState = {
-        infografisDetail: null
+        infografisDetail: null,
+        isEditing: false
     };
 
     const [ state, dispatch] = useReducer(InfografisReducer , initialState)
@@ -18,24 +19,37 @@ const InfografisState = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis/${id}`,config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar/${id}`,config)
             dispatch({
                 type: 'SET_INFOGRAFIS',
-                payload: res.data.infografis
+                payload: res.data.kabar
             })
-            console.log(res.data.infografis)
+            console.log(res.data.kabar)
         }
         catch (err) {
             console.log(err)
         }
     }
 
+    const editDocument = () => {
+        dispatch({
+            type: 'EDIT_DOCUMENT'
+        })
+    }
 
+    const editDocumentFalse = () => {
+        dispatch({
+            type: 'EDIT_DOCUMENT_FALSE'
+        })
+    }
     return(
         <InfografisContext.Provider
             value={{
                 infografisDetail: state.infografisDetail,
-                setInfografis
+                isEditing: state.isEditing,
+                setInfografis,
+                editDocument,
+                editDocumentFalse
             }}
         >
             {props.children}

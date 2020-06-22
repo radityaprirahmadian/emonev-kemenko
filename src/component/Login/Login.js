@@ -59,7 +59,7 @@ const Login = (props) => {
         console.log(userDetail)
         if(userDetail && !userDetail.login_awal) {
             props.setId(userDetail._id)
-            props.history.push('/dashboard')
+            props.history.push(`/${userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
         }
     })
 

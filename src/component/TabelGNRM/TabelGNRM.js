@@ -23,7 +23,8 @@ const TabelGNRM = (props) => {
         <Fragment>
             <tr>
                 <td>{props.tahun}</td>
-                <td>{props.nama}</td>
+                <td>{props.kp.length > 78 ? `${props.kp.substr(0, 75)}...` : props.kp}</td>
+                <td>{props.prop.length > 78 ? `${props.prop.substr(0, 75)}...` : props.prop}</td>
                 <td>{props.instansi}</td>
                 <td>
                     {

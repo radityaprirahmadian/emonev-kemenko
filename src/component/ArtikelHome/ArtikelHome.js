@@ -7,7 +7,7 @@ const ArtikelHome = (props) => {
     const history = useHistory()
 
     const onClick = (e) => {
-        history.push(`./artikel/${props.gnrm_id}`)
+        history.push(`./artikel/${props._id}`)
     }
     const tanggal = new Date(props.tanggal_dibuat)
     let hari = tanggal.getDate()
@@ -21,7 +21,7 @@ const ArtikelHome = (props) => {
                 {props.instansi}
             </div>
             <div className="home-title">
-                {props.nama_program}
+                {props.judul}
             </div>
             <div className="home-date">
                 {tanggalFix}

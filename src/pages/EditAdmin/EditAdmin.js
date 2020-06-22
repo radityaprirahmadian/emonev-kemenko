@@ -6,17 +6,19 @@ import lock from '../../assets/lock.png';
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const EditAdmin = (props) => {
     const { user, token, getUserDetail, userDetail } = useContext(AuthContext);
     const history = useHistory();
     const [foto, setFoto] = useState([])
+    const [allInstansi, setAllInstansi] = useState([])
 
     const [userData, setUserData] = useState ({
-        instansi : {
-            nama : '',
-            nama_pendek: ''
-        },
+        nama_pendek: '',
         nama: '',
         email: '',
         kontak: '',
@@ -38,6 +40,18 @@ const EditAdmin = (props) => {
         }
     }
 
+    useEffect(() => {
+        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        .then(res => {
+            setAllInstansi(res.data.instansi)
+            console.log('wow')
+        })
+        .catch(err => {
+            console.log('wow', +err)
+        })
+    }, [])
+
+
     useEffect (() => {
         const getUserToUpdate = async () => {
             const config = {
@@ -48,7 +62,14 @@ const EditAdmin = (props) => {
             try {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
-                setUserData(res.data.user)
+                setUserData({
+                    nama_pendek : res.data.user.instansi.nama_pendek,
+                    nama: res.data.user.nama,
+                    email: res.data.user.email,
+                    kontak: res.data.user.kontak,
+                    role: res.data.user.role,
+                    username: res.data.user.username
+                })
             }
             catch (err) {
                 console.log(err)
@@ -77,7 +98,7 @@ const EditAdmin = (props) => {
         try {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
-            history.push(`/admin`)
+            history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
         }
         catch (err) {
             console.log(err)
@@ -112,13 +133,18 @@ const EditAdmin = (props) => {
 
     const onSubmitEdit = (e) => {
         e.preventDefault();
-        updateUserPhoto()
-        updateUserData({nama,email,kontak,role,username})
+        updateUserData({nama,email,kontak,role,username,nama_pendek})
     }
 
         return(
             <Fragment>
                 <SideBarOff/>
+                <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                    <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                    <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                    <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                </div>
                 <Popup notif={props.notif}/>
                 <div className="profile-page">
                     <div className="tajuk-page">
@@ -137,22 +163,18 @@ const EditAdmin = (props) => {
 
                                     <div className="data">
                                         <label>Instansi</label><br/>
-                                        {
-                                            user && user.role === 'owner' ?
-                                                <input className="show-profile" type="text" name="nama_pendek" value={instansi.nama_pendek} onChange={onChange}></input>
-                                            :
-                                                <div className="persist">{instansi.nama_pendek}</div>
-                                        }
+                                        <div className="persist">{nama_pendek}</div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
                                     <div className="data">
-                                        <label>Role</label><br/>
-                                        {
-                                            user && user.role === 'owner' ?
-                                                <input className="show-profile" type="text" name='role' value={role} onChange={onChange}></input>
-                                            :
-                                                <div className="persist">{role}</div>
-                                        }
+                                        <label>Level</label><br/>
+                                        <div className="persist">{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
+                                        <div className="button-lock" >
+                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                        </div>
                                     </div>
 
                                     <div className="data">
@@ -182,7 +204,7 @@ const EditAdmin = (props) => {
                                             <div className="photo-profile">
                                                 <img src={fotos}></img>
                                             </div>
-                                            <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
+                                            {/* <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
                                             <input 
                                                 id="testing"
                                                 className="gnrm-penjelasan" 
@@ -193,7 +215,7 @@ const EditAdmin = (props) => {
                                                 type="file"
                                                 accept="image/*"
                                                 name="media"
-                                            />
+                                            /> */}
                                         </div>
                                     <button 
                                         disabled

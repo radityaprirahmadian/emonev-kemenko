@@ -12,41 +12,44 @@ import { InfografisContext } from '../../context/Infografis/InfografisContext';
 import Popup from '../../component/Popup/Popup';
 
 const FormInfografis = (props) => {
-    const { infografisDetail,setInfografis } = useContext(InfografisContext)
-    const { token } = useContext(AuthContext)
+    const { infografisDetail,setInfografis,isEditing,editDocument,editDocumentFalse } = useContext(InfografisContext)
+    const { token,userDetail } = useContext(AuthContext)
     const history = useHistory()
 
-    const [infog,setInfog] = useState({
-        penjelasan_kegiatan: ''
+    const [kabarGnrm,setKabarGnrm] = useState({
+        deskripsi: '',
+        judul : '',
+        deleted_gambar: []
     })
 
-
     const {
-        penjelasan_kegiatan
-    } = infog
+        judul,
+        deskripsi
+    } = kabarGnrm
 
     console.log(infografisDetail)
-    console.log(infog)
 
-    const [ infografis , setInfografisDoc ] = useState([])
+    const [media, setMedia] = useState([])
+    const [mediaUrl, setMediaUrl] = useState([])
+    const [deletedMedia, setDeletedMedia] = useState([])
 
     const onChange = (e) => {
-		setInfog({[e.target.name]:e.target.value})
+		setKabarGnrm({...kabarGnrm, [e.target.name]:e.target.value})
     }
 
     const onChangeFiles = (event) => {
-		setInfografisDoc([...infografis , ...event.target.files])
+        setMedia([...media , ...event.target.files])
+        event.target.value = null
     }
-
-    console.log(infografis)
     
-    const onEdit = async (event) => {
+
+    const onSubmit = async (event) => {
         event.preventDefault()
 
-        const formData = objectToFormData(infog)
+        const formData = objectToFormData(kabarGnrm)
 
-		for (let i = 0; i < infografis.length; i++) {
-			formData.append(`infografis`, infografis[i])
+		for (let i = 0; i < media.length; i++) {
+			formData.append(`gambar`, media[i])
         }
 
         for (let pair of formData.entries()) {
@@ -61,95 +64,152 @@ const FormInfografis = (props) => {
 		}
 
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/infografis/${props.match.params.id}`,formData,config)
+            const res = await axios.post(`https://test.bariqmbani.me/api/v1/kabar/`,formData,config)
             alert(res.data.message)
-            history.push('/infografis')
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/infografis`)
+        }
+        catch(err) {
+            alert(err.data.message)
+        }
+    }
+
+    const onEdit = async (event) => {
+        event.preventDefault()
+
+		const formData = objectToFormData(kabarGnrm)
+
+        if (media.length > 0) {
+            for (let i = 0; i < media.length; i++) {
+                formData.append(`gambar`, media[i])
+            }
+        }  else {formData.append('gambar', new File([null], 'blob'))}
+
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1])
+		}
+
+		const config = {
+			headers: {
+                'Content-Type': 'multipart/form-data',
+				'X-Auth-Token': `aweuaweu ${token}`,
+			},
+		}
+
+        try {
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/kabar/${props.match.params.id}`,formData,config)
+            alert(res.data.message)
+            editDocumentFalse()
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/infografis`)
         }
         catch(err) {
             alert(err.data.message)
         }
     }
     
-    const urlToFile = async (url) => {
-        const getFileName = (url) => {
-            const split = url.split('/')
-            return split[split.length -1]
-        }
-        
-        const name = getFileName(url)
-        
-        try {
-            const res = await fetch(url)
-            const blob = res.blob()
-            return new File([blob],name)
-        }
-        catch(err) {
-            console.log(err)
-        }
+    const getFileName = (url) => {
+        const split = url.split('/')
+        return split[split.length - 1]
     }
 
+    // const urlToFile = async (url) => {
+    //     const getFileName = (url) => {
+    //         const split = url.split('/')
+    //         return split[split.length -1]
+    //     }
+        
+    //     const name = getFileName(url)
+        
+    //     try {
+    //         const res = await fetch(url)
+    //         const blob = res.blob()
+    //         return new File([blob],name)
+    //     }
+    //     catch(err) {
+    //         console.log(err)
+    //     }
+    // }
+
+    const onDeleteMedia = (isFile, filename, data) => {
+        setMediaUrl(mediaUrl.filter(media => getFileName(media) !== filename))
+        if (isFile) setMedia(media.filter(media => media !== data))
+        else setMedia(media.filter(media => media.name !== filename))
+        const deleted = [...deletedMedia, filename]
+        setDeletedMedia(deleted)
+    }
 
     useEffect(() => {
-        setInfografis(props.match.params.id)
-    },[])
+        if(props.match.params.id) {
+            setInfografis(props.match.params.id)
+        }
+    },[props.match.params.id])
 
     useEffect(() => {
         if(infografisDetail){
-            setInfog({penjelasan_kegiatan: infografisDetail && infografisDetail.penjelasan_kegiatan})
+            editDocument()
+            setKabarGnrm({judul: infografisDetail.judul , deskripsi: infografisDetail.deskripsi})
 
             const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}`)
-            
             const files = []
-            mediaFileUrl.forEach(async url =>{
-                const file = await urlToFile(url)
-                console.log(file)
-                files.push(file)
+            mediaFileUrl.forEach(url => {
+                fetch(url).then(res => res.blob()).then(blob => {
+                    const objectURL = URL.createObjectURL(blob)
+                    blob.name = getFileName(url)
+                    files.push(blob)
+                })
             })
-
-            setInfografisDoc(files)   
+            
+            setMedia(files)
+            setMediaUrl(mediaFileUrl)
         }
 
+
     },[infografisDetail])
+
+    useEffect(() => {
+        setKabarGnrm({ ...kabarGnrm, deleted_gambar: deletedMedia})
+    }, [deletedMedia])
+
+    console.log(infografisDetail)
+    console.log('delete' , deletedMedia)
+
     return(
         <Fragment>
             <SideBarOff/>
+            <div className="background-after-login"/>
             <Popup notif={props.notif}/>
-            <div>
+            <div  style={{width:'fit-content' , height: 'fit-content', margin: 'auto'}}>
                     <div className="tajuk-page">
-                    <h1> INFOGRAFIS PELAKSANAAN PROGRAM</h1>
+                    <h1>KABAR GNRM</h1>
                     </div>
 
-                    <form onSubmit={onEdit}>
-                        <div className="form-container">
+                    <form>
+                        <div className="form-container" style={{marginRight:'20px'}}>
                             <div className="form-infografis">
                                 <div>
-                                    <label>Nama Program</label>
+                                    <label>Judul Kabar</label>
                                     <input 
-                                        className="persist" 
                                         type="text"
-                                        style={{width:'955px', height:'42px' , marginLeft:'93px'}} 
-                                        disabled
-                                        value={infografisDetail && infografisDetail.nama_program}
+                                        style={{width:'955px', height:'42px' , marginLeft:'123px'}} 
+                                        name='judul'
+                                        value={judul}
+                                        onChange={onChange}
                                     >
                                     </input>
-                                    <div className="button-lock" >
-                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'90px' , left:'1260px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'absolute'}}/>
-                                    </div>
                                 </div>
                                 <div>
-                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Deskripsi</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                     <textarea  
                                         type="text"
-                                        style={{width:'955px', height:'159px' , marginLeft:'142px'}} 
-                                        name='penjelasan_kegiatan'
-                                        value={penjelasan_kegiatan}
+                                        style={{width:'955px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                        name='deskripsi'
+                                        value={deskripsi}
                                         onChange={onChange}
                                     >
                                     </textarea>
                                 </div>
                                 <div>
                                     <label>Lampiran Infografis</label>
-                                    <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH FILE</label>
+                                    <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                     <input 
                                         id="testing"
                                         className="gnrm-penjelasan" 
@@ -161,55 +221,127 @@ const FormInfografis = (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <div style={{height: "fit-content", 
-                                                marginLeft: "215px", 
+                                    {
+                                        media && media.length > 0 ? (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "217px", 
                                                 width: "955px",
                                                 border: '1px solid black',
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
-                                                borderRadius: '5px'
                                             }} 
-                                    >
-                                    {
-                                        infografis.map((infografis,index) => {
-                                            return(
-                                                <div key={infografis.lastModified}>
-                                                        <div style={{width:'150px', 
-                                                                    height:'150px', 
-                                                                    backgroundColor:'black', 
-                                                                    marginRight:'35px', 
-                                                                    position:'relative'}}
-                                                        >
-                                                            <div style={{position:'absolute', 
-                                                                        backgroundColor:'#C04B3E' , 
-                                                                        width:'25px' , 
-                                                                        height:'25px', 
-                                                                        borderRadius:'50%', 
-                                                                        top:'-7px', 
-                                                                        right:'-7px', 
-                                                                        lineHeight:'25px', 
-                                                                        textAlign:'center',
-                                                                        cursor:'pointer'}}
-                                                            > X </div>
-                                                        </div>
-                                                        <div style={{marginTop:'10px' , 
-                                                                    width:'150px' , 
-                                                                    height:'20px', 
-                                                                    overflow:'hidden', 
-                                                                    lineHeight:'20px'}}
-                                                        >{infografis.name}</div>
-                                                    
-                                                </div>
-                                            )
-                                        })
+                                            >
+                                                {
+                                                    media.map((media,index) => {
+                                                        const objectURL = URL.createObjectURL(media)
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'
+                                                                                }}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer',
+                                                                                    color:'white'}}
+                                                                        onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px',}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "217px", 
+                                                width: "955px",
+                                                border: '1px solid black',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    mediaUrl.map((url,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'}}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer',
+                                                                                    color:'white'}}
+                                                                        onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px'}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {getFileName(url)}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
                                     }
-                                    </div>
                                 </div>
                             </div>
 
                             <div className="gnrm-navigation-button">
-                                <button type="submit" className="unggah-infografis" onClick={onEdit}>UNGGAH INFOGRAFIS</button>
+                                {
+                                    isEditing ? 
+                                        <button type="submit" className="unggah-infografis" onClick={onEdit}>UNGGAH KABAR GNRM</button>
+                                    :
+                                        <button type="submit" className="unggah-infografis" onClick={onSubmit}>UNGGAH KABAR GNRM</button>
+                                }
                             </div>
 
                         </div>

@@ -6,6 +6,16 @@ export default (state, action) => {
                 ...action.payload,
                 infografisDetail: action.payload,
             }
+        case 'EDIT_DOCUMENT':
+            return{
+                ...state,
+                isEditing: true
+            }
+        case 'EDIT_DOCUMENT_FALSE':
+            return{
+                ...state,
+                isEditing: false
+            }
 
             default :
             return state;

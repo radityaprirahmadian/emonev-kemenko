@@ -18,7 +18,7 @@ const TabelAdmin = (props) => {
                     <td>{props.username}</td>
                     <td className={user && user.role === 'super_admin' ? 'd-none' : ''}>{props.role === 'super_admin' ? 'Super Admin' : 'Admin'}</td>
                     <td> 
-                        <Link to={'/profile-admin/' + (props.id)}>
+                        <Link to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-profile-admin/` + (props.id)}>
                             <button className="button-edit-admin">
                                 <img src={edit}/>
                             </button>

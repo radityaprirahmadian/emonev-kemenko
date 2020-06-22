@@ -3,6 +3,10 @@ import SideBarOff from '../../component/SideBarOff/SideBarOff'
 import Popup from '../../component/Popup/Popup'
 import { Link } from 'react-router-dom'
 import plus from '../../assets/plus.png'
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 import axios from 'axios'
 import Filter from '../../component/Filter/Filter'
 import Pagination from '../../component/Pagination/Pagination'
@@ -13,10 +17,10 @@ import TabelInstansi from '../../component/TabelInstansi/TabelInstansi'
 
 
 const Instansi = (props) => {
-    const { token } = useContext(AuthContext)
+    const { token,userDetail } = useContext(AuthContext)
     const [instansi,setInstansi] = useState([])
     const [instansiRev,setInstansiRev] = useState([])
-    console.log(instansiRev)
+    console.log(instansi)
     const [filter,setFilter] = useState({
         limit:'10',
         page:'1',
@@ -97,13 +101,19 @@ const Instansi = (props) => {
     return(
         <Fragment>
                 <SideBarOff/>
+                    <div className="background-after-login">
+                        <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                        <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                        <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                        <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                    </div>
                     <Popup notif={props.notif}/>
                         <div className="input-dan-tajuk">
-                            <Link to='/formulir-instansi'>
-                                <button className="tambah-laporan">
+                            <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-instansi`}>
+                                <button className="tambah-program">
                                     <img src={plus}></img>
                                     <div className="spacer"></div>
-                                    <p className="text-input-laporan">
+                                    <p className="text-input-program">
                                         Input Instansi
                                     </p>
                                 </button>

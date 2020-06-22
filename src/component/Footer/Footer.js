@@ -43,7 +43,7 @@ const Footer = () => {
                                                 {
                                                     isAuthenticated && userDetail ? 
                                                          userDetail && !userDetail.login_awal ? (
-                                                        <NavLink to="/dashboard" activeClassName="active">
+                                                        <NavLink to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`} activeClassName="active">
                                                             <p>
                                                                 E-Report
                                                             </p>

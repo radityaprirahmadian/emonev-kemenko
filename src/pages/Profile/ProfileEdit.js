@@ -6,6 +6,10 @@ import lock from '../../assets/lock.png';
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const ProfileEdit = (props) => {
 
@@ -134,7 +138,9 @@ const ProfileEdit = (props) => {
             }
         }
         try {
-            await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            alert(res.data.message)
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
         }
         catch (err) {
             console.log(err)
@@ -145,7 +151,7 @@ const ProfileEdit = (props) => {
         e.preventDefault();
         updateUserPhoto()
         updateUserData({nama,email,kontak,password})
-        history.push(`/profile/${props.match.params.id}`)
+        
         
     }
 
@@ -159,6 +165,12 @@ const ProfileEdit = (props) => {
             <Fragment>
                 <SideBarOff/>
                 <Popup notif={props.notif}/>
+                <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                    <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                    <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                    <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                </div>
                 <div className="profile-page">
                     <div className="tajuk-page">
                         PROFIL

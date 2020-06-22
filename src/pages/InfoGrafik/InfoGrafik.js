@@ -13,6 +13,11 @@ import {Bar} from 'react-chartjs-2';
 import Popup from '../../component/Popup/Popup';
 import axios from 'axios'
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
+
 
 
 const data = {
@@ -48,6 +53,7 @@ const Dashboard = (props) => {
     })
 
     const [documentCard,setDocumentCard] = useState([])
+    console.log(documentCard)
     const [documentCardLength,setDocumentCardLength] = useState([])
     
     const {
@@ -59,8 +65,8 @@ const Dashboard = (props) => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&instansi=${userDetail.instansi.nama_pendek}`)
-            setDocumentCardLength(res.data.infografis)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
+            setDocumentCardLength(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
@@ -70,17 +76,22 @@ const Dashboard = (props) => {
     const getDocumentCard = async () => {
       try {
             if(userDetail.role === 'admin'){
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
-                setDocumentCard(res.data.infografis.reverse())
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
+                setDocumentCard(res.data.kabar)
             } else {
-                const res = await axios.get('https://test.bariqmbani.me/api/v1/infografis?status=false&limit=3')
-                setDocumentCard(res.data.infografis.reverse())
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=3&page=${page}`)
+                setDocumentCard(res.data.kabar)
             }
       }
       catch(err) {
           console.log(err)
       }  
     }
+
+    useEffect(() =>{
+      getDocumentCard()
+      getDocumentCardLength()
+    },[])
 
     useEffect(() =>{
         getDocumentCard()
@@ -124,6 +135,12 @@ const Dashboard = (props) => {
               :
                 <Notification/>
             }
+            <div className="background-after-login">
+                <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+            </div>
                 <div className="dashboard-page">
                   <div className="dashboard-section">
                       <div className="tajuk-page1">
@@ -196,26 +213,26 @@ const Dashboard = (props) => {
 
                   <div className="dashboard-section">
                     <div className="tajuk-page2">
-                        <p>INFOGRAFIS TERKINI</p>
+                        <p>KABAR GNRM TERKINI</p>
                     </div>
-                    <div style={{display:'flex' , flexDirection:'row'}}>
+                    <div style={{display:'flex' , flexDirection:'row' , width:'fit-content' , heigth: 'fit-content' , margin: 'auto' , position: 'relative'}}>
                         {
-                                                documentCard.map((doc, index) => {
-                                                    return (
-                                                        <Card 
-                                                        key={index}
-                                                        doc={doc}/>
-                                                        );
-                                                    })
-                                            }
-                                        <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                                        </div>
-                                        <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
-                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                                        </div>
+                            documentCard.map((doc, index) => {
+                                return (
+                                    <Card 
+                                    key={index}
+                                    doc={doc}/>
+                                    );
+                                })
+                        }
+                          <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                          </div>
+                          <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
+                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                          </div>
                     </div>
-                    </div>
+                  </div>
                 
                   <div className="tajuk-page3">
                       <p>GALLERY</p>

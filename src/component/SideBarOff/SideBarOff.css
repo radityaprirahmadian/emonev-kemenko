@@ -1,17 +1,19 @@
 .side-bar-off{
     width: 68px;
+    transition: all 0.3s ease-in-out;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     z-index: 10;
-    background-color: #E76975;
+    background-image: linear-gradient(to right bottom , #E76975 , #FDB99B );
     color:white;
     box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
 }
 
 .side-bar{
-	background-color: #E76975;
+    background-image: linear-gradient(to right bottom , #E76975 , #FDB99B );
+    transition: all 0.3s ease-in-out;
 	top: 0;
 	font-family: 'Open Sans', sans-serif;
 	left: 0;
@@ -26,25 +28,28 @@
 }
 
 .side-bar-avatar {
+    transition: all 0.3s ease-in-out;
     display: flex;
     margin-left: 24px;
     margin-top: 25px;
 }
 
 .avatar-container {
+    transition: all 0.3s ease-in-out;
     width: 58.48px;
     height: 58.48px;
     position: relative;
 }
 .side-bar-avatar .user-avatar{
+    transition: all 0.3s ease-in-out;
     height: 58.48px;
     width: 58.48px;
     border-radius: 50%;
-    border: 1px solid black;
     position: absolute;
 }
 
 .side-bar-avatar .logo-instansi-user{
+    transition: all 0.3s ease-in-out;
     height: 26.48px;
     position: absolute;
     width: 26.48px;
@@ -52,10 +57,10 @@
     top:-5px;
     right: -5px;
     border-radius: 50%;
-    border: 1px solid black
 }
 
 .side-bar-avatar .avatar-identity {
+    transition: all 0.3s ease-in-out;
     margin-left: 14.52px;
     margin-right: 26px;
     overflow: hidden;
@@ -64,6 +69,7 @@
 }
 
 .side-bar-avatar .avatar-identity .user-name{
+    transition: all 0.3s ease-in-out;
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 3px;
@@ -71,6 +77,7 @@
 
 .side-bar-avatar .avatar-identity .user-position,
 .side-bar-avatar .avatar-identity .user-ministry{
+    transition: all 0.3s ease-in-out;
 	font-size: 16px;
 	letter-spacing: 0.02em;
     color: #FDE47F;
@@ -86,6 +93,7 @@
 
 
 .avatar-off {
+    transition: all 0.3s ease-in-out;
     width: 53px;
     height: 53px;
     margin: 9px 5px 0 5px;
@@ -93,14 +101,15 @@
 }
 
 .user-avatar-off{
+    transition: all 0.3s ease-in-out;
     height: 53px;
     width: 53px;
     border-radius: 50%;
-    border: 1px solid black;
     position: absolute;
 }
 
 .logo-instansi-user-off{
+    transition: all 0.3s ease-in-out;
     height: 26.48px;
     position: absolute;
     width: 26.48px;
@@ -108,7 +117,6 @@
     top:-5px;
     right: -5px;
     border-radius: 50%;
-    border: 1px solid black
 }
 
 .side-bar-menu-off {
@@ -194,13 +202,13 @@ div.col-md-10{
 .side-bar-menu-on ul .active i,
 .side-bar-menu-on ul .active li  {
     color: black;
-    background-color:#FDE47F;;
+    background-color:#59CBA6;
 }
 
 .side-bar-menu-off ul .active i,
 .side-bar-menu-off ul .active li  {
     color: black;
-    background-color: #FDE47F;;
+    background-color: #59CBA6;
 }
 
 .side-bar-menu{

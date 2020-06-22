@@ -86,8 +86,6 @@ const style = StyleSheet.create({
 
 
 const DownloadGNRM = (props) => {
-
-    console.log(props.data)
     return(
             <Document size='A4'>
                 <Page style={style.body}>

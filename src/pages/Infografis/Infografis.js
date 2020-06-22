@@ -1,6 +1,8 @@
 import React, { useContext , useState, useEffect } from 'react' ; 
 import {AuthContext} from '../../context/Auth/AuthContext'
 import SideBarOff from '../../component/SideBarOff/SideBarOff'
+import {Link} from 'react-router-dom'
+import plus from '../../assets/plus.png'
 import axios from 'axios';
 import FilterInfografis from '../../component/FilterInfografis/FilterInfografis'
 import Notification from '../../component/Notification/Notification';
@@ -9,14 +11,14 @@ import Pagination from '../../component/Pagination/Pagination';
 import Popup from '../../component/Popup/Popup'
 
 const Infografis = (props) => {
-    const { user, token } = useContext(AuthContext)
+    const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
+    const [ filterValue , setFilterValue ] = useState({})
     console.log(documents)
     const [ filter, setFilter ] = useState({
         limit: '10',
         page: '1',
         tahun: '',
-        status: '',
         instansi: '',
         totalDoc: ''
     })
@@ -26,7 +28,6 @@ const Infografis = (props) => {
         page,
         instansi,
         tahun,
-        status,
         totalDoc,
     } = filter
 
@@ -38,11 +39,13 @@ const Infografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?`, config)
-                setFilter({...filter, totalDoc: res.data.infografis.length})
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+                setFilterValue(res.data.filter)
+                setFilter({...filter, totalDoc: res.data.kabar.length})
             } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?&instansi=${user && user.instansi.nama_pendek}`, config)
-                setFilter({...filter, totalDoc: res.data.infografis.length})
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${user && user.instansi.nama_pendek}`, config)
+                setFilterValue(res.data.filter)
+                setFilter({...filter, totalDoc: res.data.kabar.length})
             }
         }
         catch (err) {
@@ -58,11 +61,11 @@ const Infografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
-                setDocuments(res.data.infografis)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
+                setDocuments(res.data.kabar)
             } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?tahun=${tahun}&status=${status}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
-                setDocuments(res.data.infografis)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
+                setDocuments(res.data.kabar)
             }
         }
         catch (err) {
@@ -77,7 +80,7 @@ const Infografis = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/infografis/${id}`, config)
+            await axios.delete(`https://test.bariqmbani.me/api/v1/kabar/${id}`, config)
             getAllDocument()
         }
         catch (err) {
@@ -97,6 +100,7 @@ const Infografis = (props) => {
     return(
         <div>
             <SideBarOff/>
+            <div className="background-after-login"/>
             <Popup notif={props.notif}/>
             {
                     user && user.role === 'owner' ?
@@ -105,18 +109,26 @@ const Infografis = (props) => {
                         <Notification/>
                 }
                             <div className="input-dan-tajuk">
-                                <div></div>
+                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-kabar-gnrm`}>
+                                    <button className="tambah-program">
+                                        <img src={plus}></img>
+                                        <div className="spacer"></div>
+                                        <h1 className="text-input-program" style={{marginRight:'12px'}}>
+                                            Input Kabar GNRM
+                                        </h1>
+                                    </button>
+                                </Link>
                                 <div className="spacer"></div>
                                 <div className="tajuk-page-2">
-                                    <p>INFOGRAFIS PELAKSANAAN PROGRAM</p>
+                                    <p>KABAR GNRM</p>
                                 </div>
                             </div>
 
                 <FilterInfografis
+                    filterValue={filterValue}
                     getDocument={getAllDocument}
                     setFilter={setFilter}
                     filter={filter}
-                    status={status}
                     tahun={tahun}
                 />
 
@@ -125,30 +137,26 @@ const Infografis = (props) => {
                                 <thead className="table-head">
                                     <tr>
                                         <th width='159px'>Tahun</th>
-                                        <th width='276px'>Nama Program</th>
+                                        <th width='276px'>Judul Kabar</th>
                                         <th width='193px' className={user && user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
-                                        <th width='59px'>Status</th>
-                                        <th width='42px'></th>
-                                        <th width='42px'></th>
-                                        <th width='42px'></th>
-                                        <th width='42px'></th>
+                                        <th width='59px'></th>
+                                        <th width='59px'></th>
+                                        <th width='59px'></th>
                                     </tr>
                                 </thead>
                                 <tbody className="table-body">
                                     {
-                                        documents.map((document,index) => {
+                                        documents && documents.map((document,index) => {
                                             return(
                                                 <TabelInfografis
                                                     // document={document}
                                                     key={index}
-                                                    document={document}
-                                                    tanggal={document.tanggal_dibuat}
-                                                    id={document.gnrm_id}
-                                                    instansi={document.instansi}
+                                                    id={document._id}
+                                                    gambar={document.gambar}
+                                                    instansi={document.instansi.nama_pendek}
                                                     tahun={document.tahun}
+                                                    judul={document.judul}
                                                     // tahun={document.form.tahun}
-                                                    nama={document.nama_program}
-                                                    status={document.status}
                                                     // pihak={document.form.pihak_terkait}
                                                     // pejabat={document.form.penanggung_jawab.nama}
                                                     // // edit={}

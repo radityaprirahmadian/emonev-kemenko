@@ -24,6 +24,18 @@
     
 }
 
+.form-monev .gnrm-tahun{
+    margin-left: 162px;
+    height: 42px;
+    width: 183px;
+}
+.form-monev select {
+    border: 1px solid #ACACAC;
+    border-radius: 5px;
+    padding: 5px;
+    height: 42px;
+}
+
 .monev-title{
     margin-bottom: 25px;
 }

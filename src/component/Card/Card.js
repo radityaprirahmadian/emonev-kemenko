@@ -11,20 +11,20 @@ const Card = (props) => {
     const [gambar,setGambar] = useState([])
 
 
-    // const truncate = (str, n) => {
-    //     return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
-    // }
+    const truncate = (str, n) => {
+        return (str.length > n) ? setNama(str.substr(0, n-1) + '...') : setNama(str);
+    }
 
-    // useEffect(() => {
-    //     truncate(props.doc.nama_program , 30)
-    //     const i = props.doc.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
-    //     setGambar(i)
-    // },[props])
+    useEffect(() => {
+        truncate(props.doc.judul , 30)
+        const i = props.doc.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+        setGambar(i)
+    },[props])
 
-    // const mydate = new Date(props.doc.tanggal_dibuat);
-    // const date = mydate.getDate();
-    // let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
-    // let tanggal = date + ' ' + month + ' ' + mydate.getFullYear();
+    const mydate = new Date(props.doc.tanggal_dibuat);
+    const date = mydate.getDate();
+    let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
+    let tanggal = date + ' ' + month + ' ' + mydate.getFullYear();
 
     console.log(props)
         return(
@@ -32,7 +32,7 @@ const Card = (props) => {
                 <div className="card-container" style={{marginRight:'20px'}}>
                     <div className="top-card">
                         <div className="card-background">
-                            <img src={bg_card}/>
+                            <img src={gambar[0]}/>
                         </div>
                     </div>
 
@@ -41,17 +41,17 @@ const Card = (props) => {
                             <h4>Infografis</h4>
                         </div>
                         <div className="card-title-bottom">
-                            <h4>WOW</h4>
+                            <h4>{nama}</h4>
                         </div>
 
                         <div className="date-and-button">
                                 <div className="card-date">
-                                    <h4>1 Juli 1998</h4>
+                                    <h4>{tanggal}</h4>
                                 </div>
                                 <div className="spacer"></div>
                                 {
                                     !token ?
-                                        <Link to={`/artikel/` + 12}>
+                                        <Link to={`/artikel/` + (props.doc._id)}>
                                             <button className="detail-button">
                                                         Baca Detail
                                             </button>   

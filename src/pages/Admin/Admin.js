@@ -15,9 +15,13 @@ import FilterAdmin from '../../component/FilterAdmin/FilterAdmin';
 import { Link } from 'react-router-dom';
 import SearchBarAdmin from '../../component/SearchBarAdmin/SeacrhBarAdmin';
 import Notification from '../../component/Notification/Notification';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Admin = (props) => {
-    const { user, token } = useContext(AuthContext)
+    const { user, token , userDetail} = useContext(AuthContext)
 
     const [ users , setUsers] = useState([]);
     
@@ -70,22 +74,6 @@ const Admin = (props) => {
         }  
     }
 
-    // const getAllUser = async () => {
-    //     const config= {
-    //         headers: {
-    //             'X-Auth-Token': `aweuaweu ${token}`
-    //         }
-    //     }
-    //     try {
-    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
-    //         // console.log(res)
-    //         setUsers(res.data.users)
-    //     }
-    //     catch (err) {
-    //         console.log(err)  
-    //     }  
-    // }
-
     const deleteUser = async (id) => {
         const config = {
             headers: {
@@ -108,10 +96,6 @@ const Admin = (props) => {
 
     useEffect(() => {  
         getAllUser()
-        // setFilterUsers({
-        //     ...filterUsers,
-        //     totalUser: users.length
-        // })  
     }, [limit,page])
 
     console.log(users)
@@ -121,6 +105,12 @@ const Admin = (props) => {
             <Fragment>
                 <SideBarOff/>
                 <Popup notif={props.notif}/>
+                    <div className="background-after-login">
+                        <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                        <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                        <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                        <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                    </div>
                 {
                     user && user.role === 'owner' ?
                         ''
@@ -128,11 +118,11 @@ const Admin = (props) => {
                         <Notification/>
                 }
                             <div className="input-dan-tajuk">
-                                <Link to='/formulir-admin'>
-                                    <button className="tambah-admin">
+                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-tambah-admin`}>
+                                    <button className="tambah-program">
                                         <img src={plus}></img>
                                         <div className="spacer"></div>
-                                        <p className="text-input-admin">
+                                        <p className="text-input-program">
                                             Input Admin
                                         </p>
                                     </button>
@@ -157,7 +147,7 @@ const Admin = (props) => {
                             }
 
                             <div className="table-container">
-                                <table className="table-admin" style={{marginRight:'20px'}}>
+                                <table className="table-admin" style={{marginRight:'20px', backgroundColor:'white'}}>
                                     <thead className="table-head-admin">
                                         <tr>
                                             <th width='258px'>Nama</th>

@@ -98,7 +98,7 @@ const NewPassword = () => {
             password,
             login_awal
         })
-        history.push('/dashboard')
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
     }
 
 

@@ -13,9 +13,10 @@ import plus2 from '../../assets/plus2.png'
 
 const FormGNRM = (props) => {
     const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview } = useContext(ArtikelContext)
+    const {userDetail} = useContext(AuthContext)
     
     const Link = Scroll.Link;
-
+    console.log(documentDetail)
     const { token } = useContext(AuthContext)
     const history = useHistory()
     const [ panjang, setPanjang] = useState('0')
@@ -57,9 +58,12 @@ const FormGNRM = (props) => {
 			jabatan: '',
 			nip: '',
         },
-        deleted_media: []
+        deleted_media: [],
+        deleted_proses: [],
+        deleted_kondisi: []
     })
     
+    const pilihanTahun = ['2020','2021','2022','2023']
     const {
         tahun,
         id_program,
@@ -88,6 +92,13 @@ const FormGNRM = (props) => {
 
     const [media, setMedia] = useState([])
     const [mediaUrl, setMediaUrl] = useState([])
+
+    const [lampiranProses, setLampiranProses] = useState([])
+    const [lampiranProsesUrl, setLampiranProsesUrl] = useState([])
+    
+    const [lampiranKondisi, setLampiranKondisi] = useState([])
+    const [lampiranKondisiUrl, setLampiranKondisiUrl] = useState([])
+    
     const [form, setForm] = useState([])
     const [proyek, setProyek] = useState([])
     const [kpOptions, setKpOptions] = useState([])
@@ -95,6 +106,8 @@ const FormGNRM = (props) => {
     const [gerakanOptions, setGerakanOptions] = useState([])
     const [selectedKp, setSelectedKp] = useState(false)
     const [deletedMedia, setDeletedMedia] = useState([])
+    const [deletedLampiranProses, setDeletedLampiranProses] = useState([])
+    const [deletedLampiranKondisi, setDeletedLampiranKondisi] = useState([])
     
     const setPreview = (e) => {
         e.preventDefault()
@@ -110,6 +123,16 @@ const FormGNRM = (props) => {
 
     const onChangeFiles = (event) => {
         setMedia([...media , ...event.target.files])
+        event.target.value = null
+    }
+
+    const onChangeFilesProses = (event) => {
+        setLampiranProses([...lampiranProses , ...event.target.files])
+        event.target.value = null
+    }
+
+    const onChangeFilesKondisi = (event) => {
+        setLampiranKondisi([...lampiranKondisi , ...event.target.files])
         event.target.value = null
     }
 
@@ -143,7 +166,13 @@ const FormGNRM = (props) => {
 
 		for (let i = 0; i < media.length; i++) {
 			formData.append(`media`, media[i])
-		}
+        }
+        for (let i = 0; i < lampiranProses.length; i++) {
+            formData.append(`lampiran_proses`, lampiranProses[i])
+        }
+        for (let i = 0; i < lampiranKondisi.length; i++) {
+			formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i])
+        }
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
@@ -157,7 +186,7 @@ const FormGNRM = (props) => {
 		}
 
 		const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=gnrm',formData,config,)
-        history.push('/gnrm')
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
         resetDocument()
 	}
@@ -170,11 +199,27 @@ const FormGNRM = (props) => {
 
 		const formData = objectToFormData(data)
 
+        if (lampiranProses.length > 0) {
+            for (let i = 0; i < lampiranProses.length; i++) {
+                formData.append(`lampiran_proses`, lampiranProses[i])
+            }
+        }  else {formData.append('lampiran_proses', new File([null], 'blob'))}
+
         if (media.length > 0) {
             for (let i = 0; i < media.length; i++) {
                 formData.append(`media`, media[i])
             }
-        }  else formData.append('media', new File([null], 'blob'))
+        }  else {formData.append('media', new File([null], 'blob'))}
+
+        if (lampiranKondisi.length > 0) {
+            for (let i = 0; i < lampiranKondisi.length; i++) {
+                formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i])
+            }
+        }  else {formData.append('lampiran_kondisi_awal', new File([null], 'blob'))}
+
+		for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1])
+		}
 
 		const config = {
 			headers: {
@@ -184,7 +229,7 @@ const FormGNRM = (props) => {
 		}
 
 		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
-        history.push('/gnrm')
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
         resetDocument()
         editDocumentFalse()
@@ -236,6 +281,8 @@ const FormGNRM = (props) => {
         if (documentDetail) {
             setData(documentDetail && documentDetail.form)
             setMedia(documentDetail.form.lampiran.media)
+            setLampiranKondisi(documentDetail.form.lampiran.kondisi_awal)
+            setLampiranProses(documentDetail.form.lampiran.proses)
             setPanjang(documentDetail && documentDetail.form.pihak_terkait.length)
             setSelectedKp(documentDetail.form.kp)
 
@@ -249,8 +296,32 @@ const FormGNRM = (props) => {
                 })
             })
 
-            setMedia(files)         
+            const mediaFileUrl2 = documentDetail.form.lampiran.kondisi_awal.map(kondisi_awal => `https://test.bariqmbani.me${kondisi_awal.path}`)
+            const files2 = []
+            mediaFileUrl2.forEach(url => {
+                fetch(url).then(res => res.blob()).then(blob => {
+                    const objectURL = URL.createObjectURL(blob)
+                    blob.name = getFileName(url)
+                    files2.push(blob)
+                })
+            })
+
+            const mediaFileUrl3 = documentDetail.form.lampiran.proses.map(proses => `https://test.bariqmbani.me${proses.path}`)
+            const files3 = []
+            mediaFileUrl3.forEach(url => {
+                fetch(url).then(res => res.blob()).then(blob => {
+                    const objectURL = URL.createObjectURL(blob)
+                    blob.name = getFileName(url)
+                    files3.push(blob)
+                })
+            })
+
+            setMedia(files)
+            setLampiranKondisi(files2)
+            setLampiranProses(files3)         
             setMediaUrl(mediaFileUrl)
+            setLampiranKondisiUrl(mediaFileUrl2)
+            setLampiranProsesUrl(mediaFileUrl3)
             
             return (() => {
                 if (isEditing) resetDocument()
@@ -268,19 +339,33 @@ const FormGNRM = (props) => {
         setDeletedMedia(deleted)
     }
 
+    const onDeleteProses = (isFile, filename, data) => {
+        setLampiranProsesUrl(lampiranProsesUrl.filter(media => getFileName(media) !== filename))
+        if (isFile) setLampiranProses(lampiranProses.filter(media => media !== data))
+        else setLampiranProses(lampiranProses.filter(media => media.name !== filename))
+        const deleted = [...deletedLampiranProses, filename]
+        setDeletedLampiranProses(deleted)
+    }
+
+    const onDeleteKondisi = (isFile, filename, data) => {
+        setLampiranKondisiUrl(lampiranKondisiUrl.filter(media => getFileName(media) !== filename))
+        if (isFile) setLampiranKondisi(lampiranKondisi.filter(media => media !== data))
+        else setLampiranKondisi(lampiranKondisi.filter(media => media.name !== filename))
+        const deleted = [...deletedLampiranKondisi, filename]
+        setDeletedLampiranKondisi(deleted)
+    }
+
     useEffect(() => {
-        setData({ ...data, deleted_media: deletedMedia })
-    }, [deletedMedia])
+        setData({ ...data, deleted_media: deletedMedia, deleted_kondisi: deletedLampiranKondisi, deleted_proses: deletedLampiranProses })
+    }, [deletedMedia,deletedLampiranKondisi,deletedLampiranProses])
 
 
-    console.log('coba', mediaUrl)
-    console.log('coba', documentDetail)
-    console.log('coba media', media)
-    console.log('coba delted', deletedMedia)
+    console.log(documentDetail && documentDetail.form.tahun)
 
     return(
       <Fragment>
           <SideBarOff/>
+            <div className="background-after-login"/>
           <Popup notif={props.notif}/>
             {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
             <div className={isPreviewing ? 'd-none': "form"}>
@@ -288,19 +373,36 @@ const FormGNRM = (props) => {
                 <h1> FORM RENCANA PELAKSANAAN PROGRAM</h1>
                 </div>
 
-                <form>
+                <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
                     <Element id='identitas' name='identitas'>
                         <div className="gnrm-container">
                             <div className="form-gnrm">
                                 <div>
                                     <label>Tahun</label>
-                                    <input 
-                                        className="gnrm-tahun" 
-                                        type="text" 
-                                        name="tahun"
-                                        value={tahun}
-                                        onChange={(event) => onChange(event)} 
-                                    />
+                                    {
+                                        documentDetail && documentDetail.form.tahun ?
+                                        <select 
+                                            onChange={(event) => onChange(event)}  
+                                            className="gnrm-tahun"
+                                            name="tahun"
+                                        >
+                                            
+                                            {
+                                                pilihanTahun.map((tahun, i) => <option key={i} selected={documentDetail.form.tahun === tahun && true} title={tahun} value={tahun}>{tahun}</option>)
+                                            }
+                                            
+                                        </select> :
+                                        <select 
+                                            onChange={(event) => onChange(event)} 
+                                            className="gnrm-tahun"
+                                            name="tahun"
+                                        >
+                                            <option selected={true} hidden></option>
+                                            {
+                                                pilihanTahun.map((tahun, i) => <option key={i} title={tahun} value={tahun}>{tahun}</option>)
+                                            }
+                                        </select>
+                                    }
                                 </div>
                                 <div>
                                     <label>ID Program</label>
@@ -332,7 +434,7 @@ const FormGNRM = (props) => {
                                     duration={500}
                                     offset={-30}
                                 >
-                                <button className="forward"><i className="material-icons">expand_more</i></button>
+                                <button className="forward tes"><i className="material-icons">expand_more</i></button>
                                 </Link>
                             </div>
                         </div>
@@ -360,26 +462,26 @@ const FormGNRM = (props) => {
                                 <div>
                                     <label>Kegiatan Prioritas</label>
                                     {
-                                        documentDetail ?
+                                        documentDetail && documentDetail.form.kp ?
                                         <select 
                                             onChange={onChange} 
                                             class="gnrm-select"
                                             name="kp"
-                                            style={{marginLeft: '70px'}}
+                                            style={{marginLeft: '71px', width:'955px' , height: '42px'}}
                                         >
                                             {
-                                                kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 116 ? `${kp.substr(0, 113)}...` : kp}</option>)
+                                                kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                             }
                                         </select> :
                                         <select 
                                             onChange={onChange} 
                                             class="gnrm-select"
                                             name="kp"
-                                            style={{marginLeft: '70px'}}
+                                            style={{marginLeft: '71px', width:'955px' , height: '42px' }}
                                         >
                                             <option selected={true} hidden></option>
                                             {
-                                                kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 116 ? `${kp.substr(0, 113)}...` : kp}</option>)
+                                                kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                             }
                                         </select>
                                     }
@@ -392,7 +494,7 @@ const FormGNRM = (props) => {
                                             onChange={onChange} 
                                             class="gnrm-select selectpicker"
                                             name="prop"
-                                            style={{marginLeft: '83px'}}
+                                            style={{marginLeft: '84px'}}
                                         >
                                             {
                                                 propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
@@ -602,7 +704,138 @@ const FormGNRM = (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
+                                <div>
+                                    <label>Lampiran Media</label>
+                                    <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                    <input 
+                                        id="testing2"
+                                        className="gnrm-penjelasan" 
+                                        style={{height: "42px", 
+                                                marginLeft: "28px", 
+                                                width: "955px"}} 
+                                        onChange={onChangeFilesKondisi}
+                                        type="file"
+                                        accept="image/*"
+                                        name="media"
+                                        multiple
+                                    />
+                                </div>
+                                <div>
+                                    {
+                                        lampiranKondisi && lampiranKondisi.length > 0 ? (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    lampiranKondisi.map((lampiran,index) => {
+                                                        const objectURL = URL.createObjectURL(lampiran)
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'
+                                                                                }}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer',
+                                                                                    color:'white'}}
+                                                                        onClick={(e) => onDeleteKondisi(true, lampiran.name, lampiran)}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px',}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    lampiranKondisiUrl.map((url,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'}}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer'}}
+                                                                        onClick={(e) => onDeleteKondisi(false, getFileName(url))}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px'}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {getFileName(url)}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </div>
+
                             
                             <div className="gnrm-navigation-button">
                                 <Link 
@@ -703,6 +936,136 @@ const FormGNRM = (props) => {
                                         value={proses}
                                         onChange={(event) => onChange(event)}
                                     />
+                                </div>
+                                <div>
+                                    <label>Lampiran Media</label>
+                                    <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                    <input 
+                                        id="testing3"
+                                        className="gnrm-penjelasan" 
+                                        style={{height: "42px", 
+                                                marginLeft: "28px", 
+                                                width: "955px"}} 
+                                        onChange={onChangeFilesProses}
+                                        type="file"
+                                        accept="image/*"
+                                        name="media"
+                                        multiple
+                                    />
+                                </div>
+                                <div>
+                                    {
+                                        lampiranProses && lampiranProses.length > 0 ? (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    lampiranProses.map((lampiran,index) => {
+                                                        const objectURL = URL.createObjectURL(lampiran)
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'
+                                                                                }}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer',
+                                                                                    color:'white'}}
+                                                                        onClick={(e) => onDeleteProses(true, lampiran.name, lampiran)}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px',}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        ) : (
+                                            <div style={{height: "fit-content", 
+                                                marginLeft: "208px", 
+                                                width: "955px",
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
+                                                padding: '10px',
+                                                display: 'flex',
+                                                flexWrap: 'wrap',
+                                            }} 
+                                            >
+                                                {
+                                                    lampiranProsesUrl.map((url,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                    <div style={{width:'150px', 
+                                                                                height:'150px', 
+                                                                                backgroundColor:'pink', 
+                                                                                marginRight:'35px', 
+                                                                                position:'relative'}}
+                                                                        className="d-flex align-items-center justify-content-center"
+                                                                    >
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        </div>
+                                                                        <div style={{position:'absolute', 
+                                                                                    backgroundColor:'#C04B3E' , 
+                                                                                    width:'25px' , 
+                                                                                    height:'25px', 
+                                                                                    borderRadius:'50%', 
+                                                                                    top:'-7px', 
+                                                                                    right:'-7px', 
+                                                                                    lineHeight:'25px', 
+                                                                                    textAlign:'center',
+                                                                                    cursor:'pointer'}}
+                                                                        onClick={(e) => onDeleteProses(false, getFileName(url))}> X </div>
+                                                                    </div>
+                                                                    <div style={{marginTop:'10px' , 
+                                                                                width:'150px' , 
+                                                                                height:'20px', 
+                                                                                wordWrap: 'break-word',
+                                                                                lineHeight:'20px'}}
+                                                                    >
+                                                                        <p className="gnrm-media--name">
+                                                                            {getFileName(url)}
+                                                                        </p>
+                                                                    </div>
+                                                                
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         
@@ -913,7 +1276,7 @@ const FormGNRM = (props) => {
                             <div className="form-gnrm">
                                 <div>
                                     <label>Lampiran Media</label>
-                                    <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH FILE</label>
+                                    <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                     <input 
                                         id="testing"
                                         className="gnrm-penjelasan" 
@@ -933,7 +1296,8 @@ const FormGNRM = (props) => {
                                             <div style={{height: "fit-content", 
                                                 marginLeft: "208px", 
                                                 width: "955px",
-                                                border: '1px solid black',
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
@@ -948,10 +1312,13 @@ const FormGNRM = (props) => {
                                                                                 height:'150px', 
                                                                                 backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
-                                                                                position:'relative'}}
+                                                                                position:'relative'
+                                                                                }}
                                                                         className="d-flex align-items-center justify-content-center"
                                                                     >
-                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                        </div>
                                                                         <div style={{position:'absolute', 
                                                                                     backgroundColor:'#C04B3E' , 
                                                                                     width:'25px' , 
@@ -961,17 +1328,18 @@ const FormGNRM = (props) => {
                                                                                     right:'-7px', 
                                                                                     lineHeight:'25px', 
                                                                                     textAlign:'center',
-                                                                                    cursor:'pointer'}}
+                                                                                    cursor:'pointer',
+                                                                                    color:'white'}}
                                                                         onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
                                                                     </div>
                                                                     <div style={{marginTop:'10px' , 
                                                                                 width:'150px' , 
                                                                                 height:'20px', 
                                                                                 wordWrap: 'break-word',
-                                                                                lineHeight:'20px'}}
+                                                                                lineHeight:'20px',}}
                                                                     >
                                                                         <p className="gnrm-media--name">
-                                                                            {media.name}
+                                                                            {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
                                                                         </p>
                                                                     </div>
                                                                 
@@ -984,7 +1352,8 @@ const FormGNRM = (props) => {
                                             <div style={{height: "fit-content", 
                                                 marginLeft: "208px", 
                                                 width: "955px",
-                                                border: '1px solid black',
+                                                border: '1px solid #ACACAC',
+                                                borderRadius: '5px',
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
@@ -1001,7 +1370,9 @@ const FormGNRM = (props) => {
                                                                                 position:'relative'}}
                                                                         className="d-flex align-items-center justify-content-center"
                                                                     >
-                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                        </div>
                                                                         <div style={{position:'absolute', 
                                                                                     backgroundColor:'#C04B3E' , 
                                                                                     width:'25px' , 
@@ -1133,7 +1504,7 @@ const FormGNRM = (props) => {
         {/* -------------------------- FORM SECTION END HERE ---------------------------------*/}
 
         {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
-            <div className={isPreviewing ? "preview-page" : "d-none"}>
+            <div className={isPreviewing ? "preview-page" : "d-none"} style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
                     <div className="title-preview-page" style={{color:'#D33732'}}>
                         PREVIEW LAPORAN
                     </div>

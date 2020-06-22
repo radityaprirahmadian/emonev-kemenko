@@ -1,6 +1,7 @@
 import React,{Component,Fragment,useContext, useState , useEffect} from 'react';
 import './TabelMonev.css';
 import { ArtikelContext } from '../../context/Artikel/artikelContext';
+import { AuthContext } from '../../context/Auth/AuthContext';
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -11,6 +12,7 @@ import hapus from '../../assets/delete.png';
 
 const TabelMonev = (props) => {
     const { getDocumentDetail , documentDetail, resetDocument, editDocument } = useContext(ArtikelContext)
+    const {userDetail} = useContext(AuthContext)
     const history = useHistory()
 
     const id = props.id
@@ -42,13 +44,14 @@ const TabelMonev = (props) => {
     console.log(document)
 
     const onClickEdit = () => {
-        history.push(`./formulir-monev-edit/${props.id}`)
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-monev-edit/${props.id}`)
     }
         return(
             <Fragment>
                 <tr>
                     <td>{props.tahun}</td>
-                    <td>Pembangunan Tanah Papua</td>
+                    <td>{props.kp.length > 78 ? `${props.kp.substr(0, 75)}...` : props.kp}</td>
+                    <td>{props.prop.length > 78 ? `${props.prop.substr(0, 75)}...` : props.prop}</td>
                     <td>{props.instansi}</td>
                     <td>{props.periode}</td>
                     <td>{props.penanggung_jawab}</td>

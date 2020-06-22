@@ -343,7 +343,7 @@ const Topbar = (props) => {
                                         {
                                             isAuthenticated && userDetail ? 
                                                     userDetail && !userDetail.login_awal ? (
-                                                        <NavLink to="/dashboard" activeClassName="active">
+                                                        <NavLink to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`} activeClassName="active">
                                                             <div className="top-bar-menu-container">
                                                                 E-Report
                                                             </div>

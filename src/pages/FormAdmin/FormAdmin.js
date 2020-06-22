@@ -6,16 +6,20 @@ import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormAdmin = (props) => {
-        const { user, token } = useContext(AuthContext);
+        const { user, token,userDetail } = useContext(AuthContext);
         const history = useHistory();
         const [allInstansi, setAllInstansi] = useState([])
 
         const [admin, setAdmin] = useState({
             nama: '',
             instansi: '',
-            role: '',
+            role: 'admin',
             username: '',
             password: ''
         })
@@ -70,8 +74,9 @@ const FormAdmin = (props) => {
                 }
             }
             try {
-                await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
-                history.push('/admin')
+                const res = await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
+                alert(res.data.message)
+                history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
             }
             catch (err) {
                 console.log(err)
@@ -98,6 +103,12 @@ const FormAdmin = (props) => {
           <Fragment>
               <SideBarOff/>
               <Popup notif={props.notif}/>
+                <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                    <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                    <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                    <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                </div>
               <div className="tajuk-page">
                   <h1> FORM ADMIN</h1>
               </div>
@@ -135,17 +146,10 @@ const FormAdmin = (props) => {
                             }
                         </div>
                         <div>
-                            {
-                                user && user.role === 'owner' ?
-                                <Fragment>
-                                    <label>Level</label>
-                                    <select className="admin-role" name="role" onChange={onChange} required>
-                                        <option value="" defaultValue="" hidden></option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </Fragment>
-                                : ''
-                            }
+                            <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                            <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
+                                Admin
+                            </div>
                         </div>
                         <div>
                             <label>Username</label>

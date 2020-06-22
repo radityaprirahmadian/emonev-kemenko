@@ -134,6 +134,8 @@
 .artikel-terkait-card {
     height: 150px;
     background-color: black;
+    position: relative;
+    overflow: hidden;
     width: 300px;
     border-radius: 10px;
 }

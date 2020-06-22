@@ -9,6 +9,10 @@ import Form1Reminder from '../../component/Reminder/Form1';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Popup from '../../component/Popup/Popup';
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormReminder = (props) => {
     const { token,userDetail } = useContext(AuthContext)
@@ -131,6 +135,7 @@ const FormReminder = (props) => {
                   socket.emit("notif_send", formData);
             })
             }
+            history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/reminder`)
         }
         catch (err) {
             console.log(err)
@@ -146,7 +151,7 @@ const FormReminder = (props) => {
             judul,
             isi
         })
-        history.push('/reminder')
+        
     }
 
     const [startDate, setStartDate] = useState(new Date());
@@ -181,10 +186,17 @@ const FormReminder = (props) => {
       <Fragment>
           <SideBarOff/>
           <Popup notif={props.notif}/>
+          <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                    <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                    <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                    <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                </div>
           <div className="tajuk-page">
               <h1> FORM REMINDER</h1>
           </div>
-            <div className="reminder-1-container">
+          <div style={{width:'fit-content' , height: 'fit-content' , margin: 'auto'}}>
+            <div className="reminder-1-container" >
                 <div className="asal-reminder" style={{lineHeight:'20px'}}>
                     Dari <br/>
                     <span className="nama-pengirim-reminder">{userDetail && userDetail.nama}</span><br/>
@@ -265,6 +277,7 @@ const FormReminder = (props) => {
                 </div>
                 </form>
             </div>
+          </div>
       </Fragment>  
     );
 }

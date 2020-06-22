@@ -1,12 +1,12 @@
 import React,{Component,Fragment,useState,useEffect,useContext} from 'react';
-import './Filter.css';
+import '../Filter/Filter.css';
 import axios from 'axios'
 import {AuthContext} from '../../context/Auth/AuthContext.js'
 
-const Filter = (props) => {
+const FilterMonev = (props) => {
     const { token } = useContext(AuthContext)
     const [ filterTahun , setFilterTahun ] = useState([])
-    const [ filterKp , setFilterKp ] = useState([])
+    const [ filterPeriode , setFilterPeriode ] = useState([])
     const [ filterInstansi , setFilterInstansi ] = useState([])
 
     const getDocumentLength = async () => {
@@ -16,9 +16,9 @@ const Filter = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm`, config)
+            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
             setFilterTahun(res.data.filter.tahun)
-            setFilterKp(res.data.filter.kp)
+            setFilterPeriode(res.data.filter.periode)
             setFilterInstansi(res.data.filter.instansi)
         }
         catch (err) {
@@ -60,6 +60,22 @@ const Filter = (props) => {
                             }
                         </select> 
                     </div>
+
+                    <div className="filter-pelaporan">
+                        <label className="nama-filter">Periode Pelaporan</label>
+                        <select className="input-filter-pelaporan" name="periode" onChange={onChange}>
+                            <option defaultValue="" hidden></option>
+                            <option value="">Semua</option>
+                            {
+                                filterPeriode.map((periode,index) => {
+                                    return(
+                                        <option key={index} value={periode}>{periode}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+
                     <div className="filter-instansi">
                         <label className="nama-filter">Instansi</label>
                         <select className="input-filter-instansi" name="instansi" onChange={onChange}>
@@ -75,20 +91,6 @@ const Filter = (props) => {
                             }
                         </select>
                     </div>
-                    <div className="filter-pelaporan">
-                        <label className="nama-filter">Kegiatan Prioritas</label>
-                        <select className="input-filter-pelaporan" name="kp" onChange={onChange}>
-                            <option defaultValue="" hidden></option>
-                            <option value="">Semua</option>
-                            {
-                                filterKp.map((kp,index) => {
-                                    return(
-                                        <option key={index} value={kp}>{kp.length > 50 ? `${kp.substr(0, 47)}...` : kp}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
 
                     <button className="button-submit-filter-admin" onClick={onSubmit}>FILTER</button>   
                 </div>
@@ -96,4 +98,4 @@ const Filter = (props) => {
         );
 }
 
-export default Filter;
+export default FilterMonev;

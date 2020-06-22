@@ -34,7 +34,6 @@ const Download = (props) => {
         getDocumentDetail()
     },[])
 
-    console.log(document)
 
     return(
         <div>
