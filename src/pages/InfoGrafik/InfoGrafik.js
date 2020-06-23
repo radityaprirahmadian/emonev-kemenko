@@ -17,7 +17,7 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
-
+import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 
 
 const data = {
@@ -35,7 +35,6 @@ const data = {
     }
   ]
 };
-
 
 
 const Dashboard = (props) => {
@@ -125,6 +124,24 @@ const Dashboard = (props) => {
             return filterCard;
         }
     }
+
+  const yearsData = [];
+  const todaysYear = new Date().getFullYear();
+  for (let year = todaysYear; year >= 2020; year--) {
+      yearsData.push(year);
+  }
+  
+  const [periode, setPeriode] = useState('tahun')
+  const [waktu, setWaktu] = useState('2020')
+  const [tahun, setTahun] = useState(todaysYear)
+  
+  const onChangePeriode = e => {
+    setPeriode(e.target.value)
+  }
+  const onChangeWaktu = e => {
+    setWaktu(e.target.value)
+  }
+
   return (
       <Fragment>
             <SideBarOff/>
@@ -148,18 +165,24 @@ const Dashboard = (props) => {
                       </div>
                     
                     <div className="infografik-statistik">
-                      <Bar
-                        data={data}
-                        width={10}
-                        height={445}
-                        options={{
-                        maintainAspectRatio: false
-                        }}
+                      <StatistikGNRM 
+                          color='#8380EA'
+                          tahun={tahun}
+                          periode={periode}
+                          waktu={waktu}
                       />
+                      <div className="keterangan">
+                        <p className="">
+                          Keterangan : 
+                        </p>
+                        <p className="">
+                          Sumbu Y merupakan jumlah gerakan
+                        </p>
+                      </div>
                     </div>
 
-                    {/* <div className="drop-down-menu">
-                      <div className={user && user.role !== 'owner' ? "d-none" : "drop-down-kementrian"}>
+                    <div className="drop-down-menu">
+                      {/* <div className={user && user.role !== 'owner' ? "d-none" : "drop-down-kementrian"}>
                         <form> 
                             <select>
                               <option value="kemenko-pmk">KEMENKO PMK</option>
@@ -174,41 +197,66 @@ const Dashboard = (props) => {
                               KEMENTRIAN
                             </label>
                         </form>
-                      </div>
+                      </div> */}
 
                       <div className="spacer"></div>
 
-                      <div className="drop-down-waktu">
+                      <div className="select-waktu-periode">
                         <form> 
-                            <select >
-                              <option value="triwulan">TRIWULAN</option>
-                              <option value="enambulan">NAMBULAN</option>
-                              <option value="bulanan">BULANAN</option>
-                              <option value="tahunan">TAHUNAN</option>
+                            <select onChange={onChangePeriode}>
+                              <option value="tahun">Tahun</option>
+                              <option value="caturwulan">Caturwulan</option>
                             </select>
                             <br/>
                             <label>
-                              WAKTU
+                              Periode
                             </label>
                         </form>
                       </div>
 
-                      <div className="drop-down-jangka">
-                        <form> 
-                            <select >
-                              <option value="kemenkopmk">TRIWULAN PERTAMA</option>
-                              <option value="kemenkopmk">TRIWULAN KEDUA</option>
-                              <option value="kemenkopmk">TRIWULAN KETIGA</option>
-                              <option value="kemenkopmk">TRIWULAN KEEMPAT</option>
+                      <div className="select-waktu-periode">
+                        {
+                          periode === 'tahun'
+                          ?
+                          <form> 
+                            <select onChange={onChangeWaktu}>
+                              <option defaultValue hidden>Pilih Tahun</option>
+                              {
+                                  yearsData.map((year, i) => {
+                                      if (i < 5) {
+                                          return (
+                                              <option key={i} value={year}>
+                                                  {year}
+                                              </option>
+                                          )
+                                      }
+                                  })
+                              }
                             </select>
                             <br/>
                             <label>
-                              TRIWULAN
+                              Tahun
                             </label>
                         </form>
+                        :
+                        <form> 
+                            <select onChange={onChangeWaktu}>
+                              <option defaultValue hidden>Pilih Caturwulan</option>
+                              <option defaultValue value='caturwulan1' >Caturwulan ke-1</option>
+                              <option defaultValue value='caturwulan2' >Caturwulan ke-2</option>
+                              <option defaultValue value='caturwulan3' >Caturwulan ke-3</option>
+                              <option defaultValue value='caturwulan4' >Caturwulan ke-4</option>
+                              
+                            </select>
+                            <br/>
+                            <label>
+                              Caturwulan
+                            </label>
+                        </form>
+                        }
                       </div>
 
-                    </div> */}
+                    </div>
                   </div>
 
                   <div className="dashboard-section">

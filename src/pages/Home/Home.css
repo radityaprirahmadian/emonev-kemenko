@@ -9,15 +9,35 @@
     color: black;
 }
 
+.home-section-2-title{
+    font-weight: bold;
+    font-size: 48px;
+    color: black;
+    padding-left: 10px;
+}
+
 .home-statistik {
     border-radius: 10px;
-    margin-left: 192px;
-    margin-right: 153px;
-    margin-top: 22px;
+    border: 4px solid black;
     background-color: white;
-    padding-left: 50px;
-    padding-right: 10px;
 }
+
+.home-statistik-tahun {
+    border-radius: 10px;
+    width: 180px;
+    padding: 0 16px !important;
+    height: 56px;
+    padding: 0;
+    font-weight: bold;
+    background: #FDE47F;
+}
+
+.home-statistik-tahun select {
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+}
+
 .home-section-4 {
     background-image: linear-gradient(to right bottom , #E76975 , #FDB99B);
     height: 1024px;
@@ -199,13 +219,6 @@
     font-weight: bold;
     font-size: 24px;
     text-align: center;
-}
-
-.home-section-2-title{
-    font-weight: bold;
-    font-size: 48px;
-    color: black;
-    margin-left: 46px;
 }
 
 .button-lihat-gallery{
