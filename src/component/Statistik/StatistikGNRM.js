@@ -89,6 +89,7 @@ export default function StatistikGNRM(props) {
       yAxes: [
         {
           ticks: {
+            fontColor: '#000000',
             min: 0,
             callback: value => {
               if (value % 1 === 0) {
