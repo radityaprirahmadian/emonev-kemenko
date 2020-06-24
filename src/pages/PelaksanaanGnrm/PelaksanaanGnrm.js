@@ -13,6 +13,7 @@ import TabelGNRM from '../../component/TabelGNRM/TabelGNRM';
 import Pagination from '../../component/Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Notification from '../../component/Notification/Notification';
+import Spinner from '../../component/Spinner/Spinner'
 import Popup from '../../component/Popup/Popup';
 import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
@@ -20,7 +21,7 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const GNRM  = (props) => {
-    const { resetDocument , editDocumentFalse } = useContext(ArtikelContext)
+    const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
     const [ filterValue , setFilterValue ] = useState({})
@@ -53,13 +54,14 @@ const GNRM  = (props) => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm`, config)
             setFilterValue(res.data.filter)
-            setFilter({...filter, totalDoc: res.data.document.length})
+            setFilter({...filter, totalDoc: res.data.document.length, page: '1'})
         }
         catch (err) {
             console.log(err)  
         }  
     }
     const getAllDocument = async () => {
+        setLoadingTrue()
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -68,6 +70,7 @@ const GNRM  = (props) => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}`, config)
             setDocuments(res.data.document)
+            setLoadingFalse()
         }
         catch (err) {
             console.log(err)  
@@ -75,6 +78,7 @@ const GNRM  = (props) => {
     }
 
     const deleteDocument = async (id) => {
+        setLoadingTrue()
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -88,6 +92,7 @@ const GNRM  = (props) => {
         catch (err) {
             console.log(err)
         }
+        setLoadingFalse()
     }
 
     const handleReset = () => {
@@ -103,6 +108,7 @@ const GNRM  = (props) => {
         getAllDocument()
     }, [limit,page])
 
+    // if (!loading) {
         return(
             <Fragment>
                 <SideBarOff/>
@@ -158,40 +164,111 @@ const GNRM  = (props) => {
                                         <th width='59px'></th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-body">
-                                    {
-                                        documents.map((document,index) => {
-                                            return(
-                                                <TabelGNRM
-                                                    document={document}
-                                                    key={index}
-                                                    kp={document.form.kp}
-                                                    prop={document.form.prop}
-                                                    id={document._id}
-                                                    tahun={document.form.tahun}
-                                                    instansi={document.instansi}
-                                                    pihak={document.form.pihak_terkait}
-                                                    pejabat={document.form.penanggung_jawab.nama}
-                                                    // edit={}
-                                                    delete={deleteDocument}    
-                                                />
-                                            )
-                                        })
-                                    }
-                                </tbody>
+                                {
+                                    !loading && (
+                                        <tbody className="table-body">
+                                            {
+                                                documents.map((document,index) => {
+                                                    return(
+                                                        <TabelGNRM
+                                                            document={document}
+                                                            key={index}
+                                                            kp={document.form.kp}
+                                                            prop={document.form.prop}
+                                                            id={document._id}
+                                                            tahun={document.form.tahun}
+                                                            instansi={document.instansi}
+                                                            pihak={document.form.pihak_terkait}
+                                                            pejabat={document.form.penanggung_jawab.nama}
+                                                            // edit={}
+                                                            delete={deleteDocument}    
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    )
+                                }
                             </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
                         </div>
-                <Pagination
-                                                                    setFilter={setFilter}
-                                                                    filter={filter}
-                                                                    total={totalDoc}
-                                                                    limit={limit}
-                                                                    page={page}
-                />
+                        <Pagination
+                            setFilter={setFilter}
+                            filter={filter}
+                            total={totalDoc}
+                            limit={limit}
+                            page={page}
+                        />
                 </div>
             </Fragment>
 
         )
+    // } else {
+    //     return (
+    //         <Fragment>
+    //             <SideBarOff/>
+    //             <div className="background-after-login">
+    //                 <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+    //                 <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+    //                 <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+    //                 <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+    //             </div>
+    //             <div style={{marginRight:'20px'}}>
+    //                         <div className="input-dan-tajuk">
+    //                             <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-gnrm`}>
+    //                                 <button className="tambah-program" onClick={() => handleReset()}>
+    //                                     <img src={plus}></img>
+    //                                     <div className="spacer"></div>
+    //                                     <h1 className="text-input-program">
+    //                                         Input Program
+    //                                     </h1>
+    //                                 </button>
+    //                             </Link>
+    //                             <div className="spacer"></div>
+    //                             <div className="tajuk-page-2">
+    //                                 <p>RENCANA PELAKSANAAN PROGRAM</p>
+    //                             </div>
+    //                         </div>
+                        
+    //                     <Filter
+    //                         filterValue={filterValue}
+    //                         getDocument={getAllDocument}
+    //                         setFilterDoc={setFilter}
+    //                         filterDoc={filter}
+    //                     />
+    //                     <div className="table-container">
+    //                         <table className="table-gnrm">
+    //                             <thead className="table-head">
+    //                                 <tr>
+    //                                     <th width='70px'>Tahun</th>
+    //                                     <th width='276px'>Kegiatan Prioritas</th>
+    //                                     <th width='276px'>Proyek Prioritas</th>
+    //                                     <th width='193px'>Instansi</th>
+    //                                     <th width='204px'>Pihak Terkait</th>
+    //                                     <th width='133px'>Pejabat Eselon</th>
+    //                                     <th width='59px'></th>
+    //                                     <th width='59px'></th>
+    //                                     <th width='59px'></th>
+    //                                 </tr>
+    //                             </thead>
+    //                         </table>
+    //                         <div className="d-flex justify-content-center align-items-center" style={{ height: '40ch' }}>
+    //                             <Spinner />
+    //                         </div>
+    //                     </div>
+    //             </div>
+    //             <Popup notif={props.notif}/>
+    //         </Fragment>
+    //     )
+    // }
+
 }
 
 export default GNRM;

@@ -34,7 +34,7 @@ export default function StatistikGNRM(props) {
   useEffect(() => {
     setData(null)
     setStatistik(null)
-    const endpoint =  `http://localhost:5000/api/v1/statistik/gnrm?tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`
+    const endpoint =  `https://test.bariqmbani.me/api/v1/statistik/gnrm?tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`
     console.log('statistikk', endpoint)
     fetch(endpoint)
       .then(res => res.json())

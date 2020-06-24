@@ -4,6 +4,7 @@ export default (state, action) => {
             return {
                 ...state,
                 isEditing: true,
+                loading: false,
                 documentDetail: action.payload
             }
         
@@ -11,22 +12,36 @@ export default (state, action) => {
             return {
                 ...state,
                 documentDetail: null,
+                loading: false,
                 isEditing: false
             }
         case 'EDIT_DOCUMENT':
             return{
                 ...state,
+                loading: false,
                 isEditing: true
             }
         case 'EDIT_DOCUMENT_FALSE':
             return{
                 ...state,
+                loading: false,
                 isEditing: false
             }
         case 'SET_PREVIEW':
             return {
                 ...state,
+                loading: false,
                 isPreviewing: !state.isPreviewing
+            }
+        case 'SET_LOADING_TRUE':
+            return {
+                ...state,
+                loading: true,
+            }
+        case 'SET_LOADING_FALSE':
+            return {
+                ...state,
+                loading: false,
             }
         default :
             return state;
