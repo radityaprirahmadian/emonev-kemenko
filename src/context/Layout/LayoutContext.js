@@ -11,7 +11,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				sidebar: !state.sidebar
-            }
+			}
         default:
 			return state
 	}
@@ -19,7 +19,8 @@ const reducer = (state, action) => {
 
 const initialState = {
     sidebar: false,
-    loading: true
+	loading: true,
+	active: true,
 }
 
 export const LayoutContext = createContext(initialState);
@@ -30,8 +31,8 @@ const LayoutState = (props) => {
     
     const setSidebar = () => {
 		dispatch({ type: 'SET_SIDEBAR' })
-    }
-    
+	}
+	
     return (
 		<LayoutContext.Provider
 			value={{

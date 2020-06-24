@@ -99,7 +99,7 @@ const FormInfografis = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/kabar/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             editDocumentFalse()
-            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/infografis`)
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
         }
         catch(err) {
             alert(err.data.message)

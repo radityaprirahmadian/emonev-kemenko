@@ -119,52 +119,8 @@
     border-radius: 50%;
 }
 
-.side-bar-menu-off {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.side-bar-menu-on ul li i,
-.side-bar-menu-off ul li i{
-    text-align: center;
-}
-
-.side-bar-menu-off ul li i {
-    text-align: center;
-}
-
-.side-bar-menu-on ul {
-    padding-bottom: 25px;
-    width: 256px;
-    border-bottom: 2px solid white;
-}
-
-.side-bar-menu-off ul {
-    padding-bottom: 25px;
-    width: 68px;
-    border-bottom: 2px solid white;
-}
-
-
-.side-bar-menu-on ul li {
-    line-height: 40px;
-}
-
-.side-bar-menu-off ul li {
-    line-height: 40px;
-    width: 68px;
-    text-align: center;
-}
-
-.side-bar-menu-on ul li a{
-    margin-left: 10px;
-}
-
-.side-bar-menu ul a{
-    text-decoration: none;
-    color: white;
-    margin-left: 10px;
+.side-bar-menu{
+	margin-top:61px;
 }
 
 .side-bar-menu .label-menu {
@@ -173,12 +129,25 @@
     font-weight: 600;
 }
 
-.side-bar-item i{
-    color: white;
+.side-bar-menu-on ul li i,
+.side-bar-menu-off ul li i{
+    text-align: center;
 }
 
-.side-bar-item {
-    height: fit-content;
+.side-bar-menu ul a{
+    text-decoration: none;
+    color: white;
+    margin-left: 10px;
+}
+
+.side-bar-menu-on ul {
+    padding-bottom: 25px;
+    width: 256px;
+}
+
+.side-bar-menu-on ul a {
+    margin: 0px;
+    padding: 0px;
 }
 
 .side-bar-menu-on ul .active{
@@ -186,9 +155,56 @@
     padding: 0px;
 }
 
-.side-bar-menu-on ul a {
-    margin: 0px;
-    padding: 0px;
+.side-bar-menu-on ul li {
+    line-height: 40px;
+}
+
+.side-bar-menu-on ul .active li  {
+    color: black;
+    background-color:#59CBA6;
+}
+
+.side-bar-menu-on ul li a{
+    margin-left: 10px;
+}
+
+.side-bar-menu-off {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.side-bar-menu-off ul{
+    margin-top: 86px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 68px;
+    padding-bottom: 25px;
+}
+
+.side-bar-menu-off ul li {
+    line-height: 40px;
+    width: 68px;
+    text-align: center;
+}
+
+.side-bar-menu-off ul .active li  {
+    color: black;
+    background-color: #59CBA6;
+}
+
+.side-bar-item{
+    font-size: 24px;
+    color: white;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.side-bar-item i{
+    color: white;
 }
 
 div.col-md-10{
@@ -199,47 +215,238 @@ div.col-md-10{
     margin-left: 5px;
 }
 
-.side-bar-menu-on ul .active i,
-.side-bar-menu-on ul .active li  {
-    color: black;
-    background-color:#59CBA6;
+.home_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/home_white.svg');
 }
 
-.side-bar-menu-off ul .active i,
-.side-bar-menu-off ul .active li  {
-    color: black;
-    background-color: #59CBA6;
+.side-bar-menu-on ul .active .home_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/home_black.svg');
 }
 
-.side-bar-menu{
-	margin-top:61px;
+.side-bar-menu-off ul .active .home_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/home_black.svg');
 }
 
-.side-bar-menu-off ul{
-    margin-top: 86px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 68px;
+.gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/gnrm_white.svg');
 }
 
-.side-bar-item{
-    font-size: 24px;
-    color: white;
-    margin: 0;
-    text-decoration: none;
-    cursor: pointer;
+.side-bar-menu-on ul .active .gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/gnrm_black.svg');
+}
+
+.side-bar-menu-off ul .active .gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/gnrm_black.svg');
+}
+
+.kabar_gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kabar_gnrm_white.svg');
+}
+
+.side-bar-menu-on ul .active .kabar_gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kabar_gnrm_black.svg');
+}
+
+.side-bar-menu-off ul .active .kabar_gnrm_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kabar_gnrm_black.svg');
+}
+
+.monev_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/monev_white.svg');
+}
+
+.side-bar-menu-on ul .active .monev_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/monev_black.svg');
+}
+
+.side-bar-menu-off ul .active .monev_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/monev_black.svg');
+}
+
+.kelola_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_instansi_white.svg');
+}
+
+.side-bar-menu-on ul .active .kelola_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_instansi_black.svg');
+}
+
+.side-bar-menu-off ul .active .kelola_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_instansi_black.svg');
+}
+
+.kelola_admin_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_admin_white.svg');
+}
+
+.side-bar-menu-on ul .active .kelola_admin_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_admin_black.svg');
+}
+
+.side-bar-menu-off ul .active .kelola_admin_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/kelola_admin_black.svg');
+}
+
+.reminder_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/reminder_white.svg');
+}
+
+.side-bar-menu-on ul .active .reminder_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/reminder_black.svg');
+}
+
+.side-bar-menu-off ul .active .reminder_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/reminder_black.svg');
+}
+
+.profil_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_white.svg');
+}
+
+.side-bar-menu-on ul .active .profil_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_black.svg');
+}
+
+.side-bar-menu-off ul .active .profil_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_black.svg');
 }
 
 .toggle-button{
-    margin-top: 55px;
-    position: fixed;
-    bottom: 90px;
+    border-top: 2px solid white;
+    margin-top: 16px;
+    bottom: 145px;
+}
+
+.toggle-button-on{
+    border-top: 2px solid white;
+    margin-top: 16px;
+    padding-left: 19px;
+    bottom: 145px;
 }
 
 .logout-button{
     position: fixed;
     bottom: 10px;
+}
+
+.toggle_icon_off{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/toggle_off.svg');
+}
+
+.toggle_icon_on{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/toggle_on.svg');
+}
+
+.logout_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/logout.svg');
 }
 
 /* .logout-button{
