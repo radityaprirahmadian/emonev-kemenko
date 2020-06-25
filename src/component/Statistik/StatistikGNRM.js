@@ -23,7 +23,6 @@ export default function StatistikGNRM(props) {
   }, [])
   
   useEffect(() => {
-    console.log('statistikk', props)
     setTahun(props.tahun)
     if (props.periode && props.waktu) {
       setPeriode(props.periode)
@@ -35,7 +34,6 @@ export default function StatistikGNRM(props) {
     setData(null)
     setStatistik(null)
     const endpoint =  `https://test.bariqmbani.me/api/v1/statistik/gnrm?tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`
-    console.log('statistikk', endpoint)
     fetch(endpoint)
       .then(res => res.json())
       .then(data => {
@@ -78,7 +76,7 @@ export default function StatistikGNRM(props) {
 
   const chartOptions = {
     defaultFontStyle: "bold",
-    defaultFontSize: 2,
+    // defaultFontSize: 2,
     legend: {
       display: false
     },
@@ -110,7 +108,7 @@ export default function StatistikGNRM(props) {
           },
           ticks: {
             padding: 5,
-            fontSize: 12,
+            // fontSize: 12,
             fontStyle: "bold",
             fontColor: "#000000"
           }

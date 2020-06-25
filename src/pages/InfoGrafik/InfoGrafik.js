@@ -18,7 +18,7 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
-
+import StatistikMonev from '../../component/Statistik/StatistikMonev'
 
 const data = {
   labels: ['KEMENPAN', `KEMENKO POLHUKAM`, 'KEMENKO MARITIM', 'KEMENKO PEREKONOMIAN', 'KEMENDAGRI', 'KEMENKO PMK'],
@@ -90,6 +90,11 @@ const Dashboard = (props) => {
     useEffect(() =>{
       getDocumentCard()
       getDocumentCardLength()
+
+      fetch("http://localhost:5000/api/v1/instansi")
+      .then(res => res.json())
+      .then(data => setInstansiData(data.instansi));
+      
     },[])
 
     useEffect(() =>{
@@ -134,12 +139,18 @@ const Dashboard = (props) => {
   const [periode, setPeriode] = useState('tahun')
   const [waktu, setWaktu] = useState('2020')
   const [tahun, setTahun] = useState(todaysYear)
+  const [instansiData, setInstansiData] = useState([])
+  const [selectedinstansi, setSelectedinstansi] = useState(null)
   
   const onChangePeriode = e => {
     setPeriode(e.target.value)
   }
   const onChangeWaktu = e => {
+    if (periode === 'tahun') setTahun(e.target.value)
     setWaktu(e.target.value)
+  }
+  const onChangeInstansi = e => {
+    setSelectedinstansi(e.target.value)
   }
 
   return (
@@ -182,22 +193,6 @@ const Dashboard = (props) => {
                     </div>
 
                     <div className="drop-down-menu">
-                      {/* <div className={user && user.role !== 'owner' ? "d-none" : "drop-down-kementrian"}>
-                        <form> 
-                            <select>
-                              <option value="kemenko-pmk">KEMENKO PMK</option>
-                              <option value="kemenpan">KEMENPAN</option>
-                              <option value="kemenko-polhukam">KEMENKO POLHUKAM</option>
-                              <option value="kemenko-maritim">KEMENKO MARITIM</option>
-                              <option value="kemenko-perekonomian">KEMENKO PEREKONOMIAN</option>
-                              <option value="kemendagri">KEMENDAGRI</option>
-                            </select>
-                            <br/>
-                            <label>
-                              KEMENTRIAN
-                            </label>
-                        </form>
-                      </div> */}
 
                       <div className="spacer"></div>
 
@@ -257,6 +252,61 @@ const Dashboard = (props) => {
                       </div>
 
                     </div>
+
+                    {/* MONEV */}
+                    <div className="infografik-statistik">
+                      <StatistikMonev 
+                          color='#8380EA'
+                          periode={periode}
+                          instansi={selectedinstansi}
+                      />
+                      <div className="keterangan">
+                        <p className="">
+                          Keterangan : 
+                        </p>
+                        <p className="">
+                          Sumbu Y merupakan progres laporan yang dikerjakan
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="drop-down-menu">
+
+                      <div className="spacer"></div>
+
+                      <div className="select-waktu-periode">
+                        <form> 
+                            <select onChange={onChangePeriode}>
+                              <option defaultValue hidden>Pilih Periode</option>
+                              <option value="tahun">Tahun</option>
+                              <option value="caturwulan">Caturwulan</option>
+                            </select>
+                            <br/>
+                            <label>
+                              Periode
+                            </label>
+                        </form>
+                      </div>
+
+                      <div className="select-waktu-periode">
+                        <form> 
+                            <select onChange={onChangeInstansi}>
+                              <option defaultValue hidden>Pilih Instansi</option>
+                              {
+                                instansiData.map(ins => (
+                                <option value={ins.nama_pendek}>{ins.nama_pendek}</option>
+                                ))
+                              }
+                            </select>
+                            <br/>
+                            <label>
+                              Instansi
+                            </label>
+                        </form>
+                      </div>
+
+                    </div>
+
                   </div>
 
                   <div className="dashboard-section">
