@@ -114,10 +114,10 @@ const App = () => {
                         notif={notifs} 
                       />
                     </Route>
-                    <Route path="/:role/infografis">
+                    <Route path="/:role/kabar-gnrm">
                       <PrivateRoute
                         exact
-                        path="/:role/infografis"
+                        path="/:role/kabar-gnrm"
                         component={Infografis}
                         notif={notifs} 
                       />

@@ -2,12 +2,12 @@ import React,{useState,Fragment, useContext, useEffect} from 'react';
 import './SideBarOff.css';
 import profil from '../../assets/Profil.png';
 import logo_kemenko from '../../assets/logo_kemenko.png';
+import toggle_off from '../../assets/logo/toggle_off.svg';
+import toggle_on from '../../assets/logo/toggle_on.svg';
 import {Link, NavLink , useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import { LayoutContext } from '../../context/Layout/LayoutContext';
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
-
-
 
 const SideBarOff = (props) => {
     const { isAuthenticated, loading, logout, token, user, userDetail, loadUser, getUserDetail, remember, rememberToken } = useContext(AuthContext);
@@ -58,14 +58,14 @@ const SideBarOff = (props) => {
                                     {
                                         userDetail && userDetail.foto ? (
                                             <Fragment>
-                                                <img src={avatar} className='user-avatar' alt="avatar"/>
-                                                <img src={avatar} className='logo-instansi-user' alt="avatar"/>
+                                                <img src={avatar} className='user-avatar' alt="User Avatar"/>
+                                                <img src={'https://test.bariqmbani.me'+userDetail.instansi.logo} className='logo-instansi-user' alt="Logo Instansi"/>
                                             </Fragment> 
                                         ) : (
 
                                             <Fragment>
-                                                <img src={profil} className='user-avatar' alt="avatar"/>
-                                                <img src={logo_kemenko} className='logo-instansi-user' alt="avatar"/>
+                                                <img src={profil} className='user-avatar' alt="Image Placeholder"/>
+                                                <img src={logo_kemenko} className='logo-instansi-user' alt="Logo Placeholder"/>
                                             </Fragment> 
                                         )
 
@@ -85,7 +85,7 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item" > 
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="fas fa-home"></i>
+                                                        <div className="home_icon"></div>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Beranda</div>
@@ -97,7 +97,7 @@ const SideBarOff = (props) => {
                                         <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="far fa-hospital"></i>
+                                                        <div className="gnrm_icon"></div>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Rencana Pelaksanaan Program</div>
@@ -105,14 +105,14 @@ const SideBarOff = (props) => {
                                                 </div>
                                         </li>
                                         </NavLink>
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/infografis`} activeClassName="active">
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`} activeClassName="active">
                                         <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="far fa-file"></i>
+                                                        <div className="kabar_gnrm_icon"></div>
                                                     </div>
                                                     <div className="col-md-10">
-                                                        <div className="label-menu">Infografis</div>
+                                                        <div className="label-menu">Kabar GNRM</div>
                                                     </div>
                                                 </div>
                                         </li>
@@ -121,7 +121,7 @@ const SideBarOff = (props) => {
                                         <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="far fa-file-alt"></i>
+                                                        <div className="monev_icon"></div>
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Laporan Monev</div>
@@ -136,7 +136,7 @@ const SideBarOff = (props) => {
                                                     <li className="side-bar-item">
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <i className="fas fa-building"></i>
+                                                                    <div className="kelola_instansi_icon"></div>
                                                                 </div>
                                                                 <div className="col-md-10">
                                                                     <div className="label-menu">Kelola Instansi</div>
@@ -148,7 +148,7 @@ const SideBarOff = (props) => {
                                                     <li className="side-bar-item">
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <i className="fas fa-user-friends"></i>
+                                                                    <div className="kelola_admin_icon"></div>
                                                                 </div>
                                                                 <div className="col-md-10">
                                                                     <div className="label-menu">Kelola Admin</div>
@@ -160,7 +160,7 @@ const SideBarOff = (props) => {
                                                     <li className="side-bar-item">
                                                             <div className="row">
                                                                 <div className="col-md-2">
-                                                                    <i className="far fa-bell"></i>
+                                                                    <div className="reminder_icon"></div>
                                                                 </div>
                                                                 <div className="col-md-10">
                                                                     <div className="label-menu">Reminder</div>
@@ -170,29 +170,28 @@ const SideBarOff = (props) => {
                                                     </NavLink>
                                                 </Fragment>
                                             ) : (
-                                                ''
+                                            <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                                                <li className="side-bar-item">
+                                                    <div className="row">
+                                                        <div className="col-md-2">
+                                                            <div className="profil_instansi_icon"></div>
+                                                        </div>
+                                                        <div className="col-md-10">
+                                                            <div className="label-menu">Profil Instansi</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </NavLink>
                                             )
                                         }
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
-                                        <li className="side-bar-item">
-                                                <div className="row">
-                                                    <div className="col-md-2">
-                                                        <i className="far fa-user"></i>
-                                                    </div>
-                                                    <div className="col-md-10">
-                                                        <div className="label-menu">Profile Instansi</div>
-                                                    </div>
-                                                </div>
-                                        </li>
-                                        </NavLink> 
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile/` + (user && user._id)} activeClassName="active">
                                         <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <i className="far fa-user"></i>
+                                                        <div className="profil_icon"></div>
                                                     </div>
                                                     <div className="col-md-10">
-                                                        <div className="label-menu">Profile</div>
+                                                        <div className="label-menu">Profil</div>
                                                     </div>
                                                 </div>
                                         </li>
@@ -201,10 +200,10 @@ const SideBarOff = (props) => {
                                             <div className="toggle-button" style={{color:'white'}} onClick={() => handleClickToggle()}>
                                                 <div className="row">
                                                     <div className="col-md-2" >
-                                                        <i className="fas fa-toggle-on" style={{color:'#FDE47F'}} ></i>
+                                                        <div className="toggle_icon_off"></div>
                                                     </div>
                                                     <div className="col-md-10" >
-                                                        <div className="label-menu" style={{color:'#FDE47F'}}>Sembunyikan Toggle</div>
+                                                        <div className="label-menu" style={{color:'#FFFFFF'}}>Sembunyikan Toggle</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,7 +212,7 @@ const SideBarOff = (props) => {
                                             <div className="logout-button" style={{color:'white'}} onClick={()=>handleLogout()}>
                                                 <div className="row" style={{width:'200px'}}>
                                                     <div className="col-md-2" >
-                                                        <i className="fas fa-sign-out-alt" style={{color:'white'}} ></i>
+                                                        <div className="logout_icon"></div>
                                                     </div>
                                                     <div className="col-md-10" >
                                                         <div className="label-menu">Keluar</div>
@@ -233,13 +232,13 @@ const SideBarOff = (props) => {
                             {
                                         userDetail && userDetail.foto ? (
                                             <Fragment>
-                                                <img src={avatar} className='user-avatar-off' alt="avatar"/>
-                                                <img src={avatar} className='logo-instansi-user-off' alt="avatar"/>
+                                                <img src={avatar} className='user-avatar-off' alt="User Avatar"/>
+                                                <img src={'https://test.bariqmbani.me'+userDetail.instansi.logo} className='logo-instansi-user-off' alt="Logo Instansi"/>
                                             </Fragment>  
                                         ) : (
                                             <Fragment>
-                                                <img src={profil} className='user-avatar-off' alt="avatar"/>
-                                                <img src={logo_kemenko} className='logo-instansi-user-off' alt="avatar"/>
+                                                <img src={profil} className='user-avatar-off' alt="Avatar Placeholder"/>
+                                                <img src={logo_kemenko} className='logo-instansi-user-off' alt="Logo Placeholder"/>
                                             </Fragment>
                                         )
 
@@ -249,23 +248,39 @@ const SideBarOff = (props) => {
                                 <div>
                                     <ul>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin' }/dashboard`} activeClassName="active">
-                                            <li className="side-bar-item" > 
-                                                <i className="fas fa-home"></i>
+                                            <li className="side-bar-item">
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="home_icon"></div>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </NavLink>        
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`} activeClassName="active">
                                             <li className="side-bar-item">
-                                                <i className="far fa-hospital"></i>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="gnrm_icon"></div>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </NavLink>
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/infografis`} activeClassName="active">
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`} activeClassName="active">
                                             <li className="side-bar-item">
-                                                <i className="far fa-file"></i>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="kabar_gnrm_icon"></div>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`} activeClassName="active">
                                             <li className="side-bar-item">
-                                                <i className="far fa-file-alt"></i>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="monev_icon"></div>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </NavLink>
                                             {
@@ -273,42 +288,61 @@ const SideBarOff = (props) => {
                                                     <Fragment>
                                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`} activeClassName="active">
                                                             <li className="side-bar-item">
-                                                                <i className="fas fa-building"></i>
+                                                                <div className="row">
+                                                                    <div className="col-md-2">
+                                                                        <div className="kelola_instansi_icon"></div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                         </NavLink> 
                                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`} activeClassName="active">
                                                             <li className="side-bar-item">
-                                                                <i className="fas fa-user-friends"></i>
+                                                                <div className="row">
+                                                                    <div className="col-md-2">
+                                                                        <div className="kelola_admin_icon"></div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                         </NavLink> 
                                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/reminder`} activeClassName="active">
                                                             <li className="side-bar-item">
-                                                                <i className="far fa-bell"></i>
+                                                                <div className="row">
+                                                                    <div className="col-md-2">
+                                                                        <div className="reminder_icon"></div>
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                         </NavLink>
                                                     </Fragment>
                                                 ) : (
-                                                    ''
-                                                )
+                                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)}activeClassName="active">
+                                                            <li className="side-bar-item">
+                                                                <div className="row">
+                                                                    <div className="col-md-2">
+                                                                        <div className="profil_instansi_icon"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </NavLink>
+                                                    )
                                             }
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)}activeClassName="active">
-                                            <li className="side-bar-item">
-                                                <i className="far fa-user"></i>
-                                            </li>
-                                        </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile/` + (user && user._id)}activeClassName="active">
                                             <li className="side-bar-item">
-                                                <i className="far fa-user"></i>
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="profil_icon"></div>
+                                                    </div>
+                                                </div>
                                             </li>
                                         </NavLink> 
                                         <li className="side-bar-item">
-                                            <div className="toggle-button" style={{color:'white', left:'22px'}}>
-                                                <i className="fas fa-toggle-on"  style={{color:'#FDE47F'}} onClick={() => handleClickToggle()}></i>
+                                            <div className="toggle-button-on" style={{color:'white', left:'19px'}}  onClick={() => handleClickToggle()}>
+                                                <div className="toggle_icon_on"></div>
                                             </div>
                                         </li>
                                         <li className="side-bar-item">
-                                            <div className="logout-button" style={{color:'white', left:'24px'}} >
-                                                <i className="fas fa-sign-out-alt"  style={{color:'white'}} onClick={()=>handleLogout()}></i>
+                                            <div className="logout-button" style={{color:'white', left:'19px'}} onClick={()=>handleLogout()}>
+                                                <div className="logout_icon"></div>
                                             </div>
                                         </li> 
                                     </ul>
