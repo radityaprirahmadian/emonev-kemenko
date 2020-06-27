@@ -120,11 +120,36 @@
     margin-right: 153px;
     margin-top: 32px;
     background-color: white;
-    padding-left: 50px;
-    padding-right: 10px;
     box-shadow: 0px 5px 3px rgba(0,0,0,0.5);
+    border: 4px solid #fccb82;
 }
 
 .dashboard-section{
     margin-left: 100px;
+}
+
+.select-waktu-periode {
+    margin: 0 12px;
+}
+
+.select-waktu-periode select {
+    border-radius: 10px;
+    padding: 5px;
+    width: 175px;
+    font-weight: bold;
+    border: 2px solid #fccb82;
+}
+
+.select-waktu-periode label {
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.infografik-statistik .keterangan {
+    font-weight: bold;
+    text-align: right;
+    font-size: 0.7em;
+    padding: 20px;
+    line-height: initial;
 }

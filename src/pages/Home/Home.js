@@ -13,8 +13,7 @@ import Gallery from '../../component/Gallery/Gallery';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import statistik from '../../assets/statistik.png';
 import {Bar} from 'react-chartjs-2';
-
-
+import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 
 const Home = () => {
     const datas = {   
@@ -287,6 +286,18 @@ const Home = () => {
     const onChangeBulan = (e) => {
         return setBulan(e.target.value)
     }
+
+    const yearsData = [];
+    const todaysYear = new Date().getFullYear();
+    for (let year = todaysYear; year >= 2020; year--) {
+        yearsData.push(year);
+    }
+    const [tahun, setTahun] = useState(todaysYear)
+
+    const onChangeTahun = e => {
+        setTahun(e.target.value)
+    }
+    
         return(
             <Fragment>
                 <Topbar kunci={true}/>
@@ -437,37 +448,32 @@ const Home = () => {
                                     <style></style></defs><path style={{fill: '#59CBA6'}} className='cls-1' d='M0,280.8S283.66,59,608.94,163.56s437.93,150.57,808,10.34V309.54H0V280.8Z' transform='translate(0-135.53)'></path></svg>
                         </div>
 
-                        <div className="home-section-2">
-                            <div>
-                                <div className="home-section-2-title" style={{display:'inline-block', position:'absolute'}}>
-                                    Statistik Bulan {bulan}
+                        <div className="home-section-2 center">
+                            <div className="container">
+                                <div className="d-flex justify-content-between mb-5">
+                                    <div className="home-section-2-title">
+                                        Statistik Bulan {bulan}
+                                    </div>
+                                    <select className='home-statistik-tahun' type="text" name="tahun" onChange={onChangeTahun} >
+                                        <option defaultValue={tahun} hidden>{tahun}</option>
+                                        {
+                                            yearsData.map((year, i) => {
+                                                if (i < 5) {
+                                                    return (
+                                                        <option key={i} value={year}>
+                                                            {year}
+                                                        </option>
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </select>
                                 </div>
-                                <select className="reminder-tujuan" type="text" name="bulan" onChange={onChangeBulan} style={{display:'inline-block', marginLeft:'1000px', borderRadius:'10px' , width: '212px' , height: '56px'}}>
-                                    <option defaultValue='' hidden></option>
-                                    <option value="Januari">Januari</option>
-                                    <option value="Februari">Februari</option>
-                                    <option value="Maret">Maret</option>
-                                    <option value="April">April</option>
-                                    <option value="Mei">Mei</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Agustus">Agustus</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="Desember">Desember</option>
-
-                                </select>
-                            </div>
-                            <div className="home-statistik">
-                                <Bar
-                                    data={data}
-                                    width={10}
-                                    height={445}
-                                    options={{
-                                        maintainAspectRatio: false
-                                    }}
-                                />
+                                <div className="home-statistik mt-5 w-100">
+                                    <StatistikGNRM 
+                                        tahun={tahun}
+                                    />
+                                </div>
                             </div>
                             <svg id='curve' data-name='layer 1' xmlns='http://www/w3/org/2000/svg' viewBox=" 0 0 1416.99 174.01">
                                 <defs><style></style></defs>

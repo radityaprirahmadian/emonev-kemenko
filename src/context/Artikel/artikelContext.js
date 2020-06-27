@@ -10,10 +10,23 @@ const ArtikelState = props => {
         documentDetail: null,
         isEditing: false,
         isPreviewing : false,
+        loading: true,
     }
 
     const [state , dispatch] = useReducer(artikelReducer,intialState)
     console.log(state.isPreviewing)
+
+    const setLoadingTrue = () => {
+        dispatch({
+            type: 'SET_LOADING_TRUE'
+        })
+    }
+    
+    const setLoadingFalse = () => {
+        dispatch({
+            type: 'SET_LOADING_FALSE'
+        })
+    }
 
     const getDocumentDetail = async (data) => {
         const config = {
@@ -63,11 +76,14 @@ const ArtikelState = props => {
                 documentDetail: state.documentDetail,
                 isEditing: state.isEditing,
                 isPreviewing: state.isPreviewing,
+                loading: state.loading,
                 getDocumentDetail,
                 resetDocument,
                 editDocument,
                 editDocumentFalse,
-                preview
+                preview,
+                setLoadingTrue,
+                setLoadingFalse,
             }}
             >
             {props.children}
