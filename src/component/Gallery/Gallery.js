@@ -88,10 +88,69 @@ console.log(userDetail)
     console.log(gambar)
 
 
+    const arrayTest = ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']
+
+    const [awal,setAwal] = useState(0)
+    const [batas,setBatas] = useState(9)
+    const [activePage,setActivePage] = useState(1)
+    const [totalPage,setTotalPage] = useState(1)
+    const [paging,setPaging] = useState([])
+
+    useEffect(() => {
+        if(arrayTest.length % 9 === 0 ) {
+            setTotalPage(parseInt(arrayTest.length / 9))
+        } else setTotalPage(parseInt(arrayTest.length / 9 + 1))
+    },[])
+
+    useEffect(() => {
+        for(let i = 1 ; i <= totalPage ; i++){
+            setPaging([paging + i])
+            console.log('paging' , paging)
+        }
+    },[totalPage])
+
+    const handleGallery = (e) => {
+        e.preventDefault()
+        if(batas + 1 <= arrayTest.length ) {
+            setAwal(awal + 9)
+            setBatas(batas + 9)
+            setActivePage(activePage+1)
+        }
+    }
+
+    const handleGalleryPrev = (e) => {
+        e.preventDefault()
+        if(awal >= 9) {
+            setAwal(awal - 9)
+            setBatas(batas - 9)
+            setActivePage(activePage-1)
+        }
+    }
+
+    console.log(arrayTest.length)
+    console.log(awal)
+    console.log(batas)
+    console.log(paging)
+
         return(
             <Fragment>
                 <div className="gallery-container">
                     {
+                        arrayTest.slice((awal),(batas)).map((array,index) => {
+                            return(
+                                <div className="gallery-item" key={index}>
+                                    <img className='test_decor' src={background} alt='est'></img>
+                                    <img className='test_gambar_gallery' src={background} alt='est' style={{cursor:'pointer' }}></img>
+                                    <div className='test_gallery'></div>
+                                </div>
+                            )
+                        })
+                    }
+
+
+
+                    
+                    {/* {
                         gallery.map((galler,index) => {
                             return(
                                 <Fragment>
@@ -132,8 +191,24 @@ console.log(userDetail)
                                 </Fragment> 
                             )
                         })
-                    }
+                    } */}
                 </div>
+                    <br/>
+                    <br/>
+                    <div className="gallery-pagination">
+                        <i class="material-icons" onClick={handleGalleryPrev}>chevron_left</i>
+                        <ul>
+                            {
+                                
+                            }
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                        </ul>
+                        <i class="material-icons" onClick={handleGallery}>chevron_right</i>
+                    </div>
             </Fragment>
         )
 }

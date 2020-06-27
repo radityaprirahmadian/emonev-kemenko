@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom'
 const Artikel = (props) => {
     const { infografisDetail, setInfografis } = useContext(InfografisContext)
     const [ gambar , setGambar ] = useState([]); 
+    const [ gambarIndex , setGambarIndex] = useState(0)
     const [ logo , setLogo] = useState();
     const [ infografisRelated, setInfografisRelated] = useState([])
     
@@ -24,7 +25,7 @@ const Artikel = (props) => {
         const getAllDocument = async () => {
         try {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${infografisDetail.instansi.nama_pendek}`)
-                setInfografisRelated(res.data.kabar)
+                setInfografisRelated(res.data.kabar.filter(info => info._id !== props.match.params.id))
                 console.log(res.data.kabar)
         }
         catch (err) {
@@ -38,6 +39,22 @@ const Artikel = (props) => {
             }
             window.open(response.file)
         }, 100)
+    }
+
+    const onNext = (e) => {
+        e.preventDefault()
+        if(gambarIndex < gambar.length - 1){
+            setGambarIndex(gambarIndex+1)
+            console.log(gambarIndex)
+        }
+    }
+
+    const onPrev = (e) => {
+        e.preventDefault()
+        if(gambarIndex > 0){
+            setGambarIndex(gambarIndex-1)
+            console.log(gambarIndex)
+        }
     }
 
     const onDownload = (e) => {
@@ -55,7 +72,7 @@ const Artikel = (props) => {
         getAllDocument()
     },[infografisDetail])
 
-    console.log(gambar)
+
 
         return(
             <Fragment>
@@ -69,12 +86,28 @@ const Artikel = (props) => {
                         </div>
                         <div className="card-artikel">
                             {
-                                gambar && gambar.map((gambar,index) => {
+                                gambar && gambar.map((gambar,index) => {    
                                     return(
-                                        <img className='gambar-infografis' src={gambar} alt='infografis' key={index}></img>
+                                        <Fragment key={index}>
+                                            {
+                                                gambar.length > 1 ? 
+                                                    <Fragment>
+                                                        <div className="button-artikel-prev" onClick={onPrev}>
+                                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                                        </div>
+                                                        <div className="button-artikel-next" onClick={onNext}>
+                                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                        </div>
+                                                    </Fragment>
+                                                    :
+                                                    ''
+                                            }
+                                            <img className='gambar-infografis' src={gambar[gambarIndex]} alt='infografis' ></img>
+                                        </Fragment>
                                     )
                                 })
                             }
+
                         </div>
                         <div className="nama-artikel">
                             {infografisDetail && infografisDetail.diunggah_oleh}
@@ -132,27 +165,36 @@ const Artikel = (props) => {
                     </div>
 
                     <div className="artikel-terkait">
-                        <div className="artikel-terkait-head">
-                            Infografis Terkait
-                        </div>
-                            
-                        <div className="artikel-terkait-news">
-                            {
-                                infografisRelated.slice(0,3).map((info,index) => {
-                                    const wow = info.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
-                                    return(
-                                        <Link to={`/artikel/${info._id}`}>
-                                            <div className="artikel-terkait-card">
-                                                <div style={{backgroundColor:'rgba(0,0,0,0.4)' , width:'300px' , height:'150px' , position:'absolute'}}></div>
-                                                <img src={wow[0]} alt='infografis-terkait' style={{width:'300px' , height:'150px'}}/>
-                                                <img src={`https://test.bariqmbani.me${info.instansi.logo}`} alt='infografis-logo-instansi' style={{width:'75px' , height: '75px', position:'absolute' , top: '5px' , left:'5px'}}/>
-                                                <div style={{fontSize:'14px', color:'white', fontWeight:'600' ,position:'absolute' , bottom : '5px' , left: '10px' , width:'250px' , height:'20px' , lineHeight: '20px'}} >{info.judul.length > 30 ? `${info.judul.substr(0, 27)}...` : info.judul}</div>
-                                            </div>
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </div>
+                        {
+                            infografisRelated.length > 0 ?
+                            <Fragment>
+                                <div className="artikel-terkait-head">
+                                    Infografis Terkait
+                                </div>
+                                    
+                                <div className="artikel-terkait-news">
+                                    {
+                                        infografisRelated.slice(0,3).map((info,index) => {
+                                            const wow = info.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+                                            return(
+                                                <Link to={`/artikel/${info._id}`}>
+                                                    <div className="artikel-terkait-card">
+                                                        <div style={{backgroundColor:'rgba(0,0,0,0.4)' , width:'300px' , height:'150px' , position:'absolute'}}></div>
+                                                        <img src={wow[0]} alt='infografis-terkait' style={{width:'300px' , height:'150px'}}/>
+                                                        <img src={`https://test.bariqmbani.me${info.instansi.logo}`} alt='infografis-logo-instansi' style={{width:'75px' , height: '75px', position:'absolute' , top: '5px' , left:'5px'}}/>
+                                                        <div style={{fontSize:'14px', color:'white', fontWeight:'600' ,position:'absolute' , bottom : '5px' , left: '10px' , width:'250px' , height:'20px' , lineHeight: '20px'}} >{info.judul.length > 30 ? `${info.judul.substr(0, 27)}...` : info.judul}</div>
+                                                    </div>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </Fragment>
+                        :
+                            <div className="artikel-terkait-head">
+                                Tidak Ada Infografis Terkait
+                            </div>
+                        }
                     </div>
                 <Footer/>
             </Fragment>

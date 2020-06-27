@@ -14,8 +14,8 @@ const style = StyleSheet.create({
     body: {
         paddingTop: 20,
         paddingBottom: 40,
-        paddingLeft: 40,
-        paddingRight: 40,
+        paddingLeft: 96,
+        paddingRight: 96,
         fontSize: 7,
     },
 
@@ -28,8 +28,6 @@ const style = StyleSheet.create({
     },
 
     isi: {
-        marginLeft: 20,
-        marginRight: 20,
         marginTop: 10,
         marginBottom: 25,
         textAlign:'justify'
@@ -44,7 +42,6 @@ const style = StyleSheet.create({
     },
     
     footer: {
-        marginLeft: 20,
         marginTop: 100
     },
 

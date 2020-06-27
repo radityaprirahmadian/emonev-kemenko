@@ -32,6 +32,8 @@ const ProfileInstansiEdit = (props) => {
 
     console.log(newInstansi)
 
+    const [mediaUrl, setMediaUrl] = useState([])
+
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
         setFoto([...event.target.files])
@@ -117,12 +119,10 @@ const ProfileInstansiEdit = (props) => {
                 fax: instansiDetail.fax,
                 email: instansiDetail.email
             })
+            
+            const wow = `https://test.bariqmbani.me${instansiDetail&&instansiDetail.logo}`
+            setFotos(wow)
         }
-    },[instansiDetail])
-
-    useEffect(() => {
-        const wow = `https://test.bariqmbani.me${instansiDetail&&instansiDetail.logo}`
-        setFotos(wow)
     },[instansiDetail])
 
     console.log(foto)
@@ -149,7 +149,7 @@ const ProfileInstansiEdit = (props) => {
                                 <div className="form-profile-page">
                                 <div className="data" >
                                     <label>Nama Instansi</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
+                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '22px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
                                 </div>
 
                                 <div className="data">
@@ -173,7 +173,7 @@ const ProfileInstansiEdit = (props) => {
 
                                 <div className="data">
                                     <label style={{marginTop:'32px'}}>Alamat</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
+                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px', paddingTop: '22px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
                                 </div>
 
                                 <div className="data">

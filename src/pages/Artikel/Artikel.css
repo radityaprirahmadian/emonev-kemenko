@@ -17,6 +17,34 @@
     left: 42px;
 }
 
+.button-artikel-prev {
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    position: absolute;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 50%;
+    left: -40px;
+    top: 50%;
+    z-index: 999;
+    color: white;
+}
+
+.button-artikel-next {
+    width: 24px;
+    z-index: 999;
+    color: white;
+    height: 24px;
+    text-align: center;
+    right: -40px;
+    top: 50%;
+    position: absolute;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 50%;
+}
+
 .logo-artikel {
     width: 100px;
     height: 100px;
@@ -30,9 +58,9 @@
 }
 
 .card-artikel{
+    position: relative;
     margin: 239px auto;
     width: 900px;
-    overflow: hidden;
     height: fit-content;
     background-color: red;
 }

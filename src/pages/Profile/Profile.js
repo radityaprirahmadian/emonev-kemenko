@@ -12,8 +12,14 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Profile = (props) => {
-    const { token, userDetail,} = useContext(AuthContext);
+    const { token, userDetail, getUserDetail} = useContext(AuthContext);
     const [ foto, setFoto ] = useState();
+
+    useEffect(()=> {
+        if(props.match.params.id) {
+            getUserDetail()
+        }
+    },[props.match.params.id])
 
     useEffect(() => {
         const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`

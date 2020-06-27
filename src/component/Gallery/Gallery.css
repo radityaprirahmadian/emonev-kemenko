@@ -14,23 +14,52 @@
     margin-top: 50px;
     margin-bottom: 50px;
     background-color: gray;
-    overflow: hidden;
     position: relative;
-    outline: 5px solid black;
-    outline-offset: 20px;
 }
 
-.gallery-item img{
+.gallery-item .test_gambar_gallery{
     height: 300px;
+    width: 300px;
+    position: absolute;
 }
 
-.test_gallery {
+.gallery-item:nth-child(9n+1) .test_gallery,
+.gallery-item:nth-child(9n+5) .test_gallery,
+.gallery-item:nth-child(9n+9) .test_gallery{
     position: absolute;
+    z-index: -99;
     width: 300px;
     height: 300px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    bottom: -15px;
+	right:-15px;
+	box-sizing: border-box;
     background-color:none;
+}
+
+.gallery-item:nth-child(9n+1) .test_gallery{
+    border: 5px solid red;
+}
+
+.gallery-item:nth-child(9n+5) .test_gallery{
+    border: 5px solid lightskyblue;
+}
+
+.gallery-item:nth-child(9n+9) .test_gallery{
+    border: 5px solid yellow;
+}
+
+.test_decor {
+    display: none;
+}
+
+.gallery-item:nth-child(9n+1) .test_decor,
+.gallery-item:nth-child(9n+4) .test_decor,
+.gallery-item:nth-child(9n+7) .test_decor {
+    display: inline-block;
+    position: absolute;
+    width: 50px;
+    height: 200px;
+    left: -120px;
 }
 
 
