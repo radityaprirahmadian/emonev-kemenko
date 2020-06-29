@@ -51,7 +51,8 @@
 
 .home-pic {
     margin:0;
-    height: 770px;
+    margin-top: 101px;
+    height: 665px !important;
 }
 
 .home-desc{
@@ -83,7 +84,7 @@
 }
 
 .home-section-4-title {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: bold;
     width: 298px;
     color: white;

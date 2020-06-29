@@ -200,7 +200,7 @@ const EditAdmin = (props) => {
 
                             <div className="col">
                                 <div className="photo-profile-page">
-                                    <label>Photo Profile</label><br/>
+                                    <label>Foto Profil</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
                                                 <img src={fotos}></img>

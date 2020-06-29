@@ -409,7 +409,7 @@ const Dashboard = (props) => {
                 
                 <div style={{marginLeft:'80px'}}>
                     <div className="tajuk-page3">
-                        <p>GALLERY</p>
+                        <p>GALERI</p>
                     </div>
                     <Gallery/>
                 </div>

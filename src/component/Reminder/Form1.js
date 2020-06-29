@@ -25,8 +25,8 @@ class Form1Reminder extends Component{
                 <div className="reminder-1-container">
                     <div className="asal-reminder">
                         Dari <br/>
-                        <span className="nama-pengirim-reminder">Bariq Mbani</span><br/>
-                        <span className="kementrian-asal-reminder">Super Admin</span> KEMENKO PMK
+                        <span className="nama-pengirim-reminder">Nama Pengirim</span><br/>
+                        <span className="kementrian-asal-reminder">Status Admin</span> Nama Kementerian
                     </div>
                     <form className="form-reminder-1">
                         <p>
@@ -38,11 +38,11 @@ class Form1Reminder extends Component{
                             <input className="reminder-akun" type="text" name="subject" />
                         </p>
                         <p>
-                            <label>Judul Reminder</label>
+                            <label>Judul Notifikasi</label>
                             <input className="reminder-judul" type="text" name="email" />
                         </p>
                         <p>
-                            <label>Isi Reminder</label>
+                            <label>Isi Notifikasi</label>
                             <input className="reminder-isi" type="text" name="email" />
                         </p>
                         <p>

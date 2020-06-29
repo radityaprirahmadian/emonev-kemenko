@@ -22,8 +22,8 @@ const Footer = () => {
         return(
             <Fragment>
                 
-                <div className="footer">
-                    <div className="row">
+                <div className="footer pt-5">
+                    <div className="row" style={{marginTop:'10%'}}>
                         <div className="col-6" style={{height:'360px'}}>
                             <div className="footer-left">
                                 <div className="footer-left-menu">
@@ -75,8 +75,8 @@ const Footer = () => {
                                                     </NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/gallery" activeClassName="active">
-                                                        <p>Gallery</p>
+                                                    <NavLink to="/galeri" activeClassName="active">
+                                                        <p>Galeri</p>
                                                     </NavLink>
                                                 </li>
                                             </div>
@@ -92,28 +92,28 @@ const Footer = () => {
                                             <div className="col-sm-1">
                                                 <ul>
                                                     <li>
-                                                        <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
+                                                        <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
                                                             <div className="social-media-container">
                                                                 <img src={facebook} alt='facebook'/> 
                                                             </div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://twitter.com/kemenkopmk" target="_blank">
+                                                        <a href="https://twitter.com/revmen_id" target="_blank">
                                                             <div className="social-media-container">
                                                                 <img src={twitter} alt='twitter'/> 
                                                             </div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://instagram.com/kemenko_pmk" target="_blank">
+                                                        <a href="https://instagram.com/revolusimental_id" target="_blank">
                                                             <div className="social-media-container">
                                                                 <img src={instagram} alt='instagram'/>  
                                                             </div>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
+                                                        <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
                                                             <div className="social-media-container">
                                                                 <img src={youtube} alt='youtube'/>  
                                                             </div>
@@ -124,23 +124,23 @@ const Footer = () => {
                                             <div className="col-sm-11" style={{paddingLeft:'0'}}>
                                                 <ul>
                                                     <li>
-                                                        <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Kementerian Koordinator Bidang Pembangunan Manusia dan Kebudayaan</h1>
+                                                        <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Revolusi Mental</h1>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://twitter.com/kemenkopmk" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>@kemenkopmk</h1>
+                                                        <a href="https://twitter.com/revmen_id" target="_blank">
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>@revmen_id</h1>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://instagram.com/kemenko_pmk" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>kemenko_pmk</h1>
+                                                        <a href="https://instagram.com/revolusimental_id" target="_blank">
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>revolusimental_id</h1>
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Kemenko PMK</h1>
+                                                        <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
+                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Revolusi Mental</h1>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -156,8 +156,8 @@ const Footer = () => {
                                     
                             <div className="footer-right">
                                 <div className="footer-right-logo">
-                                    <img src={logo_kemenko2} alt="gabungan" style={{marginRight:'18.42px', height:'125px'}}/>
-                                    <img src={logo_gnrm_1} alt="gabungan" />
+                                    <img src={logo_kemenko2} alt="Logo Kemenko" style={{marginRight:'18.42px', height:'auto', maxWidth:'20%'}}/>
+                                    <img src={logo_gnrm_1} className="logo-footer-gnrm" alt="Logo GNRM" style={{height:'50px', maxWidth:'70%'}}/>
                                 </div>
 
                                 <div className="footer-right-info">
@@ -180,7 +180,7 @@ const Footer = () => {
                                             <div className="clear"/>
 
                                             <img src={mail} className="logo-mail"/>
-                                            <li>sekretariat.revolusimentail@gmail.com</li>
+                                            <li>sekretariat.revolusimental@gmail.com</li>
                                             <div className="clear"/>
                                         </ul>
                                     </div>

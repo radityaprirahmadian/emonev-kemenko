@@ -94,18 +94,18 @@ const Reminder = (props) => {
                         <Notification/>
                 }
                     <div className="input-dan-tajuk">
-                        <Link to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/formulir-reminder`}>
+                        <Link to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/formulir-notifikasi`}>
                             <button className="tambah-program">
                                 <img src={plus}></img>
                                 <div className="spacer"></div>
                                 <p className="text-input-program">
-                                    Buat Reminder
+                                    Buat Notifikasi
                                 </p>
                             </button>
                         </Link>
                         <div className="spacer"></div>
                         <div className="tajuk-page-2">
-                            <p>REMINDER</p>
+                            <p>NOTIFIKASI</p>
                         </div>
                     </div>
                     <div className="table-container">
@@ -114,8 +114,8 @@ const Reminder = (props) => {
                                 <tr>
                                     <th width='191px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi Tujuan</th>
                                     <th width='125px'>Akun Tujuan</th>
-                                    <th width='220px'>Judul Reminder</th>
-                                    <th width='421px'>Isi Reminder</th>
+                                    <th width='220px'>Judul Notifikasi</th>
+                                    <th width='421px'>Isi Notifikasi</th>
                                     <th width='155px'>Tanggal dan Waktu</th>
                                     <th width='42px'></th>
                                 </tr>

@@ -266,7 +266,7 @@ const FormInstansi = (props) => {
                 <Popup notif={props.notif}/>
                 <div className="background-after-login"/>
                 <div className="tajuk-page">
-                    <h1> FORM INSTANSI</h1>
+                    <h1> FORMULIR INSTANSI</h1>
                 </div> 
                 {
                     loading ?
@@ -323,7 +323,7 @@ const FormInstansi = (props) => {
                                     }
                                 </div>
                                 <div>
-                                    <label>Kontak</label>
+                                    <label>Kontak Instansi</label>
                                     <input 
                                         className="admin-username" 
                                         type="text" 
@@ -331,7 +331,7 @@ const FormInstansi = (props) => {
                                         value={newInstansi.kontak} 
                                         onChange={onChangeInstansi} 
                                         required={true} 
-                                        style={{marginLeft:'156px', width:'366px'}}
+                                        style={{marginLeft:'87px', width:'366px'}}
                                     />
                                 </div>
                                 <div>
@@ -499,7 +499,7 @@ const FormInstansi = (props) => {
                                         name="email" 
                                         value={newInstansi.email} 
                                         onChange={onChangeInstansi} 
-                                        style={{marginLeft:'100px', width:'366px'}}
+                                        style={{marginLeft:'102px', width:'366px'}}
                                     />
                                 </div>
 
@@ -529,7 +529,7 @@ const FormInstansi = (props) => {
                         <Element id="admin_form" name="admin_form">
                             <div className="admin-1-container" style={{marginBottom:'227px'}}>
                             <div className="gnrm-title">
-                                FORM ADMIN
+                                FORMULIR ADMIN
                             </div>
                                     <div>
                                         <label>Nama</label>
@@ -560,7 +560,7 @@ const FormInstansi = (props) => {
                                         />
                                     </div>
                                     <div>
-                                        <label>Password</label>
+                                        <label>Kata Sandi</label>
                                         <input 
                                             className="admin-password" 
                                             type={seen ? "text" : "password"} 
@@ -579,7 +579,7 @@ const FormInstansi = (props) => {
                                         </button>
                                     </div>
                                     <div>
-                                        <label>Kontak</label>
+                                        <label>Kontak Admin</label>
                                         <input 
                                             className="admin-username" 
                                             type="text" 
@@ -587,7 +587,7 @@ const FormInstansi = (props) => {
                                             value={newInstansi.user_kontak} 
                                             onChange={onChangeInstansi}
                                             required={true}
-                                            style={{marginLeft:'153px'}} 
+                                            style={{marginLeft:'95px'}} 
                                         />
                                     </div>
 

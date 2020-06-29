@@ -9,7 +9,7 @@
     background-image: linear-gradient(to right bottom , #E76975 , #FDB99B );
     color:white;
     box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
-    overflow: hidden;
+    overflow: visible;
 }
 
 .side-bar{
@@ -474,6 +474,28 @@ div.col-md-10{
     background-position:center center;
     background-image: url('../../assets/logo/logout.svg');
 }
+
+.side-bar-menu-off .side-bar-item .tooltiptext {
+    visibility: hidden;
+    display: inline;
+    background-color: #59CBA6;
+    color: black;
+    text-align: center;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    padding: 30%;
+    border-radius: 2px;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: 120%;
+  }
+  
+  .side-bar-menu-off .active .side-bar-item:hover .tooltiptext {
+    visibility: visible;
+  }
 
 .popup-check-instansi {
     width: 400px;

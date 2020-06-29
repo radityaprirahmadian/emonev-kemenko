@@ -141,7 +141,7 @@ const ProfileInstansi = (props) => {
 
                                 <div className="col">
                                     <div className="photo-profile-page">
-                                        <label>Foto Profile Instansi</label><br/>
+                                        <label>Foto Profil Instansi</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
                                                 <img src={foto}></img>
@@ -152,7 +152,7 @@ const ProfileInstansi = (props) => {
                                             form="form-profile"
                                             type="submit"
                                             className="button-submit-profile"
-                                            value="EDIT PROFIL"
+                                            value="UBAH PROFIL"
                                             style={{backgroundColor: '#E76975'}}
                                         > 
                                         </input>
