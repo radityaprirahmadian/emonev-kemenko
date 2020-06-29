@@ -19,9 +19,10 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const Monev =  (props) =>{
-    const { resetDocument , editDocumentFalse } = useContext(ArtikelContext)
+    const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
     console.log(documents)
@@ -46,22 +47,23 @@ const Monev =  (props) =>{
 
     console.log(filter)
 
-    const getDocumentLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
-            setFilter({...filter, totalDoc: res.data.document.length})
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
+    // const getDocumentLength = async () => {
+    //     const config= {
+    //         headers: {
+    //             'X-Auth-Token': `aweuaweu ${token}`
+    //         }
+    //     }
+    //     try {
+    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
+    //         setFilter({...filter, totalDoc: res.data.document.length})
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
 
     const getAllDocument = async () => {
+        setLoadingTrue()
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -70,7 +72,8 @@ const Monev =  (props) =>{
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
             setDocuments(res.data.document)
-            console.log(res.data)
+            setFilter({...filter, totalDoc: res.data.total})
+            setLoadingFalse()
         }
         catch (err) {
             console.log(err)  
@@ -78,6 +81,7 @@ const Monev =  (props) =>{
     }
 
     const deleteDocument = async (id) => {
+        setLoadingTrue()
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -86,11 +90,11 @@ const Monev =  (props) =>{
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/document/${id}?type=monev`,config)
             getAllDocument()
-            getDocumentLength()
         }
         catch (err) {
             console.log(err)
         }
+        setLoadingFalse()
     }
 
     const handleReset = () => {
@@ -98,9 +102,9 @@ const Monev =  (props) =>{
         resetDocument()
     }
 
-    useEffect(() => {
-        getDocumentLength()
-    },[])
+    // useEffect(() => {
+    //     getDocumentLength()
+    // },[])
 
     useEffect(() => {
         getAllDocument()
@@ -116,12 +120,17 @@ const Monev =  (props) =>{
                         <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
                         <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                     </div>
-                {
-                    user && user.role === 'owner' ?
-                        ''
-                    :
-                        <Notification/>
-                }
+
+                    <div style={{marginRight:'20px' , marginTop:'23px'}}>
+                        <div className="tajuk-page-2">
+                            <div>LAPORAN MONEV</div>
+                            {
+                                user && user.role === 'owner' ?
+                                    ''
+                                :
+                                    <Notification/>
+                            }
+                        </div>
                         <div className="input-dan-tajuk">
                             <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-monev`}>
                                 <button className="tambah-program" onClick={() => handleReset()}>
@@ -132,10 +141,6 @@ const Monev =  (props) =>{
                                     </p>
                                 </button>
                             </Link>
-                            <div className="spacer"></div>
-                            <div className="tajuk-page-2">
-                                <p>LAPORAN MONEV</p>
-                            </div>
                         </div>
                         
                         <FilterMonev
@@ -154,7 +159,7 @@ const Monev =  (props) =>{
                                         <th width='159px'>Tahun</th>
                                         <th width='276px'>Kegiatan Prioritas</th>
                                         <th width='193px'>Proyek Prioritas</th>
-                                        <th width='193px'>Instansi</th>
+                                        <th width='193px' className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
                                         <th width='204px'>Periode Pelaporan</th>
                                         <th width='193px'>Penanggung Jawab</th>
                                         <th width='59px'></th>
@@ -162,29 +167,41 @@ const Monev =  (props) =>{
                                         <th width='59px'></th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-body-monev">
-                                    {
-                                        documents.map((document,index) => {
-                                            return(
-                                                <TabelMonev
-                                                    document={document}
-                                                    key={index}
-                                                    kp={document.form.kp}
-                                                    prop={document.form.prop}
-                                                    id={document._id}
-                                                    tahun={document.form.tahun}
-                                                    instansi={document.instansi}
-                                                    pihak={document.form.pihak_terkait}
-                                                    // edit={}
-                                                    delete={deleteDocument}    
-                                                    periode={document.form.id_laporan}
-                                                    penanggung_jawab={document.form.penanggung_jawab.nama}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </tbody>
+                                {
+                                    !loading && (
+                                        <tbody className="table-body-monev">
+                                            {
+                                                documents.map((document,index) => {
+                                                    return(
+                                                        <TabelMonev
+                                                            document={document}
+                                                            key={index}
+                                                            kp={document.form.kp}
+                                                            prop={document.form.prop}
+                                                            id={document._id}
+                                                            tahun={document.form.tahun}
+                                                            instansi={document.instansi}
+                                                            pihak={document.form.pihak_terkait}
+                                                            // edit={}
+                                                            delete={deleteDocument}    
+                                                            periode={document.form.id_laporan}
+                                                            penanggung_jawab={document.form.penanggung_jawab.nama}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    )
+                                }
                             </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
                         </div>
                 <Pagination
                     setFilter={setFilter}
@@ -193,6 +210,7 @@ const Monev =  (props) =>{
                     limit={limit}
                     page={page}
                 />
+                </div>
             </Fragment>
 
         )

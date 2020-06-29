@@ -5,7 +5,9 @@
     text-align: right;
     margin-right: 64px;
     letter-spacing: 0.1em;
-    color: #D33732;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    color: black;
+    font-weight: 900;
 }
 
 .tajuk-page2 p {
@@ -16,7 +18,9 @@
     text-align: right;
     margin-right: 64px;
     letter-spacing: 0.1em;
-    color: #D33732;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    color: black;
+    font-weight: 900;
 }
 
 .tajuk-page3 p {
@@ -26,16 +30,11 @@
     text-align: right;
     margin-right: 64px;
     letter-spacing: 0.1em;
-    color: #D33732;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    color: black;
+    font-weight: 900;
 }
 
-.notification {
-    height: 36px;
-    width: 36px;
-    position: relative;
-    margin-left: 1299px;
-    margin-top: 18px;
-}
 
 .notification button{
     border: none;

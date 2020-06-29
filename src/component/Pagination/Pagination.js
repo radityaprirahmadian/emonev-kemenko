@@ -6,7 +6,8 @@ class Pagination extends Component{
         const onChange = (e) => {
             return this.props.setFilter({
                 ...this.props.filter,
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
+                page: '1'
             })
         }
 

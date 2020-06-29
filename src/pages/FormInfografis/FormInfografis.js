@@ -10,11 +10,17 @@ import { AuthContext } from '../../context/Auth/AuthContext'
 import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import { InfografisContext } from '../../context/Infografis/InfografisContext';
 import Popup from '../../component/Popup/Popup';
+import Spinner from '../../component/Spinner/Spinner'
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormInfografis = (props) => {
-    const { infografisDetail,setInfografis,isEditing,editDocument,editDocumentFalse } = useContext(InfografisContext)
+    const { infografisDetail,setInfografis,isEditing,editDocument,editDocumentFalse, loading, setLoadingTrue, setLoadingFalse } = useContext(InfografisContext)
     const { token,userDetail } = useContext(AuthContext)
     const history = useHistory()
+
 
     const [kabarGnrm,setKabarGnrm] = useState({
         deskripsi: '',
@@ -44,6 +50,7 @@ const FormInfografis = (props) => {
     
 
     const onSubmit = async (event) => {
+        setLoadingTrue()
         event.preventDefault()
 
         const formData = objectToFormData(kabarGnrm)
@@ -66,14 +73,17 @@ const FormInfografis = (props) => {
         try {
             const res = await axios.post(`https://test.bariqmbani.me/api/v1/kabar/`,formData,config)
             alert(res.data.message)
-            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/infografis`)
+            setLoadingFalse()
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
         }
         catch(err) {
             alert(err.data.message)
+            setLoadingFalse()
         }
     }
 
     const onEdit = async (event) => {
+        setLoadingTrue()
         event.preventDefault()
 
 		const formData = objectToFormData(kabarGnrm)
@@ -99,10 +109,12 @@ const FormInfografis = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/kabar/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             editDocumentFalse()
+            setLoadingFalse()
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
         }
         catch(err) {
             alert(err.data.message)
+            setLoadingFalse()
         }
     }
     
@@ -177,11 +189,25 @@ const FormInfografis = (props) => {
             <SideBarOff/>
             <div className="background-after-login"/>
             <Popup notif={props.notif}/>
+            <div className="background-after-login">
+                <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+            </div>
+            <div className="tajuk-page">
+                <h1>FORMULIR KABAR GNRM</h1>
+            </div>
             <div  style={{width:'fit-content' , height: 'fit-content', margin: 'auto'}}>
-                    <div className="tajuk-page">
-                    <h1>KABAR GNRM</h1>
-                    </div>
 
+                {
+                    loading ?
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div> 
+                        </div>
+                    :
                     <form>
                         <div className="form-container" style={{marginRight:'20px'}}>
                             <div className="form-infografis">
@@ -346,6 +372,7 @@ const FormInfografis = (props) => {
 
                         </div>
                     </form>
+                }
             </div>
         </Fragment>
     )

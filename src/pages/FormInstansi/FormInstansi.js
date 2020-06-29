@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
 import Scroll, { Element } from 'react-scroll'
 import objectToFormData from '../../objectToFormDataUtil'
+import Spinner from '../../component/Spinner/Spinner'
 
 
 const FormInstansi = (props) => {
@@ -16,6 +17,7 @@ const FormInstansi = (props) => {
         const [allInstansi, setAllInstansi] = useState([])
         const [isEditing , setIsEditing] = useState(false)
         const jenis = ['Kementerian' , 'Pemerintah Daerah']
+        const [loading,setLoading] = useState(false)
         
         const [instansiDetail, setInstansiDetail] = useState(null)
         
@@ -89,6 +91,7 @@ const FormInstansi = (props) => {
 
 
         const getInstansiDetail = async () => {
+            setLoading(true)
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`,
@@ -101,6 +104,7 @@ const FormInstansi = (props) => {
             catch (err) {
                 console.log(err)
             }
+            setLoading(false)
         }
 
         // const addNewAdmin = async (formData) => {
@@ -122,6 +126,7 @@ const FormInstansi = (props) => {
 
 
         const addNewInstansi = async (data) => {
+            setLoading(true)
             console.log(data)
             const formData = objectToFormData(data)
 
@@ -143,17 +148,20 @@ const FormInstansi = (props) => {
             try {
                 const res = await axios.post('https://test.bariqmbani.me/api/v1/instansi',formData,config,)
                 alert(res.data.message)                
+                setLoading(false)
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
             }
 
             catch(err) {
                 alert(err.data.message)
+                setLoading(false)
             }
             
             
         }
 
         const editInstansi = async (data) => {
+            setLoading(true)
             console.log(data)
             const formData = objectToFormData(data)
 
@@ -176,10 +184,12 @@ const FormInstansi = (props) => {
             try {
                 const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
                 alert(res.data.message)
+                setLoading(false)
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
             }
             catch(err) {
                 alert(err.data.message)
+                setLoading(false)
             }
         }
 
@@ -258,6 +268,14 @@ const FormInstansi = (props) => {
                 <div className="tajuk-page">
                     <h1> FORM INSTANSI</h1>
                 </div> 
+                {
+                    loading ?
+                    <div style={{ marginLeft: '68px' }}>
+                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                            <Spinner />
+                        </div> 
+                    </div>
+                    :
                     <form id='form-admin' className="form-admin-1" onSubmit={isEditing ? onEdit : onSubmit} style={{width:'fit-content' , height: 'fit-content', margin: 'auto'}}>
                         <Element id="instansi" name="instansi">
                             <div className="admin-1-container">
@@ -582,6 +600,7 @@ const FormInstansi = (props) => {
                             ''
                         }
                     </form>
+                }
           </Fragment>  
         );
 }

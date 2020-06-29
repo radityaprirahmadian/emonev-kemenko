@@ -29,6 +29,7 @@ const ArtikelState = props => {
     }
 
     const getDocumentDetail = async (data) => {
+        setLoadingTrue()
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${state.token}`
@@ -41,9 +42,11 @@ const ArtikelState = props => {
                 payload: res.data.document
             })
             console.log(res.data.document)
+            setLoadingFalse()
         }
         catch (err) {
             console.log(err)
+            setLoadingFalse()
         }
     }
 

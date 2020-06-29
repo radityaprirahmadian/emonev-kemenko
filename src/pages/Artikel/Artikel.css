@@ -27,13 +27,13 @@
     border-radius: 50%;
     left: -40px;
     top: 50%;
-    z-index: 999;
+    z-index: 9;
     color: white;
 }
 
 .button-artikel-next {
     width: 24px;
-    z-index: 999;
+    z-index: 9;
     color: white;
     height: 24px;
     text-align: center;
@@ -62,7 +62,6 @@
     margin: 239px auto;
     width: 900px;
     height: fit-content;
-    background-color: red;
 }
 
 .nama-artikel{

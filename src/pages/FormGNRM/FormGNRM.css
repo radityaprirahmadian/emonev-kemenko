@@ -110,6 +110,19 @@ input[type="file"] {
     line-height: 42px;
 }
 
+/* .wowowow {
+
+}
+
+#sudah ,
+#belum {
+
+} */
+
+.preview-footer {
+    display: flex;
+}
+
 .forward:active,
 .previous:active,
 .previous-last-1:active {

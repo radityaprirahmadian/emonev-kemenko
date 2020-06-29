@@ -127,7 +127,7 @@ const FormReminder = (props) => {
         }
         try {
             const res = await axios.post(`https://test.bariqmbani.me/api/v1/notifikasi`,formData,config)
-            console.log('SUKSES')
+            alert(res.data.message)
             if(res.data.success) {
                 const socket = io("https://test.bariqmbani.me");
                 socket.on("connect", () => {

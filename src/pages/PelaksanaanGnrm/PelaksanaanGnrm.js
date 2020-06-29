@@ -70,6 +70,7 @@ const GNRM  = (props) => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}`, config)
             setDocuments(res.data.document)
+            setFilter({...filter, totalDoc: res.data.total})
             setLoadingFalse()
         }
         catch (err) {
@@ -87,7 +88,6 @@ const GNRM  = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/document/${id}?type=gnrm`,config)
             getAllDocument()
-            getDocumentLength()
         }
         catch (err) {
             console.log(err)
@@ -99,10 +99,6 @@ const GNRM  = (props) => {
         editDocumentFalse()
         resetDocument()
     }
-
-    useEffect(() => {
-        getDocumentLength()
-    },[])
 
     useEffect(() => {
         getAllDocument()
@@ -119,13 +115,17 @@ const GNRM  = (props) => {
                         <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                     </div>
                     <Popup notif={props.notif}/>
-                {
-                    user && user.role === 'owner' ?
-                        ''
-                    :
-                        <Notification/>
-                }
-                        <div style={{marginRight:'20px'}}>
+
+                        <div style={{marginRight:'20px' , marginTop:'23px'}}>
+                            <div className="tajuk-page-2">
+                                <div>RENCANA PELAKSANAAN PROGRAM</div>
+                                {
+                                    user && user.role === 'owner' ?
+                                        ''
+                                    :
+                                        <Notification/>
+                                }
+                            </div>
                             <div className="input-dan-tajuk">
                                 <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-gnrm`}>
                                     <button className="tambah-program" onClick={() => handleReset()}>
@@ -136,10 +136,6 @@ const GNRM  = (props) => {
                                         </h1>
                                     </button>
                                 </Link>
-                                <div className="spacer"></div>
-                                <div className="tajuk-page-2">
-                                    <p>RENCANA PELAKSANAAN PROGRAM</p>
-                                </div>
                             </div>
                         
                         <Filter
@@ -156,7 +152,7 @@ const GNRM  = (props) => {
                                         <th width='70px'>Tahun</th>
                                         <th width='276px'>Kegiatan Prioritas</th>
                                         <th width='276px'>Proyek Prioritas</th>
-                                        <th width='193px'>Instansi</th>
+                                        <th width='193px' className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
                                         <th width='204px'>Pihak Terkait</th>
                                         <th width='133px'>Pejabat Eselon</th>
                                         <th width='59px'></th>

@@ -19,27 +19,14 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 import StatistikMonev from '../../component/Statistik/StatistikMonev'
-
-const data = {
-  labels: ['KEMENPAN', `KEMENKO POLHUKAM`, 'KEMENKO MARITIM', 'KEMENKO PEREKONOMIAN', 'KEMENDAGRI', 'KEMENKO PMK'],
-  datasets: [
-    {
-      label: 'Jumlah Kegiatan Kementerian',
-      color: 'black',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
-      borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
-      data: [65, 59, 80, 81, 56, 70]
-    }
-  ]
-};
-
+import { useHistory, NavLink } from 'react-router-dom';
 
 const Dashboard = (props) => {
-    const { isAuthenticated, login, userDetail , role, email, password, user } = useContext(AuthContext);
+    const [instansiDetail , setInstansiDetail] = useState({})
+    const { isAuthenticated, login, userDetail , role, email, password, user, token } = useContext(AuthContext);
     const { notifNew , setNotifNew } = useContext(NotifContext)
+    const history = useHistory()
+    const [ statistikActive , setStatistikActive] = useState(true)
 
     console.log(userDetail)
 
@@ -51,6 +38,24 @@ const Dashboard = (props) => {
         page:'1',
     })
 
+    const onNextStatistik = (e) => {
+      e.preventDefault()
+      setStatistikActive(false)
+    }
+
+    const onPrevStatistik = (e) => {
+      e.preventDefault()
+      setStatistikActive(true)
+    }
+
+    const [hide , setHide] = useState(true)
+
+    const onClickToProfileInstansi = (e) => {
+      e.preventDefault()
+      history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id))
+      setHide(true)
+      
+  }
     const [documentCard,setDocumentCard] = useState([])
     console.log(documentCard)
     const [documentCardLength,setDocumentCardLength] = useState([])
@@ -91,7 +96,7 @@ const Dashboard = (props) => {
       getDocumentCard()
       getDocumentCardLength()
 
-      fetch("http://localhost:5000/api/v1/instansi")
+      fetch("https://test.bariqmbani.me/api/v1/instansi")
       .then(res => res.json())
       .then(data => setInstansiData(data.instansi));
       
@@ -102,8 +107,32 @@ const Dashboard = (props) => {
         getDocumentCardLength()
     },[filterCard])
 
+    useEffect(() => {
+      const getInstansiDetail = async () => {
+          const config = {
+              headers: {
+                  'X-Auth-Token': `aweuaweu ${token}`,
+              }
+          }
+          try {
+              const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
+              setInstansiDetail(res.data.instansi)
+              if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
+                  setHide(false)
+              } else {
+                  setHide(true)
+              }
+          }
+          catch (err) {
+              console.log(err)
+          }
+      }
+      getInstansiDetail()
+  },[])
+
+
       const onNextFilter = (e) => {
-        if(page < (documentCardLength && documentCardLength.length / 2)) {
+        if(page < (documentCardLength && Math.ceil(documentCardLength.length / 3))) {
             e.preventDefault()
             const a = parseInt(page)
             return setFilterCard({
@@ -157,11 +186,20 @@ const Dashboard = (props) => {
       <Fragment>
             <SideBarOff/>
             <Popup notif={props.notif}/>
+
             {
-              user && user.role === 'owner' ?
-                ''
-              :
-                <Notification/>
+               hide ?
+                '' 
+                :
+                <div className="popup-check">
+                    <div className="popup-check-instansi">
+                        <div className='popup-check-instansi-title'>Profile Instansi Belum Lengkap</div> <br/>
+                        <div>Untuk dapat mengisi laporan,<br/> harap mengisi profil instansi anda <br/>terlebih dahulu.</div> <br/><br/><br/><br/><br/>
+                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                            <button className="button-to-instansi" onClick={onClickToProfileInstansi}>LENGKAPI PROFIL</button>
+                        </NavLink>
+                    </div>
+                </div>
             }
             <div className="background-after-login">
                 <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
@@ -170,143 +208,168 @@ const Dashboard = (props) => {
                 <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
             </div>
                 <div className="dashboard-page">
-                  <div className="dashboard-section">
-                      <div className="tajuk-page1">
-                          <p>STATISTIK TERKINI</p>
-                      </div>
-                    
-                    <div className="infografik-statistik">
-                      <StatistikGNRM 
-                          color='#8380EA'
-                          tahun={tahun}
-                          periode={periode}
-                          waktu={waktu}
-                      />
-                      <div className="keterangan">
-                        <p className="">
-                          Keterangan : 
-                        </p>
-                        <p className="">
-                          Sumbu Y merupakan jumlah gerakan
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="drop-down-menu">
-
-                      <div className="spacer"></div>
-
-                      <div className="select-waktu-periode">
-                        <form> 
-                            <select onChange={onChangePeriode}>
-                              <option value="tahun">Tahun</option>
-                              <option value="caturwulan">Caturwulan</option>
-                            </select>
-                            <br/>
-                            <label>
-                              Periode
-                            </label>
-                        </form>
-                      </div>
-
-                      <div className="select-waktu-periode">
-                        {
-                          periode === 'tahun'
-                          ?
-                          <form> 
-                            <select onChange={onChangeWaktu}>
-                              <option defaultValue hidden>Pilih Tahun</option>
-                              {
-                                  yearsData.map((year, i) => {
-                                      if (i < 5) {
-                                          return (
-                                              <option key={i} value={year}>
-                                                  {year}
-                                              </option>
-                                          )
-                                      }
-                                  })
-                              }
-                            </select>
-                            <br/>
-                            <label>
-                              Tahun
-                            </label>
-                        </form>
+                    <div className="tajuk-page-2">
+                          <div>STATISTIK TERKINI</div>
+                      {
+                        user && user.role === 'owner' ?
+                        ''
                         :
-                        <form> 
-                            <select onChange={onChangeWaktu}>
-                              <option defaultValue hidden>Pilih Caturwulan</option>
-                              <option defaultValue value='caturwulan1' >Caturwulan ke-1</option>
-                              <option defaultValue value='caturwulan2' >Caturwulan ke-2</option>
-                              <option defaultValue value='caturwulan3' >Caturwulan ke-3</option>
-                              <option defaultValue value='caturwulan4' >Caturwulan ke-4</option>
-                              
-                            </select>
-                            <br/>
-                            <label>
-                              Caturwulan
-                            </label>
-                        </form>
-                        }
-                      </div>
-
+                        <Notification/>
+                      }
                     </div>
+                  <div className="dashboard-section">
 
-                    {/* MONEV */}
-                    <div className="infografik-statistik">
-                      <StatistikMonev 
-                          color='#8380EA'
-                          periode={periode}
-                          instansi={selectedinstansi}
-                      />
-                      <div className="keterangan">
-                        <p className="">
-                          Keterangan : 
-                        </p>
-                        <p className="">
-                          Sumbu Y merupakan progres laporan yang dikerjakan
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="drop-down-menu">
 
-                      <div className="spacer"></div>
+                      {
+                        statistikActive ?
+                        <Fragment>
+                          <div className="infografik-statistik" style={{position:'relative'}}>
+                            <div className="button-home-prev" style={{top:'35%' , left:'-32px'}} onClick={onPrevStatistik}>
+                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                            </div>
+                            <div className="button-home-next" style={{top:'35%' , right:'-32px'}} onClick={onNextStatistik}>
+                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                            </div>
+                            <StatistikGNRM 
+                                color='#8380EA'
+                                tahun={tahun}
+                                periode={periode}
+                                waktu={waktu}
+                            />
+                            <div className="keterangan">
+                              <p className="">
+                                Keterangan : 
+                              </p>
+                              <p className="">
+                                Sumbu Y merupakan jumlah gerakan
+                              </p>
+                            </div>
+                          </div>
 
-                      <div className="select-waktu-periode">
-                        <form> 
-                            <select onChange={onChangePeriode}>
-                              <option defaultValue hidden>Pilih Periode</option>
-                              <option value="tahun">Tahun</option>
-                              <option value="caturwulan">Caturwulan</option>
-                            </select>
-                            <br/>
-                            <label>
-                              Periode
-                            </label>
-                        </form>
-                      </div>
+                          <div className="drop-down-menu">
 
-                      <div className="select-waktu-periode">
-                        <form> 
-                            <select onChange={onChangeInstansi}>
-                              <option defaultValue hidden>Pilih Instansi</option>
+                            <div className="spacer"></div>
+
+                            <div className="select-waktu-periode">
+                              <form> 
+                                  <select onChange={onChangePeriode}>
+                                    <option value="tahun">Tahun</option>
+                                    <option value="caturwulan">Caturwulan</option>
+                                  </select>
+                                  <br/>
+                                  <label>
+                                    Periode
+                                  </label>
+                              </form>
+                            </div>
+
+                            <div className="select-waktu-periode">
                               {
-                                instansiData.map(ins => (
-                                <option value={ins.nama_pendek}>{ins.nama_pendek}</option>
-                                ))
+                                periode === 'tahun'
+                                ?
+                                <form> 
+                                  <select onChange={onChangeWaktu}>
+                                    <option defaultValue hidden>Pilih Tahun</option>
+                                    {
+                                        yearsData.map((year, i) => {
+                                            if (i < 5) {
+                                                return (
+                                                    <option key={i} value={year}>
+                                                        {year}
+                                                    </option>
+                                                )
+                                            }
+                                        })
+                                    }
+                                  </select>
+                                  <br/>
+                                  <label>
+                                    Tahun
+                                  </label>
+                              </form>
+                              :
+                              <form> 
+                                  <select onChange={onChangeWaktu}>
+                                    <option defaultValue hidden>Pilih Caturwulan</option>
+                                    <option defaultValue value='caturwulan1' >Caturwulan ke-1</option>
+                                    <option defaultValue value='caturwulan2' >Caturwulan ke-2</option>
+                                    <option defaultValue value='caturwulan3' >Caturwulan ke-3</option>
+                                    <option defaultValue value='caturwulan4' >Caturwulan ke-4</option>
+                                    
+                                  </select>
+                                  <br/>
+                                  <label>
+                                    Caturwulan
+                                  </label>
+                              </form>
                               }
-                            </select>
-                            <br/>
-                            <label>
-                              Instansi
-                            </label>
-                        </form>
-                      </div>
+                            </div>
 
-                    </div>
+                          </div>
+                        </Fragment>
+                        :
+                        <Fragment>
+                          <div className="infografik-statistik" style={{position:'relative'}}>
+                            <div className="button-home-prev" style={{top:'35%' , left:'-32px'}} onClick={onPrevStatistik}>
+                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                            </div>
+                            <div className="button-home-next" style={{top:'35%' , right:'-32px'}} onClick={onNextStatistik}>
+                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                            </div>
+                            <StatistikMonev 
+                                color='#8380EA'
+                                periode={periode}
+                                instansi={selectedinstansi}
+                            />
+                            <div className="keterangan">
+                              <p className="">
+                                Keterangan : 
+                              </p>
+                              <p className="">
+                                Sumbu Y merupakan progres laporan yang dikerjakan
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="drop-down-menu">
 
+                            <div className="spacer"></div>
+
+                            <div className="select-waktu-periode">
+                              <form> 
+                                  <select onChange={onChangePeriode}>
+                                    <option defaultValue hidden>Pilih Periode</option>
+                                    <option value="tahun">Tahun</option>
+                                    <option value="caturwulan">Caturwulan</option>
+                                  </select>
+                                  <br/>
+                                  <label>
+                                    Periode
+                                  </label>
+                              </form>
+                            </div>
+
+                            <div className="select-waktu-periode">
+                              <form> 
+                                  <select onChange={onChangeInstansi}>
+                                    <option defaultValue hidden>Pilih Instansi</option>
+                                    {
+                                      instansiData.map(ins => (
+                                      <option value={ins.nama_pendek}>{ins.nama_pendek}</option>
+                                      ))
+                                    }
+                                  </select>
+                                  <br/>
+                                  <label>
+                                    Instansi
+                                  </label>
+                              </form>
+                            </div>
+
+                          </div>
+
+                        </Fragment>
+                      }
                   </div>
 
                   <div className="dashboard-section">
@@ -319,34 +382,37 @@ const Dashboard = (props) => {
                                 return (
                                     <Card 
                                     key={index}
-                                    doc={doc}/>
+                                    doc={doc}
+                                    bgcolor={'white'}
+                                    color={'black'}
+                                    btimage={'none'}/>
                                     );
                                 })
                         }
-                          <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                          </div>
-                          <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
-                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                          </div>
+
+                        {
+                          documentCard.length > 3 ?
+                            <Fragment>
+                              <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                  <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                              </div>
+                              <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
+                                  <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                              </div>
+                            </Fragment>
+                          :
+                          ''
+                        }
+                          
                     </div>
                   </div>
                 
-                  <div className="tajuk-page3">
-                      <p>GALLERY</p>
-                  </div>
-                  <Gallery/>
-                  <div className="gallery-pagination" style={{marginBottom:'61px'}}>
-                        <i className="material-icons">chevron_left</i>
-                        <ul> 
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                        </ul>
-                        <i className="material-icons">chevron_right</i>
+                <div style={{marginLeft:'80px'}}>
+                    <div className="tajuk-page3">
+                        <p>GALLERY</p>
                     </div>
+                    <Gallery/>
+                </div>
               </div>
       </Fragment>
     );

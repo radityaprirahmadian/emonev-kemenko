@@ -1,23 +1,33 @@
-import React,{Component,Fragment} from 'react';
+import React,{Component,Fragment,useEffect,useState} from 'react';
 import './Gallery.css';
 import Topbar from '../../component/Topbar/Topbar.js';
 import Gallery from '../../component/Gallery/Gallery';
 import Footer from '../../component/Footer/Footer';
+import Pagination from "react-js-pagination";
 
+const GalleryPage = () => {
+    const [filter,setFilter] = useState({
+        page: '1',
+        limit: '9'
+    })
 
-class GalleryPage extends Component {
-    componentDidMount() {
+    const {
+        page,
+        limit
+    } = filter
+
+    useEffect(() => {
         window.scrollTo(0, 0);
-    }
+    },[]) 
     
-    render(){
+    
         return(
             <Fragment>
                 <Topbar kunci={false}/>
                     <div className="gallery-title">
                         GALLERY
                     </div>
-                    <Gallery/>
+                    <Gallery page={page} limit={limit}/>
                     {/* <div className="gallery-pagination">
                         <i class="material-icons">chevron_left</i>
                         <ul> 
@@ -33,6 +43,5 @@ class GalleryPage extends Component {
             </Fragment>
         );
     }
-}
 
 export default GalleryPage;

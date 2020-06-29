@@ -30,7 +30,7 @@ export default function StatistikMonev(props) {
   useEffect(() => {
     setStatistik(null)
     setData(null)
-    const endpoint = `http://localhost:5000/api/v1/statistik/monev?periode=${periode || ''}&select=${instansi || ''}` 
+    const endpoint = `https://test.bariqmbani.me/api/v1/statistik/monev?periode=${periode || ''}&select=${instansi || ''}` 
     fetch(endpoint)
       .then(res => res.json())
       .then(data => {

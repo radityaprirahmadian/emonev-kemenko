@@ -13,6 +13,7 @@ import Pagination from '../../component/Pagination/Pagination'
 import FilterInstansi from '../../component/FilterInstansi/FilterInstansi'
 import { AuthContext } from '../../context/Auth/AuthContext'
 import TabelInstansi from '../../component/TabelInstansi/TabelInstansi'
+import Spinner from '../../component/Spinner/Spinner'
 
 
 
@@ -20,6 +21,7 @@ const Instansi = (props) => {
     const { token,userDetail } = useContext(AuthContext)
     const [instansi,setInstansi] = useState([])
     const [instansiRev,setInstansiRev] = useState([])
+    const [loading, setLoading] = useState(false)
     console.log(instansi)
     const [filter,setFilter] = useState({
         limit:'10',
@@ -37,21 +39,22 @@ const Instansi = (props) => {
         jenis,
     } = filter
 
-    const getInstansiLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi`, config)
-            setFilter({...filter, totalDoc: res.data.instansi.length})
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
+    // const getInstansiLength = async () => {
+    //     const config= {
+    //         headers: {
+    //             'X-Auth-Token': `aweuaweu ${token}`
+    //         }
+    //     }
+    //     try {
+    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi`, config)
+    //         setFilter({...filter, totalDoc: res.data.instansi.length})
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
     const getAllInstansi = async () => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -60,6 +63,8 @@ const Instansi = (props) => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi?nama=${nama}&jenis=${jenis}&limit=${limit}&page=${page}`, config)
             setInstansi(res.data.instansi)
+            setFilter({...filter, totalDoc: res.data.total})
+            setLoading(false)
         }
         catch (err) {
             console.log(err)  
@@ -67,6 +72,7 @@ const Instansi = (props) => {
     }
 
     const deleteInstansi = async (id) => {
+        setLoading(true)
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -75,21 +81,17 @@ const Instansi = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/instansi/${id}`,config)
             getAllInstansi()
-            getInstansiLength()
         }
         catch (err) {
             console.log(err)
         }
+        setLoading(false)
     }
 
     // const handleReset = () => {
     //     editDocumentFalse()
     //     resetDocument()
     // }
-
-    useEffect(() => {
-        getInstansiLength()
-    },[])
 
     useEffect(() => {
         getAllInstansi()
@@ -144,23 +146,35 @@ const Instansi = (props) => {
                                         <th width='42px'></th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-body-monev">
-                                    {
-                                        instansi.map((instansi,index) => {
-                                            return(
-                                                <TabelInstansi
-                                                    key={index}
-                                                    id={instansi._id}
-                                                    nama={instansi.nama}
-                                                    nama_pendek={instansi.nama_pendek}
-                                                    jenis={instansi.jenis}
-                                                    delete={deleteInstansi}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </tbody>
+                                {
+                                    !loading && (
+                                        <tbody className="table-body-monev">
+                                            {
+                                                instansi.map((instansi,index) => {
+                                                    return(
+                                                        <TabelInstansi
+                                                            key={index}
+                                                            id={instansi._id}
+                                                            nama={instansi.nama}
+                                                            nama_pendek={instansi.nama_pendek}
+                                                            jenis={instansi.jenis}
+                                                            delete={deleteInstansi}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    )
+                                }
                             </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
                         </div>
                 <Pagination
                     setFilter={setFilter}

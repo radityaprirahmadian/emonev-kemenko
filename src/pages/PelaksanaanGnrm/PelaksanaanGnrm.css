@@ -15,7 +15,7 @@
     bottom : 0;
     left: 0;
     right: 0;
-    z-index: -9999;
+    z-index: -1000;
 }
 
 .input-dan-tajuk .tambah-program {
@@ -71,6 +71,7 @@
 }
 
 .tajuk-page-2{
+    margin-top: 23px;
     margin-right: 28px;
     text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     text-align: right;
@@ -78,4 +79,8 @@
     font-size: 24px;
     font-weight: 900;
     letter-spacing: 0.1em;
+}
+
+.tajuk-page-2 div{
+    display: inline-block;
 }

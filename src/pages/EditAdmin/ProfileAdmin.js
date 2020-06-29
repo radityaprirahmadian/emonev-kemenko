@@ -108,6 +108,7 @@ const ProfileAdmin = (props) => {
                                         type="submit"
                                         className="button-submit-profile"
                                         value="EDIT PROFIL"
+                                        style={{backgroundColor: '#E76975'}}
                                     > 
                                     </input>
                                     </Link>

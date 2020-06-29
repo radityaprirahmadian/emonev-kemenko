@@ -16,10 +16,11 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const Reminder = (props) => {
     const { user, token } = useContext(AuthContext)
-    const kentoks = localStorage.getItem('token')
+    const [loading, setLoading] = useState(false)
 
     const [ allReminder, setAllReminder ] = useState([])
     console.log(allReminder)
@@ -36,21 +37,8 @@ const Reminder = (props) => {
         total
     } = filter
 
-    const getReminderLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel`, config)
-            setFilter({...filter, total: res.data.notifikasi.length})
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
     const getAllReminder = async () => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`,
@@ -59,7 +47,8 @@ const Reminder = (props) => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
             setAllReminder(res.data.notifikasi)
-            console.log(res.data)
+            setFilter({...filter, total: res.data.total})
+            setLoading(false)
         }
         catch (err) {
             console.log(err.message)  
@@ -67,6 +56,7 @@ const Reminder = (props) => {
     }
 
     const deleteReminder = async (id) => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -75,16 +65,13 @@ const Reminder = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/notifikasi/${id}`, config)
             getAllReminder()
-            getReminderLength()
         }
         catch (err) {
             console.log(err.message)  
         }
+        setLoading(false)
     }
 
-    useEffect(() => {
-        getReminderLength()
-    },[])
 
     useEffect(() => {
         getAllReminder()
@@ -133,25 +120,37 @@ const Reminder = (props) => {
                                     <th width='42px'></th>
                                 </tr>
                             </thead>
-                            <tbody className="table-body-reminder">
-                                {
-                                    allReminder.map((reminder,index) => {
-                                        return(
-                                            <TabelReminder
-                                                key={index}
-                                                id={reminder._id}
-                                                judul={reminder.judul}
-                                                isi={reminder.isi}
-                                                kepada={reminder.kepada.instansi}
-                                                nama={reminder.kepada.nama}
-                                                delete={deleteReminder}
-                                                tanggal={reminder.jadwal}
-                                            />
-                                        )
-                                    })
-                                }
-                            </tbody>
+                            {
+                                !loading && (
+                                    <tbody className="table-body-reminder">
+                                        {
+                                            allReminder.map((reminder,index) => {
+                                                return(
+                                                    <TabelReminder
+                                                        key={index}
+                                                        id={reminder._id}
+                                                        judul={reminder.judul}
+                                                        isi={reminder.isi}
+                                                        kepada={reminder.kepada.instansi}
+                                                        nama={reminder.kepada.nama}
+                                                        delete={deleteReminder}
+                                                        tanggal={reminder.jadwal}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                )
+                            }
                         </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
                     </div>
             <Pagination
                 setFilter={setFilter}

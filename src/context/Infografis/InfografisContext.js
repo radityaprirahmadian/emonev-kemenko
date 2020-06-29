@@ -7,12 +7,14 @@ export const InfografisContext = createContext()
 const InfografisState = (props) => {
     const initialState = {
         infografisDetail: null,
-        isEditing: false
+        isEditing: false,
+        loading: false
     };
 
     const [ state, dispatch] = useReducer(InfografisReducer , initialState)
 
     const setInfografis = async (id) => {
+        setLoadingTrue()
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${state.token}`
@@ -25,9 +27,11 @@ const InfografisState = (props) => {
                 payload: res.data.kabar
             })
             console.log(res.data.kabar)
+            setLoadingFalse()
         }
         catch (err) {
             console.log(err)
+            setLoadingFalse()
         }
     }
 
@@ -42,11 +46,28 @@ const InfografisState = (props) => {
             type: 'EDIT_DOCUMENT_FALSE'
         })
     }
+
+    const setLoadingTrue = () => {
+        dispatch({
+            type: 'SET_LOADING_TRUE'
+        })
+    }
+    
+    const setLoadingFalse = () => {
+        dispatch({
+            type: 'SET_LOADING_FALSE'
+        })
+    }
+
+
     return(
         <InfografisContext.Provider
             value={{
                 infografisDetail: state.infografisDetail,
                 isEditing: state.isEditing,
+                loading: state.loading,
+                setLoadingFalse,
+                setLoadingTrue,
                 setInfografis,
                 editDocument,
                 editDocumentFalse

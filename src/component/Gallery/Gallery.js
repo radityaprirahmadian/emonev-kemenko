@@ -5,9 +5,11 @@ import background from '../../assets/background.png';
 import trash from '../../assets/trash.png';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'
+import Pagination from "react-js-pagination";
 import { AuthContext } from '../../context/Auth/AuthContext';
+// import ".../bootstrap/less/bootstrap.less";
 
-const Gallery = () => {
+const Gallery = (props) => {
     const { user, token, userDetail } = useContext(AuthContext)
     const [gallery , setGallery] = useState([])
     const [gambar,setGambar] = useState([])
@@ -15,24 +17,36 @@ const Gallery = () => {
     const [identifier,setIdentifier] = useState('')
     const [open, setOpen] = useState(false)
     const [galleriIndex , setGalleriIndex] = useState(0)
-console.log(userDetail)
+    console.log(userDetail)
+
+    const [filter,setFilter] = useState({
+        pages: '1',
+        limit: '9'
+    })
+
+    const {
+        pages,
+        limit
+    } = filter
+
+
     const getAllGallery = async () => {
         try {
             if(userDetail){
                 if(userDetail.role === 'admin'){
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri?instansi=${userDetail.instansi.nama_pendek}`)
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri?instansi=${userDetail.instansi.nama_pendek}&page=${pages}&limit=${limit}`)
                     console.log(res)
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                     setGallery(wowo)
                 } else {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri`)
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri?page=${pages}&limit=${limit}`)
                     console.log(res)
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                     setGallery(wowo)
                 }
             }
             else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri`)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/galeri?page=${pages}&limit=${limit}`)
                 console.log(res)
                 const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://test.bariqmbani.me${galeri}` ))
                 setGallery(wowo)
@@ -87,6 +101,11 @@ console.log(userDetail)
     console.log(identifier)
     console.log(gambar)
 
+    const onTidakHapus = (e) => {
+        e.preventDefault()
+        setIdentifier('')
+    }
+
 
     const arrayTest = ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']
 
@@ -118,6 +137,9 @@ console.log(userDetail)
         }
     }
 
+    const handleChange = (pageNumber) => {
+        setFilter({...filter,pages: pageNumber})
+    }
     const handleGalleryPrev = (e) => {
         e.preventDefault()
         if(awal >= 9) {
@@ -135,29 +157,24 @@ console.log(userDetail)
         return(
             <Fragment>
                 <div className="gallery-container">
-                    {
+                    {/* {
                         arrayTest.slice((awal),(batas)).map((array,index) => {
                             return(
                                 <div className="gallery-item" key={index}>
-                                    <img className='test_decor' src={background} alt='est'></img>
                                     <img className='test_gambar_gallery' src={background} alt='est' style={{cursor:'pointer' }}></img>
                                     <div className='test_gallery'></div>
                                 </div>
                             )
                         })
-                    }
-
-
-
-                    
-                    {/* {
-                        gallery.map((galler,index) => {
+                    } */}
+                    {
+                        gallery.map((galleri,index) => {
                             return(
                                 <Fragment>
 
-                                    <div className="gallery-item" onClick={(e) => onOpen(e,index,galler)}>
+                                    <div className="gallery-item" onClick={(e) => onOpen(e,index,galleri)}>
+                                        <img src={galleri[0]} alt={`gallery-${index}`} style={{cursor:'pointer' }} className="test_gambar_gallery"></img>
                                         <div className='test_gallery'></div>
-                                        <img src={galler[0]} alt={`gallery-${index}`} style={{cursor:'pointer' }}></img>
                                     </div>
                                         {
                                             open ? 
@@ -174,13 +191,22 @@ console.log(userDetail)
                                                     />
                                                     {
                                                         user && user.role === 'owner' ?
-                                                                <img src={trash} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999'}}/>
+                                                                <img src={trash} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999' , cursor:'pointer'}}/>
                                                         : 
                                                         ''
                                                     }
                                                     {
                                                         identifier ? 
-                                                            <button onClick={onHapus} style={{position:'fixed', top:'16px' , right:'600px' , zIndex:'9999'}} > HAPUS </button>
+                                                            <div style={{position: 'fixed' ,top:'16px' , right:'600px', zIndex: '9999' ,backgroundColor: 'rgba(0,0,0,0.4)'}}>
+                                                                <div className="popup_delete" style={{width:'400px',height:'300px', borderRadius:'10px', padding:'28px', zIndex:'9998', backgroundColor:'white', position:'fixed',top:'20%',left:'40%'}}>
+                                                                    <h1 style={{textAlign:'center', fontWeight:'700' , marginBottom:'32px' , fontSize:'18px'}}>Konfirmasi</h1><br/>
+                                                                    <h1 style={{fontSize:'18px', textAlign:'center' , fontWeight:'normal', lineHeight:'20px'}}>Apakah anda yakin akan menghapus <br/> gambar ini?</h1>
+                                                                    <div style={{marginTop:'30px', textAlign:'center'}}>
+                                                                        <button onClick={onHapus}  className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor:'#D4362E', color: 'white' , marginBottom:'16px' , boxShadow:'none'}}>Ya</button><br/>
+                                                                        <button onClick={onTidakHapus} className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor: '#E9E9E9' , color :'#656A6A' , boxShadow:'none'}}>Tidak</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         : 
                                                         ''
                                                     }
@@ -191,24 +217,8 @@ console.log(userDetail)
                                 </Fragment> 
                             )
                         })
-                    } */}
+                    }
                 </div>
-                    <br/>
-                    <br/>
-                    <div className="gallery-pagination">
-                        <i class="material-icons" onClick={handleGalleryPrev}>chevron_left</i>
-                        <ul>
-                            {
-                                
-                            }
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                        </ul>
-                        <i class="material-icons" onClick={handleGallery}>chevron_right</i>
-                    </div>
             </Fragment>
         )
 }

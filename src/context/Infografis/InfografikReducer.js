@@ -16,8 +16,18 @@ export default (state, action) => {
                 ...state,
                 isEditing: false
             }
+        case 'SET_LOADING_TRUE':
+            return {
+                ...state,
+                loading: true,
+            }
+        case 'SET_LOADING_FALSE':
+            return {
+                ...state,
+                loading: false,
+            }
 
-            default :
+        default :
             return state;
     }
 }

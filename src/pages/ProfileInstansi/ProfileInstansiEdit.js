@@ -10,9 +10,10 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import objectToFormData from '../../objectToFormDataUtil'
+import Notification from '../../component/Notification/Notification';
 
 const ProfileInstansiEdit = (props) => {
-    const { token, userDetail,} = useContext(AuthContext);
+    const { token, userDetail,user} = useContext(AuthContext);
     const history = useHistory()
     const [ foto, setFoto ] = useState([])
     const [ instansiDetail , setInstansiDetail] = useState({})
@@ -37,7 +38,6 @@ const ProfileInstansiEdit = (props) => {
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
         setFoto([...event.target.files])
-        event.target.value = null
         if(event.target.files && event.target.files[0]){
             setFotos(URL.createObjectURL(event.target.files[0]))
         }
@@ -81,6 +81,7 @@ const ProfileInstansiEdit = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
             alert(res.data.message)                
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${props.match.params.id}`)
+            // window.location.reload()
         }
 
         catch(err) {
@@ -117,7 +118,8 @@ const ProfileInstansiEdit = (props) => {
                 kontak: instansiDetail.kontak,
                 alamat: instansiDetail.alamat,
                 fax: instansiDetail.fax,
-                email: instansiDetail.email
+                email: instansiDetail.email,
+                website: instansiDetail.website
             })
             
             const wow = `https://test.bariqmbani.me${instansiDetail&&instansiDetail.logo}`
@@ -137,9 +139,15 @@ const ProfileInstansiEdit = (props) => {
                     <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
                     <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                 </div>
-                <div className="profile-page" style={{marginBottom:'80px'}}>
-                    <div className="tajuk-page">
-                        EDIT PROFIL INSTANSI
+                <div className="profile-page" style={{marginBottom:'80px' , marginRight:'20px' , marginTop:'23px'}}>
+                    <div className="tajuk-page-2">
+                        <div>PROFIL INSTANSI</div>
+                        {
+                            user && user.role === 'owner' ?
+                                ''
+                            :
+                                <Notification/>
+                        }
                     </div>
                     <div className="container-fluid">
                         <div className="row">
@@ -149,7 +157,7 @@ const ProfileInstansiEdit = (props) => {
                                 <div className="form-profile-page">
                                 <div className="data" >
                                     <label>Nama Instansi</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '22px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
+                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '10px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
                                 </div>
 
                                 <div className="data">
@@ -159,7 +167,7 @@ const ProfileInstansiEdit = (props) => {
 
                                 <div className="data">
                                     <label style={{marginTop:'32px'}}>Jenis</label><br/>
-                                    <select className="show-profile" type="text" name="jenis">
+                                    <select className="show-profile" type="text" name="jenis" onChange={onChangeInstansi}>
                                         {  
                                             jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                         }
@@ -173,7 +181,7 @@ const ProfileInstansiEdit = (props) => {
 
                                 <div className="data">
                                     <label style={{marginTop:'32px'}}>Alamat</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px', paddingTop: '22px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
+                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px', paddingTop: '10px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
                                 </div>
 
                                 <div className="data">
@@ -214,12 +222,11 @@ const ProfileInstansiEdit = (props) => {
                                             />
                                     </div>
                                     <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${instansiDetail && instansiDetail._id}`}>
-                                    <button 
-                                        type="submit"
-                                        className="button-submit-profile"
-                                        disabled    
-                                    > BATAL
-                                    </button>
+                                        <button 
+                                            type="submit"
+                                            className="button-submit-profile"   
+                                        > BATAL
+                                        </button>
                                     </Link>
 
                                     <input 

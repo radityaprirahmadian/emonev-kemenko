@@ -10,10 +10,11 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Notification from '../../component/Notification/Notification';
 
 const ProfileEdit = (props) => {
 
-    const { token, getUserDetail, userDetail } = useContext(AuthContext);
+    const { token, getUserDetail,user, userDetail } = useContext(AuthContext);
     const history = useHistory();
     const [seen, setSeen] = useState(false)
     const [foto, setFoto] = useState([])
@@ -50,10 +51,9 @@ const ProfileEdit = (props) => {
         nama: '',
         email: '',
         kontak: '',
-        password: ''
     })
 
-    const { nama, email, kontak, password } = userData;
+    const { nama, email, kontak } = userData;
     console.log(userData)
     console.log(nama)
     console.log(email)
@@ -79,7 +79,7 @@ const ProfileEdit = (props) => {
             try {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
-                setUserData(res.data.user)
+                setUserData({nama: res.data.user.nama , email:res.data.user.email , kontak: res.data.user.kontak})
             }
             catch (err) {
                 console.log(err)
@@ -97,8 +97,6 @@ const ProfileEdit = (props) => {
         
     }
 
-
-
     useEffect(() => {
         const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
         setFotos(wow)
@@ -113,9 +111,13 @@ const ProfileEdit = (props) => {
             }
         }
         try {
-            await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            alert(res.data.message)
+            updateUserPhoto()
+            console.log(res)
         }
         catch (err) {
+            alert(err.message)
             console.log(err)
         }
     }
@@ -123,9 +125,11 @@ const ProfileEdit = (props) => {
     const updateUserPhoto = async () => {
 		const formData = new FormData()
 
-		for (let i = 0; i < foto.length; i++) {
-			formData.append(`foto`, foto[i])
-		}
+        if (foto.length > 0) {
+            for (let i = 0; i < foto.length; i++) {
+                formData.append(`foto`, foto[i])
+            }
+        }  else {formData.append('foto', new File([null], 'blob'))}
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
@@ -141,18 +145,16 @@ const ProfileEdit = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
             alert(res.data.message)
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
+            window.location.reload()
         }
         catch (err) {
-            console.log(err)
+            alert(err.message)
         }
     }
 
     const onSubmitEdit = (e) => {
         e.preventDefault();
-        updateUserPhoto()
-        updateUserData({nama,email,kontak,password})
-        
-        
+        updateUserData({nama,email,kontak})
     }
 
     const handlePassword = (e) => {
@@ -171,9 +173,15 @@ const ProfileEdit = (props) => {
                     <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
                     <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                 </div>
-                <div className="profile-page">
-                    <div className="tajuk-page">
-                        PROFIL
+                <div className="profile-page" style={{marginRight:'20px' , marginTop:'23px'}}>
+                    <div className="tajuk-page-2">
+                        <div>EDIT PROFIL</div>
+                        {
+                            user && user.role === 'owner' ?
+                                ''
+                            :
+                                <Notification/>
+                        }
                     </div>
                     <div className="container-fluid">
                             <form id="form-profile" onSubmit={onSubmitEdit}>
@@ -249,18 +257,19 @@ const ProfileEdit = (props) => {
                                                 name="media"
                                             />
                                         </div>
+                                    <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${userDetail && userDetail._id}`}>
                                     <button 
                                         type="submit"
-                                        className="button-submit-profile"
-                                        disabled    
-                                    > EDIT PROFIL
+                                        className="button-submit-profile"    
+                                    > BATAL
                                     </button>
+                                    </Link>
 
                                     <input 
                                             form="form-profile"
                                             type="submit"
                                             className="button-submit-profile-edit"
-                                            value="SAVE"
+                                            value="SIMPAN"
                                         > 
                                     </input>
                                 </div>

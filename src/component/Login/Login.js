@@ -14,11 +14,11 @@ import aset_4 from '../../assets/decoration/aset_4.png'
 import aset_5 from '../../assets/decoration/aset_5.png'
 import aset_6 from '../../assets/decoration/aset_6.png'
 import aset_7 from '../../assets/decoration/aset_7.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 
 const Login = (props) => {
-    const { isAuthenticated, login, fail, token, loadUser, user, remember, rememberToken, userDetail } = useContext(AuthContext);
-    const {  allReminder, reminder, setAllReminder , getReminder } = useContext(NotifContext)
+    const { isAuthenticated, login, fail, token, loadUser, user, remember, rememberToken, userDetail, loading } = useContext(AuthContext);
     const history = useHistory();
 
     const [users, setUser] = useState ({
@@ -63,11 +63,6 @@ const Login = (props) => {
         }
     })
 
-    useEffect(() => {
-        console.log('a')
-        getReminder()
-    },[])
-
     const onSubmit = (e) => {
         e.preventDefault();
         login ({
@@ -95,6 +90,14 @@ const Login = (props) => {
 
                     <Fragment>
                         <div className="login-page">
+                        {
+                            loading ?  
+                            <div style={{ marginLeft: '68px' }}>
+                                <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                    <Spinner />
+                                </div> 
+                            </div>
+                            :
                             <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
                                 <div className="col-5 login" style={{width:'424px'}}>
                                     <div className="login-page-left-title">
@@ -150,6 +153,7 @@ const Login = (props) => {
                                 </div>
                             
                             </div>
+                            }
                         </div>
                         </Fragment>
 

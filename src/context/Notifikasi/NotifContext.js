@@ -44,7 +44,7 @@ const NotifState = (props) => {
                 type: 'GET_ALL_REMINDER',
                 payload: res.data.notifikasi
             })
-            setAllReminder(res.data.notifikasi.length)
+            setAllReminder(res.data.total && res.data.notifikasi.dibaca)
         }
         catch(err) {
             console.log(err)

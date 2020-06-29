@@ -5,15 +5,19 @@ import { NotifContext } from '../../context/Notifikasi/NotifContext'
 const Popup = (props) => {
     const { notifNew } = useContext(NotifContext)
     const {userDetail} = useContext(AuthContext)
-    // const [notifs,setNotifs] = useState([])
+    const [notifs,setNotifs] = useState([])
     const [not, setNot] = useState([])
 
     console.log(notifNew)
 
     useEffect(() => {
-        if(notifNew){
-            if(notifNew && notifNew.length > not.length) {
-                alert('notif baruu')
+        setNotifs(props.notif)
+    },[props.notif])
+
+    useEffect(() => {
+        if(notifs){
+            if(notifs && notifs.length > not.length) {
+                alert('Anda Mendapatkan Sebuah Notifikasi Baru')
                 setNot(notifNew)
             }
         }

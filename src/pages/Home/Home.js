@@ -123,7 +123,7 @@ const Home = () => {
     const getDocumentCardLength = async () => {
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${nama_instansi}`)
-            setDocumentCardLength(res.data.kabar)
+            setDocumentCardLength(res.data.total)
         }
         catch (err) {
             console.log(err)  
@@ -249,7 +249,7 @@ const Home = () => {
 
       console.log(documentCardLenght && documentCardLenght.length)
       const onNextFilter = (e) => {
-        if(page < (documentCardLenght && documentCardLenght.length / 2)) {
+        if(page < (documentCardLenght && Math.ceil(documentCardLenght.length / 2))) {
             e.preventDefault()
             const a = parseInt(page)
             return setFilterCard({
@@ -431,16 +431,27 @@ const Home = () => {
                                             documentCard.map((doc, index) => {
                                                 return (
                                                     <Card key={index}
-                                                    doc={doc}/>
+                                                    doc={doc}
+                                                    bgcolor={'none'}
+                                                    bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
+                                                    color={`black`}/>
                                                     );
                                                 })
                                         }
-                                    <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                                    </div>
-                                    <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
-                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                                    </div>
+
+                                        {
+                                            documentCardLenght > 2 ?
+                                                <Fragment>
+                                                    <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                                    </div>
+                                                    <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
+                                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                    </div>
+                                                </Fragment>
+                                            :
+                                            ''
+                                        }
                                     </div>
                                 </div>
                             </div>

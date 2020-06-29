@@ -2,6 +2,7 @@ import React,{Component,Fragment, useContext, useState, useEffect } from 'react'
 import axios from 'axios';
 import logo from '../../assets/logo.png';
 import logo_simonev_1 from '../../assets/logo_simonev_1.png';
+import logo_kemenko from '../../assets/logo_kemenko.png';
 import './Topbar.css';
 import { BrowserRouter , Route, Link, Switch, NavLink } from "react-router-dom";
 import Login from '../Login/Login';
@@ -12,6 +13,7 @@ import logo_gif_1 from '../../assets/log_gif_1.gif'
 import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'
+import KabarMegaMenu from '../../component/KabarMegaMenu/KabarMegaMenu'
 
 
 // const Bawa = props.kunci;
@@ -27,6 +29,8 @@ const Topbar = (props) => {
 
     console.log(isAuthenticated)
     console.log(token)
+
+    console.log(instansi)
 
     const getAllDocument = async () => {
         try {
@@ -45,7 +49,7 @@ const Topbar = (props) => {
     }, [token])
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://test.bariqmbani.me/api/v1/pelaksanaan')
         .then(res => {
             setInstansi(res.data.instansi)
             console.log('wow')
@@ -162,173 +166,70 @@ const Topbar = (props) => {
                                                         <ul>
                                                             {
                                                                 instansi.map((instansi,index) => {
+
                                                                     return (
                                                                         <li key={instansi._id} className="menu-1-kementrian">
-                                                                            <a>{instansi.nama_pendek}</a>
-                                                                            <div className="sub-menu-kementrian">
-                                                                                <ul>
-                                                                                    <Megamenu
-                                                                                        key={index}
-                                                                                        instansi={instansi.nama_pendek}
-                                                                                    />
-                                                                                </ul>
-                                                                                
+                                                                            {
+                                                                                instansi.logo ?
+                                                                                    <img src={`https://test.bariqmbani.me${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
+                                                                                :
+                                                                                    <img src={logo_kemenko} className='logo-in-megamenu' alt='logo'/>
+                                                                            }
+                                                                            <div style={{marginTop:'30px'}}>
+                                                                                <a className="nama-instansi-megamenu" >{instansi.nama_pendek.toUpperCase()}</a>
                                                                             </div>
-                                                            </li>
+                                                                            <div className="sub-menu-kementrian">
+                                                                                <div className='topbar-kabar'>
+                                                                                    <div style={{width:'100%',height:'90px'}}>
+                                                                                        <h1 style={{textAlign:'center', lineHeight:'90px', fontWeight:'800'}}>
+                                                                                            KABAR GNRM
+                                                                                        </h1>
+                                                                                    </div>
+                                                                                    <ul className='topbar-kabar-ul'>
+                                                                                        {
+                                                                                            instansi.kabar.map((kabar,index) => {
+                                                                                                return(
+                                                                                                    <KabarMegaMenu
+                                                                                                    key={index}
+                                                                                                    kabar={kabar}
+                                                                                                />
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div className="topbar-program">
+                                                                                    {
+                                                                                        instansi.gerakan ?
+                                                                                        <div style={{width:'100%',height:'90px'}}>
+                                                                                            <h1 style={{textAlign:'center', lineHeight:'90px',fontWeight:'800'}}>
+                                                                                                {instansi.gerakan.toUpperCase()}
+                                                                                            </h1>
+                                                                                        </div>
+                                                                                        :
+                                                                                        <div style={{width:'100%',height:'90px'}}>
+                                                                                        <h1 style={{textAlign:'center', lineHeight:'90px',fontWeight:'800'}}>
+                                                                                        </h1>
+                                                                                    </div>
+                                                                                    }
+                                                                                    <ul className='topbar-program-ul'>
+                                                                                        {
+                                                                                            instansi.gnrm.map((gnrm,index) => {
+                                                                                                return(
+                                                                                                    <Megamenu
+                                                                                                        key={index}
+                                                                                                        gnrm={gnrm}
+                                                                                                    />
+                                                                                                )
+                                                                                            })
+                                                                                        }
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                    </li>
                                                                     )
                                                                 })
                                                             }
-                                                                                                                                    
-                                                            {/* <li className="menu-1-kementrian">
-                                                                <a>Wadaw</a>
-                                                                <div className="sub-menu-kementrian">
-                                                                        <ul>
-                                                                            {
-                                                                                this.datas.post.map((post) => {
-                                                                                    return(
-                                                                                        <li>
-                                                                                            <div className="titit">{post.title}</div>
-                                                                                                <div className="sub-menu-2-kementrian">
-                                                                                                    <ul>
-                                                                                                        {
-                                                                                                            this.datas.post.map((post) => {
-                                                                                                                return(
-                                                                                                                    <li>
-                                                                                                                        <div className="tutut">{post.nama}</div>
-                                                                                                                    </li>
-                                                                                                                )
-                                                                                                            })
-
-                                                                                                        }
-                                                                                                    </ul> 
-                                                                                                </div>
-                                                                                        </li>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                            </li>
-                                                            <li>
-                                                                <a>Wedew</a>
-                                                                <div className="sub-menu-kementrian">
-                                                                        <ul>
-                                                                            {
-                                                                                this.datas.post.map((post) => {
-                                                                                    return(
-                                                                                        <li>
-                                                                                            <div className="titit">{post.title}</div>
-                                                                                                <div className="sub-menu-2-kementrian">
-                                                                                                    <ul>
-                                                                                                        {
-                                                                                                            this.datas.post.map((post) => {
-                                                                                                                return(
-                                                                                                                    <li>
-                                                                                                                        <div className="tutut">{post.nama}</div>
-                                                                                                                    </li>
-                                                                                                                )
-                                                                                                            })
-
-                                                                                                        }
-                                                                                                    </ul> 
-                                                                                                </div>
-                                                                                        </li>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                            </li>
-                                                            <li>
-                                                                <a>Widiw</a>
-                                                                <div className="sub-menu-kementrian">
-                                                                        <ul>
-                                                                            {
-                                                                                this.datas.post.map((post) => {
-                                                                                    return(
-                                                                                        <li>
-                                                                                            <div className="titit">{post.title}</div>
-                                                                                                <div className="sub-menu-2-kementrian">
-                                                                                                    <ul>
-                                                                                                        {
-                                                                                                            this.datas.post.map((post) => {
-                                                                                                                return(
-                                                                                                                    <li>
-                                                                                                                        <div className="tutut">{post.nama}</div>
-                                                                                                                    </li>
-                                                                                                                )
-                                                                                                            })
-
-                                                                                                        }
-                                                                                                    </ul> 
-                                                                                                </div>
-                                                                                        </li>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                            </li>
-                                                            <li>
-                                                                <a>Wadaw</a>
-                                                                <div className="sub-menu-kementrian">
-                                                                        <ul>
-                                                                            {
-                                                                                this.datas.post.map((post) => {
-                                                                                    return(
-                                                                                        <li>
-                                                                                            <div className="titit">{post.title}</div>
-                                                                                                <div className="sub-menu-2-kementrian">
-                                                                                                    <ul>
-                                                                                                        {
-                                                                                                            this.datas.post.map((post) => {
-                                                                                                                return(
-                                                                                                                    <li>
-                                                                                                                        <div className="tutut">{post.nama}</div>
-                                                                                                                    </li>
-                                                                                                                )
-                                                                                                            })
-
-                                                                                                        }
-                                                                                                    </ul> 
-                                                                                                </div>
-                                                                                        </li>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                            </li>
-                                                            <li>
-                                                                <a>Wedew</a>
-                                                                <div className="sub-menu-kementrian">
-                                                                        <ul>
-                                                                            {
-                                                                                this.datas.post.map((post) => {
-                                                                                    return(
-                                                                                        <li>
-                                                                                            <div className="titit">{post.title}</div>
-                                                                                                <div className="sub-menu-2-kementrian">
-                                                                                                    <ul>
-                                                                                                        {
-                                                                                                            this.datas.post.map((post) => {
-                                                                                                                return(
-                                                                                                                    <li>
-                                                                                                                        <div className="tutut">{post.nama}</div>
-                                                                                                                    </li>
-                                                                                                                )
-                                                                                                            })
-
-                                                                                                        }
-                                                                                                    </ul> 
-                                                                                                </div>
-                                                                                        </li>
-                                                                                    )
-                                                                                })
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                            </li> */}
                                                         </ul>
                                                     </div>
                                                 </div>

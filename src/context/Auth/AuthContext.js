@@ -13,7 +13,8 @@ const AuthState = (props) => {
     const initialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: false,
-        loading: true,
+        loading: false,
+        loadings: true,
         user: null,
         userDetail: null,
         error: null,
@@ -31,6 +32,7 @@ const AuthState = (props) => {
     console.log(ingat)
 
     const loadUser = async () => {
+        setLoadingTrue()
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${state.token}`
@@ -51,9 +53,11 @@ const AuthState = (props) => {
             console.log(err.response.data.message)
             alert(err.response.data.message)      
         }
+        setLoadingFalse()
     }
     
     const getUserDetail = async (id) => {
+        setLoadingTrue()
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${state.token}`
@@ -65,6 +69,7 @@ const AuthState = (props) => {
                 type: 'GET_USER_DETAIL',
                 payload: res.data.user
             })
+            setLoadingFalse()
         }
         catch (err) {
             console.log(err)
@@ -73,6 +78,7 @@ const AuthState = (props) => {
     }
 
     const login = async (formData) => {
+        setLoadingTrue()
         const config= {
             headers: {
                 'Content-Type': 'application/json'
@@ -85,6 +91,7 @@ const AuthState = (props) => {
                     type: 'LOGIN',
                     payload: res.data
                 })    
+
             } 
         catch(err){
 			dispatch({
@@ -93,6 +100,7 @@ const AuthState = (props) => {
             })
            alert(err.response.data.message)
         }
+        setLoadingFalse()
     }
 
     const logout = () => {
@@ -107,6 +115,18 @@ const AuthState = (props) => {
         })
     }
 
+    const setLoadingTrue = () => {
+        dispatch({
+            type: 'SET_LOADING_TRUE'
+        })
+    }
+    
+    const setLoadingFalse = () => {
+        dispatch({
+            type: 'SET_LOADING_FALSE'
+        })
+    }
+
     return (
         <AuthContext.Provider
             value={{ 
@@ -114,6 +134,7 @@ const AuthState = (props) => {
                 fail: state.fail,
                 token: state.token,
                 loading: state.loading,
+                loadings: state.loadings,
                 user: state.user,
                 error: state.error,
                 userDetail: state.userDetail,

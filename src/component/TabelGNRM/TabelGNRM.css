@@ -35,6 +35,9 @@
     padding:0px;
 }
 
+.popup_delete {
+    font-family: 'Montserrat' , sans-serif;
+}
 .table-body td img{
     padding:0px;
     background-color: none;

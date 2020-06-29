@@ -9,9 +9,10 @@ import { AuthContext } from '../../context/Auth/AuthContext'
 import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import Scroll , { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
+import Spinner from '../../component/Spinner/Spinner'
 
 const FormMonev =  (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview, loading,setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { token,userDetail } = useContext(AuthContext)
     const history = useHistory()
     const Link = Scroll.Link
@@ -20,7 +21,29 @@ const FormMonev =  (props) => {
 
     const [instansi,setInstansi] = useState('')
     const pilihanTahun = ['2020','2021','2022','2023']
-    const pilihanPeriode = ['Tahunan', 'Semesteran' , 'Caturwulanan' , 'Bulanan']
+    const pilihanPeriode = ['Tahunan', 'Caturwulanan']
+
+    const [ instansiDetail , setInstansiDetail] = useState({})
+    console.log(instansiDetail)
+
+    useEffect(() => {
+        const getInstansiDetail = async () => {
+            const config = {
+                headers: {
+                    'X-Auth-Token': `aweuaweu ${token}`,
+                }
+            }
+            try {
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
+                setInstansiDetail(res.data.instansi)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getInstansiDetail()
+    },[])
+
 
     const [data, setData] = useState({
         tahun: '',
@@ -99,6 +122,33 @@ const FormMonev =  (props) => {
     const [deletedLampiranHasil, setDeletedLampiranHasil] = useState([])
     const [deletedLampiranKetercapaian, setDeletedLampiranKetercapaian] = useState([])
 
+    const [sk,setSk] = useState({
+        sk_status: true,
+        sk_no: '',
+        sk_kendala: ''
+    })
+
+    const onChangeButton = (e) => {
+        return setSk({...sk , sk_status: true})
+    }
+
+    const onChangeButtonFalse = (e) => {
+        return setSk({...sk , sk_status: false})
+    }
+
+    const onChangeSK = (e) => {
+        return setSk({...sk , [e.target.name]: e.target.value})
+    }
+
+    const [skFile,setSKFile] = useState([])
+    const [skGambar , setSkGambar] = useState();
+    const [skGambars , setSkGambars] = useState();
+
+    const onChangeSKFile = (event) => {
+        setSKFile([...event.target.files])
+        event.target.value = null
+    }
+
     const onChangeMedia = (event) => {
         setMedia([...media , ...event.target.files])
         event.target.value = null
@@ -135,8 +185,30 @@ const FormMonev =  (props) => {
 			})
 		else setData({ ...data, [event.target.name]: event.target.value })
     }
-    
+
+    const onSubmitSK = async (event) => {
+        setLoadingTrue()
+        const formData = objectToFormData(sk)
+
+        if (skFile.length > 0) {
+            for (let i = 0; i < skFile.length; i++) {
+                formData.append(`sk`, skFile[i])
+            }
+        }  else {formData.append('sk', new File([null], 'blob'))}
+
+        const config = {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				'X-Auth-Token': `aweuaweu ${token}`,
+			},
+		}
+
+		const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
+        setLoadingFalse()
+    }
+
     const onSubmit = async (event) => {
+        setLoadingTrue()
 		event.preventDefault()
 
 		const formData = objectToFormData(data)
@@ -180,9 +252,11 @@ const FormMonev =  (props) => {
         catch(err){
             alert(err.data.message)
         }
+        setLoadingFalse()
     }
     
     const onEdit = async (event) => {
+        setLoadingTrue()
 		event.preventDefault()
 
 		const formData = objectToFormData(data)
@@ -232,7 +306,7 @@ const FormMonev =  (props) => {
 		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         alert(res.data.message)
-
+        setLoadingFalse()
         editDocumentFalse()
     }
 
@@ -240,6 +314,19 @@ const FormMonev =  (props) => {
         e.preventDefault()
         preview()
     }
+
+    useEffect(() => {
+            if(userDetail){
+                setSk({
+                    ...sk,
+                    sk_no: userDetail&&userDetail.instansi.sk.no,
+                    sk_kendala: userDetail&&userDetail.instansi.sk.kendala
+                })
+    
+            const gambar = `https://test.bariqmbani.me${userDetail&&userDetail.instansi.sk.foto}`
+            setSkGambar(gambar)
+        }
+    },[userDetail])
 
     useEffect(() => {
         (async () => {
@@ -422,7 +509,15 @@ const FormMonev =  (props) => {
             <div className="tajuk-page">
                 <h1> FORM LAPORAN MONITORING DAN EVALUASI GNRM</h1>
             </div>
-            <form>
+            {
+                loading ?
+                <div style={{ marginLeft: '68px' }}>
+                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                        <Spinner />
+                    </div> 
+                </div>
+                :
+            <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
                 <Element id='identitas' name='identitas'>
                     <div className="monev-container">
                         <div className="form-monev">
@@ -461,6 +556,7 @@ const FormMonev =  (props) => {
                                             onChange={(event) => onChange(event)}  
                                             className="monev-id-program"
                                             name="id_laporan"
+                                            style={{marginLeft:'127px'}}
                                         >
                                             
                                             {
@@ -472,6 +568,7 @@ const FormMonev =  (props) => {
                                             onChange={(event) => onChange(event)} 
                                             className="monev-id-laporan"
                                             name="id_laporan"
+                                            style={{marginLeft:'127px'}}
                                         >
                                             <option selected={true} hidden></option>
                                             {
@@ -497,92 +594,128 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event,'kegiatan')}
                                     />
                                 </div>
-                                <div>
-                                    <label>Kegiatan Prioritas</label>
-                                    {
-                                        documentDetail && documentDetail.form.kp ?
-                                        <select 
-                                            onChange={onChange} 
-                                            class="gnrm-select"
-                                            name="kp"
-                                            style={{marginLeft: '69px', width:'955px' , height: '42px'}}
-                                        >
-                                            {
-                                                kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
-                                            }
-                                        </select> :
-                                        <select 
-                                            onChange={onChange} 
-                                            class="gnrm-select"
-                                            name="kp"
-                                            style={{marginLeft: '69px', width:'955px' , height: '42px' }}
-                                        >
-                                            <option selected={true} hidden></option>
-                                            {
-                                                kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
-                                            }
-                                        </select>
-                                    }
-                                </div>
-                                <div>
-                                    <label>Proyek Prioritas</label>
-                                    {
-                                        documentDetail && selectedKp && propOptions ?
-                                        <select 
-                                            onChange={onChange} 
-                                            class="gnrm-select selectpicker"
-                                            name="prop"
-                                            style={{marginLeft: '84px' , width:'955px'}}
-                                        >
-                                            {
-                                                propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
-                                            }
-                                            {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
-                                        </select> :
-                                        <select 
-                                            onChange={onChange} 
-                                            class="gnrm-select selectpicker"
-                                            name="prop"
-                                            style={{marginLeft: '83px', width:'955px'}}
-                                        >
-                                            <option selected={true} hidden></option>
-                                            {
-                                                propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
-                                            }
-                                            {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
-                                        </select>
-                                    }
-                                </div>
-                                
                                 {
-                                    selectedKp === 'Penguatan pusat-pusat perubahan gerakan revolusi mental' &&
-                                    <div>
-                                        <label>Gerakan</label>
-                                        {
-                                            documentDetail ?
-                                            <select 
-                                                onChange={onChange} 
-                                                class="gnrm-select"
-                                                name="gerakan"
-                                                style={{marginLeft: '145px'}}
-                                            >
+                                    instansiDetail && instansiDetail.jenis === 'Kementerian' ?
+                                        <Fragment>
+
+                                            <div>
+                                                <label>Kegiatan Prioritas</label>
                                                 {
-                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                    documentDetail && documentDetail.form.kp ?
+                                                    <select 
+                                                        onChange={onChange} 
+                                                        class="gnrm-select"
+                                                        name="kp"
+                                                        style={{marginLeft: '69px', width:'955px' , height: '42px'}}
+                                                    >
+                                                        {
+                                                            kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                        }
+                                                    </select> :
+                                                    <select 
+                                                        onChange={onChange} 
+                                                        class="gnrm-select"
+                                                        name="kp"
+                                                        style={{marginLeft: '69px', width:'955px' , height: '42px' }}
+                                                    >
+                                                        <option selected={true} hidden></option>
+                                                        {
+                                                            kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                        }
+                                                    </select>
                                                 }
-                                            </select> :
-                                            <select 
-                                                onChange={onChange} 
-                                                class="gnrm-select"
-                                                name="gerakan"
-                                                style={{marginLeft: '145px'}}
-                                            >
-                                                <option selected={true} hidden></option>
+                                            </div>
+                                            <div>
+                                                <label>Proyek Prioritas</label>
                                                 {
-                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                    documentDetail && selectedKp && propOptions ?
+                                                    <select 
+                                                        onChange={onChange} 
+                                                        class="gnrm-select selectpicker"
+                                                        name="prop"
+                                                        style={{marginLeft: '84px' , width:'955px'}}
+                                                    >
+                                                        {
+                                                            propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                        }
+                                                        {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
+                                                    </select> :
+                                                    <select 
+                                                        onChange={onChange} 
+                                                        class="gnrm-select selectpicker"
+                                                        name="prop"
+                                                        style={{marginLeft: '83px', width:'955px'}}
+                                                    >
+                                                        <option selected={true} hidden></option>
+                                                        {
+                                                            propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                        }
+                                                        {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
+                                                    </select>
                                                 }
-                                            </select>
-                                        }
-                                    </div>
+                                            </div>
+                                            
+                                            {
+                                                selectedKp === 'Penguatan pusat-pusat perubahan gerakan revolusi mental' &&
+                                                <div>
+                                                    <label>Gerakan</label>
+                                                    {
+                                                        documentDetail ?
+                                                        <select 
+                                                            onChange={onChange} 
+                                                            class="gnrm-select"
+                                                            name="gerakan"
+                                                            style={{marginLeft: '145px'}}
+                                                        >
+                                                            {
+                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                            }
+                                                        </select> :
+                                                        <select 
+                                                            onChange={onChange} 
+                                                            class="gnrm-select"
+                                                            name="gerakan"
+                                                            style={{marginLeft: '145px'}}
+                                                        >
+                                                            <option selected={true} hidden></option>
+                                                            {
+                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                            }
+                                        </Fragment>
+                                    :
+                                        <Fragment>
+                                            <div>
+                                                    <label>Gerakan</label>
+                                                    {
+                                                        documentDetail ?
+                                                        <select 
+                                                            onChange={onChange} 
+                                                            class="gnrm-select"
+                                                            name="gerakan"
+                                                            style={{marginLeft: '145px'}}
+                                                        >
+                                                            {
+                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                            }
+                                                        </select> :
+                                                        <select 
+                                                            onChange={onChange} 
+                                                            class="gnrm-select"
+                                                            name="gerakan"
+                                                            style={{marginLeft: '145px'}}
+                                                        >
+                                                            <option selected={true} hidden></option>
+                                                            {
+                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                            }
+                                                        </select>
+                                                    }
+                                                </div>
+                                        </Fragment>
                                 }
                         </div>
                         <div className="monev-navigation-button">
@@ -607,6 +740,185 @@ const FormMonev =  (props) => {
                         </div>
                     </div>
                 </Element>
+
+                <Element id='gugus_tugas' name='gugus_tugas'>
+                        <div className="gnrm-container" >
+                            <div className="gnrm-title">
+                                GUGUS TUGAS GNRM
+                            </div>
+                            <div className="form-gnrm">
+                            {
+                                userDetail && userDetail.instansi.sk.status ? 
+                                    <Fragment>
+                                        <div>
+                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
+                                            <div
+                                                className="gnrm-sasaran" 
+                                                style={{height: "42px", 
+                                                        marginLeft: '230px',
+                                                        fontWeight:'700'
+                                                        }}
+                                            >{sk.sk_no}</div>
+                                        </div>
+                                        <div>
+                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
+                                            <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
+                                                <img src={skGambar} alt={getFileName(userDetail&&userDetail.instansi.sk.foto)} style={{width:'fit-content' , height: 'fit-content'}}/><br/>
+                                                <div
+                                                    className="gnrm-sasaran" 
+                                                    style={{height: "42px", 
+                                                            width: "955px",
+                                                            fontWeight:'700'
+                                                            }}
+                                                >{getFileName(userDetail&&userDetail.instansi.sk.foto)}</div>
+                                            </div>
+                                        </div>
+                                    </Fragment>
+                                :
+                                    <Fragment>
+                                        <div>
+                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
+                                            <div style={{marginLeft:'210px'}}>
+                                                {
+                                                    sk.sk_status ?
+                                                        <Fragment>
+                                                                <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButton}/>
+                                                                <label htmlFor="sudah" className='wowowow' style={{marginRight:'65px'}}>Sudah</label>
+                                                                <input type="radio" id="belum" name="sk_status" value={sk.sk_status} onChange={onChangeButtonFalse}/>
+                                                                <label htmlFor="belum" className='wowowow'>Belum</label>
+                                                        </Fragment>
+                                                    :
+                                                        <Fragment>
+                                                                <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} onChange={onChangeButton}/>
+                                                                <label htmlFor="sudah" style={{marginRight:'65px'}}>Sudah</label>
+                                                                <input type="radio" id="belum" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButtonFalse}/>
+                                                                <label htmlFor="belum">Belum</label>
+                                                        </Fragment>
+
+                                                }
+                                            </div>
+                                        </div>
+                                            {
+                                                sk.sk_status ?
+                                                <Fragment>
+                                                    <div>
+                                                        <label>Input Nomor SK</label>
+                                                        <input
+                                                            className="gnrm-sasaran" 
+                                                            style={{height: "42px", 
+                                                                    marginLeft: '84px',
+                                                                    width: "955px",
+                                                                    fontWeight:'700'
+                                                                    }}
+                                                            type="text" 
+                                                            name="no_sk"
+                                                            value={sk.no_sk}
+                                                            onChange={onChangeSK}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label>Lampiran SK</label>
+                                                        <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                        <input 
+                                                            id="testing10"
+                                                            className="gnrm-penjelasan" 
+                                                            style={{height: "42px", 
+                                                                    marginLeft: "30px", 
+                                                                    width: "955px"}} 
+                                                            onChange={onChangeSKFile}
+                                                            type="file"
+                                                            accept="image/*"
+                                                            name="media"
+                                                            multiple
+                                                        />
+                                                    </div>
+                                                        <div>
+                                                                <div style={{height: "fit-content", 
+                                                                    marginLeft: "210px", 
+                                                                    width: "955px",
+                                                                    border: '1px solid #ACACAC',
+                                                                    borderRadius: '5px',
+                                                                    padding: '10px',
+                                                                    display: 'flex',
+                                                                    flexWrap: 'wrap',
+                                                                }} 
+                                                                >
+                                                                    {
+                                                                        skFile.map((lampiran,index) => {
+                                                                            const objectURL = URL.createObjectURL(lampiran)
+                                                                            return(
+                                                                                <div key={index}>
+                                                                                        <div style={{width:'150px', 
+                                                                                                    height:'150px', 
+                                                                                                    backgroundColor:'pink', 
+                                                                                                    marginRight:'35px', 
+                                                                                                    position:'relative'
+                                                                                                    }}
+                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                        >
+                                                                                            <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div style={{marginTop:'10px' , 
+                                                                                                    width:'150px' , 
+                                                                                                    height:'20px', 
+                                                                                                    wordWrap: 'break-word',
+                                                                                                    lineHeight:'20px',}}
+                                                                                        >
+                                                                                            <p className="gnrm-media--name">
+                                                                                                {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    
+                                                                                </div>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </div>
+                                                    </div>
+                                                </Fragment>
+                                                :
+                                                <div>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
+                                                    <textarea 
+                                                        className="gnrm-nama-program" 
+                                                        style={{height: "300px", 
+                                                                marginLeft: "140px", 
+                                                                width: "955px"}} 
+                                                        type="text" 
+                                                        name="sk_kendala"
+                                                        value={sk.sk_kendala}
+                                                        onChange={onChangeSK}
+                                                    />
+                                                </div>
+                                            }
+                                        </Fragment>
+                                    }
+                            </div>
+                        
+                            <div className="gnrm-navigation-button">
+                                <Link 
+                                    to="identitas"
+                                    spy={true}
+                                    smooth={true}
+                                    duration={500}
+                                    offset={-30}
+                                >
+                                    <button className="previous"><i className="material-icons">expand_less</i></button>
+                                </Link>
+                                <Link 
+                                    to="kegiatan"
+                                    spy={true}
+                                    smooth={true}
+                                    duration={500}
+                                    offset={-30}
+                                >
+                                    <button className="forward"><i className="material-icons">expand_more</i></button>
+                                </Link>
+                            </div>
+                        </div>
+                    </Element>
 
                 <Element id='tujuan_pelaporan' name='tujuan_pelaporan'>
                     <div className="monev-container">
@@ -1628,12 +1940,13 @@ const FormMonev =  (props) => {
                     </div>
                 </Element>
             </form>
+            }
             </div>
         {/* -------------------------- FORM SECTION END HERE ---------------------------------*/}
             
         {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}   
             <div className={isPreviewing ? "preview-page" : "d-none"}>
-                    <div className="title-preview-page" style={{color:'#D33732'}}>
+                    <div className="title-preview-page">
                         PREVIEW LAPORAN
                     </div>
                     <div className="preview-picture" style={{padding: '43px 98px'}}>

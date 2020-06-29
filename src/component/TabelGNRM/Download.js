@@ -41,7 +41,7 @@ const Download = (props) => {
                 show ?
                     <PDFDownloadLink 
                     document={<DownloadGNRM data={document}/>}
-                    fileName="wow.pdf"    
+                    fileName={`${document.form.kegiatan.nama_program}.pdf`}    
                     >
                     <button className="button-download">
                         <img src={download} />

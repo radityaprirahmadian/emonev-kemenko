@@ -99,6 +99,7 @@ const EditAdmin = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
+            window.location.reload()
         }
         catch (err) {
             console.log(err)
@@ -217,18 +218,19 @@ const EditAdmin = (props) => {
                                                 name="media"
                                             /> */}
                                         </div>
-                                    <button 
-                                        disabled
-                                        style={{pointer:'none'}}
-                                        className="button-submit-profile"
-                                    > EDIT PROFIL
-                                    </button>
+                                    <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-admin/${props.match.params.id}`}>
+                                        <button 
+                                            style={{pointer:'none'}}
+                                            className="button-submit-profile"
+                                        > BATAL
+                                        </button>
+                                    </Link>
 
                                     <input 
                                             form="form-profile"
                                             type="submit"
                                             className="button-submit-profile-edit"
-                                            value="SAVE"
+                                            value="SIMPAN"
                                         > 
                                     </input>
                                 </div>

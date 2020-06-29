@@ -8,12 +8,14 @@ import {Link, NavLink , useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import { LayoutContext } from '../../context/Layout/LayoutContext';
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
+import axios from 'axios';
 
 const SideBarOff = (props) => {
     const { isAuthenticated, loading, logout, token, user, userDetail, loadUser, getUserDetail, remember, rememberToken } = useContext(AuthContext);
     const { sidebar, setSidebar } = useContext(LayoutContext);
     const history = useHistory();
     const { allReminder, reminder, setAllReminder , getReminder, resetNotif } = useContext(NotifContext)
+    const [instansiDetail , setInstansiDetail] = useState({})
 
     useEffect(()=>{
         if(token) {
@@ -31,6 +33,15 @@ const SideBarOff = (props) => {
         setSidebar();
     }
     
+    const [hide, setHide] = useState(true)
+
+    const onClickToProfileInstansi = (e) => {
+        e.preventDefault()
+        history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id))
+        setHide(true)
+        
+    }
+
     const handleLogout = () => {
         logout();
         if(remember){
@@ -43,38 +54,74 @@ const SideBarOff = (props) => {
     const [ avatar, setAvatar ] = useState();
 
     useEffect(() => {
+        const getInstansiDetail = async () => {
+            const config = {
+                headers: {
+                    'X-Auth-Token': `aweuaweu ${token}`,
+                }
+            }
+            try {
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
+                setInstansiDetail(res.data.instansi)
+                if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
+                    setHide(false)
+                } else {
+                    setHide(true)
+                }
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getInstansiDetail()
+    },[])
+
+    useEffect(() => {
         const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
         setAvatar(wow)
     },[userDetail])
 
+    console.log(instansiDetail)
+
         return(
             <Fragment>
+                {/* {
+                   hide ?
+                    '' 
+                    :
+                    <div className="popup-check">
+                        <div className="popup-check-instansi">
+                            ISI PROFILE INSTANSI DULU BROW <br/>
+                            <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                                <button className="button-to-instansi">PERGI KE HALAMAN INSTANSI</button>
+                            </NavLink>
+                        </div>
+                    </div>
+                } */}
+
                 {
                     sidebar ? 
                     (
                         <div className="side-bar">
                             <div className="side-bar-avatar">
                                 <div className='avatar-container'>
-                                    {
-                                        userDetail && userDetail.foto ? (
-                                            <Fragment>
-                                                <img src={avatar} className='user-avatar' alt="User Avatar"/>
-                                                <img src={'https://test.bariqmbani.me'+userDetail.instansi.logo} className='logo-instansi-user' alt="Logo Instansi"/>
-                                            </Fragment> 
-                                        ) : (
-
-                                            <Fragment>
-                                                <img src={profil} className='user-avatar' alt="Image Placeholder"/>
-                                                <img src={logo_kemenko} className='logo-instansi-user' alt="Logo Placeholder"/>
-                                            </Fragment> 
-                                        )
-
+                                    {  
+                                        userDetail && userDetail.foto ? 
+                                            <img src={avatar} className='user-avatar' alt="User Avatar"/>
+                                        :
+                                            <img src={profil} className='user-avatar' alt="Image Placeholder"/>
+                                    }
+                                    {  
+                                        userDetail && userDetail.instansi.logo ? 
+                                            <img src={'https://test.bariqmbani.me'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user' alt="Logo Instansi"/>
+                                        :
+                                            <img src={logo_kemenko} className='logo-instansi-user' alt="Logo Placeholder"/>
                                     }
                                 </div>
                                 <div className="avatar-identity">
                                     <p className ="user-name">{userDetail && userDetail.nama}</p>
                                     <p className ="user-position">{(user && user.role) === 'owner' ? 'Super Admin' : ((user && user.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</p>
-                                    <p className ="user-ministry">{user && user.instansi.nama_pendek}</p>
+                                    <p className ="user-ministry">{userDetail && userDetail.instansi.nama_pendek}</p>
                                 </div>
                             </div>
                             
@@ -169,21 +216,21 @@ const SideBarOff = (props) => {
                                                     </li>
                                                     </NavLink>
                                                 </Fragment>
-                                            ) : (
-                                            <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
-                                                <li className="side-bar-item">
-                                                    <div className="row">
-                                                        <div className="col-md-2">
-                                                            <div className="profil_instansi_icon"></div>
-                                                        </div>
-                                                        <div className="col-md-10">
-                                                            <div className="label-menu">Profil Instansi</div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </NavLink>
-                                            )
+                                            ) : 
+                                            ''
                                         }
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                                            <li className="side-bar-item">
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="profil_instansi_icon"></div>
+                                                    </div>
+                                                    <div className="col-md-10">
+                                                        <div className="label-menu">Profil Instansi</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile/` + (user && user._id)} activeClassName="active">
                                         <li className="side-bar-item">
                                                 <div className="row">
@@ -229,20 +276,18 @@ const SideBarOff = (props) => {
 
                         <div className="side-bar-off">
                             <div className="avatar-off">
-                            {
-                                        userDetail && userDetail.foto ? (
-                                            <Fragment>
-                                                <img src={avatar} className='user-avatar-off' alt="User Avatar"/>
-                                                <img src={'https://test.bariqmbani.me'+userDetail.instansi.logo} className='logo-instansi-user-off' alt="Logo Instansi"/>
-                                            </Fragment>  
-                                        ) : (
-                                            <Fragment>
-                                                <img src={profil} className='user-avatar-off' alt="Avatar Placeholder"/>
-                                                <img src={logo_kemenko} className='logo-instansi-user-off' alt="Logo Placeholder"/>
-                                            </Fragment>
-                                        )
-
-                                    }
+                                {  
+                                    userDetail && userDetail.foto ? 
+                                        <img src={avatar} className='user-avatar-off' alt="User Avatar"/>
+                                    :
+                                        <img src={profil} className='user-avatar-off' alt="Image Placeholder"/>
+                                }
+                                {  
+                                    userDetail && userDetail.instansi.logo ? 
+                                        <img src={'https://test.bariqmbani.me'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user-off' alt="Logo Instansi"/>
+                                    :
+                                        <img src={logo_kemenko} className='logo-instansi-user-off' alt="Logo Placeholder"/>
+                                }
                             </div>
                             <div className="side-bar-menu-off">
                                 <div>
@@ -314,18 +359,17 @@ const SideBarOff = (props) => {
                                                             </li>
                                                         </NavLink>
                                                     </Fragment>
-                                                ) : (
-                                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)}activeClassName="active">
-                                                            <li className="side-bar-item">
-                                                                <div className="row">
-                                                                    <div className="col-md-2">
-                                                                        <div className="profil_instansi_icon"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </NavLink>
-                                                    )
+                                                ) : ''
                                             }
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                                            <li className="side-bar-item">
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="profil_instansi_icon"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile/` + (user && user._id)}activeClassName="active">
                                             <li className="side-bar-item">
                                                 <div className="row">

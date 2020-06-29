@@ -9,6 +9,7 @@
     background-image: linear-gradient(to right bottom , #E76975 , #FDB99B );
     color:white;
     box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
 .side-bar{
@@ -24,7 +25,8 @@
     overflow-x: hidden;
     color:white;
     box-shadow: 2px 0px 3px rgba(0,0,0,0.2);
-	/* margin-left: -256px; */
+    /* margin-left: -256px; */
+    overflow: hidden;
 }
 
 .side-bar-avatar {
@@ -367,6 +369,30 @@ div.col-md-10{
     background-image: url('../../assets/logo/reminder_white.svg');
 }
 
+.profil_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_instansi_white.svg');
+}
+
+.side-bar-menu-on ul .active .profil_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_instansi_black.svg');
+}
+
+.side-bar-menu-off ul .active .profil_instansi_icon{
+    width: 24px;
+    height: 40px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-image: url('../../assets/logo/profil_instansi_black.svg');
+}
+
 .side-bar-menu-on ul .active .reminder_icon{
     width: 24px;
     height: 40px;
@@ -447,6 +473,51 @@ div.col-md-10{
     background-repeat:no-repeat;
     background-position:center center;
     background-image: url('../../assets/logo/logout.svg');
+}
+
+.popup-check-instansi {
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    font-size: 18px;
+    padding: 30px;
+    position: fixed;
+    top: 32%;
+    left: 35%;
+    z-index: 9999;
+    box-shadow: rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.popup-check-instansi-title {
+    font-weight: 700;
+}
+
+
+.popup-check {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.button-to-instansi {
+    color: white;
+    background-color: #D4362E;
+    font-family: 'Monserrat' , sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    width: 294px;
+    height: 50px;
+    line-height: 50px;
+    margin: auto;
+    border: none;
+    border-radius: 50px;
 }
 
 /* .logout-button{

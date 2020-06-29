@@ -56,7 +56,7 @@
     box-sizing: border-box;
 }
 .top-bar-menu-2 .top-bar-menu-container.no-2:hover {
-    background-color: #3F5064;
+    background-color: #59CBA6;
     padding: 10px 10px 0 10px;
     border-bottom: 2px solid rgba(0,0,0,0);
     border-radius: 10px 10px 0 0;
@@ -67,7 +67,7 @@
     width: 225px;
     height: 101px;
     display: none;
-    background-color: #3F5064;
+    background-color: #59CBA6;
 }
 
 .top-bar-menu-container:hover{
@@ -97,7 +97,7 @@
     border-radius: 10px;
     left: -500px;
     position: absolute;
-    background-color: #3F5064;
+    background-color: #59CBA6;
 }
 
 .top-bar-menu-container:hover .sub-menu-hover ul {
@@ -105,23 +105,41 @@
 }
 
 .menu-kementrian {
-    width: 240px;
-    height: fit-content;
-    margin: 17px 0 25px 14px;
+    width: 255px;
+    height: 566px;
+    margin: 17px 0 25px 5px;
     color: white;
+    text-align: center;
+    overflow-y: auto;
+    font-size: 16px;
+    direction: rtl;
 }
 
 .menu-kementrian ul li {
     /* background-color: #3F5064; */
-    width: 250px;
+    width: 240px;
     border-radius: 10px 0 0 10px;
     margin-bottom: 5px;
     height: 90px;
-    line-height: 90px;
+    line-height: 20px;
+    display: inline-block;
+}
+
+.logo-in-megamenu{
+    margin-top: 7px;
+    margin-left: 5px;
+    height: 75px;
+    width: auto;
+    float: left;
+    clear: both;
+}
+
+.nama-instansi-megamenu{
+    line-height: 10px;
 }
 
 .menu-kementrian ul li:hover {
-    background-color: #FCCB82;
+    background-color: #FDE47F;
     color: black;
 }
 
@@ -131,7 +149,7 @@
     color: black;
     position: absolute;
     top: 17px;
-    background-color: #FCCB82;
+    background-color: #FDE47F;
     height: 566px;
     overflow: auto;
 
@@ -141,9 +159,9 @@
 
 .menu-kementrian ul li:hover .sub-menu-kementrian {
     display: inline-block;
-    width:468px;
-    left: 257px;
-    border-radius: 10px 0 0 10px;
+    width:900px;
+    left: 252px;
+    border-radius: 10px;
 }
 
 .menu-kementrian ul li:hover .sub-menu-kementrian ul {
@@ -155,33 +173,72 @@
 
 .sub-menu-kementrian ul li {
     height: 64px;
-    margin-bottom: 16px;
     width: 370px;
     border-radius: 10px;
     font-size: 16px;
     line-height: 22px;
     overflow: hidden;
-    padding: 10px 5px 10px 5px;
 }
 
-.sub-menu-kementrian ul li .titit {
-    height: 44px;
-    width: fit-content;
-    overflow: hidden;
-}
-
-.sub-menu-kementrian ul li:hover {
-    background-color: #242424;
-    color: white;
-}
-
-.sub-menu-kementrian ul li:hover .sub-menu-2-kementrian {
+.sub-menu-kementrian div {
     display: inline-block;
+    text-align: left;
+}
+
+.topbar-program{
+    width: 450px;
+    height: 566px;
+    left:0px;
     position: absolute;
-    width: 462px;
-    right: -100px;
-    z-index: 999;
-    border-radius: 0 10px 10px 0;
+    overflow-y: auto;
+    direction: ltr;
+    border-right: 2px solid rgba(0,0,0,0.2);
+}
+
+.topbar-program li:hover {
+    background-color: none;
+}
+
+/* .topbar-kabar-ul,
+.topbar-program-ul{
+    overflow-y: auto;
+    direction: ltr;
+} */
+
+.kabar-acordion {
+    width: 100%;
+    height: 45px;
+    background-color: white;
+    border: 1px solid black;
+    line-height: 45px;
+    border-radius: 5px;
+    padding-left: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+.button-topbar {
+    width: 160px;
+    height: 32px;
+    color: white;
+    background-color: #E76975;
+    font-family: 'Open Sans' , sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 32px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 42px;
+}
+
+.topbar-kabar{
+    width: 450px;
+    height: 566px;  
+    position: absolute;
+    left:450px;
+    overflow-y: auto;
+    direction: ltr;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar {

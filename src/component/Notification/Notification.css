@@ -2,13 +2,14 @@
     height: 36px;
     width: 36px;
     position: relative;
-    margin-left: 1299px;
-    margin-top: 18px;
+    margin-left: 30px;
 }
 
 .notification button{
     border: none;
-    background-color: white;
+    position: absolute;
+    top: 10px;
+    right: -10px;
 }
 
 
@@ -24,4 +25,71 @@
     font-size: 12px;
     line-height: 20px;
     text-align: center;
+}
+
+.notif-popup-div {
+    width: 555px;
+    height: 375px;
+    background-color: white;
+    position: absolute;
+    z-index: 999;
+    bottom:-386px;
+    left: -510px;
+    box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+.notif-popup-title div {
+    display: flex;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.popup-right {
+    margin-left: 210px;
+    font-weight: 600;
+    color: #8E4134;
+    cursor: pointer;
+}
+
+.card-popup {
+    width: 555px;
+    height: 109px;
+}
+
+.card-popup div {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: normal;
+}
+
+.card-popup-tanggal {
+    position: absolute;
+}
+
+.card-popup-isi {
+    position: relative;
+    margin-bottom: 45px;
+    line-height: 15px;
+}
+
+.card-popup-body {
+    height: 100%;
+    width: 400px;
+    margin-left: 40px;
+    position: relative;
+    top:-60px;
+
+}
+
+.notif-popup-title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: normal;
+    border-bottom: 3px solid rgba(0,0,0,0.2);
 }

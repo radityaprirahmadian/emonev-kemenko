@@ -4,7 +4,7 @@ import axios from 'axios'
 import {AuthContext} from '../../context/Auth/AuthContext.js'
 
 const FilterMonev = (props) => {
-    const { token } = useContext(AuthContext)
+    const { token, user } = useContext(AuthContext)
     const [ filterTahun , setFilterTahun ] = useState([])
     const [ filterPeriode , setFilterPeriode ] = useState([])
     const [ filterInstansi , setFilterInstansi ] = useState([])
@@ -61,21 +61,25 @@ const FilterMonev = (props) => {
                         </select> 
                     </div>
 
-                    <div className="filter-pelaporan">
-                        <label className="nama-filter">Periode Pelaporan</label>
-                        <select className="input-filter-pelaporan" name="periode" onChange={onChange}>
-                            <option defaultValue="" hidden></option>
-                            <option value="">Semua</option>
-                            {
-                                filterPeriode.map((periode,index) => {
-                                    return(
-                                        <option key={index} value={periode}>{periode}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
 
+                            <div className="filter-pelaporan">
+                                <label className="nama-filter">Periode Pelaporan</label>
+                                <select className="input-filter-pelaporan" name="periode" onChange={onChange}>
+                                    <option defaultValue="" hidden></option>
+                                    <option value="">Semua</option>
+                                    {
+                                        filterPeriode.map((periode,index) => {
+                                            return(
+                                                <option key={index} value={periode}>{periode}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+
+
+                    {
+                        user && user.role === 'owner' ? 
                     <div className="filter-instansi">
                         <label className="nama-filter">Instansi</label>
                         <select className="input-filter-instansi" name="instansi" onChange={onChange}>
@@ -91,6 +95,9 @@ const FilterMonev = (props) => {
                             }
                         </select>
                     </div>
+                                            :
+                                            ''
+                                        }
 
                     <button className="button-submit-filter-admin" onClick={onSubmit}>FILTER</button>   
                 </div>

@@ -11,12 +11,12 @@ const TabelInstansi = (props) => {
 
     const [hapuss,setHapus] = useState(false)
     
-    const onHapus = (e) => {
+    const onDelete = (e) => {
         e.preventDefault()
         setHapus(true)
     }
 
-    const onDelete = (e) => {
+    const onHapus = (e) => {
         e.preventDefault()
         props.delete(props.id)
         setHapus(false)
@@ -32,13 +32,16 @@ const TabelInstansi = (props) => {
             <Fragment>
                 {
                     hapuss ? 
-                        <div className="popup_delete" style={{width:'300px',height:'200px', borderRadius:'10px', border:'1px solid black', padding:'10px', backgroundColor:'white', position:'fixed',top:'20%',left:'40%'}}>
-                            <h1 style={{color:'red',fontSize:'16px', textAlign:'center' , fontWeight:'600', lineHeight:'18px'}}>Apakah anda yakin akan menghapus instansi? <br/>Jika menghapus instansi, semua hal yang berhubungan dengan instansi akan terhapus juga. </h1>
-                            <div style={{marginTop:'30px'}}>
-                                <button onClick={onDelete}  className="preview-gnrm" style={{width:'100px' , height: '40px'}}>YA</button> 
-                                <button onClick={onTidakHapus} className="preview-gnrm" style={{marginLeft:'30px' , width:'100px' , height: '40px'}}>TIDAK</button>
+                    <div style={{position: 'fixed' ,top: '0' ,bottom: '0' ,left: '0', right: '0' , zIndex: '9998' ,backgroundColor: 'rgba(0,0,0,0.4)'}}>
+                        <div className="popup_delete" style={{width:'400px',height:'300px', borderRadius:'10px', padding:'28px', zIndex:'9998', backgroundColor:'white', position:'fixed',top:'20%',left:'40%'}}>
+                            <h1 style={{textAlign:'center', fontWeight:'700' , marginBottom:'32px' , fontSize:'18px'}}>Konfirmasi</h1><br/>
+                            <h1 style={{fontSize:'18px', textAlign:'center' , fontWeight:'normal', lineHeight:'20px'}}>Apakah anda yakin akan menghapus <br/> instansi ini?</h1>
+                            <div style={{marginTop:'30px', textAlign:'center'}}>
+                                <button onClick={onHapus}  className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor:'#D4362E', color: 'white' , marginBottom:'16px' , boxShadow:'none'}}>Ya</button><br/>
+                                <button onClick={onTidakHapus} className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor: '#E9E9E9' , color :'#656A6A' , boxShadow:'none'}}>Tidak</button>
                             </div>
                         </div>
+                    </div>
                     : ''
                 }
 
@@ -54,7 +57,7 @@ const TabelInstansi = (props) => {
                         </Link>                
                     </td>
                     <td className='logo' style={{padding:'0'}}> 
-                        <button className="button-delete" onClick={onHapus}>
+                        <button className="button-delete" onClick={onDelete}>
                             <img src={hapus}/>
                         </button>
                     </td>

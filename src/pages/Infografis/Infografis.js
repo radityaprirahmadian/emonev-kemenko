@@ -9,11 +9,18 @@ import Notification from '../../component/Notification/Notification';
 import TabelInfografis from '../../component/TabelInfografis/TabelInfografis';
 import Pagination from '../../component/Pagination/Pagination';
 import Popup from '../../component/Popup/Popup'
+import Spinner from '../../component/Spinner/Spinner'
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Infografis = (props) => {
     const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
     const [ filterValue , setFilterValue ] = useState({})
+    const [loading, setLoading] = useState(false)
+
     console.log(documents)
     const [ filter, setFilter ] = useState({
         limit: '10',
@@ -31,29 +38,30 @@ const Infografis = (props) => {
         totalDoc,
     } = filter
 
-    const getDocumentLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            if(user && user.role === 'owner') {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
-                setFilterValue(res.data.filter)
-                setFilter({...filter, totalDoc: res.data.kabar.length})
-            } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${user && user.instansi.nama_pendek}`, config)
-                setFilterValue(res.data.filter)
-                setFilter({...filter, totalDoc: res.data.kabar.length})
-            }
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
+    // const getDocumentLength = async () => {
+    //     const config= {
+    //         headers: {
+    //             'X-Auth-Token': `aweuaweu ${token}`
+    //         }
+    //     }
+    //     try {
+    //         if(user && user.role === 'owner') {
+    //             const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+    //             setFilterValue(res.data.filter)
+    //             setFilter({...filter, totalDoc: res.data.kabar.length})
+    //         } else {
+    //             const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${user && user.instansi.nama_pendek}`, config)
+    //             setFilterValue(res.data.filter)
+    //             setFilter({...filter, totalDoc: res.data.kabar.length})
+    //         }
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
 
     const getAllDocument = async () => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -63,9 +71,13 @@ const Infografis = (props) => {
             if(user && user.role === 'owner') {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
                 setDocuments(res.data.kabar)
+                setFilter({...filter, totalDoc: res.data.total})
+                setLoading(false)
             } else {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
                 setDocuments(res.data.kabar)
+                setFilter({...filter, totalDoc: res.data.total})
+                setLoading(false)
             }
         }
         catch (err) {
@@ -74,6 +86,7 @@ const Infografis = (props) => {
     }
 
     const deleteDocument = async (id) => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -86,10 +99,10 @@ const Infografis = (props) => {
         catch (err) {
             console.log(err)  
         }  
+        setLoading(false)
     }
     
     useEffect(() => {
-        getDocumentLength()
         getAllDocument()
     },[])
 
@@ -100,14 +113,23 @@ const Infografis = (props) => {
     return(
         <div>
             <SideBarOff/>
-            <div className="background-after-login"/>
+            <div className="background-after-login">
+                        <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                        <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                        <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                        <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+                    </div>
             <Popup notif={props.notif}/>
-            {
-                    user && user.role === 'owner' ?
-                        ''
-                    :
-                        <Notification/>
-                }
+            <div style={{marginRight:'20px' , marginTop:'23px'}}>
+                        <div className="tajuk-page-2">
+                            <div>KABAR GNRM</div>
+                            {
+                                user && user.role === 'owner' ?
+                                    ''
+                                :
+                                    <Notification/>
+                            }
+                        </div>
                             <div className="input-dan-tajuk">
                                 <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-kabar-gnrm`}>
                                     <button className="tambah-program">
@@ -118,10 +140,6 @@ const Infografis = (props) => {
                                         </h1>
                                     </button>
                                 </Link>
-                                <div className="spacer"></div>
-                                <div className="tajuk-page-2">
-                                    <p>KABAR GNRM</p>
-                                </div>
                             </div>
 
                 <FilterInfografis
@@ -144,37 +162,50 @@ const Infografis = (props) => {
                                         <th width='59px'></th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-body">
-                                    {
-                                        documents && documents.map((document,index) => {
-                                            return(
-                                                <TabelInfografis
-                                                    // document={document}
-                                                    key={index}
-                                                    id={document._id}
-                                                    gambar={document.gambar}
-                                                    instansi={document.instansi.nama_pendek}
-                                                    tahun={document.tahun}
-                                                    judul={document.judul}
-                                                    // tahun={document.form.tahun}
-                                                    // pihak={document.form.pihak_terkait}
-                                                    // pejabat={document.form.penanggung_jawab.nama}
-                                                    // // edit={}
-                                                    delete={deleteDocument}    
-                                                />
-                                            )
-                                        })
-                                    }
-                                </tbody>
+                                {
+                                    !loading && (
+                                        <tbody className="table-body">
+                                            {
+                                                documents && documents.map((document,index) => {
+                                                    return(
+                                                        <TabelInfografis
+                                                            // document={document}
+                                                            key={index}
+                                                            id={document._id}
+                                                            gambar={document.gambar}
+                                                            instansi={document.instansi.nama_pendek}
+                                                            tahun={document.tahun}
+                                                            judul={document.judul}
+                                                            // tahun={document.form.tahun}
+                                                            // pihak={document.form.pihak_terkait}
+                                                            // pejabat={document.form.penanggung_jawab.nama}
+                                                            // // edit={}
+                                                            delete={deleteDocument}    
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    )
+                                }
                             </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
                         </div>
                 <Pagination
-                                                                    setFilter={setFilter}
-                                                                    filter={filter}
-                                                                    total={totalDoc}
-                                                                    limit={limit}
-                                                                    page={page}
+                    setFilter={setFilter}
+                    filter={filter}
+                    total={totalDoc}
+                    limit={limit}
+                    page={page}
                 />
+                </div>
         </div>
     )
 }

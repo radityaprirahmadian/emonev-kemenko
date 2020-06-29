@@ -19,10 +19,11 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const Admin = (props) => {
     const { user, token , userDetail} = useContext(AuthContext)
-
+    const [loading, setLoading] = useState(false)
     const [ users , setUsers] = useState([]);
     
     const [ filter, setFilter ] = useState({
@@ -43,22 +44,8 @@ const Admin = (props) => {
 
     console.log(filter)
 
-    const getAllUserLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user`, config)
-            setFilter({...filter, totalUser: res.data.users.length})
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
-
     const getAllUser = async () => {
+        setLoading(true)
         const config= {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -68,6 +55,8 @@ const Admin = (props) => {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
             // console.log(res)
             setUsers(res.data.users)
+            setFilter({...filter, totalUser: res.data.total})
+            setLoading(false)
         }
         catch (err) {
             console.log(err)  
@@ -75,6 +64,7 @@ const Admin = (props) => {
     }
 
     const deleteUser = async (id) => {
+        setLoading(true)
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`
@@ -83,16 +73,12 @@ const Admin = (props) => {
         try {
             await axios.delete(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
             getAllUser()
-            getAllUserLength()
         }
         catch (err) {
             console.log(err)
         }
+        setLoading(false)
     }
-
-    useEffect(() => {
-        getAllUserLength()
-    },[])
 
     useEffect(() => {  
         getAllUser()
@@ -158,24 +144,36 @@ const Admin = (props) => {
                                             <th width='42px'></th>
                                         </tr>
                                     </thead>
-                                    <tbody className="table-body-admin">
-                                        {
-                                            users.map(user => {
-                                                return(
-                                                    <TabelAdmin 
-                                                        key={user._id}
-                                                        id={user._id} 
-                                                        nama={user.nama} 
-                                                        instansi={user.instansi.nama_pendek} 
-                                                        username={user.username} 
-                                                        role={user.role}
-                                                        delete={deleteUser}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </tbody>
+                                    {
+                                        !loading && (
+                                            <tbody className="table-body-admin">
+                                                {
+                                                    users.map(user => {
+                                                        return(
+                                                            <TabelAdmin 
+                                                                key={user._id}
+                                                                id={user._id} 
+                                                                nama={user.nama} 
+                                                                instansi={user.instansi.nama_pendek} 
+                                                                username={user.username} 
+                                                                role={user.role}
+                                                                delete={deleteUser}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                            </tbody>
+                                        )
+                                    }
                                 </table>
+                                {
+                                    loading && 
+                                    <div style={{ marginLeft: '68px' }}>
+                                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                            <Spinner />
+                                        </div> 
+                                    </div>
+                                }
                             </div>
 
                             <Pagination

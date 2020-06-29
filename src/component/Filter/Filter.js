@@ -4,7 +4,7 @@ import axios from 'axios'
 import {AuthContext} from '../../context/Auth/AuthContext.js'
 
 const Filter = (props) => {
-    const { token } = useContext(AuthContext)
+    const { token, user } = useContext(AuthContext)
     const [ filterTahun , setFilterTahun ] = useState([])
     const [ filterKp , setFilterKp ] = useState([])
     const [ filterInstansi , setFilterInstansi ] = useState([])
@@ -60,21 +60,26 @@ const Filter = (props) => {
                             }
                         </select> 
                     </div>
-                    <div className="filter-instansi">
-                        <label className="nama-filter">Instansi</label>
-                        <select className="input-filter-instansi" name="instansi" onChange={onChange}>
-                            <option value="" defaultValue="" hidden></option>
-                            <option value="">Semua Instansi</option>
-                            {
-                                filterInstansi.map((instansi,index) => {
-                                    return(
-                                        <option key={index} value={instansi}>{instansi}</option>
-                                    )
-                                })
+                    {
+                        user && user.role === 'owner' ?
+                            <div className="filter-instansi">
+                                <label className="nama-filter">Instansi</label>
+                                <select className="input-filter-instansi" name="instansi" onChange={onChange}>
+                                    <option value="" defaultValue="" hidden></option>
+                                    <option value="">Semua Instansi</option>
+                                    {
+                                        filterInstansi.map((instansi,index) => {
+                                            return(
+                                                <option key={index} value={instansi}>{instansi}</option>
+                                            )
+                                        })
 
-                            }
-                        </select>
-                    </div>
+                                    }
+                                </select>
+                            </div>
+                        : 
+                        ''
+                    }
                     <div className="filter-pelaporan">
                         <label className="nama-filter">Kegiatan Prioritas</label>
                         <select className="input-filter-pelaporan" name="kp" onChange={onChange}>

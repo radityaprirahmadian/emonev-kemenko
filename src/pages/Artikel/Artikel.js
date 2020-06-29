@@ -6,10 +6,10 @@ import logo_kemenko2 from '../../assets/logo_kemenko2.png';
 import Footer from '../../component/Footer/Footer';
 import { InfografisContext } from '../../context/Infografis/InfografisContext';
 import {Link} from 'react-router-dom'
-
+import Spinner from '../../component/Spinner/Spinner'
 
 const Artikel = (props) => {
-    const { infografisDetail, setInfografis } = useContext(InfografisContext)
+    const { infografisDetail, setInfografis, loading, setLoadingFalse, setLoadingTrue } = useContext(InfografisContext)
     const [ gambar , setGambar ] = useState([]); 
     const [ gambarIndex , setGambarIndex] = useState(0)
     const [ logo , setLogo] = useState();
@@ -22,9 +22,9 @@ const Artikel = (props) => {
 
     let tanggalFix = `${hari} ${bulan} ${tahun}`
 
-        const getAllDocument = async () => {
+    const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${infografisDetail.instansi.nama_pendek}`)
+                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${infografisDetail&&infografisDetail.instansi.nama_pendek}`)
                 setInfografisRelated(res.data.kabar.filter(info => info._id !== props.match.params.id))
                 console.log(res.data.kabar)
         }
@@ -43,17 +43,21 @@ const Artikel = (props) => {
 
     const onNext = (e) => {
         e.preventDefault()
-        if(gambarIndex < gambar.length - 1){
+        setLoadingTrue()
+        if(gambarIndex < (gambar && gambar.length - 1)){
             setGambarIndex(gambarIndex+1)
             console.log(gambarIndex)
+            setLoadingFalse()
         }
     }
 
     const onPrev = (e) => {
         e.preventDefault()
+        setLoadingTrue()
         if(gambarIndex > 0){
             setGambarIndex(gambarIndex-1)
             console.log(gambarIndex)
+            setLoadingFalse()
         }
     }
 
@@ -67,61 +71,71 @@ const Artikel = (props) => {
     },[props.match.params.id])
 
     useEffect(() => {
+        setLoadingTrue()
         const wow = infografisDetail && infografisDetail.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
         setGambar(wow)
+        setLoadingFalse()
         getAllDocument()
     },[infografisDetail])
 
-
+    console.log(gambar)
 
         return(
             <Fragment>
                 <Topbar kunci={false}/>
-                    <div className="artikel-container">
-                        <div className="judul-artikel">
-                            {infografisDetail && infografisDetail.judul}
-                            <div className="logo-artikel">
-                                <img src={`https://test.bariqmbani.me${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian' style={{width:'90px',height:'85.5px'}}/>
-                            </div>
+                {
+                    loading ? 
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div> 
                         </div>
-                        <div className="card-artikel">
-                            {
-                                gambar && gambar.map((gambar,index) => {    
-                                    return(
-                                        <Fragment key={index}>
-                                            {
-                                                gambar.length > 1 ? 
-                                                    <Fragment>
-                                                        <div className="button-artikel-prev" onClick={onPrev}>
-                                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                                                        </div>
-                                                        <div className="button-artikel-next" onClick={onNext}>
-                                                            <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                                                        </div>
-                                                    </Fragment>
-                                                    :
-                                                    ''
-                                            }
-                                            <img className='gambar-infografis' src={gambar[gambarIndex]} alt='infografis' ></img>
+                    :
+                        <div className="artikel-container">
+                            <div className="judul-artikel">
+                                {infografisDetail && infografisDetail.judul}
+                                <div className="logo-artikel">
+                                    <img src={`https://test.bariqmbani.me${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian' style={{width:'90px',height:'85.5px'}}/>
+                                </div>
+                            </div>
+                            <div className="card-artikel">
+                                {
+                                    gambar && gambar.length > 1 ? 
+                                        <Fragment>
+                                            <div className="button-artikel-prev" onClick={onPrev}>
+                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                            </div>
+                                            <div className="button-artikel-next" onClick={onNext}>
+                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                            </div>
                                         </Fragment>
-                                    )
-                                })
-                            }
-
-                        </div>
-                        <div className="nama-artikel">
-                            {infografisDetail && infografisDetail.diunggah_oleh}
-                            <div className="tanggal-artikel">
-                                {tanggalFix}
+                                        :
+                                        ''
+                                }
+                                        <img className='gambar-infografis' src={gambar&&gambar[gambarIndex]} alt='infografis' ></img>
+                            </div>
+                            <div className="nama-artikel">
+                                {infografisDetail && infografisDetail.diunggah_oleh}
+                                <div className="tanggal-artikel">
+                                    {tanggalFix}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                }
 
                     <div className="artikel-body">
-                        <div className="artikel-text">
-                            {infografisDetail && infografisDetail.penjelasan_kegiatan}
-                        </div>
-
+                    {
+                        loading ? 
+                            <div style={{ marginLeft: '68px' }}>
+                                <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                    <Spinner />
+                                </div> 
+                            </div>
+                        :
+                            <div className="artikel-text">
+                                {infografisDetail && infografisDetail.deskripsi}
+                            </div>
+                    }
                         <div className="artikel-media">
                             <div className="artikel-unduh" onClick={onDownload}>
                                 Unduh Artikel
