@@ -194,7 +194,7 @@ const LupaPassword = (props) => {
                                                 <input className="input-ubah1" style={{marginLeft:'0'}}  type="email" name="email" value={email} onChange={onChangeEmail} placeholder="Alamat Email"/>
                                             </div>
 
-                                            <button className="button-ubah" type="submit" style={{width:'415px'}}>KIRIM LINK RESET PASSWORD</button>
+                                            <button className="button-ubah" type="submit" style={{width:'415px'}}>KIRIM LINK RESET KATA SANDI</button>
                                         </form>
 
 

@@ -25,7 +25,7 @@ const GalleryPage = () => {
             <Fragment>
                 <Topbar kunci={false}/>
                     <div className="gallery-title">
-                        GALLERY
+                        GALERI
                     </div>
                     <Gallery page={page} limit={limit}/>
                     {/* <div className="gallery-pagination">

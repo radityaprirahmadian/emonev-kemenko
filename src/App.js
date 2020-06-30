@@ -249,22 +249,22 @@ const App = () => {
                         />
                       </PrivateRoute>
                     </Route>  
-                    <Route path="/gallery" component={GalleryPage}/>
-                    <Route path="/:role/reminder">
-                      <PrivateRoute path="/:role/reminder">
+                    <Route path="/galeri" component={GalleryPage}/>
+                    <Route path="/:role/notifikasi">
+                      <PrivateRoute path="/:role/notifikasi">
                         <PrivateRouteAdmin
                         exact
-                        path="/:role/reminder"
+                        path="/:role/notifikasi"
                         component={Reminder}
                         notif={notifs}
                         />
                       </PrivateRoute>
                     </Route> 
-                    <Route path="/:role/formulir-reminder">
-                      <PrivateRoute path="/:role/formulir-reminder">
+                    <Route path="/:role/formulir-notifikasi">
+                      <PrivateRoute path="/:role/formulir-notifikasi">
                         <PrivateRouteAdmin
                         exact
-                        path="/:role/formulir-reminder"
+                        path="/:role/formulir-notifikasi"
                         component={FormReminder}
                         notif={notifs}
                         />

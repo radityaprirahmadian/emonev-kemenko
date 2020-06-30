@@ -163,7 +163,7 @@ const FormAdmin = (props) => {
                             />
                         </div>
                         <div>
-                            <label>Password</label>
+                            <label>Kata Sandi</label>
                             <input 
                                 className="admin-password" 
                                 type={seen ? "text" : "password"} 

@@ -175,7 +175,7 @@ const ProfileEdit = (props) => {
                 </div>
                 <div className="profile-page" style={{marginRight:'20px' , marginTop:'23px'}}>
                     <div className="tajuk-page-2">
-                        <div>EDIT PROFIL</div>
+                        <div>UBAH PROFIL</div>
                         {
                             user && user.role === 'owner' ?
                                 ''
@@ -239,7 +239,7 @@ const ProfileEdit = (props) => {
 
                             <div className="col">
                                 <div className="photo-profile-page">
-                                    <label>Photo Profile</label><br/>
+                                    <label>Foto Profil</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
                                                 <img src={fotos}></img>

@@ -26,6 +26,8 @@ const Login = (props) => {
         password: ''
     })
 
+    const [seen, setSeen] = useState(false)
+
     const [lupaPassword , setLupaPassword ] = useState(false)
 
     const { username, password } = users;
@@ -41,6 +43,11 @@ const Login = (props) => {
     const onLupaPassword = (e) => {
         e.preventDefault()
         setLupaPassword(true)
+    }
+
+    const handlePassword = (e) => {
+        e.preventDefault()
+        setSeen(!seen)
     }
 
 
@@ -124,14 +131,21 @@ const Login = (props) => {
 
                                         <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'27px',marginLeft:'15px'}}>Kata Sandi</label><br/>
                                         <input 
-                                            type="password" 
+                                            type={seen? "text" : "password"} 
                                             className="password" 
                                             name="password" 
                                             value={password}
                                             required
                                             onChange={onChange}
                                         />
-
+                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
+                                                        {
+                                                            seen ?
+                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                            :
+                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                        }
+                                        </button>
                                         <br/>
                                         <div >
                                             <label className="ingat-saya">Tetap Masuk
@@ -143,7 +157,7 @@ const Login = (props) => {
                                         <button className="button-login" type="submit">MASUK</button>
                                     </form>
                                     <Link to='/lupa-password'>
-                                        <div style={{marginLeft:'241px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Password?</div>
+                                        <div style={{marginLeft:'241px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Kata Sandi?</div>
                                     </Link>
 
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>

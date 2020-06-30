@@ -278,14 +278,14 @@ const Home = () => {
       
     let tanggal = new Date(Date.now())
     let bulans = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][tanggal.getMonth()];
-    const [ bulan , setBulan ] = useState('')
+    //const [ bulan , setBulan ] = useState('')
 
-    useEffect(() => {
-        setBulan(bulans)
-    }, [])
-    const onChangeBulan = (e) => {
-        return setBulan(e.target.value)
-    }
+    // useEffect(() => {
+    //     setBulan(bulans)
+    // }, [])
+    // const onChangeBulan = (e) => {
+    //     return setBulan(e.target.value)
+    // }
 
     const yearsData = [];
     const todaysYear = new Date().getFullYear();
@@ -408,7 +408,7 @@ const Home = () => {
 
                                         <div className="section-4-filter">
                                             <select className="filter-a" name="nama_instansi" onChange={onChange}>
-                                                <option value="" disabled selected hidden>Pilih Kementerian</option>
+                                                <option value="" disabled selected hidden>Pilih Kementerian/Lembaga</option>
                                             {
                                                 instansi ? 
                                                     instansi.map((instansi,index) => {
@@ -463,7 +463,7 @@ const Home = () => {
                             <div className="container">
                                 <div className="d-flex justify-content-between mb-5">
                                     <div className="home-section-2-title">
-                                        Statistik Bulan {bulan}
+                                        Statistik Tahun {tahun}
                                     </div>
                                     <select className='home-statistik-tahun' type="text" name="tahun" onChange={onChangeTahun} >
                                         <option defaultValue={tahun} hidden>{tahun}</option>
@@ -497,14 +497,14 @@ const Home = () => {
                         <div style={{position:"relative"}}>
                             <div className="home-section-3" style={{width:'1300px', height:'fit-content', margin:'auto'}}>
                                 <div className="home-section-3-title">
-                                    Gallery
+                                    Galeri
                                 </div>
                                 
                                 <Gallery/>
                                 
-                                <Link to='/gallery'>
+                                <Link to='/galeri'>
                                 <button className="button-lihat-gallery">
-                                    LIHAT GALLERY LAINNYA
+                                    LIHAT GALERI LAINNYA
                                 </button>
                                 </Link>
                             </div>

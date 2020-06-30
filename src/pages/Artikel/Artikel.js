@@ -146,28 +146,28 @@ const Artikel = (props) => {
                             <div className="artikel-social">
                             <ul>
                                             <li>
-                                                <a href="https://www.facebook.com/KemenkopmkRI" target="_blank">
+                                                <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
                                                     <div className="artikel-social-media-logo">
                                                         <i className='fab fa-facebook-f' style={{fontSize:'18px'}}></i> 
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://twitter.com/kemenkopmk" target="_blank">
+                                                <a href="https://twitter.com/revmen_id" target="_blank">
                                                     <div className="artikel-social-media-logo">
                                                         <i className='fab fa-twitter' style={{fontSize:'18px'}}></i> 
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://instagram.com/kemenko_pmk" target="_blank">
+                                                <a href="https://instagram.com/revolusimental_id" target="_blank">
                                                     <div className="artikel-social-media-logo">
                                                         <i className='fab fa-instagram' style={{fontSize:'18px'}}></i> 
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://www.youtube.com/channel/UCS_4jzQs7bywNQrJ-AmoWVg/channels" target="_blank">
+                                                <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
                                                     <div className="artikel-social-media-logo">
                                                         <i className='fab fa-youtube' style={{fontSize:'18px'}}></i> 
                                                     </div>
@@ -183,7 +183,7 @@ const Artikel = (props) => {
                             infografisRelated.length > 0 ?
                             <Fragment>
                                 <div className="artikel-terkait-head">
-                                    Infografis Terkait
+                                    Kabar GNRM Terkait
                                 </div>
                                     
                                 <div className="artikel-terkait-news">
@@ -206,7 +206,7 @@ const Artikel = (props) => {
                             </Fragment>
                         :
                             <div className="artikel-terkait-head">
-                                Tidak Ada Infografis Terkait
+                                Tidak Ada Kabar GNRM Terkait
                             </div>
                         }
                     </div>

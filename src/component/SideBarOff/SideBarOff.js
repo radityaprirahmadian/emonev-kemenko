@@ -203,7 +203,7 @@ const SideBarOff = (props) => {
                                                             </div>
                                                     </li>
                                                     </NavLink> 
-                                                    <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/reminder`} activeClassName="active">
+                                                    <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/notifikasi`} activeClassName="active">
                                                     <li className="side-bar-item">
                                                             <div className="row">
                                                                 <div className="col-md-2">
@@ -296,7 +296,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="home_icon"></div>
+                                                        <div className="home_icon">
+                                                            <span className="tooltiptext">Beranda</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -305,7 +307,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="gnrm_icon"></div>
+                                                        <div className="gnrm_icon">
+                                                            <span className="tooltiptext">Rencana Pelaksanaan Program</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -314,7 +318,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="kabar_gnrm_icon"></div>
+                                                        <div className="kabar_gnrm_icon">
+                                                            <span className="tooltiptext">Kabar GNRM</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -323,7 +329,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="monev_icon"></div>
+                                                        <div className="monev_icon">
+                                                            <span className="tooltiptext">Laporan Monev</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -335,7 +343,9 @@ const SideBarOff = (props) => {
                                                             <li className="side-bar-item">
                                                                 <div className="row">
                                                                     <div className="col-md-2">
-                                                                        <div className="kelola_instansi_icon"></div>
+                                                                        <div className="kelola_instansi_icon">
+                                                                            <span className="tooltiptext">Kelola Instansi</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </li>
@@ -344,16 +354,20 @@ const SideBarOff = (props) => {
                                                             <li className="side-bar-item">
                                                                 <div className="row">
                                                                     <div className="col-md-2">
-                                                                        <div className="kelola_admin_icon"></div>
+                                                                        <div className="kelola_admin_icon">
+                                                                            <span className="tooltiptext">Kelola Admin</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </li>
                                                         </NavLink> 
-                                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/reminder`} activeClassName="active">
+                                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/notifikasi`} activeClassName="active">
                                                             <li className="side-bar-item">
                                                                 <div className="row">
                                                                     <div className="col-md-2">
-                                                                        <div className="reminder_icon"></div>
+                                                                        <div className="reminder_icon">
+                                                                            <span className="tooltiptext">Notifikasi</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </li>
@@ -365,7 +379,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="profil_instansi_icon"></div>
+                                                        <div className="profil_instansi_icon">
+                                                            <span className="tooltiptext">Profil Instansi</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>
@@ -374,7 +390,9 @@ const SideBarOff = (props) => {
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
-                                                        <div className="profil_icon"></div>
+                                                        <div className="profil_icon">
+                                                            <span className="tooltiptext">Profil</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </li>

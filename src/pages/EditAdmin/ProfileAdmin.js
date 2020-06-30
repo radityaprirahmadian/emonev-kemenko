@@ -96,7 +96,7 @@ const ProfileAdmin = (props) => {
 
                             <div className="col">
                                 <div className="photo-profile-page">
-                                    <label>Photo Profile</label><br/>
+                                    <label>Foto Profil</label><br/>
                                     <div className="photo-profile-container">
                                         <div className="photo-profile">
                                             <img src={avatar}></img>
@@ -107,7 +107,7 @@ const ProfileAdmin = (props) => {
                                         form="form-profile"
                                         type="submit"
                                         className="button-submit-profile"
-                                        value="EDIT PROFIL"
+                                        value="UBAH PROFIL"
                                         style={{backgroundColor: '#E76975'}}
                                     > 
                                     </input>

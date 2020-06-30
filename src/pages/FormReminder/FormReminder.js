@@ -193,7 +193,7 @@ const FormReminder = (props) => {
                     <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                 </div>
           <div className="tajuk-page">
-              <h1> FORM REMINDER</h1>
+              <h1>FORMULIR NOTIFIKASI</h1>
           </div>
           <div style={{width:'fit-content' , height: 'fit-content' , margin: 'auto'}}>
             <div className="reminder-1-container" >
@@ -237,7 +237,7 @@ const FormReminder = (props) => {
                         </select>
                     </div>
                     <div className="div-reminder">
-                        <label>Judul Reminder</label>
+                        <label>Judul Notifikasi</label>
                         <input 
                             className="reminder-judul" 
                             type="text" 
@@ -248,7 +248,7 @@ const FormReminder = (props) => {
                         />
                     </div>
                     <div className="div-reminder">
-                        <label>Isi Reminder</label>
+                        <label>Isi Notifikasi</label>
                         <textarea 
                             className="reminder-isi" 
                             type="text" 
