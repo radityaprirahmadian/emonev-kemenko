@@ -337,7 +337,6 @@ const FormGNRM = (props) => {
     console.log(userDetail)
 
     useEffect(() => {
-
         (async () => {
             const proyekData = await axios.get('https://test.bariqmbani.me/api/v1/proyek')
 
@@ -347,8 +346,6 @@ const FormGNRM = (props) => {
             setGerakanOptions(gerakan)
             setKpOptions((proyek&&proyek.map(proyek => proyek.kp)))
         })()
-
-        // getInstansiDetail()
 
         if(props.match.params.id) {
             resetDocument()
@@ -363,8 +360,11 @@ const FormGNRM = (props) => {
         }
     },[])
 
+    console.log(proyek)
+
     useEffect(() => {
         const getInstansiDetail = async () => {
+            setLoadingTrue()
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`,
@@ -382,6 +382,7 @@ const FormGNRM = (props) => {
             catch (err) {
                 console.log(err)
             }
+            setLoadingFalse()
         }
         getInstansiDetail()
     },[userDetail,props.match.params.id])
@@ -519,7 +520,7 @@ const FormGNRM = (props) => {
             {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
             <div className={isPreviewing ? 'd-none': "form"}>
                 <div className="tajuk-page">
-                <h1> FORMULIR RENCANA PELAKSANAAN PROGRAM</h1>
+                <h1> FORM RENCANA PELAKSANAAN PROGRAM</h1>
                 </div>
 
             {
@@ -530,7 +531,7 @@ const FormGNRM = (props) => {
                     </div> 
                 </div>
                 :
-                <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}} onSubmit={isEditing ? onEdit : onSubmit}>
+                <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}} id='form-gnrm' onSubmit={isEditing ? onEdit : onSubmit}>
                     <Element id='identitas' name='identitas'>
                         <div className="gnrm-container">
                             <div className="form-gnrm">
@@ -831,7 +832,7 @@ const FormGNRM = (props) => {
                                                         style={{marginLeft: '71px', width:'955px' , height: '42px'}}
                                                     >
                                                         {
-                                                            kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                            kpOptions&&kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                         }
                                                     </select> :
                                                     <select 
@@ -842,7 +843,7 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {
-                                                            kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                            kpOptions&&kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                         }
                                                     </select>
                                                 }
@@ -858,7 +859,7 @@ const FormGNRM = (props) => {
                                                         style={{marginLeft: '84px'}}
                                                     >
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
+                                                            propOptions&&propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select> :
@@ -870,7 +871,7 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
+                                                            propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select>
@@ -892,7 +893,7 @@ const FormGNRM = (props) => {
                                                                 style={{marginLeft: '145px'}}
                                                             >
                                                                 {
-                                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                    gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
                                                                 }
                                                             </select> :
                                                             <select 
@@ -903,7 +904,7 @@ const FormGNRM = (props) => {
                                                             >
                                                                 <option selected={true} hidden></option>
                                                                 {
-                                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                    gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
                                                                 }
                                                             </select>
                                                         }
@@ -922,7 +923,7 @@ const FormGNRM = (props) => {
                                                                             style={{marginLeft: '145px'}}
                                                                         >
                                                                             {
-                                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
                                                                             }
                                                                         </select> :
                                                                         <select 
@@ -933,7 +934,7 @@ const FormGNRM = (props) => {
                                                                         >
                                                                             <option selected={true} hidden></option>
                                                                             {
-                                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
                                                                             }
                                                                         </select>
                                                                     }
@@ -955,35 +956,78 @@ const FormGNRM = (props) => {
                                             }
                                         </Fragment>
                                     :
-
-                                    <div>
-                                        <label>Gerakan</label>
+                                    <Fragment>
+                                        <div>
+                                            <label>Gerakan</label>
+                                            {
+                                                documentDetail ?
+                                                <select 
+                                                    onChange={onChange} 
+                                                    class="gnrm-select"
+                                                    name="gerakan"
+                                                    style={{marginLeft: '145px'}}
+                                                >
+                                                    {
+                                                        gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
+                                                    }
+                                                </select> :
+                                                <select 
+                                                    onChange={onChange} 
+                                                    class="gnrm-select"
+                                                    name="gerakan"
+                                                    style={{marginLeft: '145px'}}
+                                                >
+                                                    <option selected={true} hidden></option>
+                                                    {
+                                                        gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                    }
+                                                </select>
+                                            }
+                                        </div>
                                         {
-                                            documentDetail ?
-                                            <select 
-                                                onChange={onChange} 
-                                                class="gnrm-select"
-                                                name="gerakan"
-                                                style={{marginLeft: '145px'}}
-                                            >
-                                                {
-                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
-                                                }
-                                            </select> :
-                                            <select 
-                                                onChange={onChange} 
-                                                class="gnrm-select"
-                                                name="gerakan"
-                                                style={{marginLeft: '145px'}}
-                                            >
-                                                <option selected={true} hidden></option>
-                                                {
-                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                }
-                                            </select>
+                                            formGerakan.map((form,index) => {
+                                                return(
+                                                    <div key={index}>
+                                                        <label>Gerakan</label>
+                                                        {
+                                                            documentDetail ?
+                                                            <select 
+                                                                // onChange={onChangeGerakan} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                {
+                                                                    gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select> :
+                                                            <select 
+                                                                // onChange={onChangeGerakan} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                <option selected={true} hidden></option>
+                                                                {
+                                                                    gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
+                                                )
+                                            })
                                         }
-                                    </div>
-
+                                        {
+                                            formGerakan.length < 4 ?
+                                            <div>
+                                                    <label className="tambah-lembaga" >
+                                                        Tambah Gerakan 
+                                                    </label>
+                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
+                                                </div>  
+                                            : ''
+                                        }
+                                    </Fragment>
                                 }
                                 <div>
                                     <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
@@ -1902,9 +1946,9 @@ const FormGNRM = (props) => {
                                     <button className="previous-last-1"><i className="material-icons">expand_less</i></button>
                                 </Link>
 
-                                <button className="simpan-gnrm" value='submit' >SIMPAN PERUBAHAN</button>
+                                <button className="simpan-gnrm" type='submit' >SIMPAN PERUBAHAN</button>
                                 
-                                <button className="preview-gnrm" onClick={setPreview}>PREVIEW LAPORAN</button>
+                                <button className="preview-gnrm" onClick={setPreview}>PRATINJAU LAPORAN</button>
 
                             </div>
                         </div>
@@ -2117,13 +2161,9 @@ const FormGNRM = (props) => {
 
                             
                             
-                            <button className="button-edit-kembali" onClick={setPreview}>EDIT KEMBALI</button>
-                            {
-                                isEditing ?
-                                    <button className="button-unggah" onClick={onEdit}>UNGGAH LAPORAN</button>
-                                :
-                                    <button className="button-unggah" onClick={onSubmit}>UNGGAH LAPORAN</button>
-                            }
+                            <button className="button-edit-kembali" onClick={setPreview}>SUNTING KEMBALI</button>
+
+                            <button className="button-unggah" type='submit' form='form-gnrm'>UNGGAH LAPORAN</button>
                     </div>
                 </div>
                 {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}

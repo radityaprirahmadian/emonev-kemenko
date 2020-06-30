@@ -4,8 +4,8 @@ import { ArtikelContext } from '../../context/Artikel/artikelContext'
 import axios from 'axios'
 import logo_kemenko from '../../assets/logo_kemenko.png'
 import line2 from '../../assets/line2.png'
-import logo_footer from '../../assets/logo_footer.png'
 import image from '../../assets/image.png'
+import logo_footer from '../../assets/logo_footer.png'
 
 Font.register({
     family: 'Open Sans',
@@ -194,7 +194,7 @@ const DownloadMonev = (props) => {
             <Document size='A4'>
                 <Page style={style.body}>
                     {/*KOP*/}
-                    <View>
+                    <View fixed>
                         <Image style={style.image} source={`https://test.bariqmbani.me${props.data.instansi && props.data.instansi.logo}`}/>
                         <View style={style.kop}>
                             <Text style={style.headerBold}>
@@ -219,7 +219,7 @@ const DownloadMonev = (props) => {
                         <Image style={style.line} source={line2}/>
                     </View>
                         {/*Header*/}
-                    <View style={style.header}>
+                        <View style={style.header}>
                         <Text style={style.headerMargBold}>
                             Proteksi Hasil Monitoring dan Evaluasi
                         </Text>
@@ -251,7 +251,7 @@ const DownloadMonev = (props) => {
 
                     {/*Body*/}
                     <View style={style.headerMargTop}>
-                        <Text style={style.isiWaktu}>
+                    <Text style={style.isiWaktu}>
                             Waktu Unggah : {str}
                         </Text>
                         <Text style={style.headerBold}>
@@ -308,34 +308,20 @@ const DownloadMonev = (props) => {
                         <Text style={style.headerBold}>
                             4.       Hasil Monitoring dan Evaluasi Program ( Pelaporan Kinerja )
                         </Text>
-                        <Text style={style.isi}>
-                        <Text style={style.text}>
-                            {props.data.document1.form && props.data.document1.form.hasil}
-                        </Text>
-                        <Text style={style.text}>
+                        <View style={style.isi}>
+                            <Text style={style.text}>
+                                {props.data.document1.form && props.data.document1.form.hasil}
+                            </Text>
+                        {/* <Text style={style.text}>
                             {props.data.document1.form && props.data.document1.form.evaluasi}
-                        </Text>
-                        </Text>
-                        <View style={style.isiFlex}>
-                            {
-                                props.data.document1.form && props.data.document1.form.lampiran.hasil.map((media,index) => {
-                                    return(
-                                        <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
-                                            <Text style={style.textimage}>
-                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
-                                            </Text>
-                                        </View>
-                                    )   
-                                })
-                            }
+                        </Text> */}
                         </View>
                         <Text style={style.headerBold}>
                             5.        Ketercapaian Indikator dan Target ( Pengukuran Kerja )
                         </Text>
-                        <View style={style.isi}>
+                        <Text style={style.isi}>
                             {props.data.document1.form && props.data.document1.form.ketercapaian}
-                        </View>
+                        </Text>
                         <View style={style.isiFlex}>
                             {
                                 props.data.document1.form && props.data.document1.form.lampiran.ketercapaian.map((media,index) => {
@@ -391,16 +377,17 @@ const DownloadMonev = (props) => {
                     </View>
 
                     {/*Footer*/}
-                    <View style={style.footer}>
-                        <Text>
-                            Demikian hasil laporan monitoring dan evaluasi {props.data.document1.form && props.data.document1.form.id_laporan} ke 1 tahun 2020 ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya
-                        </Text>
-                        <Text>
-                            Atas perhatiannya diucapkan terimakasih
-                        </Text>
-                    </View>
+                    <View wrap={false}>
+                        <View style={style.footer}>
+                            <Text>
+                                Demikian hasil laporan monitoring dan evaluasi {props.data.document1.form && props.data.document1.form.id_laporan} ke 1 tahun 2020 ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya
+                            </Text>
+                            <Text>
+                                Atas perhatiannya diucapkan terimakasih
+                            </Text>
+                        </View>
 
-                    <View style={style.signature} wrap={false}>
+                        <View style={style.signature} wrap={false}>
                             <Text>
                                 ....................,....................
                             </Text>
@@ -414,6 +401,7 @@ const DownloadMonev = (props) => {
                                 NIP. {props.data.document1.form && props.data.document1.form.penanggung_jawab.nip}
                             </Text>
                         </View>
+                    </View>
                         <Text
                         style={{
                             fontSize: '8px',

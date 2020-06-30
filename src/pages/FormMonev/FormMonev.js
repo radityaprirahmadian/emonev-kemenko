@@ -10,9 +10,14 @@ import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import Scroll , { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
 import Spinner from '../../component/Spinner/Spinner'
+import plus2 from '../../assets/plus2.png'
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormMonev =  (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview, loading,setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocument, editDocumentFalse, isPreviewing, preview, loading,setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { token,userDetail } = useContext(AuthContext)
     const history = useHistory()
     const Link = Scroll.Link
@@ -28,21 +33,28 @@ const FormMonev =  (props) => {
 
     useEffect(() => {
         const getInstansiDetail = async () => {
+            setLoadingTrue()
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`,
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
-                setInstansiDetail(res.data.instansi)
+                if(props.match.params.id) {
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,config)
+                    setInstansiDetail(res.data.instansi)
+                } else {
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
+                    setInstansiDetail(res.data.instansi)
+                }
             }
             catch (err) {
                 console.log(err)
             }
+            setLoadingFalse()
         }
         getInstansiDetail()
-    },[])
+    },[userDetail,props.match.params.id])
 
 
     const [data, setData] = useState({
@@ -111,6 +123,7 @@ const FormMonev =  (props) => {
     const [lampiranKetercapaian, setLampiranKetercapaian] = useState([])
     const [lampiranKetercapaianUrl, setLampiranKetercapaianUrl] = useState([])
 
+    const [formGerakan, setFormGerakan] = useState([])
     const [proyek, setProyek] = useState([])
     const [kpOptions, setKpOptions] = useState([])
     const [propOptions, setPropOptions] = useState([])
@@ -122,10 +135,20 @@ const FormMonev =  (props) => {
     const [deletedLampiranHasil, setDeletedLampiranHasil] = useState([])
     const [deletedLampiranKetercapaian, setDeletedLampiranKetercapaian] = useState([])
 
+    const addFormGerakan = (e) => {
+        e.preventDefault()
+        if(formGerakan.length < 4) {
+            let forms = formGerakan.concat([''])
+            setFormGerakan(
+              forms
+            )
+        }
+    }
+
     const [sk,setSk] = useState({
-        sk_status: true,
+        sk_status: '',
         sk_no: '',
-        sk_kendala: ''
+        sk_kendala : ''
     })
 
     const onChangeButton = (e) => {
@@ -246,6 +269,7 @@ const FormMonev =  (props) => {
 
         try {
             const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=monev',formData,config,)
+            onSubmitSK()
             alert(res.data.message)
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         }
@@ -304,8 +328,9 @@ const FormMonev =  (props) => {
 		}
 
 		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
-        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
+        onSubmitSK()
         alert(res.data.message)
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         setLoadingFalse()
         editDocumentFalse()
     }
@@ -316,17 +341,19 @@ const FormMonev =  (props) => {
     }
 
     useEffect(() => {
-            if(userDetail){
-                setSk({
-                    ...sk,
-                    sk_no: userDetail&&userDetail.instansi.sk.no,
-                    sk_kendala: userDetail&&userDetail.instansi.sk.kendala
-                })
+        if(instansiDetail){
+            setSk({
+                ...sk,
+                sk_no: instansiDetail.sk&&instansiDetail.sk.no,
+                sk_status: instansiDetail.sk&&instansiDetail.sk.status,
+                sk_kendala: instansiDetail.sk&&instansiDetail.sk.kendala
+            })
     
-            const gambar = `https://test.bariqmbani.me${userDetail&&userDetail.instansi.sk.foto}`
+            const gambar = `https://test.bariqmbani.me${instansiDetail.sk&&instansiDetail.sk.foto}`
             setSkGambar(gambar)
         }
-    },[userDetail])
+    },[instansiDetail])
+
 
     useEffect(() => {
         (async () => {
@@ -341,6 +368,7 @@ const FormMonev =  (props) => {
 
         if(props.match.params.id) {
             resetDocument()
+            editDocument()
             getDocumentDetail({id,type})
             if(isPreviewing){
                 preview()
@@ -354,10 +382,10 @@ const FormMonev =  (props) => {
     useEffect(() => {
         const getProp = (kp) => {
             let kpIndex
-            proyek.forEach((proyek, index) => {
+            proyek&&proyek.forEach((proyek, index) => {
                 if (proyek.kp === kp) kpIndex = index
             })
-            return proyek[kpIndex].prop
+            return proyek[kpIndex]&&proyek[kpIndex].prop
         }
 
         if(selectedKp) setPropOptions(getProp(selectedKp))
@@ -379,6 +407,7 @@ const FormMonev =  (props) => {
             setLampiranTempat(documentDetail.form.lampiran.tempat)
             setLampiranHasil(documentDetail.form.lampiran.hasil)
             setLampiranKetercapaian(documentDetail.form.lampiran.ketercapaian)
+            setSelectedKp(documentDetail.form.kp)
 
             const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
             const files = []
@@ -441,11 +470,6 @@ const FormMonev =  (props) => {
             setLampiranTempatUrl(mediaFileUrl3)
             setLampiranHasilUrl(mediaFileUrl4)
             setLampiranKetercapaianUrl(mediaFileUrl5)
-
-            return (() => {
-                if (isEditing) resetDocument()
-                editDocumentFalse()
-            })
         }
     },[documentDetail])
 
@@ -502,7 +526,12 @@ const FormMonev =  (props) => {
     return(
     <Fragment>
         <SideBarOff/>
-        <div className="background-after-login"/>
+            <div className="background-after-login">
+                <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+            </div>
         <Popup notif={props.notif}/>
         {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
         <div className={isPreviewing ? 'd-none': "form"}>
@@ -517,7 +546,7 @@ const FormMonev =  (props) => {
                     </div> 
                 </div>
                 :
-            <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
+            <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}} id='form-monev' onSubmit={isEditing ? onEdit : onSubmit}>
                 <Element id='identitas' name='identitas'>
                     <div className="monev-container">
                         <div className="form-monev">
@@ -656,34 +685,79 @@ const FormMonev =  (props) => {
                                             </div>
                                             
                                             {
-                                                selectedKp === 'Penguatan pusat-pusat perubahan gerakan revolusi mental' &&
-                                                <div>
-                                                    <label>Gerakan</label>
+                                                selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' &&
+                                                <Fragment>
+                                                    <div>
+                                                        <label>Gerakan</label>
+                                                        {
+                                                            documentDetail ?
+                                                            <select 
+                                                                onChange={onChange} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                {
+                                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select> :
+                                                            <select 
+                                                                onChange={onChange} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                <option selected={true} hidden></option>
+                                                                {
+                                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
                                                     {
-                                                        documentDetail ?
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select> :
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            <option selected={true} hidden></option>
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select>
+                                                        formGerakan.map((form,index) => {
+                                                            return(
+                                                                <div key={index}>
+                                                                    <label>Gerakan</label>
+                                                                    {
+                                                                        documentDetail ?
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            {
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select> :
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            <option selected={true} hidden></option>
+                                                                            {
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
                                                     }
-                                                </div>
+                                                        {
+                                                            formGerakan.length < 4 ?
+                                                                <div>
+                                                                    <label className="tambah-lembaga" >
+                                                                        Tambah Gerakan 
+                                                                    </label>
+                                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
+                                                                </div>  
+                                                            : ''
+                                                        }
+                                                </Fragment>
                                             }
                                         </Fragment>
                                     :
@@ -715,6 +789,49 @@ const FormMonev =  (props) => {
                                                         </select>
                                                     }
                                                 </div>
+                                                {
+                                                        formGerakan.map((form,index) => {
+                                                            return(
+                                                                <div key={index}>
+                                                                    <label>Gerakan</label>
+                                                                    {
+                                                                        documentDetail ?
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            {
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select> :
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            <option selected={true} hidden></option>
+                                                                            {
+                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                        {
+                                                            formGerakan.length < 4 ?
+                                                                <div>
+                                                                    <label className="tambah-lembaga" >
+                                                                        Tambah Gerakan 
+                                                                    </label>
+                                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
+                                                                </div>  
+                                                            : ''
+                                                        }
                                         </Fragment>
                                 }
                         </div>
@@ -748,7 +865,7 @@ const FormMonev =  (props) => {
                             </div>
                             <div className="form-gnrm">
                             {
-                                userDetail && userDetail.instansi.sk.status ? 
+                                instansiDetail.sk && instansiDetail.sk.status ? 
                                     <Fragment>
                                         <div>
                                             <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
@@ -763,14 +880,14 @@ const FormMonev =  (props) => {
                                         <div>
                                             <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
                                             <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
-                                                <img src={skGambar} alt={getFileName(userDetail&&userDetail.instansi.sk.foto)} style={{width:'fit-content' , height: 'fit-content'}}/><br/>
+                                                <img src={skGambar} alt={getFileName(instansiDetail.sk&&instansiDetail.sk.foto)} style={{width:'fit-content' , height: 'fit-content'}}/><br/>
                                                 <div
                                                     className="gnrm-sasaran" 
                                                     style={{height: "42px", 
                                                             width: "955px",
                                                             fontWeight:'700'
                                                             }}
-                                                >{getFileName(userDetail&&userDetail.instansi.sk.foto)}</div>
+                                                >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
                                             </div>
                                         </div>
                                     </Fragment>
@@ -814,6 +931,7 @@ const FormMonev =  (props) => {
                                                             name="no_sk"
                                                             value={sk.no_sk}
                                                             onChange={onChangeSK}
+                                                            required
                                                         />
                                                     </div>
                                                     <div>
@@ -829,7 +947,7 @@ const FormMonev =  (props) => {
                                                             type="file"
                                                             accept="image/*"
                                                             name="media"
-                                                            multiple
+                                                            required
                                                         />
                                                     </div>
                                                         <div>
@@ -1927,14 +2045,10 @@ const FormMonev =  (props) => {
                             > 
                                 <button className="previous-last-1"><i className="material-icons">expand_less</i></button>
                             </Link>
-                            {
-                                isEditing ?
-                                    <button className="simpan-monev" onClick={onEdit}>SIMPAN PERUBAHAN</button>
-                                :
-                                    <button className="simpan-monev" onClick={onSubmit}>SIMPAN PERUBAHAN</button>
-                            }
+
+                            <button className="simpan-monev" type='submit'>SIMPAN PERUBAHAN</button>
                             
-                            <button className="preview-monev" onClick={setPreview}>PREVIEW LAPORAN</button>
+                            <button className="preview-monev" onClick={setPreview}>PRATINJAU LAPORAN</button>
                             
                         </div>
                     </div>
@@ -2115,13 +2229,9 @@ const FormMonev =  (props) => {
 
                             
                             
-                            <button className="button-edit-kembali" onClick={setPreview}>EDIT KEMBALI</button>
-                            {
-                                isEditing ?
-                                    <button className="button-unggah" onClick={onEdit}>UNGGAH LAPORAN</button>
-                                :
-                                    <button className="button-unggah" onClick={onSubmit}>UNGGAH LAPORAN</button>
-                            }
+                            <button className="button-edit-kembali" onClick={setPreview}>SUNTING KEMBALI</button>
+                            
+                            <button className="button-unggah" type='submit' form="form-monev">UNGGAH LAPORAN</button>
                     </div>
                 </div>
                 {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
