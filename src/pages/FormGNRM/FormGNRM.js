@@ -14,7 +14,7 @@ import plus2 from '../../assets/plus2.png'
 import Spinner from '../../component/Spinner/Spinner'
 
 const FormGNRM = (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, editDocument ,isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
     const {userDetail , token} = useContext(AuthContext)
     console.log(userDetail)
     const Link = Scroll.Link;
@@ -355,6 +355,7 @@ const FormGNRM = (props) => {
 
         if(props.match.params.id) {
             resetDocument()
+            editDocument()
             getDocumentDetail({id,type})
             if(isPreviewing){
                 preview()
@@ -429,11 +430,7 @@ const FormGNRM = (props) => {
             setMediaUrl(mediaFileUrl)
             setLampiranKondisiUrl(mediaFileUrl2)
             setLampiranProsesUrl(mediaFileUrl3)
-            
-            return (() => {
-                if (isEditing) resetDocument()
-                editDocumentFalse()
-            })
+
         }
     },[documentDetail])
     

@@ -40,31 +40,11 @@ const FormInstansi = (props) => {
 
         console.log(newInstansi)
 
-        const [admin, setAdmin] = useState({
-            nama: '',
-            instansi: '',
-            role: 'admin',
-            username: '',
-            password: ''
-        })
-
         const [seen, setSeen] = useState(false)
-
-        const { nama, instansi, role, username, password } = admin
-        console.log(admin)
-
-        
+      
         const [media, setMedia] = useState([])
         const [mediaUrl, setMediaUrl] = useState([])
         const [deletedMedia, setDeletedMedia] = useState([])
-        
-        const onChange = (e) => {
-            return setAdmin({
-                ...admin,
-                instansi: newInstansi.nama_pendek,
-                [e.target.name] : e.target.value
-            })
-        }
 
         const onChangeInstansi = (e) => {
             return setNewInstansi({
@@ -107,24 +87,6 @@ const FormInstansi = (props) => {
             setLoading(false)
         }
 
-        // const addNewAdmin = async (formData) => {
-        //     const config = {
-        //         headers: {
-        //             'X-Auth-Token': `aweuaweu ${token}`,
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }
-        //     try {
-        //         const res = await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
-        //         alert(res.data.message)
-        //     }
-        //     catch (err) {
-        //         alert(err.data.message)
-        //     }
-        // }
-
-
-
         const addNewInstansi = async (data) => {
             setLoading(true)
             console.log(data)
@@ -153,7 +115,7 @@ const FormInstansi = (props) => {
             }
 
             catch(err) {
-                alert(err.data.message)
+                alert(err.message)
                 setLoading(false)
             }
             
@@ -188,7 +150,8 @@ const FormInstansi = (props) => {
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
             }
             catch(err) {
-                alert(err.data.message)
+                console.log(err)
+                alert(err.message)
                 setLoading(false)
             }
         }
@@ -205,7 +168,8 @@ const FormInstansi = (props) => {
 
         const onEdit = (e) => {
             e.preventDefault()
-            editInstansi(newInstansi)
+            console.log('a')
+            // editInstansi(newInstansi)
         }
 
         const handlePassword = (e) => {
@@ -241,18 +205,20 @@ const FormInstansi = (props) => {
                     email: instansiDetail.email
                 })
 
-            const mediaFileUrl = [`https://test.bariqmbani.me${instansiDetail.logo}`]
-            const files = []
-            mediaFileUrl.forEach(url => {
-                fetch(url).then(res => res.blob()).then(blob => {
-                    const objectURL = URL.createObjectURL(blob)
-                    blob.name = getFileName(url)
-                    files.push(blob)
+            if(instansiDetail.logo) {
+                const mediaFileUrl = [`https://test.bariqmbani.me${instansiDetail.logo}`]
+                const files = []
+                mediaFileUrl.forEach(url => {
+                    fetch(url).then(res => res.blob()).then(blob => {
+                        const objectURL = URL.createObjectURL(blob)
+                        blob.name = getFileName(url)
+                        files.push(blob)
+                    })
                 })
-            })
-            
-            setMedia(files)
-            setMediaUrl(mediaFileUrl)
+                
+                setMedia(files)
+                setMediaUrl(mediaFileUrl)
+                }
             }
         },[instansiDetail])
 
@@ -506,7 +472,7 @@ const FormInstansi = (props) => {
                                 {
                                     isEditing ?
                                         <div className="admin-navigation-button">
-                                                <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
+                                                <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
                                         </div>
                                     :
                                     <div className="gnrm-navigation-button">

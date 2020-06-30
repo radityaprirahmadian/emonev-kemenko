@@ -31,7 +31,6 @@ const Card = (props) => {
             <Fragment>
                 {
                     !token ?
-                        <Link to={`/artikel/` + (props.doc._id)} style={{textDecoration:'none'}}>
                             <div className="card-container" style={{marginRight:'20px' , cursor:'pointer' , backgroundColor:`${props.bgcolor}` , color:`${props.color}` , backgroundImage:`${props.bgimage}`}}>
                                 <div className="top-card">
                                     <div className="card-background">
@@ -52,10 +51,14 @@ const Card = (props) => {
                                                 <h4>{tanggal}</h4>
                                             </div>
                                             <div className="spacer"></div>
+                                            <Link to={`/artikel/` + (props.doc._id)}>
+                                            <button className="detail-button" style={{width:'160px'}}>
+                                                        Baca Lebih Lanjut
+                                            </button>   
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
-                        </Link>
                         :
                         <div className="card-container" style={{marginRight:'20px' , backgroundColor:`${props.bgcolor}` , color:`${props.color}` , backgroundImage:`${props.bgimage}`}}>
                             <div className="top-card">

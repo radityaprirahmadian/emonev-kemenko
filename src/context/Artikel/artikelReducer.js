@@ -18,13 +18,11 @@ export default (state, action) => {
         case 'EDIT_DOCUMENT':
             return{
                 ...state,
-                loading: false,
                 isEditing: true
             }
         case 'EDIT_DOCUMENT_FALSE':
             return{
                 ...state,
-                loading: false,
                 isEditing: false
             }
         case 'SET_PREVIEW':

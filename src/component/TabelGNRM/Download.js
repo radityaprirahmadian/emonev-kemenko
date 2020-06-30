@@ -12,7 +12,11 @@ const Download = (props) => {
     const type = 'gnrm'
     const token = localStorage.getItem('token')
 
-    const [document,setDocument] = useState({})
+    const [document,setDocument] = useState({
+        document1: '',
+        instansi: ''
+    })
+    console.log(document)
     const [show,setHide] = useState(false)
 
     useEffect(() => {
@@ -24,7 +28,7 @@ const Download = (props) => {
             }
             try {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${id}?type=${type}`,config)
-                setDocument(res.data.document)
+                setDocument({document1: res.data.document , instansi: res.data.instansi})
                 setHide(true)
             }
             catch (err) {
@@ -41,7 +45,7 @@ const Download = (props) => {
                 show ?
                     <PDFDownloadLink 
                     document={<DownloadGNRM data={document}/>}
-                    fileName={`${document.form.kegiatan.nama_program}.pdf`}    
+                    fileName={`${document.document1.form.kegiatan.nama_program}.pdf`}    
                     >
                     <button className="button-download">
                         <img src={download} />
