@@ -157,8 +157,8 @@ const Footer = () => {
                                     
                             <div className="footer-right">
                                 <div className="footer-right-logo">
-                                    <img src={logo_2} alt="Logo Kemenko" style={{marginRight:'18.42px', height:'auto', maxWidth:'30%'}}/>
-                                    <img src={logo_gnrm_1} className="logo-footer-gnrm" alt="Logo GNRM" style={{height:'50px', maxWidth:'70%'}}/>
+                                    <img src={logo_2} alt="Logo Kemenko" style={{marginRight:'18.42px', height:'auto', maxWidth:'50%'}}/>
+                                    <img src={logo_gnrm_1} className="logo-footer-gnrm" alt="Logo GNRM" style={{height:'auto', maxWidth:'50%'}}/>
                                 </div>
 
                                 <div className="footer-right-info">
