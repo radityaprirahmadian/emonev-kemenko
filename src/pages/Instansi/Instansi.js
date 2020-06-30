@@ -46,7 +46,7 @@ const Instansi = (props) => {
     //         }
     //     }
     //     try {
-    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi`, config)
+    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi`, config)
     //         setFilter({...filter, totalDoc: res.data.instansi.length})
     //     }
     //     catch (err) {
@@ -61,7 +61,7 @@ const Instansi = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi?nama=${nama}&jenis=${jenis}&limit=${limit}&page=${page}`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi?nama=${nama}&jenis=${jenis}&limit=${limit}&page=${page}`, config)
             setInstansi(res.data.instansi)
             setFilter({...filter, totalDoc: res.data.total})
             setLoading(false)
@@ -79,7 +79,7 @@ const Instansi = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/instansi/${id}`,config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${id}`,config)
             getAllInstansi()
         }
         catch (err) {

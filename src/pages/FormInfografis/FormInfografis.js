@@ -71,7 +71,7 @@ const FormInfografis = (props) => {
 		}
 
         try {
-            const res = await axios.post(`https://test.bariqmbani.me/api/v1/kabar/`,formData,config)
+            const res = await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/kabar/`,formData,config)
             alert(res.data.message)
             setLoadingFalse()
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
@@ -106,7 +106,7 @@ const FormInfografis = (props) => {
 		}
 
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/kabar/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/kabar/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             editDocumentFalse()
             setLoadingFalse()
@@ -160,7 +160,7 @@ const FormInfografis = (props) => {
             editDocument()
             setKabarGnrm({judul: infografisDetail.judul , deskripsi: infografisDetail.deskripsi})
 
-            const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}`)
+            const mediaFileUrl = infografisDetail.gambar.map(gambar => `https://api.simonev.revolusimental.go.id${gambar.path}`)
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {

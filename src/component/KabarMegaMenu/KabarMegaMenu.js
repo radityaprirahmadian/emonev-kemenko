@@ -10,7 +10,7 @@ const KabarMegaMenu = (props) => {
     const history = useHistory()
 
     useEffect(() => {
-        const gambar = props.kabar.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}`)
+        const gambar = props.kabar.gambar.map(gambar => `https://api.simonev.revolusimental.go.id${gambar.path}`)
         setDocuments(gambar)
     },[])
 

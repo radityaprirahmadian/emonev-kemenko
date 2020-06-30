@@ -34,7 +34,7 @@ const LupaPassword = (props) => {
             }
         }
         try {
-            const res = await axios.post(`https://test.bariqmbani.me/api/v1/lupa-password`,data)
+            const res = await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/lupa-password`,data)
             alert(res.data.message)
             history.push('/login')
         }
@@ -56,7 +56,7 @@ const LupaPassword = (props) => {
             }
         }
         try {
-            const res = await axios.get('https://test.bariqmbani.me/api/v1/auth', config)
+            const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/auth', config)
             setUser(res.data.user)
         }
         catch (err) {    
@@ -128,7 +128,7 @@ const LupaPassword = (props) => {
         }
 
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${user && user._id}`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${user && user._id}`,formData,config)
             alert(res.data.message)        
             history.push('/login')
         

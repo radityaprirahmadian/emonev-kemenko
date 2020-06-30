@@ -77,7 +77,7 @@ const ProfileEdit = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserData({nama: res.data.user.nama , email:res.data.user.email , kontak: res.data.user.kontak})
             }
@@ -98,7 +98,7 @@ const ProfileEdit = (props) => {
     }
 
     useEffect(() => {
-        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setFotos(wow)
     },[userDetail])
 
@@ -111,7 +111,7 @@ const ProfileEdit = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             updateUserPhoto()
             console.log(res)
@@ -142,7 +142,7 @@ const ProfileEdit = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,formData,config)
             alert(res.data.message)
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
             window.location.reload()

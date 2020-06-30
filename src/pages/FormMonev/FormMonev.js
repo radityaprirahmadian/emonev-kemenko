@@ -41,10 +41,10 @@ const FormMonev =  (props) => {
             }
             try {
                 if(props.match.params.id) {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,config)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,config)
                     setInstansiDetail(res.data.instansi)
                 } else {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
                     setInstansiDetail(res.data.instansi)
                 }
             }
@@ -226,7 +226,7 @@ const FormMonev =  (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
+		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
         setLoadingFalse()
     }
 
@@ -268,7 +268,7 @@ const FormMonev =  (props) => {
 		}
 
         try {
-            const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=monev',formData,config,)
+            const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=monev',formData,config,)
             onSubmitSK()
             alert(res.data.message)
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
@@ -327,7 +327,7 @@ const FormMonev =  (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
+		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
         onSubmitSK()
         alert(res.data.message)
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
@@ -349,7 +349,7 @@ const FormMonev =  (props) => {
                 sk_kendala: instansiDetail.sk&&instansiDetail.sk.kendala
             })
     
-            const gambar = `https://test.bariqmbani.me${instansiDetail.sk&&instansiDetail.sk.foto}`
+            const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`
             setSkGambar(gambar)
         }
     },[instansiDetail])
@@ -357,7 +357,7 @@ const FormMonev =  (props) => {
 
     useEffect(() => {
         (async () => {
-            const proyekData = await axios.get('https://test.bariqmbani.me/api/v1/proyek')
+            const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek')
 
             const { proyek, gerakan } = proyekData.data
             
@@ -409,7 +409,7 @@ const FormMonev =  (props) => {
             setLampiranKetercapaian(documentDetail.form.lampiran.ketercapaian)
             setSelectedKp(documentDetail.form.kp)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -419,7 +419,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl2 = documentDetail.form.lampiran.berkas.map(berkas => `https://test.bariqmbani.me${berkas.path}`)
+            const mediaFileUrl2 = documentDetail.form.lampiran.berkas.map(berkas => `https://api.simonev.revolusimental.go.id${berkas.path}`)
             const files2 = []
             mediaFileUrl2.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -429,7 +429,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl3 = documentDetail.form.lampiran.tempat.map(tempat => `https://test.bariqmbani.me${tempat.path}`)
+            const mediaFileUrl3 = documentDetail.form.lampiran.tempat.map(tempat => `https://api.simonev.revolusimental.go.id${tempat.path}`)
             const files3 = []
             mediaFileUrl3.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -439,7 +439,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl4 = documentDetail.form.lampiran.hasil.map(hasil => `https://test.bariqmbani.me${hasil.path}`)
+            const mediaFileUrl4 = documentDetail.form.lampiran.hasil.map(hasil => `https://api.simonev.revolusimental.go.id${hasil.path}`)
             const files4 = []
             mediaFileUrl4.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -449,7 +449,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl5 = documentDetail.form.lampiran.ketercapaian.map(ketercapaian => `https://test.bariqmbani.me${ketercapaian.path}`)
+            const mediaFileUrl5 = documentDetail.form.lampiran.ketercapaian.map(ketercapaian => `https://api.simonev.revolusimental.go.id${ketercapaian.path}`)
             const files5 = []
             mediaFileUrl5.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {

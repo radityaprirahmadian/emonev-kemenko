@@ -52,7 +52,7 @@ const Admin = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
             // console.log(res)
             setUsers(res.data.users)
             setFilter({...filter, totalUser: res.data.total})
@@ -71,7 +71,7 @@ const Admin = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/user/${id}`,config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
             getAllUser()
         }
         catch (err) {

@@ -54,7 +54,7 @@ const FormReminder = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/user?select=_id,nama&instansi=${nama_pendek}`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama&instansi=${nama_pendek}`, config)
             // console.log(res)
             setUsers(res.data.users)
         }
@@ -66,7 +66,7 @@ const FormReminder = (props) => {
     const [allInstansi, setAllInstansi] = useState([])
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
         .then(res => {
             setAllInstansi(res.data.instansi)
             console.log('wow')
@@ -112,7 +112,7 @@ const FormReminder = (props) => {
 
     useEffect(() => {
         return () => {
-          const socket = io("https://test.bariqmbani.me");
+          const socket = io("https://api.simonev.revolusimental.go.id");
           socket.close();
         };
     }, []);
@@ -126,10 +126,10 @@ const FormReminder = (props) => {
             }
         }
         try {
-            const res = await axios.post(`https://test.bariqmbani.me/api/v1/notifikasi`,formData,config)
+            const res = await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi`,formData,config)
             alert(res.data.message)
             if(res.data.success) {
-                const socket = io("https://test.bariqmbani.me");
+                const socket = io("https://api.simonev.revolusimental.go.id");
                 socket.on("connect", () => {
                   console.log("id:", socket.id);
                   socket.emit("notif_send", formData);

@@ -41,7 +41,7 @@ const EditAdmin = (props) => {
     }
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
         .then(res => {
             setAllInstansi(res.data.instansi)
             console.log('wow')
@@ -60,7 +60,7 @@ const EditAdmin = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserData({
                     nama_pendek : res.data.user.instansi.nama_pendek,
@@ -96,7 +96,7 @@ const EditAdmin = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
             history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
             window.location.reload()
@@ -124,7 +124,7 @@ const EditAdmin = (props) => {
             }
         }
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}/foto`,formData,config)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,formData,config)
             console.log(res.data.message)
         }
         catch (err) {

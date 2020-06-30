@@ -71,7 +71,7 @@ const Dashboard = (props) => {
 
     const getDocumentCardLength = async () => {
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
             setDocumentCardLength(res.data.kabar)
         }
         catch (err) {
@@ -83,10 +83,10 @@ const Dashboard = (props) => {
       setLoading(true)
       try {
             if(userDetail.role === 'admin'){
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
                 setDocumentCard(res.data.kabar)
             } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=3&page=${page}`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}`)
                 setDocumentCard(res.data.kabar)
             }
       }
@@ -100,7 +100,7 @@ const Dashboard = (props) => {
       getDocumentCard()
       getDocumentCardLength()
 
-      fetch("https://test.bariqmbani.me/api/v1/instansi")
+      fetch("https://api.simonev.revolusimental.go.id/api/v1/instansi")
       .then(res => res.json())
       .then(data => setInstansiData(data.instansi));
       
@@ -119,7 +119,7 @@ const Dashboard = (props) => {
               }
           }
           try {
-              const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
+              const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
               setInstansiDetail(res.data.instansi)
               if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
                   setHide(false)

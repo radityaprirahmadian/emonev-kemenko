@@ -27,10 +27,10 @@ const ProfileAdmin = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/user/${props.match.params.id}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserDetail(res.data.user)
-                const wow = `https://test.bariqmbani.me${res.data.user.foto}`
+                const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
                 setAvatar(wow)
             }
             catch (err) {

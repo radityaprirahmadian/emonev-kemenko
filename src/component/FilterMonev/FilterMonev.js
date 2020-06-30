@@ -16,7 +16,7 @@ const FilterMonev = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=monev`, config)
             setFilterTahun(res.data.filter.tahun)
             setFilterPeriode(res.data.filter.periode)
             setFilterInstansi(res.data.filter.instansi)

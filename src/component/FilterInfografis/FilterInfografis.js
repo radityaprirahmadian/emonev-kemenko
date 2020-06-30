@@ -27,12 +27,12 @@ const FilterInfografis = (props) => {
         }
         try {
             if(user && user.role === 'owner') {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?`, config)
                 console.log(res)
                 setFilterTahun(res.data.filter.tahun)
                 setFilterInstansi(res.data.filter.instansi)
             } else {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?`, config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?`, config)
                 setFilterTahun(res.data.filter.tahun)
             }
         }

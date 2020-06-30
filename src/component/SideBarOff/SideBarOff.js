@@ -61,7 +61,7 @@ const SideBarOff = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
                 setInstansiDetail(res.data.instansi)
                 if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
                     setHide(false)
@@ -77,7 +77,7 @@ const SideBarOff = (props) => {
     },[])
 
     useEffect(() => {
-        const wow = `https://test.bariqmbani.me${userDetail&&userDetail.foto}`
+        const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setAvatar(wow)
     },[userDetail])
 
@@ -113,7 +113,7 @@ const SideBarOff = (props) => {
                                     }
                                     {  
                                         userDetail && userDetail.instansi.logo ? 
-                                            <img src={'https://test.bariqmbani.me'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user' alt="Logo Instansi"/>
+                                            <img src={'https://api.simonev.revolusimental.go.id'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user' alt="Logo Instansi"/>
                                         :
                                             <img src={logo_kemenko} className='logo-instansi-user' alt="Logo Placeholder"/>
                                     }
@@ -284,7 +284,7 @@ const SideBarOff = (props) => {
                                 }
                                 {  
                                     userDetail && userDetail.instansi.logo ? 
-                                        <img src={'https://test.bariqmbani.me'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user-off' alt="Logo Instansi"/>
+                                        <img src={'https://api.simonev.revolusimental.go.id'+ (userDetail && userDetail.instansi.logo)} className='logo-instansi-user-off' alt="Logo Instansi"/>
                                     :
                                         <img src={logo_kemenko} className='logo-instansi-user-off' alt="Logo Placeholder"/>
                                 }

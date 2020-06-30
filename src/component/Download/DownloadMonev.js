@@ -195,7 +195,7 @@ const DownloadMonev = (props) => {
                 <Page style={style.body}>
                     {/*KOP*/}
                     <View fixed>
-                        <Image style={style.image} source={`https://test.bariqmbani.me${props.data.instansi && props.data.instansi.logo}`}/>
+                        <Image style={style.image} source={`https://api.simonev.revolusimental.go.id${props.data.instansi && props.data.instansi.logo}`}/>
                         <View style={style.kop}>
                             <Text style={style.headerBold}>
                                 Gerakan Nasional Revolusi Mental
