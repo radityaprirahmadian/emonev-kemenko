@@ -20,9 +20,11 @@ import bg_4 from '../../assets/decoration/bg_4.png'
 import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 import StatistikMonev from '../../component/Statistik/StatistikMonev'
 import { useHistory, NavLink } from 'react-router-dom';
+import Spinner from '../../component/Spinner/Spinner'
 
 const Dashboard = (props) => {
     const [instansiDetail , setInstansiDetail] = useState({})
+    const [loading, setLoading] = useState(false)
     const { isAuthenticated, login, userDetail , role, email, password, user, token } = useContext(AuthContext);
     const { notifNew , setNotifNew } = useContext(NotifContext)
     const history = useHistory()
@@ -78,6 +80,7 @@ const Dashboard = (props) => {
     }
 
     const getDocumentCard = async () => {
+      setLoading(true)
       try {
             if(userDetail.role === 'admin'){
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
@@ -90,6 +93,7 @@ const Dashboard = (props) => {
       catch(err) {
           console.log(err)
       }  
+      setLoading(false)
     }
 
     useEffect(() =>{
@@ -349,23 +353,26 @@ const Dashboard = (props) => {
                               </form>
                             </div>
 
-                            <div className="select-waktu-periode">
-                              <form> 
-                                  <select onChange={onChangeInstansi}>
-                                    <option defaultValue hidden>Pilih Instansi</option>
-                                    {
-                                      instansiData.map(ins => (
-                                      <option value={ins.nama_pendek}>{ins.nama_pendek}</option>
-                                      ))
-                                    }
-                                  </select>
-                                  <br/>
-                                  <label>
-                                    Instansi
-                                  </label>
-                              </form>
-                            </div>
-
+                            {
+                              user && user.role === 'owner' ? 
+                                <div className="select-waktu-periode">
+                                  <form> 
+                                      <select onChange={onChangeInstansi}>
+                                        <option defaultValue hidden>Pilih Instansi</option>
+                                        {
+                                          instansiData.map(ins => (
+                                          <option value={ins.nama_pendek}>{ins.nama_pendek}</option>
+                                          ))
+                                        }
+                                      </select>
+                                      <br/>
+                                      <label>
+                                        Instansi
+                                      </label>
+                                  </form>
+                                </div>
+                              : ''
+                            }
                           </div>
 
                         </Fragment>
@@ -378,20 +385,30 @@ const Dashboard = (props) => {
                     </div>
                     <div style={{display:'flex' , flexDirection:'row' , width:'fit-content' , heigth: 'fit-content' , margin: 'auto' , position: 'relative'}}>
                         {
-                            documentCard.map((doc, index) => {
-                                return (
-                                    <Card 
-                                    key={index}
-                                    doc={doc}
-                                    bgcolor={'white'}
-                                    color={'black'}
-                                    btimage={'none'}/>
-                                    );
-                                })
-                        }
-
+                          loading ?
+                          <div style={{ marginLeft: '68px' }}>
+                              <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                  <Spinner />
+                              </div> 
+                          </div>
+                          :
+                          <Fragment>
+                            {
+                                documentCard.map((doc, index) => {
+                                    return (
+                                        <Card 
+                                        key={index}
+                                        doc={doc}
+                                        bgcolor={'white'}
+                                        color={'black'}
+                                        btimage={'none'}/>
+                                        );
+                                    })
+                            }
+                          </Fragment>
+                          }
                         {
-                          documentCard.length > 3 ?
+                          documentCard.length > 2 ?
                             <Fragment>
                               <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
                                   <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>

@@ -64,7 +64,8 @@
 .side-bar-avatar .avatar-identity {
     transition: all 0.3s ease-in-out;
     margin-left: 14.52px;
-    margin-right: 26px;
+    margin-right: 10px;
+    width: 150px;
     overflow: hidden;
 	font-weight: 600;
     font-style: normal;;

@@ -20,7 +20,10 @@ const TabelMonev = (props) => {
     const type = 'monev'
     const token = localStorage.getItem('token')
 
-    const [document,setDocument] = useState({})
+    const [document,setDocument] = useState({
+        document1: '',
+        instansi: ''
+    })
     const [show,setHide] = useState(false)
 
     useEffect(() => {
@@ -32,7 +35,7 @@ const TabelMonev = (props) => {
             }
             try {
                 const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${id}?type=${type}`,config)
-                setDocument(res.data.document)
+                setDocument({document1: res.data.document , instansi: res.data.instansi})
                 setHide(true)
             }
             catch (err) {
@@ -93,7 +96,7 @@ const TabelMonev = (props) => {
                             show ?
                             <PDFDownloadLink 
                                 document={<DownloadMonev data={document}/>}
-                                fileName="wow.pdf"    
+                                fileName={`${document.document1.form.kegiatan.nama_program}.pdf`}  
                                 >
                                     <button className="button-download" >
                                         <img src={download} />

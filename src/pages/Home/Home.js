@@ -14,8 +14,11 @@ import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "reac
 import statistik from '../../assets/statistik.png';
 import {Bar} from 'react-chartjs-2';
 import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
+import Spinner from '../../component/Spinner/Spinner'
 
 const Home = () => {
+    const [loading, setLoading] = useState(false)
+
     const datas = {   
         post: [
             {
@@ -141,6 +144,7 @@ const Home = () => {
     // }
 
     const getDocumentCard = async () => {
+        setLoading(true)
         try {
             const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?limit=2&page=${page}&instansi=${nama_instansi}`)
             setDocumentCard(res.data.kabar)
@@ -148,6 +152,7 @@ const Home = () => {
         catch (err) {
             console.log(err)  
         }  
+        setLoading(false)
     }
 
     const onChange = (e) => {
@@ -167,11 +172,21 @@ const Home = () => {
     }, [pathname]);
     
     const [instansi, setInstansi] = useState([])
+    const [instansiDaerah, setInstansiDaerah] = useState([])
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/instansi')
+        axios.get('https://test.bariqmbani.me/api/v1/instansi?jenis=Kementerian')
         .then(res => {
             setInstansi(res.data.instansi)
+            console.log('wow')
+        })
+        .catch(err => {
+            console.log('wow', +err)
+        })
+
+        axios.get('https://test.bariqmbani.me/api/v1/instansi?jenis=Pemerintah Daerah')
+        .then(res => {
+            setInstansiDaerah(res.data.instansi)
             console.log('wow')
         })
         .catch(err => {
@@ -249,13 +264,14 @@ const Home = () => {
 
       console.log(documentCardLenght && documentCardLenght.length)
       const onNextFilter = (e) => {
-        if(page < (documentCardLenght && Math.ceil(documentCardLenght.length / 2))) {
+        if(page < (documentCardLenght && documentCardLenght / 2)) {
             e.preventDefault()
             const a = parseInt(page)
             return setFilterCard({
                 ...filterCard,
                 page: JSON.stringify(a + 1)
             })
+            console.log('tes')
         } else { 
             e.preventDefault()
             return filterCard;
@@ -420,24 +436,45 @@ const Home = () => {
                                             }    
                                             </select>
                                             <br/>
-                                            <select className="filter-a">
+                                            <select className="filter-a" name="nama_instansi" onChange={onChange}>
                                                 <option value="" disabled selected hidden>Pilih Pemerintah Daerah</option>
+                                                {
+                                                instansiDaerah ? 
+                                                    instansiDaerah.map((instansi,index) => {
+                                                        return (
+                                                                <option value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                            )
+                                                    })
+                                                : ''
+                                            }  
                                             </select>
                                         </div>
                                     </div>
                                     
                                     <div className="col-8" style={{display:'flex' , flexDirection:'row'}}>
-                                        {
-                                            documentCard.map((doc, index) => {
-                                                return (
-                                                    <Card key={index}
-                                                    doc={doc}
-                                                    bgcolor={'none'}
-                                                    bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
-                                                    color={`black`}/>
-                                                    );
-                                                })
-                                        }
+                                    {
+                                        loading ?
+                                        <div style={{ marginLeft: '68px' }}>
+                                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                                <Spinner />
+                                            </div> 
+                                        </div>
+                                        :
+                                        <Fragment>
+                                            {
+                                                documentCard.map((doc, index) => {
+                                                    return (
+                                                        <Card key={index}
+                                                        doc={doc}
+                                                        bgcolor={'none'}
+                                                        bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
+                                                        color={`black`}/>
+                                                        );
+                                                    })
+                                            }
+
+                                        </Fragment>
+                                    }
 
                                         {
                                             documentCardLenght > 2 ?

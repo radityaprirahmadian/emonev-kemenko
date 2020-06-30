@@ -81,7 +81,7 @@ const ProfileInstansiEdit = (props) => {
             const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
             alert(res.data.message)                
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${props.match.params.id}`)
-            // window.location.reload()
+            window.location.reload()
         }
 
         catch(err) {

@@ -10,7 +10,7 @@ const ArtikelState = props => {
         documentDetail: null,
         isEditing: false,
         isPreviewing : false,
-        loading: true,
+        loading: false,
     }
 
     const [state , dispatch] = useReducer(artikelReducer,intialState)

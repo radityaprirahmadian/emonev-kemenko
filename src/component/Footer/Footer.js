@@ -14,6 +14,7 @@ import subtract from '../../assets/Subtract.png';
 import twitter from '../../assets/twitter.png';
 import instagram from '../../assets/instagram.png';
 import youtube from '../../assets/youtube.png';
+import logo_2 from '../../assets/logo2.png';
 
 
 const Footer = () => {
@@ -156,19 +157,11 @@ const Footer = () => {
                                     
                             <div className="footer-right">
                                 <div className="footer-right-logo">
-                                    <img src={logo_kemenko2} alt="Logo Kemenko" style={{marginRight:'18.42px', height:'auto', maxWidth:'20%'}}/>
+                                    <img src={logo_2} alt="Logo Kemenko" style={{marginRight:'18.42px', height:'auto', maxWidth:'30%'}}/>
                                     <img src={logo_gnrm_1} className="logo-footer-gnrm" alt="Logo GNRM" style={{height:'50px', maxWidth:'70%'}}/>
                                 </div>
 
                                 <div className="footer-right-info">
-                                    <div className="footer-right-title">
-                                        <p>
-                                        Sekretariat Revolusi Mental<br/>
-                                        Kementerian Koordinator Bidang
-                                        Pembangunan Manusia dan Kebudayaan
-                                        </p>                
-                                    </div>
-
                                     <div className="footer-right-menu">
                                         <ul>
                                             <img src={home} className="logo-home"/>

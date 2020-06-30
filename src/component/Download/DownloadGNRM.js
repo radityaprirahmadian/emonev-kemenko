@@ -5,6 +5,7 @@ import axios from 'axios'
 import logo_kemenko from '../../assets/logo_kemenko.png'
 import line2 from '../../assets/line2.png'
 import logo_footer from '../../assets/logo_footer.png'
+import image from '../../assets/image.png'
 
 Font.register({
     family: 'Open Sans',
@@ -36,16 +37,31 @@ const style = StyleSheet.create({
         textAlign:'justify'
     },
 
+    isiWaktu: {
+        marginLeft: 20,
+        marginTop: 10,
+        marginBottom: 10,
+        textAlign:'justify'
+    },
+
+    isiFix: {
+        marginLeft: 20,
+        marginTop: 10,
+        textAlign:'justify'
+    },
+
+    
     headerMargTop: {
         marginTop: 6,
     },
+
 
     headerMargBot: {
         marginBottom: 8
     },
     
     footer: {
-        marginTop: 100
+        marginTop: 30
     },
 
     footer2: {
@@ -53,6 +69,40 @@ const style = StyleSheet.create({
         bottom: 30,
         left: 60,
         right: 60,
+    },
+
+    images : {
+        width: 80,
+        height: 80,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+    },
+    
+    textimage: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
+    isiFlex: {
+        marginLeft: 20,
+        marginTop: 10,
+        marginBottom: 25,
+        display: 'flex',
+        flexDirection: "row"
+    },
+
+    isiimage: {
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        textAlign:'justify',
+        width: 100,
+        height: 100,
+        position : 'relative',
+        overflow: 'hidden',
     },
 
     logoFooter1: {
@@ -105,7 +155,7 @@ const style = StyleSheet.create({
     },
     line: {
         marginBottom: 12,
-        marginTop: 5
+        marginTop: 14
 
     },
 
@@ -122,6 +172,21 @@ const style = StyleSheet.create({
 
 
 const DownloadGNRM = (props) => {
+    
+    const nol = (i) => {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+    }
+    
+    const mydate = new Date(props.data.document1&&props.data.document1.tanggal_diperbarui);
+    const hour = nol(mydate.getHours());
+    const minute = nol(mydate.getMinutes());
+    const date = mydate.getDate();
+    let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
+    let str =  hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
+
     return(
             <Document size='A4'>
                 <Page style={style.body}>
@@ -136,7 +201,7 @@ const DownloadGNRM = (props) => {
                                 Sekretariat
                             </Text>
                             <Text>
-                                Jl. Medan Merdeka Barat No. 3, Jakarta Pusat 10110
+                                {props.data.instansi && props.data.instansi.alamat}
                             </Text>
                             {/* <Text>
                                 Gedung Kementerian Koordinator Bidang Pembangunan Manusia & Kebudayaan
@@ -174,6 +239,9 @@ const DownloadGNRM = (props) => {
 
                     {/*Body*/}
                     <View style={style.headerMargTop}>
+                        <Text style={style.isiWaktu}>
+                            Waktu Unggah : {str}
+                        </Text>
                         <Text style={style.headerBold}>
                             1.        Nama Instansi
                         </Text>
@@ -185,8 +253,13 @@ const DownloadGNRM = (props) => {
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
-                            Nama Program : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
-
+                                Nama Program : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
+                            </Text>
+                            <Text style={style.text}>
+                                Kegiatan Prioritas : {props.data.document1.form && props.data.document1.form.kp}. 
+                            </Text>
+                            <Text style={style.text}>
+                                Program Prioritas : {props.data.document1.form && props.data.document1.form.prop}. 
                             </Text>
                             <Text > 
                                 Penjelasan : {props.data.document1.form && props.data.document1.form.kegiatan.penjelasan_kegiatan}
@@ -209,9 +282,23 @@ const DownloadGNRM = (props) => {
                         <Text style={style.headerBold}>
                             4.        Kondisi Awal
                         </Text>
-                        <Text style={style.isi}>
+                        <Text style={style.isiFix}>
                             {props.data.document1.form && props.data.document1.form.kondisi_awal}
                         </Text>
+                        <View style={style.isiFlex}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.kondisi_awal.map((media,index) => {
+                                    return(
+                                        <View style={style.isiimage} wrap={false}>
+                                            <Image style={style.images} source={image}/>
+                                            <Text style={style.textimage}>
+                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
+                                            </Text>
+                                        </View>
+                                    )   
+                                })
+                            }
+                        </View>
                         <Text style={style.headerBold}>
                             5.        Anggaran
                         </Text>
@@ -226,13 +313,27 @@ const DownloadGNRM = (props) => {
                         <Text style={style.headerBold}>
                             6.        Proses Perkembangan Pelaksanaan Kegiatan
                         </Text>
-                        <Text style={style.isi}>
+                        <Text style={style.isiFix}>
                             {props.data.document1.form && props.data.document1.form.proses}
                         </Text>
+                        <View style={style.isiFlex}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.proses.map((media,index) => {
+                                    return(
+                                        <View style={style.isiimage} wrap={false}>
+                                            <Image style={style.images} source={image}/>
+                                            <Text style={style.textimage}>
+                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
+                                            </Text>
+                                        </View>
+                                    )   
+                                })
+                            }
+                        </View>
                         <Text style={style.headerBold}>
                             7.        Pihak Terkait
                         </Text>
-                        <View style={style.isi}>
+                        <View style={style.isi} >
                             {
                                 (props.data.document1.form && props.data.document1.form.pihak_terkait).map((pihak,index) => {
                                     return(
@@ -254,18 +355,20 @@ const DownloadGNRM = (props) => {
                         <Text style={style.headerBold}>
                             8.        Lampiran Media
                         </Text>
-                        <Text style={style.isi}>
-                            Nam augue neque fermentum non, magnis. Nibh eu sed vel eleifend cursus arcu faucibus sapien integer. Aenean duis convallis enim lobortis. Venenatis cursus nibh porta magnis orci, nunc. Massa ut feugiat posuere facilisi. Imperdiet sed felis faucibus mattis et, nunc non. Pharetra non vitae purus non pharetra commodo rutrum enim. Eu viverra magna dictum non vitae velit amet. Nibh at aliquet ultrices proin suscipit sit. Nisl auctor leo, tincidunt non volutpat iaculis est nibh non. Massa sed blandit facilisi pharetra faucibus sed non ac. Sit aliquam tellus morbi a faucibus.
-                            Ullamcorper ultrices porta nulla erat in magna ante. Aliquet vel eget id interdum ornare. Ut ipsum ullamcorper at vel orci arcu laoreet in. Sed tempor tortor mattis augue pellentesque consectetur. Elit elementum vel consectetur purus.
-                            Parturient faucibus vitae aliquam ut ac id condimentum. Gravida faucibus egestas nunc, sagittis pretium, quam quis amet. Sed volutpat viverra maecenas sit nunc pulvinar erat. Nisl penatibus morbi imperdiet mattis arcu, posuere adipiscing egestas. Eu, integer et et ipsum orci gravida massa vitae tristique. Arcu velit justo sollicitudin pretium massa proin. Eros, arcu mauris adipiscing turpis. Eleifend nunc at consequat tincidunt purus vitae pellentesque nascetur et. Porttitor mattis aliquam sapien, sagittis mattis nisl. Morbi rhoncus leo, dui sit tellus sollicitudin eget aenean. Tellus maecenas non congue sem eu et ac. Condimentum orci arcu tempus leo nisl. Arcu nunc natoque purus egestas pharetra, habitasse. Neque cursus mauris in vitae netus mauris.
-                            Non mattis urna adipiscing eget morbi neque. Massa semper enim auctor leo urna sit orci posuere. Sed massa volutpat aliquam sed sit. Vitae turpis tincidunt in penatibus semper sagittis malesuada tellus dignissim. Consequat convallis nunc rhoncus, justo, sit et. Ultricies odio commodo maecenas bibendum sit libero nulla. Id vulputate eu et dictum. Sit habitant laoreet egestas nec neque. Euismod nisl egestas tristique pharetra quam viverra suspendisse aliquet. Diam ut dignissim.
-                            Nam augue neque fermentum non, magnis. Nibh eu sed vel eleifend cursus arcu faucibus sapien integer. Aenean duis convallis enim lobortis. Venenatis cursus nibh porta magnis orci, nunc. Massa ut feugiat posuere facilisi. Imperdiet sed felis faucibus mattis et, nunc non. Pharetra non vitae purus non pharetra commodo rutrum enim. Eu viverra magna dictum non vitae velit amet. Nibh at aliquet ultrices proin suscipit sit. Nisl auctor leo, tincidunt non volutpat iaculis est nibh non. Massa sed blandit facilisi pharetra faucibus sed non ac. Sit aliquam tellus morbi a faucibus.
-                            Ullamcorper ultrices porta nulla erat in magna ante. Aliquet vel eget id interdum ornare. Ut ipsum ullamcorper at vel orci arcu laoreet in. Sed tempor tortor mattis augue pellentesque consectetur. Elit elementum vel consectetur purus.
-                            Parturient faucibus vitae aliquam ut ac id condimentum. Gravida faucibus egestas nunc
-                            Nam augue neque fermentum non, magnis. Nibh eu sed vel eleifend cursus arcu faucibus sapien integer. Aenean duis convallis enim lobortis. Venenatis cursus nibh porta magnis orci, nunc. Massa ut feugiat posuere facilisi. Imperdiet sed felis faucibus mattis et, nunc non. Pharetra non vitae purus non pharetra commodo rutrum enim. Eu viverra magna dictum non vitae velit amet. Nibh at aliquet ultrices proin suscipit sit. Nisl auctor leo, tincidunt non volutpat iaculis est nibh non. Massa sed blandit facilisi pharetra faucibus sed non ac. Sit aliquam tellus morbi a faucibus.
-                            Ullamcorper ultrices porta nulla erat in magna ante. Aliquet vel eget id interdum ornare. Ut ipsum ullamcorper at vel orci arcu laoreet in. Sed tempor tortor mattis augue pellentesque consectetur. Elit elementum vel consectetur purus.
-                            Parturient faucibus vitae aliquam ut ac id condimentum. Gravida faucibus egestas nunc
-                        </Text>
+                        <View style={style.isiFlex}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.media.map((media,index) => {
+                                    return(
+                                        <View style={style.isiimage} wrap={false}>
+                                            <Image style={style.images} source={image}/>
+                                            <Text style={style.textimage}>
+                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
+                                            </Text>
+                                        </View>
+                                    )   
+                                })
+                            }
+                        </View>
                         
                     </View>
 

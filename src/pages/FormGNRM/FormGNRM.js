@@ -12,9 +12,13 @@ import Scroll, { Element } from 'react-scroll'
 import Popup from '../../component/Popup/Popup';
 import plus2 from '../../assets/plus2.png'
 import Spinner from '../../component/Spinner/Spinner'
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormGNRM = (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocumentFalse, editDocument ,isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, user, isEditing, editDocumentFalse, editDocument ,isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
     const {userDetail , token} = useContext(AuthContext)
     console.log(userDetail)
     const Link = Scroll.Link;
@@ -26,25 +30,6 @@ const FormGNRM = (props) => {
 
     const [ instansiDetail , setInstansiDetail] = useState({})
     console.log(instansiDetail)
-
-    useEffect(() => {
-        const getInstansiDetail = async () => {
-            const config = {
-                headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`,
-                }
-            }
-            try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
-                setInstansiDetail(res.data.instansi)
-            }
-            catch (err) {
-                console.log(err)
-            }
-        }
-        getInstansiDetail()
-    },[])
-
 
     const [data, setData] = useState({
         tahun: '',
@@ -124,6 +109,7 @@ const FormGNRM = (props) => {
     const [lampiranKondisiUrl, setLampiranKondisiUrl] = useState([])
     
     const [form, setForm] = useState([])
+    const [formGerakan, setFormGerakan] = useState([])
     const [proyek, setProyek] = useState([])
     const [kpOptions, setKpOptions] = useState([])
     const [propOptions, setPropOptions] = useState([])
@@ -159,8 +145,18 @@ const FormGNRM = (props) => {
         )
     }
 
+    const addFormGerakan = (e) => {
+        e.preventDefault()
+        if(formGerakan.length < 4) {
+            let forms = formGerakan.concat([''])
+            setFormGerakan(
+              forms
+            )
+        }
+    }
+
     const [sk,setSk] = useState({
-        sk_status: true,
+        sk_status: '',
         sk_no: '',
         sk_kendala : ''
     })
@@ -224,6 +220,13 @@ const FormGNRM = (props) => {
         else 
             setData({ ...data, [event.target.name]: event.target.value })    
     }
+
+    // const [gerakanss,setGerakanss] = useState([])
+    // const onChangeGerakan = (e) => {
+    //     setGerakanss({gerakanss, })
+    //     let gerakans = 
+    //     setData
+    // }
     
     const onSubmitSK = async (event) => {
         setLoadingTrue()
@@ -235,6 +238,10 @@ const FormGNRM = (props) => {
             }
         }  else {formData.append('sk', new File([null], 'blob'))}
 
+        for (let pair of formData.entries()) {
+			console.log(pair[0] + ', ' + pair[1])
+        }
+        
         const config = {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -242,7 +249,8 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
+        const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
+        alert(res.data.message)
         setLoadingFalse()
     }
 
@@ -315,7 +323,8 @@ const FormGNRM = (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
+        const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
+        onSubmitSK()
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
         resetDocument()
@@ -324,18 +333,6 @@ const FormGNRM = (props) => {
     }
     
 
-    useEffect(() => {
-        if(userDetail){
-            setSk({
-                ...sk,
-                sk_no: userDetail&&userDetail.instansi.sk.no,
-                sk_kendala: userDetail&&userDetail.instansi.sk.kendala
-            })
-    
-            const gambar = `https://test.bariqmbani.me${userDetail&&userDetail.instansi.sk.foto}`
-            setSkGambar(gambar)
-        }
-    },[userDetail])
 
     console.log(userDetail)
 
@@ -348,7 +345,7 @@ const FormGNRM = (props) => {
             
             setProyek(proyek)
             setGerakanOptions(gerakan)
-            setKpOptions((proyek.map(proyek => proyek.kp)))
+            setKpOptions((proyek&&proyek.map(proyek => proyek.kp)))
         })()
 
         // getInstansiDetail()
@@ -367,12 +364,49 @@ const FormGNRM = (props) => {
     },[])
 
     useEffect(() => {
+        const getInstansiDetail = async () => {
+            const config = {
+                headers: {
+                    'X-Auth-Token': `aweuaweu ${token}`,
+                }
+            }
+            try {
+                if(props.match.params.id) {
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,config)
+                    setInstansiDetail(res.data.instansi)
+                } else {
+                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
+                    setInstansiDetail(res.data.instansi)
+                }
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getInstansiDetail()
+    },[userDetail,props.match.params.id])
+
+    useEffect(() => {
+        if(instansiDetail){
+            setSk({
+                ...sk,
+                sk_no: instansiDetail.sk&&instansiDetail.sk.no,
+                sk_status: instansiDetail.sk&&instansiDetail.sk.status,
+                sk_kendala: instansiDetail.sk&&instansiDetail.sk.kendala
+            })
+    
+            const gambar = `https://test.bariqmbani.me${instansiDetail.sk&&instansiDetail.sk.foto}`
+            setSkGambar(gambar)
+        }
+    },[instansiDetail])
+
+    useEffect(() => {
         const getProp = (kp) => {
             let kpIndex
-            proyek.forEach((proyek, index) => {
+            proyek&&proyek.forEach((proyek, index) => {
                 if (proyek.kp === kp) kpIndex = index
             })
-            return proyek[kpIndex].prop
+            return proyek[kpIndex]&&proyek[kpIndex].prop
         }
 
         if(selectedKp) setPropOptions(getProp(selectedKp))
@@ -475,12 +509,17 @@ const FormGNRM = (props) => {
     return(
       <Fragment>
           <SideBarOff/>
-            <div className="background-after-login"/>
+            <div className="background-after-login">
+                <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
+                <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
+                <img src={bg_3} alt='bg3' style={{position: 'fixed' , bottom:'-200px' , left: '0'}}/>
+                <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
+            </div>
           <Popup notif={props.notif}/>
             {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
             <div className={isPreviewing ? 'd-none': "form"}>
                 <div className="tajuk-page">
-                <h1> FORM RENCANA PELAKSANAAN PROGRAM</h1>
+                <h1> FORMULIR RENCANA PELAKSANAAN PROGRAM</h1>
                 </div>
 
             {
@@ -491,7 +530,7 @@ const FormGNRM = (props) => {
                     </div> 
                 </div>
                 :
-                <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
+                <form style={{width:'fit-content' , height:'fit-content' , margin:'auto'}} onSubmit={isEditing ? onEdit : onSubmit}>
                     <Element id='identitas' name='identitas'>
                         <div className="gnrm-container">
                             <div className="form-gnrm">
@@ -584,10 +623,10 @@ const FormGNRM = (props) => {
                             </div>
                             <div className="form-gnrm">
                             {
-                                userDetail && userDetail.instansi.sk.status ? 
+                                instansiDetail.sk && instansiDetail.sk.status ? 
                                     <Fragment>
                                         <div>
-                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
+                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Nomor SK</label>
                                             <div
                                                 className="gnrm-sasaran" 
                                                 style={{height: "42px", 
@@ -597,16 +636,16 @@ const FormGNRM = (props) => {
                                             >{sk.sk_no}</div>
                                         </div>
                                         <div>
-                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
+                                            <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran SK</label>
                                             <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
-                                                <img src={skGambar} alt={getFileName(userDetail&&userDetail.instansi.sk.foto)} style={{width:'fit-content' , height: 'fit-content'}}/><br/>
+                                                <img src={skGambar} alt={getFileName(instansiDetail.sk&&instansiDetail.sk.foto)} style={{width:'500px' , height: 'auto'}}/><br/>
                                                 <div
                                                     className="gnrm-sasaran" 
                                                     style={{height: "42px", 
                                                             width: "955px",
                                                             fontWeight:'700'
                                                             }}
-                                                >{getFileName(userDetail&&userDetail.instansi.sk.foto)}</div>
+                                                >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
                                             </div>
                                         </div>
                                     </Fragment>
@@ -650,6 +689,7 @@ const FormGNRM = (props) => {
                                                             name="no_sk"
                                                             value={sk.no_sk}
                                                             onChange={onChangeSK}
+                                                            required
                                                         />
                                                     </div>
                                                     <div>
@@ -666,6 +706,7 @@ const FormGNRM = (props) => {
                                                             accept="image/*"
                                                             name="media"
                                                             multiple
+                                                            required
                                                         />
                                                     </div>
                                                         <div>
@@ -677,6 +718,7 @@ const FormGNRM = (props) => {
                                                                     padding: '10px',
                                                                     display: 'flex',
                                                                     flexWrap: 'wrap',
+                                                                    overflow: 'hidden'
                                                                 }} 
                                                                 >
                                                                     {
@@ -816,7 +858,7 @@ const FormGNRM = (props) => {
                                                         style={{marginLeft: '84px'}}
                                                     >
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                            propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select> :
@@ -828,7 +870,7 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                            propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select>
@@ -836,34 +878,80 @@ const FormGNRM = (props) => {
                                             </div>
                                             
                                             {
-                                                selectedKp === 'Penguatan pusat-pusat perubahan gerakan revolusi mental' &&
-                                                <div>
-                                                    <label>Gerakan</label>
+                                                selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' &&
+                                                <Fragment>
+
+                                                    <div>
+                                                        <label>Gerakan</label>
+                                                        {
+                                                            documentDetail ?
+                                                            <select 
+                                                                onChange={onChange} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                {
+                                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select> :
+                                                            <select 
+                                                                onChange={onChange} 
+                                                                class="gnrm-select"
+                                                                name="gerakan"
+                                                                style={{marginLeft: '145px'}}
+                                                            >
+                                                                <option selected={true} hidden></option>
+                                                                {
+                                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
                                                     {
-                                                        documentDetail ?
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select> :
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            <option selected={true} hidden></option>
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select>
+                                                        formGerakan.map((form,index) => {
+                                                            return(
+                                                                <div key={index}>
+                                                                    <label>Gerakan</label>
+                                                                    {
+                                                                        documentDetail ?
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            {
+                                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select> :
+                                                                        <select 
+                                                                            // onChange={onChangeGerakan} 
+                                                                            class="gnrm-select"
+                                                                            name="gerakan"
+                                                                            style={{marginLeft: '145px'}}
+                                                                        >
+                                                                            <option selected={true} hidden></option>
+                                                                            {
+                                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
                                                     }
-                                                </div>
+                                                        {
+                                                            formGerakan.length < 4 ?
+                                                                <div>
+                                                                    <label className="tambah-lembaga" >
+                                                                        Tambah Gerakan 
+                                                                    </label>
+                                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
+                                                                </div>  
+                                                            : ''
+                                                        }
+                                                </Fragment>
                                             }
                                         </Fragment>
                                     :
@@ -1052,6 +1140,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1108,6 +1197,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1285,6 +1375,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1341,6 +1432,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1622,6 +1714,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1678,6 +1771,7 @@ const FormGNRM = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1807,12 +1901,8 @@ const FormGNRM = (props) => {
                                 >
                                     <button className="previous-last-1"><i className="material-icons">expand_less</i></button>
                                 </Link>
-                                {
-                                    isEditing ?
-                                        <button className="simpan-gnrm" onClick={onEdit}>SIMPAN PERUBAHAN</button>
-                                    :
-                                        <button className="simpan-gnrm" onClick={onSubmit}>SIMPAN PERUBAHAN</button>
-                                }
+
+                                <button className="simpan-gnrm" value='submit' >SIMPAN PERUBAHAN</button>
                                 
                                 <button className="preview-gnrm" onClick={setPreview}>PREVIEW LAPORAN</button>
 
