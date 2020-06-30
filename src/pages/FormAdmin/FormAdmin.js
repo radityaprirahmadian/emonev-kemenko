@@ -55,7 +55,7 @@ const FormAdmin = (props) => {
         },[user])
 
         useEffect(() => {
-            axios.get('https://test.bariqmbani.me/api/v1/instansi')
+            axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
                 console.log('wow')
@@ -74,7 +74,7 @@ const FormAdmin = (props) => {
                 }
             }
             try {
-                const res = await axios.post(`https://test.bariqmbani.me/api/v1/user`,formData,config)
+                const res = await axios.post(`https://api.simonev.revolusimental.go.id/api/v1/user`,formData,config)
                 alert(res.data.message)
                 history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
             }

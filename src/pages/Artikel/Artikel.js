@@ -24,7 +24,7 @@ const Artikel = (props) => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/kabar?instansi=${infografisDetail&&infografisDetail.instansi.nama_pendek}`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${infografisDetail&&infografisDetail.instansi.nama_pendek}`)
                 setInfografisRelated(res.data.kabar.filter(info => info._id !== props.match.params.id))
                 console.log(res.data.kabar)
         }
@@ -35,7 +35,7 @@ const Artikel = (props) => {
     const download = async () => {
         setTimeout(() => {
             const response = {
-                file: `https://test.bariqmbani.me/api/v1/kabar/${props.match.params.id}/download`
+                file: `https://api.simonev.revolusimental.go.id/api/v1/kabar/${props.match.params.id}/download`
             }
             window.open(response.file)
         }, 100)
@@ -72,7 +72,7 @@ const Artikel = (props) => {
 
     useEffect(() => {
         setLoadingTrue()
-        const wow = infografisDetail && infografisDetail.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+        const wow = infografisDetail && infografisDetail.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
         setGambar(wow)
         setLoadingFalse()
         getAllDocument()
@@ -95,7 +95,7 @@ const Artikel = (props) => {
                             <div className="judul-artikel">
                                 {infografisDetail && infografisDetail.judul}
                                 <div className="logo-artikel">
-                                    <img src={`https://test.bariqmbani.me${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian' style={{width:'90px',height:'85.5px'}}/>
+                                    <img src={`https://api.simonev.revolusimental.go.id${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian' style={{width:'90px',height:'85.5px'}}/>
                                 </div>
                             </div>
                             <div className="card-artikel">
@@ -189,13 +189,13 @@ const Artikel = (props) => {
                                 <div className="artikel-terkait-news">
                                     {
                                         infografisRelated.slice(0,3).map((info,index) => {
-                                            const wow = info.gambar.map(infografis => `https://test.bariqmbani.me${infografis.path}`)
+                                            const wow = info.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
                                             return(
                                                 <Link to={`/artikel/${info._id}`}>
                                                     <div className="artikel-terkait-card">
                                                         <div style={{backgroundColor:'rgba(0,0,0,0.4)' , width:'300px' , height:'150px' , position:'absolute'}}></div>
                                                         <img src={wow[0]} alt='infografis-terkait' style={{width:'300px' , height:'150px'}}/>
-                                                        <img src={`https://test.bariqmbani.me${info.instansi.logo}`} alt='infografis-logo-instansi' style={{width:'75px' , height: '75px', position:'absolute' , top: '5px' , left:'5px'}}/>
+                                                        <img src={`https://api.simonev.revolusimental.go.id${info.instansi.logo}`} alt='infografis-logo-instansi' style={{width:'75px' , height: '75px', position:'absolute' , top: '5px' , left:'5px'}}/>
                                                         <div style={{fontSize:'14px', color:'white', fontWeight:'600' ,position:'absolute' , bottom : '5px' , left: '10px' , width:'250px' , height:'20px' , lineHeight: '20px'}} >{info.judul.length > 30 ? `${info.judul.substr(0, 27)}...` : info.judul}</div>
                                                     </div>
                                                 </Link>

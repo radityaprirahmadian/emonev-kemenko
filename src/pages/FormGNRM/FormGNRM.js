@@ -249,7 +249,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-        const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
+        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
         alert(res.data.message)
         setLoadingFalse()
     }
@@ -280,7 +280,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-        const res = await axios.post('https://test.bariqmbani.me/api/v1/document?type=gnrm',formData,config,)
+        const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm',formData,config,)
         onSubmitSK()
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
@@ -323,7 +323,7 @@ const FormGNRM = (props) => {
 			},
 		}
 
-        const res = await axios.put(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
+        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,formData,config)
         onSubmitSK()
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
@@ -338,7 +338,7 @@ const FormGNRM = (props) => {
 
     useEffect(() => {
         (async () => {
-            const proyekData = await axios.get('https://test.bariqmbani.me/api/v1/proyek')
+            const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek')
 
             const { proyek, gerakan } = proyekData.data
             
@@ -372,10 +372,10 @@ const FormGNRM = (props) => {
             }
             try {
                 if(props.match.params.id) {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/document/${props.match.params.id}?type=gnrm`,config)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,config)
                     setInstansiDetail(res.data.instansi)
                 } else {
-                    const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
                     setInstansiDetail(res.data.instansi)
                 }
             }
@@ -396,7 +396,7 @@ const FormGNRM = (props) => {
                 sk_kendala: instansiDetail.sk&&instansiDetail.sk.kendala
             })
     
-            const gambar = `https://test.bariqmbani.me${instansiDetail.sk&&instansiDetail.sk.foto}`
+            const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`
             setSkGambar(gambar)
         }
     },[instansiDetail])
@@ -429,7 +429,7 @@ const FormGNRM = (props) => {
             setPanjang(documentDetail && documentDetail.form.pihak_terkait.length)
             setSelectedKp(documentDetail.form.kp)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://test.bariqmbani.me${media.path}`)
+            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -439,7 +439,7 @@ const FormGNRM = (props) => {
                 })
             })
 
-            const mediaFileUrl2 = documentDetail.form.lampiran.kondisi_awal.map(kondisi_awal => `https://test.bariqmbani.me${kondisi_awal.path}`)
+            const mediaFileUrl2 = documentDetail.form.lampiran.kondisi_awal.map(kondisi_awal => `https://api.simonev.revolusimental.go.id${kondisi_awal.path}`)
             const files2 = []
             mediaFileUrl2.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -449,7 +449,7 @@ const FormGNRM = (props) => {
                 })
             })
 
-            const mediaFileUrl3 = documentDetail.form.lampiran.proses.map(proses => `https://test.bariqmbani.me${proses.path}`)
+            const mediaFileUrl3 = documentDetail.form.lampiran.proses.map(proses => `https://api.simonev.revolusimental.go.id${proses.path}`)
             const files3 = []
             mediaFileUrl3.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {

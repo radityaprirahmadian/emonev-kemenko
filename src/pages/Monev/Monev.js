@@ -54,7 +54,7 @@ const Monev =  (props) =>{
     //         }
     //     }
     //     try {
-    //         const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev`, config)
+    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=monev`, config)
     //         setFilter({...filter, totalDoc: res.data.document.length})
     //     }
     //     catch (err) {
@@ -70,7 +70,7 @@ const Monev =  (props) =>{
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
             setDocuments(res.data.document)
             setFilter({...filter, totalDoc: res.data.total})
             setLoadingFalse()
@@ -88,7 +88,7 @@ const Monev =  (props) =>{
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/document/${id}?type=monev`,config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=monev`,config)
             getAllDocument()
         }
         catch (err) {

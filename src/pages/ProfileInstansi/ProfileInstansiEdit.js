@@ -50,7 +50,7 @@ const ProfileInstansiEdit = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,config)
             setInstansiDetail(res.data.instansi)
         }
         catch (err) {
@@ -78,7 +78,7 @@ const ProfileInstansiEdit = (props) => {
         }
 
         try {
-            const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,formData,config,)
             alert(res.data.message)                
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${props.match.params.id}`)
             window.location.reload()
@@ -122,7 +122,7 @@ const ProfileInstansiEdit = (props) => {
                 website: instansiDetail.website
             })
             
-            const wow = `https://test.bariqmbani.me${instansiDetail&&instansiDetail.logo}`
+            const wow = `https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`
             setFotos(wow)
         }
     },[instansiDetail])

@@ -34,7 +34,7 @@ const Topbar = (props) => {
 
     const getAllDocument = async () => {
         try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/infografis?status=true`)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`)
                 setDocuments(res.data.infografis)
         }
         catch (err) {
@@ -49,7 +49,7 @@ const Topbar = (props) => {
     }, [token])
 
     useEffect(() => {
-        axios.get('https://test.bariqmbani.me/api/v1/pelaksanaan')
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/pelaksanaan')
         .then(res => {
             setInstansi(res.data.instansi)
             console.log('wow')
@@ -171,7 +171,7 @@ const Topbar = (props) => {
                                                                         <li key={instansi._id} className="menu-1-kementrian">
                                                                             {
                                                                                 instansi.logo ?
-                                                                                    <img src={`https://test.bariqmbani.me${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
+                                                                                    <img src={`https://api.simonev.revolusimental.go.id${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
                                                                                 :
                                                                                     <img src={logo_kemenko} className='logo-in-megamenu' alt='logo'/>
                                                                             }

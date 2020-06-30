@@ -27,7 +27,7 @@ const ProfileInstansi = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,config)
             setInstansiDetail(res.data.instansi)
             setLoading(false)
         }
@@ -57,7 +57,7 @@ const ProfileInstansi = (props) => {
     // },[instansiDetail])
 
     useEffect(() => {
-        const wow = `https://test.bariqmbani.me${instansiDetail&&instansiDetail.logo}`
+        const wow = `https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`
         setFoto(wow)
     },[instansiDetail])
 

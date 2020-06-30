@@ -59,7 +59,7 @@ const FormInstansi = (props) => {
         }
 
         useEffect(() => {
-            axios.get('https://test.bariqmbani.me/api/v1/instansi')
+            axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
                 console.log('wow')
@@ -78,7 +78,7 @@ const FormInstansi = (props) => {
                 }
             }
             try {
-                const res = await axios.get(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,config)
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,config)
                 setInstansiDetail(res.data.instansi)
             }
             catch (err) {
@@ -108,7 +108,7 @@ const FormInstansi = (props) => {
             }
 
             try {
-                const res = await axios.post('https://test.bariqmbani.me/api/v1/instansi',formData,config,)
+                const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/instansi',formData,config,)
                 alert(res.data.message)                
                 setLoading(false)
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
@@ -144,7 +144,7 @@ const FormInstansi = (props) => {
                 },
             }
             try {
-                const res = await axios.put(`https://test.bariqmbani.me/api/v1/instansi/${props.match.params.id}`,formData,config,)
+                const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,formData,config,)
                 alert(res.data.message)
                 setLoading(false)
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
@@ -206,7 +206,7 @@ const FormInstansi = (props) => {
                 })
 
             if(instansiDetail.logo) {
-                const mediaFileUrl = [`https://test.bariqmbani.me${instansiDetail.logo}`]
+                const mediaFileUrl = [`https://api.simonev.revolusimental.go.id${instansiDetail.logo}`]
                 const files = []
                 mediaFileUrl.forEach(url => {
                     fetch(url).then(res => res.blob()).then(blob => {

@@ -16,7 +16,7 @@ const Filter = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/document?type=gnrm`, config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm`, config)
             setFilterTahun(res.data.filter.tahun)
             setFilterKp(res.data.filter.kp)
             setFilterInstansi(res.data.filter.instansi)

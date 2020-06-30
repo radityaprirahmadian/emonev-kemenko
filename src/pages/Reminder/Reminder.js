@@ -45,7 +45,7 @@ const Reminder = (props) => {
             }
         }
         try {
-            const res = await axios.get(`https://test.bariqmbani.me/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
             setAllReminder(res.data.notifikasi)
             setFilter({...filter, total: res.data.total})
             setLoading(false)
@@ -63,7 +63,7 @@ const Reminder = (props) => {
             }
         }
         try {
-            await axios.delete(`https://test.bariqmbani.me/api/v1/notifikasi/${id}`, config)
+            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`, config)
             getAllReminder()
         }
         catch (err) {

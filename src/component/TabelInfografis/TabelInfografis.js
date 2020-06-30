@@ -29,7 +29,7 @@ const TabelInfografis = (props) => {
     const onOpen = (e) => {
         e.preventDefault()
         setOpen(true)
-        const gams = props.gambar.map(gambar => `https://test.bariqmbani.me${gambar.path}` )
+        const gams = props.gambar.map(gambar => `https://api.simonev.revolusimental.go.id${gambar.path}` )
         setGambar(gams)
     }
 
