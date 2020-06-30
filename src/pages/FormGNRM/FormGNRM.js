@@ -115,6 +115,7 @@ const FormGNRM = (props) => {
     const [propOptions, setPropOptions] = useState([])
     const [gerakanOptions, setGerakanOptions] = useState([])
     const [selectedKp, setSelectedKp] = useState(false)
+    const [selectedGerakan, setSelectedGerakan] = useState({})
     const [deletedMedia, setDeletedMedia] = useState([])
     const [deletedLampiranProses, setDeletedLampiranProses] = useState([])
     const [deletedLampiranKondisi, setDeletedLampiranKondisi] = useState([])
@@ -152,7 +153,31 @@ const FormGNRM = (props) => {
             setFormGerakan(
                 forms
             )
+            documentDetail && setSelectedGerakan({ ...selectedGerakan, [`gerakan-${forms.length}`]: '' })
         }
+    }
+
+    useEffect(() => {
+        setData({ ...data, gerakan: Object.values(selectedGerakan).join(',') })
+    }, [selectedGerakan])
+
+    const onChangeGerakan = (e) => {
+        setSelectedGerakan({ ...selectedGerakan, [e.target.name]: e.target.value })
+    }
+
+    const onDeleteGerakanForm = (deleted) => {
+        const deletedGerakan = Object.values(selectedGerakan).filter((deletedGerakan, index) => {
+            if (index === deleted + 1) return deletedGerakan
+        })
+        const gerakanArray = Object.values(selectedGerakan).filter(selected => selected !== deletedGerakan[0])
+        const gerakanObj = {}
+        gerakanArray.forEach((gerakan, i) => {
+            gerakanObj[`gerakan-${i}`] = gerakan
+        })
+        setSelectedGerakan(gerakanObj)
+        let forms = formGerakan
+        forms.pop()
+        setFormGerakan(forms)
     }
 
     const [sk, setSk] = useState({
@@ -220,13 +245,6 @@ const FormGNRM = (props) => {
         else
             setData({ ...data, [event.target.name]: event.target.value })
     }
-
-    // const [gerakanss,setGerakanss] = useState([])
-    // const onChangeGerakan = (e) => {
-    //     setGerakanss({gerakanss, })
-    //     let gerakans = 
-    //     setData
-    // }
 
     const onSubmitSK = async (event) => {
         setLoadingTrue()
@@ -332,10 +350,6 @@ const FormGNRM = (props) => {
         setLoadingFalse()
     }
 
-
-
-    console.log(userDetail)
-
     useEffect(() => {
         (async () => {
             const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek')
@@ -359,8 +373,6 @@ const FormGNRM = (props) => {
             editDocumentFalse()
         }
     }, [])
-
-    console.log(proyek)
 
     useEffect(() => {
         const getInstansiDetail = async () => {
@@ -428,6 +440,16 @@ const FormGNRM = (props) => {
             setLampiranProses(documentDetail.form.lampiran.proses)
             setPanjang(documentDetail && documentDetail.form.pihak_terkait.length)
             setSelectedKp(documentDetail.form.kp)
+
+            const gerakanArray = documentDetail.form.gerakan.split(',')
+            const gerakanObj = {}
+
+            gerakanArray.forEach((gerakan, i) => {
+                gerakanObj[`gerakan-${i}`] = gerakan
+            })
+
+            setSelectedGerakan(gerakanObj)
+            setFormGerakan(new Array(gerakanArray.length - 1))
 
             const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             const files = []
@@ -503,9 +525,6 @@ const FormGNRM = (props) => {
     //     setLampiranProses([...lampiranProses , ...event.target.files])
     //         event.target.value = null    
     // }
-
-    console.log(documentDetail && documentDetail.form.tahun)
-    console.log(sk)
 
     return (
         <Fragment>
@@ -894,66 +913,104 @@ const FormGNRM = (props) => {
                                                     {
                                                         selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' &&
                                                         <Fragment>
-
                                                             <div>
                                                                 <label>Gerakan</label>
                                                                 {
-                                                                    documentDetail ?
+                                                                    isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
                                                                         <select
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
-                                                                            name="gerakan"
+                                                                            name="gerakan-0"
                                                                             style={{ marginLeft: '145px' }}
                                                                         >
+                                                                            <option value={selectedGerakan['gerakan-0']} defaultValue>{selectedGerakan['gerakan-0']}</option>
                                                                             {
-                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                    let alreadySelected = false
+                                                                                    Object.values(selectedGerakan).forEach(selected => {
+                                                                                        if (gerakan === selected) alreadySelected = true
+                                                                                    });
+                                                                                    return <option key={i} value={gerakan} selected={gerakan === selectedGerakan['gerakan-0'] ? true : false} hidden={alreadySelected}>{gerakan}</option>
+                                                                                })
                                                                             }
                                                                         </select> :
                                                                         <select
-                                                                            onChange={onChange}
+                                                                            onChange={onChangeGerakan}
                                                                             class="gnrm-select"
-                                                                            name="gerakan"
+                                                                            name="gerakan-0"
                                                                             style={{ marginLeft: '145px' }}
                                                                         >
                                                                             <option selected={true} hidden></option>
                                                                             {
-                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                    let alreadySelected = false
+                                                                                    Object.values(selectedGerakan).forEach(selected => {
+                                                                                        if (gerakan === selected) alreadySelected = true
+                                                                                    });
+                                                                                    return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
+                                                                                })
                                                                             }
                                                                         </select>
                                                                 }
                                                             </div>
                                                             {
-                                                                formGerakan.map((form, index) => {
-                                                                    return (
-                                                                        <div key={index}>
-                                                                            <label>Gerakan</label>
-                                                                            {
-                                                                                documentDetail ?
+                                                                isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
+                                                                    Object.values(selectedGerakan)
+                                                                        .filter(selected => selected !== selectedGerakan['gerakan-0'])
+                                                                        .map((_, index) => {
+                                                                            return (
+                                                                                <div>
+                                                                                    <label>Gerakan</label>
                                                                                     <select
-                                                                                        // onChange={onChangeGerakan} 
+                                                                                        onChange={onChangeGerakan}
                                                                                         class="gnrm-select"
-                                                                                        name="gerakan"
+                                                                                        name={`gerakan-${index + 1}`}
                                                                                         style={{ marginLeft: '145px' }}
                                                                                     >
+                                                                                        <option value={_} defaultValue hidden={_ === '' ? true : false}>{_}</option>
                                                                                         {
-                                                                                            gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                                                        }
-                                                                                    </select> :
-                                                                                    <select
-                                                                                        // onChange={onChangeGerakan} 
-                                                                                        class="gnrm-select"
-                                                                                        name="gerakan"
-                                                                                        style={{ marginLeft: '145px' }}
-                                                                                    >
-                                                                                        <option selected={true} hidden></option>
-                                                                                        {
-                                                                                            gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                                            gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                                let alreadySelected = false
+                                                                                                Object.values(selectedGerakan).forEach(selected => {
+                                                                                                    if (gerakan === selected) alreadySelected = true
+                                                                                                });
+                                                                                                return <option key={i} value={gerakan} selected={gerakan === selectedGerakan[`gerakan-${index + 1}`]} hidden={alreadySelected}>{gerakan}</option>
+                                                                                            })
                                                                                         }
                                                                                     </select>
-                                                                            }
-                                                                        </div>
-                                                                    )
-                                                                })
+                                                                                    <span className="remove-form" onClick={() => onDeleteGerakanForm(index)}>
+                                                                                        <i className=""> x </i>
+                                                                                    </span>
+                                                                                </div>
+                                                                            )
+                                                                        }) :
+                                                                    formGerakan.map((form, index) => {
+                                                                        return (
+                                                                            <div key={index}>
+                                                                                <label>Gerakan</label>
+                                                                                <select
+                                                                                    onChange={onChangeGerakan}
+                                                                                    class="gnrm-select"
+                                                                                    name={`gerakan-${index + 1}`}
+                                                                                    style={{ marginLeft: '145px' }}
+                                                                                >
+                                                                                    <option selected={true} hidden></option>
+                                                                                    {
+                                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                            let alreadySelected = false
+                                                                                            Object.values(selectedGerakan).forEach(selected => {
+                                                                                                if (gerakan === selected) alreadySelected = true
+                                                                                            });
+                                                                                            return <option key={i} value={gerakan} hidden={alreadySelected} selected={gerakan === selectedGerakan[`gerakan-${index + 1}`]}>{gerakan}</option>
+                                                                                        })
+                                                                                    }
+                                                                                </select>
+                                                                                <span className="remove-form" onClick={() => onDeleteGerakanForm(index)}>
+                                                                                    <i className=""> x </i>
+                                                                                </span>
+                                                                            </div>
+                                                                        )
+                                                                    })
                                                             }
                                                             {
                                                                 formGerakan.length < 4 ?
@@ -1011,7 +1068,13 @@ const FormGNRM = (props) => {
                                                                                 style={{ marginLeft: '145px' }}
                                                                             >
                                                                                 {
-                                                                                    gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
+                                                                                    gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                        let alreadySelected = false
+                                                                                        Object.values(selectedGerakan).forEach(selected => {
+                                                                                            if (gerakan === selected) alreadySelected = true
+                                                                                        });
+                                                                                        return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
+                                                                                    })
                                                                                 }
                                                                             </select> :
                                                                             <select
@@ -2265,7 +2328,7 @@ const FormGNRM = (props) => {
                 </div>
             </div>
             {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
-        </Fragment>
+        </Fragment >
     );
 }
 
