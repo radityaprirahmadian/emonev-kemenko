@@ -1148,7 +1148,7 @@ const FormGNRM = (props) => {
                                 <div className="gnrm-container" >
                                     <div className="gnrm-title">
                                         OUTPUT
-                            </div>
+                                </div>
                                     <div className="form-gnrm">
                                         <div>
                                             <label style={{ textAlign: 'right', clear: 'both', float: 'left' }}>Indikator Capaian</label>
@@ -1225,7 +1225,7 @@ const FormGNRM = (props) => {
                                 <div className="gnrm-container">
                                     <div className="gnrm-title">
                                         KONDISI AWAL
-                            </div>
+                                </div>
                                     <div className="form-gnrm">
                                         <div>
                                             <label style={{ textAlign: 'right', clear: 'both', float: 'left' }}>Penjelasan</label>
@@ -1419,7 +1419,7 @@ const FormGNRM = (props) => {
                                 <div className="gnrm-container">
                                     <div className="gnrm-title">
                                         ANGGARAN
-                            </div>
+                                </div>
                                     <div className="form-gnrm">
                                         <div>
                                             <label>Sumber Pendanaan</label>
@@ -1674,7 +1674,7 @@ const FormGNRM = (props) => {
                                 <div className="gnrm-container">
                                     <div className="gnrm-title">
                                         PIHAK TERKAIT
-                            </div>
+                                </div>
                                     <div className="form-gnrm">
                                         {
                                             !documentDetail ?
@@ -1744,37 +1744,6 @@ const FormGNRM = (props) => {
                                                                     onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
                                                                 />
                                                             </div>
-<<<<<<< HEAD
-                                                        )
-                                                    })
-                                                }
-                                            </div> //wow
-                                        ) : (
-                                            <div style={{height: "fit-content", 
-                                                marginLeft: "208px", 
-                                                width: "955px",
-                                                border: '1px solid #ACACAC',
-                                                borderRadius: '5px',
-                                                padding: '10px',
-                                                display: 'flex',
-                                                flexWrap: 'wrap',
-                                                overflow: 'hidden'
-                                            }} 
-                                            >
-                                                {
-                                                    lampiranProsesUrl.map((url,index) => {
-                                                        return(
-                                                            <div key={index}>
-                                                                    <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
-                                                                                marginRight:'35px', 
-                                                                                position:'relative'}}
-                                                                        className="d-flex align-items-center justify-content-center"
-                                                                    >
-                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
-=======
                                                             <div>
                                                                 <label>Lembaga Terkait</label>
                                                                 <input
@@ -1965,7 +1934,6 @@ const FormGNRM = (props) => {
                                                                                 color: 'white'
                                                                             }}
                                                                                 onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
->>>>>>> 658631054a2ce16507661cbe18270f7f784aeada
                                                                         </div>
                                                                         <div style={{
                                                                             marginTop: '10px',
@@ -2145,7 +2113,6 @@ const FormGNRM = (props) => {
                                     </div>
                                 </div>
                             </Element>
-
                         </form>
                 }
             </div>

@@ -11,7 +11,7 @@ import plus from '../../assets/plus.png';
 import Filter from '../../component/Filter/Filter';
 import TabelGNRM from '../../component/TabelGNRM/TabelGNRM';
 import Pagination from '../../component/Pagination/Pagination';
-import { Link } from 'react-router-dom';
+import { Link , useHistory  } from 'react-router-dom';
 import Notification from '../../component/Notification/Notification';
 import Spinner from '../../component/Spinner/Spinner'
 import Popup from '../../component/Popup/Popup';
@@ -21,9 +21,10 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const GNRM  = (props) => {
-    const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
+    const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue , preview } = useContext(ArtikelContext)
     const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
+    const history = useHistory()
     const [ filterValue , setFilterValue ] = useState({})
     console.log(documents)
 
@@ -98,6 +99,8 @@ const GNRM  = (props) => {
     const handleReset = () => {
         editDocumentFalse()
         resetDocument()
+        preview()
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-gnrm`)
     }
 
     useEffect(() => {
@@ -127,7 +130,6 @@ const GNRM  = (props) => {
                                 }
                             </div>
                             <div className="input-dan-tajuk">
-                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-gnrm`}>
                                     <button className="tambah-program" onClick={() => handleReset()}>
                                         <img src={plus}></img>
                                         <div className="spacer"></div>
@@ -135,7 +137,6 @@ const GNRM  = (props) => {
                                             Input Program
                                         </h1>
                                     </button>
-                                </Link>
                             </div>
                         
                         <Filter
