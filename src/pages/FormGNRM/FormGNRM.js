@@ -266,8 +266,7 @@ const FormGNRM = (props) => {
                 'X-Auth-Token': `aweuaweu ${token}`,
             },
         }
-
-        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`, formData, config,)
+        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
         alert(res.data.message)
         setLoadingFalse()
     }
@@ -383,11 +382,11 @@ const FormGNRM = (props) => {
                 }
             }
             try {
-                if (props.match.params.id) {
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`, config)
+                if(props.match.params.id) {
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,config)
                     setInstansiDetail(res.data.instansi)
                 } else {
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`, config)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
                     setInstansiDetail(res.data.instansi)
                 }
             }
@@ -407,8 +406,8 @@ const FormGNRM = (props) => {
                 sk_status: instansiDetail.sk && instansiDetail.sk.status,
                 sk_kendala: instansiDetail.sk && instansiDetail.sk.kendala
             })
-
-            const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk && instansiDetail.sk.foto}`
+    
+            const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`
             setSkGambar(gambar)
         }
     }, [instansiDetail])
