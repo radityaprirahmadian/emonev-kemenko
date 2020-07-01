@@ -56,5 +56,6 @@
   },
   "devDependencies": {
     "file-loader": "^6.0.0"
-  }
+  },
+  "homepage": "."
 }
