@@ -72,3 +72,7 @@ body{
 	background: white
 }
 
+img {
+	object-fit: cover;
+}
+
