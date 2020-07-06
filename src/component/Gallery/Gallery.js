@@ -1,7 +1,7 @@
 import React,{Fragment, Component, useEffect, useState, useContext} from 'react';
 import './Gallery.css';
 import axios from 'axios'
-import triangle from '../../assets/triangle.png';
+import triangle from '../../assets/Vector.png';
 import trash from '../../assets/trash.png';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'
@@ -45,13 +45,13 @@ const Gallery = (props) => {
                     setPage(Math.ceil(res.data.total / 9))
                     console.log(res)
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
-                    setGallery(wowo)
+                    setGallery(res.data.galeri)
                 } else {
                     const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?page=${pages}&limit=${limit}`)
                     setTotal(res.data.total_gnrm)
                     setPage(Math.ceil(res.data.total / 9))
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
-                    setGallery(wowo)
+                    setGallery(res.data.galeri)
                     console.log(res)
 
                 }
@@ -62,7 +62,7 @@ const Gallery = (props) => {
                 setPage(Math.ceil(res.data.total / 9))
                 console.log(res)
                 const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
-                setGallery(wowo)
+                setGallery(res.data.galeri)
             }
         }
         catch(err) {
@@ -184,15 +184,16 @@ const Gallery = (props) => {
                             <div className="gallery-container">
                                 {
                                     gallery.map((galleri,index) => {
+                                        const wowo = galleri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` )
                                         return(
                                             <Fragment>
 
-                                                <div className="gallery-item" onClick={(e) => onOpen(e,index,galleri)}>
-                                                    <img src={galleri[0]} alt={`gallery-${index}`} style={{cursor:'pointer' }} className="test_gambar_gallery"></img>
+                                                <div className="gallery-item" onClick={(e) => onOpen(e,index,wowo)}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${galleri.media[0]}`} alt={`gallery-${index}`} style={{cursor:'pointer' }} className="test_gambar_gallery"></img>
                                                     <div className='test_gallery'></div>
                                                     <div className='hover-nama'>
-                                                        KEMENKO PMK
-                                                        <img src={triangle} className='triangle' alt=''/>
+                                                        {galleri.instansi.toUpperCase()}
+                                                        {/* <img src={triangle} className='triangle' alt=''/> */}
                                                     </div> 
                                                 </div>
                                                     {

@@ -756,7 +756,7 @@ const FormGNRM = (props) => {
                                                                         type="file"
                                                                         accept="image/*,application/pdf"
                                                                         name="media"
-
+                                                                        required
                                                                     />
                                                                 </div>
                                                                 <div>
@@ -1916,6 +1916,7 @@ const FormGNRM = (props) => {
                                                 accept="image/*"
                                                 name="media"
                                                 multiple
+                                                required
                                             />
                                         </div>
                                         <div>
@@ -2257,12 +2258,20 @@ const FormGNRM = (props) => {
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
-                                        Nama Program : {data.kegiatan.nama_program}<br />
-                                                Kegiatan Prioritas : {data.kp}<br />
-                                                Program Prioritas: {data.prop}<br />
-                                        {data.kegiatan.penjelasan_kegiatan}
-                                    </td>
+                                    {
+                                        instansiDocumentDetail && instansiDocumentDetail.jenis === 'Pemerintah Daerah' ?
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                Nama Program : {data.kegiatan.nama_program}<br />
+                                                {data.kegiatan.penjelasan_kegiatan}
+                                            </td>
+                                        :    
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                Nama Program : {data.kegiatan.nama_program}<br />
+                                                        Kegiatan Prioritas : {data.kp}<br />
+                                                        Program Prioritas: {data.prop}<br />
+                                                {data.kegiatan.penjelasan_kegiatan}
+                                            </td>
+                                    }
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
                                     <td>3.</td>

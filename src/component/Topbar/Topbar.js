@@ -10,6 +10,7 @@ import FormAdmin from '../../pages/FormAdmin/FormAdmin';
 import FormReminder from '../../pages/FormReminder/FormReminder';
 import Home from '../../pages/Home/Home';
 import logo_gif_1 from '../../assets/log_gif_1.gif'
+import gif_logo from '../../assets/gif_logo.gif'
 import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'
@@ -136,7 +137,7 @@ const Topbar = (props) => {
                     <header className={props.kunci ? "top-bar" : "top-bar-default"}>
                         <nav className="top-bar-navigation">
                             <div className="top-bar-logo">
-                                <img src={logo_gif_1} alt="logo kemenko" className="logo-kemenko" />
+                                <img src={gif_logo} alt="logo kemenko" className="logo-kemenko" />
                             </div>
 
                             <div className="spacer"/>

@@ -10,6 +10,7 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const FormAdmin = (props) => {
         const { user, token,userDetail } = useContext(AuthContext);
@@ -115,6 +116,14 @@ const FormAdmin = (props) => {
               <div className="tajuk-page">
                   <h1> FORM ADMIN</h1>
               </div>
+              {
+                    loading ?
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div>
+                        </div>
+                        :
             <div style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
               <div className="admin-1-container" >
                     <form id='form-admin' className="form-admin-1" onSubmit={onSubmit} autoComplete="off">
@@ -192,6 +201,7 @@ const FormAdmin = (props) => {
                     </div>
                     </div>
                 </div>
+              }
           </Fragment>  
         );
 }

@@ -20,6 +20,10 @@ import logo_2 from '../../assets/logo2.png';
 const Footer = () => {
     const { isAuthenticated, token, loadUser,userDetail} = useContext(AuthContext);
 
+    const onTop = (e) => {
+        window.scrollTo(0, 0);
+    }
+
         return(
             <Fragment>
                 <div className="footer pt-5">
@@ -35,7 +39,7 @@ const Footer = () => {
                                         <div className="row" style={{marginLeft: 0}}>
                                             <div className="col-4">
                                                 <li>
-                                                    <NavLink exact to="/" activeClassName="active">
+                                                    <NavLink exact to="/" activeClassName="active" onClick={onTop}>
                                                         <p>Beranda</p>
                                                     </NavLink>
                                                 </li>

@@ -47,8 +47,8 @@
 
 .triangle {
     position: absolute;
-    bottom: -2px;
-    right: 10px;
+    width: 10px;
+    height: 10px;
     z-index: 3;
 }
 

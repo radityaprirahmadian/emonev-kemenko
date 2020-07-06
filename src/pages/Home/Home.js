@@ -103,7 +103,6 @@ const Home = () => {
         try {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar`)
                 setDocuments(res.data.kabar)
-                console.log(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
@@ -179,7 +178,6 @@ const Home = () => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Kementerian')
         .then(res => {
             setInstansi(res.data.instansi)
-            console.log(res)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -188,7 +186,6 @@ const Home = () => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Pemerintah Daerah')
         .then(res => {
             setInstansiDaerah(res.data.instansi)
-            console.log(res)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -322,7 +319,6 @@ const Home = () => {
         for (let i = 0 ; i < documentCardLenght ; i++) {
           arr.push(i)
         }
-        console.log(arr)
         setDocumentLengthArr(arr)
     
       }, [documentCardLenght])
@@ -335,7 +331,6 @@ const Home = () => {
                                 // datas.post.slice((datas.post.length - 7)).map((data, index) => {
                                 documents.slice(0,7).map((document, index) => {
                                     const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
-                                    console.log(i)
                                     return (
                                         <Fragment>
                                             <div key={index} className={hidden[index] ? "home-pic" : "d-none"} style={{height:'768px'}}>
