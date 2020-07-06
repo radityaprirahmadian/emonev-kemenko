@@ -18,8 +18,6 @@ const TabelInfografis = (props) => {
     const [gambar,setGambar] = useState([])
     const [hapuss,setHapus] = useState(false)
 
-    console.log(gambar)
-
     const history = useHistory()
     
     const onClickEdit = () => {

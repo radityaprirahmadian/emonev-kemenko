@@ -170,14 +170,25 @@ const Topbar = (props) => {
                                                                     return (
                                                                         <li key={instansi._id} className="menu-1-kementrian">
                                                                             {
-                                                                                instansi.logo ?
-                                                                                    <img src={`https://api.simonev.revolusimental.go.id${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
+                                                                                instansi.nama_pendek.length > 15 ?
+                                                                                    <div className='nama-instansi-megamenu' style={{paddingTop:'20px' , top: '-20px'}}>
+                                                                                        <a>{instansi.nama_pendek}</a>
+                                                                                    </div>
                                                                                 :
-                                                                                    <img src={logo_kemenko} className='logo-in-megamenu' alt='logo'/>
+                                                                                    <div className='nama-instansi-megamenu'>
+                                                                                        <a>{instansi.nama_pendek}</a>
+                                                                                    </div>
                                                                             }
-                                                                            <div style={{marginTop:'30px'}}>
-                                                                                <a className="nama-instansi-megamenu" >{instansi.nama_pendek.toUpperCase()}</a>
-                                                                            </div>
+                                                                            {
+                                                                                instansi.logo ?
+                                                                                    <div style={{width:'75px' , display:'inline-block'}}>
+                                                                                        <img src={`https://api.simonev.revolusimental.go.id${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
+                                                                                    </div>
+                                                                                :
+                                                                                    <div style={{width:'75px' , display:'inline-block'}}>
+                                                                                        <img src={logo_kemenko} className='logo-in-megamenu' alt='logo'/>
+                                                                                    </div>
+                                                                            }
                                                                             <div className="sub-menu-kementrian">
                                                                                 <div className='topbar-kabar'>
                                                                                     <div style={{width:'100%',height:'90px'}}>
@@ -214,7 +225,7 @@ const Topbar = (props) => {
                                                                                     }
                                                                                     <ul className='topbar-program-ul'>
                                                                                         {
-                                                                                            instansi.gnrm.map((gnrm,index) => {
+                                                                                            instansi.gnrm.filter(gnrm => gnrm.form.kegiatan.nama_program !== '').map((gnrm,index) => {
                                                                                                 return(
                                                                                                     <Megamenu
                                                                                                         key={index}

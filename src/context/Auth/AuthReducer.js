@@ -27,8 +27,12 @@ export default (state, action) => {
             localStorage.removeItem('token')
             return{
                 ...state,
+                token: null,
                 isAuthenticated: false,
-                loading: false
+                loading: false,
+                loadings: false,
+                user: null,
+                userDetail: null,
             }
 
         case 'LOGIN_FAIL':
@@ -44,7 +48,8 @@ export default (state, action) => {
                 ...state,
 				token: null,
 				isAuthenticated: false,
-				loading: false,
+                loading: false,
+                loadings: false,
                 user: null,
                 userDetail: null,
                 fail: false,

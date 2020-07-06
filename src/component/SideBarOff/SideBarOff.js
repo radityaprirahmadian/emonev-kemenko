@@ -74,7 +74,7 @@ const SideBarOff = (props) => {
             }
         }
         getInstansiDetail()
-    },[])
+    },[userDetail])
 
     useEffect(() => {
         const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`

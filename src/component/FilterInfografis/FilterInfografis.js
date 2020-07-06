@@ -4,8 +4,6 @@ import { AuthContext } from '../../context/Auth/AuthContext';
 
 const FilterInfografis = (props) => {
     const {token,user} = useContext(AuthContext)
-    const [ filterTahun , setFilterTahun ] = useState([])
-    const [ filterInstansi , setFilterInstansi ] = useState([])
     
     const onChange = (e) => {
         return props.setFilter({
@@ -19,32 +17,6 @@ const FilterInfografis = (props) => {
         props.getDocument()
     }
 
-    const getDocumentLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            if(user && user.role === 'owner') {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?`, config)
-                console.log(res)
-                setFilterTahun(res.data.filter.tahun)
-                setFilterInstansi(res.data.filter.instansi)
-            } else {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?`, config)
-                setFilterTahun(res.data.filter.tahun)
-            }
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
-
-    useEffect(() => {
-        getDocumentLength()
-    }, [])
-
     return(
         <Fragment>
             <div className="filter-container">
@@ -52,10 +24,10 @@ const FilterInfografis = (props) => {
                     <div className="filter-nama">
                         <h6 className="nama-filter">Tahun</h6>
                         <select className="input-filter-tahun" name="tahun" onChange={onChange} >
-                            <option value="" defaultValue="" hidden></option>
-                            <option value="" defaultValue="">Semua</option>
+                            <option value="" hidden></option>
+                            <option value="" >Semua</option>
                             {
-                                filterTahun.map((tahun,index) => {
+                                props.filterValue && props.filterValue.tahun && props.filterValue.tahun.filter(filter => filter !== '').map((tahun,index) => {
                                     return(
                                         <option key={index} value={tahun}>{tahun}</option>
                                     )
@@ -69,10 +41,10 @@ const FilterInfografis = (props) => {
                         <div className="filter-instansi" style={{marginLeft:'-79px'}}>
                             <label className="nama-filter">Instansi</label>
                             <select className="input-filter-instansi" name="instansi" onChange={onChange}>
-                                <option value="" defaultValue="" hidden></option>
+                                <option value="" hidden></option>
                                 <option value="">Semua Instansi</option>
                                 {
-                                    filterInstansi.map((instansi,index) => {
+                                     props.filterValue && props.filterValue.instansi && props.filterValue.instansi.filter(filter => filter !== '').map((instansi,index) => {
                                         return(
                                             <option key={index} value={instansi}>{instansi}</option>
                                         )

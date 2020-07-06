@@ -27,7 +27,7 @@ const GalleryPage = () => {
                     <div className="gallery-title">
                         GALERI
                     </div>
-                    <Gallery page={page} limit={limit}/>
+                    <Gallery pagination={true}/>
                     {/* <div className="gallery-pagination">
                         <i class="material-icons">chevron_left</i>
                         <ul> 

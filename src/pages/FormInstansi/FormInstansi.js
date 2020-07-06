@@ -8,7 +8,10 @@ import Popup from '../../component/Popup/Popup';
 import Scroll, { Element } from 'react-scroll'
 import objectToFormData from '../../objectToFormDataUtil'
 import Spinner from '../../component/Spinner/Spinner'
-
+import bg_1 from '../../assets/decoration/bg_1.png'
+import bg_2 from '../../assets/decoration/bg_2.png'
+import bg_3 from '../../assets/decoration/bg_3.png'
+import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormInstansi = (props) => {
         const Link = Scroll.Link;
@@ -230,7 +233,12 @@ const FormInstansi = (props) => {
             <Fragment>
                 <SideBarOff/>
                 <Popup notif={props.notif}/>
-                <div className="background-after-login"/>
+                <div className="background-after-login">
+                    <img src={bg_1} alt='bg1' style={{ position: 'fixed', top: '0', left: '0' }} />
+                    <img src={bg_2} alt='bg2' style={{ position: 'fixed', top: '0', right: '0' }} />
+                    <img src={bg_3} alt='bg3' style={{ position: 'fixed', bottom: '-200px', left: '0' }} />
+                    <img src={bg_4} alt='bg4' style={{ position: 'fixed', bottom: '-50px', right: '0' }} />
+                </div>
                 <div className="tajuk-page">
                     <h1> FORMULIR INSTANSI</h1>
                 </div> 
@@ -323,6 +331,7 @@ const FormInstansi = (props) => {
                                                 width: "178px",
                                                 border: '1px solid black',
                                                 padding: '10px',
+                                                overflow: 'hidden'
                                             }} 
                                             > 
                                                 {
@@ -376,6 +385,7 @@ const FormInstansi = (props) => {
                                                 width: "178px",
                                                 border: '1px solid black',
                                                 padding: '10px',
+                                                overflow: 'hidden'
                                                 }} 
                                             > 
                                                 {

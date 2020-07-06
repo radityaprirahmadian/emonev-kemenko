@@ -60,7 +60,7 @@ const Login = (props) => {
             loadUser()
         }
 		//eslint-disable-next-line
-    }, [isAuthenticated, props.history])
+    }, [isAuthenticated])
     
     useEffect(() => {
         console.log(userDetail)
@@ -70,6 +70,15 @@ const Login = (props) => {
         }
     })
 
+    // const input = document.getElementById("form-login");
+    // input.addEventListener("keyup", function(event) {
+    //     if (event.keyCode === 13) {
+    //     event.preventDefault();
+    //     document.getElementById("button-login").click();
+    //     }
+    // });
+
+
     const onSubmit = (e) => {
         e.preventDefault();
         login ({
@@ -77,6 +86,16 @@ const Login = (props) => {
             password,
         });
     }
+
+    const onKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            login ({
+                username,
+                password,
+            });
+        }
+      }
 
         return(
             <Fragment>
@@ -118,7 +137,7 @@ const Login = (props) => {
 
                                 
                                 <div className="col-7 login" style={{width:'693px'}}>
-                                    <form className="form-login" autoComplete="off" onSubmit={onSubmit}> 
+                                    <form className="form-login" autoComplete="off" id='form-login' onSubmit={onSubmit}> 
                                         <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'32px', marginLeft:'15px'}}>Nama Akun</label><br/>
                                         <input 
                                             type="text" 
@@ -127,6 +146,7 @@ const Login = (props) => {
                                             value={username} 
                                             required
                                             onChange={onChange}
+                                            onKeyPress={onKeyPress}
                                         /> <br/>
 
                                         <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'27px',marginLeft:'15px'}}>Kata Sandi</label><br/>
@@ -137,8 +157,9 @@ const Login = (props) => {
                                             value={password}
                                             required
                                             onChange={onChange}
+                                            onKeyPress={onKeyPress}
                                         />
-                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
+                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' }} onClick={handlePassword}>
                                                         {
                                                             seen ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
@@ -154,7 +175,7 @@ const Login = (props) => {
                                             </label>
                                         </div>
         
-                                        <button className="button-login" type="submit">MASUK</button>
+                                        <button className="button-login" id='button-login' type="submit">MASUK</button>
                                     </form>
                                     <Link to='/lupa-password'>
                                         <div style={{marginLeft:'224px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Kata Sandi?</div>
@@ -163,7 +184,7 @@ const Login = (props) => {
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
                                     <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
                                     <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
-                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '39px'}}/> 
+                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '12.53px'}}/> 
                                 </div>
                             
                             </div>

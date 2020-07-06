@@ -2,6 +2,7 @@
     width: 1238px;
     height: fit-content;
     margin-left: 100px;
+    margin-right: 20px;
     background-color: white;
     margin-top: 16px;
     margin-bottom: 40px;
@@ -81,7 +82,7 @@ i.material-icons {
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
-    background-color: #8E4134;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
@@ -96,7 +97,9 @@ i.material-icons {
     right: -1120px;
 }
 input[type="file"] {
-    display: none;
+    opacity: 0;
+    position: absolute;
+    left: -1000px;
 }
 
 .label_lampiran{
@@ -110,10 +113,75 @@ input[type="file"] {
     line-height: 42px;
 }
 
-/* .wowowow {
+/* The container */
+.label-radio {
+    display: inline-block;
+    position: relative;
+    padding-left: 27px;
+    padding-top: 3px;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .label-radio .input-radio {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  /* Create a custom radio button */
+  .checked-radio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 3px solid #C04B3E;
+    border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  /* .label-radio:hover .input-radio ~ .checked-radio {
+    background-color: #ccc;
+  } */
+  
+  /* When the radio button is checked, add a blue background */
+  .label-radio .input-radio:checked ~ .checked-radio {
+    background-color: #C04B3E;
+    border: none;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checked-radio:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .label-radio .input-radio:checked ~ .checked-radio:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .label-radio .checked-radio:after {
+       top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #C04B3E;
+      box-sizing: border-box;
+      border: 3px solid white;
+  }
 
-}
-
+/*
 #sudah ,
 #belum {
 
@@ -137,7 +205,7 @@ input[type="file"] {
     font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
-    background-color: #FF3D37;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
@@ -148,7 +216,11 @@ input[type="file"] {
 }
 
 .simpan-gnrm {
-    background-color: #848988;
+    background-color: white;
+    color: #D4362E;
+    box-sizing: border-box;
+    font-weight: 900;
+    border: 2px solid #D4362E;
 }
 
 .previous-last-1{
@@ -159,7 +231,7 @@ input[type="file"] {
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #FF3D37;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);

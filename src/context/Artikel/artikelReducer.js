@@ -5,7 +5,8 @@ export default (state, action) => {
                 ...state,
                 isEditing: true,
                 loading: false,
-                documentDetail: action.payload
+                documentDetail: action.payload && action.payload.document,
+                instansiDocumentDetail : action.payload && action.payload.instansi
             }
         
         case 'RESET_DOCUMENT':
@@ -23,7 +24,8 @@ export default (state, action) => {
         case 'EDIT_DOCUMENT_FALSE':
             return{
                 ...state,
-                isEditing: false
+                isEditing: false,
+                isPreviewing: false
             }
         case 'SET_PREVIEW':
             return {

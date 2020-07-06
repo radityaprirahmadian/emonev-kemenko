@@ -25,6 +25,7 @@ const Monev =  (props) =>{
     const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { user, token, userDetail } = useContext(AuthContext)
     const [ documents , setDocuments] = useState([])
+    const [ filterValue , setFilterValue ] = useState({})
     console.log(documents)
 
     const [ filter, setFilter ] = useState({
@@ -72,6 +73,7 @@ const Monev =  (props) =>{
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}`, config)
             setDocuments(res.data.document)
+            setFilterValue(res.data.filter)
             setFilter({...filter, totalDoc: res.data.total})
             setLoadingFalse()
         }
@@ -146,10 +148,8 @@ const Monev =  (props) =>{
                         <FilterMonev
                             getDocument={getAllDocument}
                             setFilterDoc={setFilter}
+                            filterValue={filterValue}
                             filterDoc={filter}
-                            instansi={instansi}
-                            periode={periode}
-                            tahun={tahun}
                         />
 
                         <div className="table-container">

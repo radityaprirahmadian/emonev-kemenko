@@ -8,6 +8,7 @@ const ArtikelState = props => {
     const intialState = {
         token: localStorage.getItem('token'),
         documentDetail: null,
+        instansiDocumentDetail: null,
         isEditing: false,
         isPreviewing : false,
         loading: false,
@@ -39,15 +40,14 @@ const ArtikelState = props => {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${data.id}?type=${data.type}`,config)
             dispatch({
                 type: 'GET_DOCUMENT_DETAIL',
-                payload: res.data.document
+                payload: res.data
             })
             console.log(res.data.document)
-            setLoadingFalse()
         }
         catch (err) {
             console.log(err)
-            setLoadingFalse()
         }
+        setLoadingFalse()
     }
 
     const resetDocument = () => {
@@ -80,6 +80,7 @@ const ArtikelState = props => {
                 isEditing: state.isEditing,
                 isPreviewing: state.isPreviewing,
                 loading: state.loading,
+                instansiDocumentDetail: state.instansiDocumentDetail,
                 getDocumentDetail,
                 resetDocument,
                 editDocument,

@@ -201,7 +201,7 @@ const LupaPassword = (props) => {
                                         <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
                                         <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
                                         <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
-                                        <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '39px'}}/> 
+                                        <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '12.53px'}}/> 
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +274,7 @@ const LupaPassword = (props) => {
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
                                     <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
                                     <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
-                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '39px'}}/> 
+                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '12.53px'}}/> 
                                 </div>
                             
                             </div>

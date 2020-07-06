@@ -256,6 +256,7 @@ const FormInfografis = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -311,6 +312,7 @@ const FormInfografis = (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {

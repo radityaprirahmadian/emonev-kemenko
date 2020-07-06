@@ -71,11 +71,13 @@ const Infografis = (props) => {
             if(user && user.role === 'owner') {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${instansi}`, config)
                 setDocuments(res.data.kabar)
+                setFilterValue(res.data.filter)
                 setFilter({...filter, totalDoc: res.data.total})
                 setLoading(false)
             } else {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${user && user.instansi.nama_pendek}`, config)
                 setDocuments(res.data.kabar)
+                setFilterValue(res.data.filter)
                 setFilter({...filter, totalDoc: res.data.total})
                 setLoading(false)
             }
@@ -147,7 +149,6 @@ const Infografis = (props) => {
                     getDocument={getAllDocument}
                     setFilter={setFilter}
                     filter={filter}
-                    tahun={tahun}
                 />
 
                         <div className="table-container">

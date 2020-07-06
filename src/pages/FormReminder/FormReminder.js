@@ -13,12 +13,14 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import plus2 from '../../assets/plus2.png'
 
 const FormReminder = (props) => {
     const { token,userDetail } = useContext(AuthContext)
     
     const history = useHistory()
     const [ users , setUsers ] = useState([])
+    const [ totalUsers, setTotalUsers] = useState()
 
     const [ instansi , setInstansi] = useState({
         nama_pendek: ''
@@ -43,6 +45,8 @@ const FormReminder = (props) => {
     } = reminder
 
     console.log(reminder)
+    console.log(instansi)
+
     const {
         nama_pendek
     } = instansi
@@ -55,7 +59,8 @@ const FormReminder = (props) => {
         }
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama&instansi=${nama_pendek}`, config)
-            // console.log(res)
+            const res1 = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama`, config)
+            setTotalUsers(res1.data.total)
             setUsers(res.data.users)
         }
         catch (err) {
@@ -68,8 +73,7 @@ const FormReminder = (props) => {
     useEffect(() => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
         .then(res => {
-            setAllInstansi(res.data.instansi)
-            console.log('wow')
+            setAllInstansi(res.data.filter.reminder)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -88,11 +92,15 @@ const FormReminder = (props) => {
         getAllUser()
     },[instansi])
 
+    const [userNew , setUserNew] = useState({})
+    console.log(userNew && userNew.pengguna0)
+
     const onChange = (e, array = false ) => {
         array ? 
         setReminder({
             ...reminder,
             kepada: [
+                ...kepada,
                 e.target.value
             ]
             
@@ -104,11 +112,50 @@ const FormReminder = (props) => {
         })
     }
 
-    const onChangeDropDown = (e) => {
-        setInstansi({
-            [e.target.name]: e.target.value
-        })
+    const onChangeDropDown = (e , pengguna, tujuan) => {
+        const getAllUser = async () => {
+            const config= {
+                headers: {
+                    'X-Auth-Token': `aweuaweu ${token}`,
+                }
+            }
+            try {
+                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama&instansi=${e.target.value}`, config)
+                setUserNew({...userNew, [pengguna]:res.data.users})
+                setSelectedUser({...selectedUser , [tujuan]:''})
+            }
+            catch (err) {
+                console.log(err)  
+            }  
+        }
+        getAllUser()
     }
+
+    const [selectedUser, setSelectedUser] = useState({})
+    console.log(selectedUser)
+
+    const [ alreadySelectedUser , setAlreadySelectedUser] = useState([])
+
+    useEffect(() => {
+        const arrayyy = []
+        for(let i = 0 ; i < form.length + 1 ; i++ ) {
+            const test = selectedUser && selectedUser[`tujuan${i}`]
+            console.log(test)
+            arrayyy.push(test)
+        }
+
+        setAlreadySelectedUser(arrayyy)
+        setReminder({...reminder , kepada : arrayyy})
+
+    }, [selectedUser])
+
+    const onChangeTujuan = (e,tujuan) => {
+        setSelectedUser({...selectedUser , [tujuan]:e.target.value})
+    }
+
+    // useEffect(() => {
+    //     setReminder({...reminder , kepada : selectedUser})
+    // }, [selectedUser])
 
     useEffect(() => {
         return () => {
@@ -135,7 +182,7 @@ const FormReminder = (props) => {
                   socket.emit("notif_send", formData);
             })
             }
-            history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/reminder`)
+            history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/notifikasi`)
         }
         catch (err) {
             console.log(err)
@@ -152,6 +199,23 @@ const FormReminder = (props) => {
             isi
         })
         
+    }
+
+
+
+
+    // useEffect(() => {
+    //     const filterUser = users.filter(user => !kepada.includes(user._id))
+    //     setUserNotSelected(filterUser)
+    // },[users,kepada])
+
+    const [form , setForm] = useState([])
+    const addForm = (e) => {
+        e.preventDefault()
+        let forms = form.concat([''])
+        setForm(
+            forms
+        )
     }
 
     const [startDate, setStartDate] = useState(new Date());
@@ -204,38 +268,143 @@ const FormReminder = (props) => {
                     {userDetail && userDetail.instansi.nama_pendek}
                 </div>
                 <form className="form-reminder-1" onSubmit={onSubmit}>
-                    <div className={userDetail && userDetail.role === 'owner' ? 'div-reminder' : 'd-none'}>
-                        <label>Instansi Tujuan</label>
-                        {
-                            userDetail && userDetail.role === 'owner' ? 
-                                <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={onChangeDropDown}>
-                                    <option defaultValue='' hidden></option>
+                    <div>
+                        <div className={userDetail && userDetail.role === 'owner' ? 'div-reminder' : 'd-none'}>
+                            <div className='row'>
+                                <div className="col-md-2">
+                                    <label style={{height:'42px' , lineHeight: '42px' , marginBottom:'16px'}}>Instansi Tujuan</label><br/>
+                                    <label style={{height:'42px' , lineHeight: '42px' , marginBottom:'16px'}}>Akun Tujuan</label>
+                                </div>
+
+                                <div className='col-md-10' style={{display: 'flex' , justifyContent:'flex-start', flexWrap:'wrap' , width:'800px' , height: 'fit-content'}}>
+                                    <div style={{marginBottom: '16px'}}>
+                                        <div style={{marginBottom: '16px'}}>
+                                            {
+                                                userDetail && userDetail.role === 'owner' ? 
+                                                    <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,'pengguna0' , 'tujuan0')}>
+                                                        <option defaultValue='' hidden></option>
+                                                        {
+                                                            allInstansi.map((instansi,index) => {
+                                                                return(
+                                                                    <option key={index} value={instansi}>{instansi}</option>
+                                                                )
+                                                            })
+
+                                                        }
+                                                    </select>
+                                            :
+                                                ''
+                                            }
+                                        </div>
+                                        <div style={{marginBottom: '16px'}}>
+                                            <select className="reminder-akun" type="text" required onChange={(e) => onChangeTujuan(e,'tujuan0')}>
+                                                <option defaultValue='' hidden></option>
+                                                {
+                                                    userNew && userNew.pengguna0 && userNew.pengguna0.map(user => {
+                                                        let alreadySelected = false
+                                                        alreadySelectedUser.forEach(user1 => {
+                                                            if (user._id === user1)  {
+                                                                alreadySelected = true
+                                                            }
+                                                        });
+                                                        return(
+                                                            <option key={user._id} name="kepada" hidden={alreadySelected} value={user._id}>{user.nama}</option>
+                                                        )
+                                                    })
+                                                }
+                                                {userNew && !userNew[`pengguna0`] && <option>{'Pilih instansi terlebih dahulu'}</option>}
+                                            </select>
+                                        </div>
+                                    </div>
                                     {
-                                        allInstansi.map((instansi,index) => {
+                                        form.map((form , index) => {
                                             return(
-                                                <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                <div style={{marginBottom: '16px'}} key={index}>
+                                                    <div style={{marginBottom: '16px'}}>
+                                                        {
+                                                            userDetail && userDetail.role === 'owner' ? 
+                                                                <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}`)}>
+                                                                    <option defaultValue='' hidden></option>
+                                                                    {
+                                                                        allInstansi.map((instansi,index) => {
+                                                                            return(
+                                                                                <option key={index} value={instansi}>{instansi}</option>
+                                                                            )
+                                                                        })
+
+                                                                    }
+                                                                </select>
+                                                        :
+                                                            ''
+                                                        }
+                                                    </div>
+                                                    <div style={{marginBottom: '16px'}}>
+                                                        <select className="reminder-akun" type="text" required onChange={(e) => onChangeTujuan(e,`tujuan${index+1}`)}>
+                                                            <option defaultValue='' hidden></option>
+                                                            {
+                                                                userNew && userNew[`pengguna${index+1}`] && userNew[`pengguna${index+1}`].map(user => {
+                                                                    let alreadySelected = false
+                                                                    alreadySelectedUser.forEach(user1 => {
+                                                                        if (user._id === user1) alreadySelected = true
+                                                                    });
+                                                                    return (
+                                                                        <option key={user._id} name="kepada" hidden={alreadySelected} value={user._id}>{user.nama}</option>
+                                                                    )
+                                                                })
+                                                            }
+                                                            {userNew && !userNew[`pengguna${index+1}`] && <option>{'Pilih instansi terlebih dahulu'}</option>}
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             )
                                         })
-
                                     }
-                                </select>
-                        :
-                            ''
-                        }
-                    </div>
-                    <div className="div-reminder">
-                        <label>Akun Tujuan</label>
-                        <select className="reminder-akun" type="text" required onChange={(e) => onChange(e,true)}>
-                            <option defaultValue='' hidden></option>
+                                </div>
+                            </div>
+                            {/* <label>Instansi Tujuan</label>
                             {
-                                users.map(user => {
-                                    return(
-                                        <option key={user._id} name="kepada" value={user._id}>{user.nama}</option>
-                                    )
-                                })
-                            }
-                        </select>
+                                userDetail && userDetail.role === 'owner' ? 
+                                    <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={onChangeDropDown}>
+                                        <option defaultValue='' hidden></option>
+                                        {
+                                            allInstansi.map((instansi,index) => {
+                                                return(
+                                                    <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                )
+                                            })
+
+                                        }
+                                    </select>
+                            :
+                                ''
+                            } */}
+                        </div>
+                        {/* <div className="div-reminder">
+                            <label>Akun Tujuan</label>
+                            <select className="reminder-akun" type="text" required onChange={(e) => onChange(e,true)}>
+                                <option defaultValue='' hidden></option>
+                                {
+                                    users.map(user => {
+                                        return(
+                                            <option key={user._id} name="kepada" value={user._id}>{user.nama}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div> */}
                     </div>
+
+                    {
+                        form.length < totalUsers - 1  ?
+                            <div style={{height: '30px' , marginBottom:'8px'}}>
+                                <label className="tambah-lembaga" >
+                                    Tambah Tujuan
+                                </label>
+                                <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
+                            </div>
+                            : 
+                            ''
+                    }
                     <div className="div-reminder">
                         <label>Judul Notifikasi</label>
                         <input 
@@ -248,7 +417,7 @@ const FormReminder = (props) => {
                         />
                     </div>
                     <div className="div-reminder">
-                        <label>Isi Notifikasi</label>
+                        <label style={{ textAlign: 'right', clear: 'both', float: 'left' }}>Isi Notifikasi</label>
                         <textarea 
                             className="reminder-isi" 
                             type="text" 

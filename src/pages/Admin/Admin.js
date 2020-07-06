@@ -53,7 +53,7 @@ const Admin = (props) => {
         }
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
-            // console.log(res)
+            console.log(res)
             setUsers(res.data.users)
             setFilter({...filter, totalUser: res.data.total})
             setLoading(false)

@@ -59,7 +59,7 @@ export default function StatistikGNRM(props) {
           {
             label: "",
             borderWidth: 0,
-            barThickness: 5,
+            barThickness: 15,
             backgroundColor: props.color || "#E76975",
             borderColor: props.color || "#E76975",
             data: chartData
@@ -108,7 +108,7 @@ export default function StatistikGNRM(props) {
           },
           ticks: {
             padding: 5,
-            // fontSize: 12,
+            fontSize: 10,
             fontStyle: "bold",
             fontColor: "#000000"
           }
@@ -136,7 +136,7 @@ export default function StatistikGNRM(props) {
   }
 
   return (
-    <div className="chart d-flex justify-content-center align-items-center" style={{
+    <div className="chart d-flex justify-content-center align-items-center" style={{height: props.height || '410px' , maxWidth: '100%'
     }}>
       {statistik && data ? (
         <Bar data={data} options={chartOptions} />

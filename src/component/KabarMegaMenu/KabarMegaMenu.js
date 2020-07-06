@@ -35,9 +35,9 @@ const KabarMegaMenu = (props) => {
                         <li style={{height:'fit-content', marginBottom:'6px' , padding: '0' , width:'400px'}}>
                             {
                                 detail && (props.kabar._id === detail._id)  ?
-                                    <div style={{height:'fit-content', width:'400px' , backgroundColor:'white' , padding:'12px', borderRadius:'5px' , border:'1px solid black', position:'relative'}} >
+                                    <div style={{height:'fit-content', width:'400px' , backgroundColor:'white' , padding:'12px', borderRadius:'10px' , border:'1px solid black', position:'relative'}} >
                                         <i className='fas fa-chevron-up' onClick={(event) => onClick(event,props.kabar)} style={{fontSize:'20px' , textAlign:'center',border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px', cursor:'pointer', position:'absolute', top:'12px', left:'350px'}}></i>                                        
-                                        <div style={{height:'fit-content'}}>{detail&&detail.judul}</div><br/><br/>
+                                        <div style={{height:'fit-content' , width: '90%'}}>{detail&&detail.judul}</div><br/><br/>
                                         <div style={{width:'100%', textAlign:'center'}}>   
                                             <img src={documents&&documents[0]} style={{width:'200px' , height:'auto', margin:'10px auto'}}></img>
                                         </div>
@@ -47,7 +47,7 @@ const KabarMegaMenu = (props) => {
                                         </div>
                                     </div>
                                 :
-                                    <div className='kabar-acordion' onClick={(event) => onClick(event,props.kabar)}>{props.kabar.judul}
+                                    <div className='kabar-acordion' onClick={(event) => onClick(event,props.kabar)}>{props.kabar.judul.length > 38 ? `${props.kabar.judul.substr(0,35)}...` : props.kabar.judul}
                                         <i className='fas fa-chevron-down' onClick={(event) => onClick(event,props.kabar)} style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , position:'absolute', top:'12px', left:'350px',fontSize:'20px' , textAlign:'center'}}></i>                                        
                                     </div>   
                             }

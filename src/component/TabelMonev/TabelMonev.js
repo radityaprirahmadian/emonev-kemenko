@@ -45,8 +45,6 @@ const TabelMonev = (props) => {
         getDocumentDetail()
     },[])
 
-    console.log(document)
-
     const onClickEdit = () => {
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-monev-edit/${props.id}`)
     }

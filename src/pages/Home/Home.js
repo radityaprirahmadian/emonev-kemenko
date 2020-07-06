@@ -11,7 +11,8 @@ import logo_kemenko from '../../assets/logo_kemenko.png';
 import Card from '../../component/Card/Card';
 import Gallery from '../../component/Gallery/Gallery';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
-import statistik from '../../assets/statistik.png';
+import exclude from '../../assets/Exclude.png';
+import exclude2 from '../../assets/Exclude2.png';
 import {Bar} from 'react-chartjs-2';
 import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 import Spinner from '../../component/Spinner/Spinner'
@@ -178,7 +179,7 @@ const Home = () => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Kementerian')
         .then(res => {
             setInstansi(res.data.instansi)
-            console.log('wow')
+            console.log(res)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -187,7 +188,7 @@ const Home = () => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Pemerintah Daerah')
         .then(res => {
             setInstansiDaerah(res.data.instansi)
-            console.log('wow')
+            console.log(res)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -314,6 +315,17 @@ const Home = () => {
         setTahun(e.target.value)
     }
     
+    const [documentLengthArr , setDocumentLengthArr] = useState([])
+
+    useEffect(() => {
+        let arr = []
+        for (let i = 0 ; i < documentCardLenght ; i++) {
+          arr.push(i)
+        }
+        console.log(arr)
+        setDocumentLengthArr(arr)
+    
+      }, [documentCardLenght])
         return(
             <Fragment>
                 <Topbar kunci={true}/>
@@ -405,16 +417,16 @@ const Home = () => {
                                     } */}
 
                                     <div className="button-home-prev" onClick={onPrev}>
-                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
                                     </div>
                                     <div className="button-home-next" onClick={onNext}>
-                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
                                     </div>
                                 </div>
                             </div>                           
                         </div>
 
-                        <div className="home-section-4" style={{margin:'auto'}}>
+                        <div className="home-section-4">
                             <div className="costum-container container-fluid">
                                 <div className="row">
                                     <div className="col-4">
@@ -451,49 +463,79 @@ const Home = () => {
                                         </div>
                                     </div>
                                     
-                                    <div className="col-8" style={{display:'flex' , flexDirection:'row'}}>
-                                    {
-                                        loading ?
-                                        <div style={{ marginLeft: '68px' }}>
-                                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
-                                                <Spinner />
-                                            </div> 
-                                        </div>
-                                        :
-                                        <Fragment>
+                                    <div className="col-8" >
+                                        <div style={{display:'flex' , flexDirection:'row'}}>
                                             {
-                                                documentCard.map((doc, index) => {
-                                                    return (
-                                                        <Card key={index}
-                                                        doc={doc}
-                                                        bgcolor={'none'}
-                                                        bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
-                                                        color={`black`}/>
-                                                        );
-                                                    })
+                                                loading ?
+                                                <div style={{ marginLeft: '68px' }}>
+                                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                                        <Spinner />
+                                                    </div> 
+                                                </div>
+                                                :
+                                                <Fragment>
+                                                    {
+                                                        documentCard.map((doc, index) => {
+                                                            return (
+                                                                <Card key={index}
+                                                                doc={doc}
+                                                                bgcolor={'none'}
+                                                                bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
+                                                                color={`black`}/>
+                                                                );
+                                                            })
+                                                    }
+
+                                                </Fragment>
                                             }
-
-                                        </Fragment>
-                                    }
-
+                                        </div>
+                                        <div className='container-mark'>
+                                            {
+                                                documentLengthArr && documentLengthArr.slice(0 , (Math.ceil(documentCardLenght/2))).map((gambar, index) => {
+                                                    return(
+                                                        <div className={index+1 === (parseInt(page)) ? 'slider-mark active' : 'slider-mark'}></div>
+                                                    )
+                                                }) 
+                                            }
+                                        </div>
                                         {
                                             documentCardLenght > 2 ?
                                                 <Fragment>
-                                                    <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                                                    </div>
-                                                    <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
-                                                        <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                                                    </div>
+                                                    {
+                                                        page === '1' ? 
+                                                            <Fragment>
+                                                                <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
+                                                                    <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                                </div>
+                                                            </Fragment>
+                                                        : 
+                                                            <Fragment>
+                                                                {
+                                                                    page === JSON.stringify(Math.ceil(documentCardLenght/2)) ?
+                                                                        <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                                                            <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
+                                                                        </div>
+                                                                    :
+                                                                        <Fragment>
+                                                                            <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
+                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
+                                                                            </div>
+                                                                            <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
+                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                                            </div>
+                                                                        </Fragment>
+                                                                }
+                                                            </Fragment>
+                                                    }
                                                 </Fragment>
                                             :
                                             ''
                                         }
                                     </div>
+                                    
                                 </div>
                             </div>
-                            <svg id='curve' data-name='layer 1' xmlns='http://www/w3/org/2000/svg' viewBox=" 0 0 1416.99 174.01"><defs>
-                                    <style></style></defs><path style={{fill: '#59CBA6'}} className='cls-1' d='M0,280.8S283.66,59,608.94,163.56s437.93,150.57,808,10.34V309.54H0V280.8Z' transform='translate(0-135.53)'></path></svg>
+                            <img src={exclude} className="curves_home"></img>
                         </div>
 
                         <div className="home-section-2 center">
@@ -517,17 +559,23 @@ const Home = () => {
                                         }
                                     </select>
                                 </div>
-                                <div className="home-statistik mt-5 w-100">
+                                <div className="home-statistik mt-5" style={{width: '100%'}}>
                                     <StatistikGNRM 
+                                        color='#8380EA'
                                         tahun={tahun}
+                                        height='500px'
                                     />
+                                    <div className="keterangan">
+                                        <p className="">
+                                            Keterangan : 
+                                        </p>
+                                        <p className="">
+                                            Sumbu vertikal merupakan jumlah gerakan
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <svg id='curve' data-name='layer 1' xmlns='http://www/w3/org/2000/svg' viewBox=" 0 0 1416.99 174.01">
-                                <defs><style></style></defs>
-                                <path style={{fill: '#fff'}} className='cls-1' d='M0,280.8S283.66,59,608.94,163.56s437.93,150.57,808,10.34V309.54H0V280.8Z' transform='translate(0-135.53) scale(-1,1)' transform-origin='center'>
-                                </path>
-                            </svg>
+                            <img src={exclude2} className="curves_home"></img>
                         </div>
 
 
@@ -537,7 +585,7 @@ const Home = () => {
                                     Galeri
                                 </div>
                                 
-                                <Gallery/>
+                                <Gallery pagination={false}/>
                                 
                                 <Link to='/galeri'>
                                 <button className="button-lihat-gallery">

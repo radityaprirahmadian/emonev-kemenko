@@ -22,7 +22,6 @@ const Footer = () => {
 
         return(
             <Fragment>
-                
                 <div className="footer pt-5">
                     <div className="row" style={{marginTop:'10%'}}>
                         <div className="col-6" style={{height:'360px'}}>

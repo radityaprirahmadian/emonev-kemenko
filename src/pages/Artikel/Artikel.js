@@ -7,6 +7,13 @@ import Footer from '../../component/Footer/Footer';
 import { InfografisContext } from '../../context/Infografis/InfografisContext';
 import {Link} from 'react-router-dom'
 import Spinner from '../../component/Spinner/Spinner'
+import aset_5 from '../../assets/decoration/aset_5.png'
+import aset_8 from '../../assets/decoration/aset_8.png'
+import aset_9 from '../../assets/decoration/aset_9.png'
+import facebook from '../../assets/facebook.png'
+import twitter from '../../assets/twitter.png'
+import instagram from '../../assets/instagram.png'
+import youtube from '../../assets/youtube.png'
 
 const Artikel = (props) => {
     const { infografisDetail, setInfografis, loading, setLoadingFalse, setLoadingTrue } = useContext(InfografisContext)
@@ -102,17 +109,45 @@ const Artikel = (props) => {
                                 {
                                     gambar && gambar.length > 1 ? 
                                         <Fragment>
-                                            <div className="button-artikel-prev" onClick={onPrev}>
-                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                                            </div>
-                                            <div className="button-artikel-next" onClick={onNext}>
-                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                                            </div>
+                                            {
+                                                gambarIndex === 0 ?
+                                                    <div className="button-artikel-next" onClick={onNext}>
+                                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                                    </div>
+                                                :
+                                                    <Fragment>
+                                                        {
+                                                            gambarIndex === gambar.length - 1 ?
+                                                                <div className="button-artikel-prev" onClick={onPrev}>
+                                                                    <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                                                </div>
+                                                            :
+                                                                <Fragment>
+                                                                    <div className="button-artikel-prev" onClick={onPrev}>
+                                                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                                                    </div>
+                                                                    <div className="button-artikel-next" onClick={onNext}>
+                                                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                                                    </div>
+                                                                </Fragment>
+                                                        }
+                                                    </Fragment>
+                                            }
                                         </Fragment>
+                                        
                                         :
                                         ''
                                 }
                                         <img className='gambar-infografis' src={gambar&&gambar[gambarIndex]} alt='infografis' ></img>
+                                        <div className='container-mark'>
+                                            {
+                                                gambar && gambar.map((gambar, index) => {
+                                                    return(
+                                                        <div className={index === gambarIndex ? 'slider-mark active' : 'slider-mark'}></div>
+                                                    )
+                                                }) 
+                                            }
+                                        </div>
                             </div>
                             <div className="nama-artikel">
                                 {infografisDetail && infografisDetail.diunggah_oleh}
@@ -120,6 +155,10 @@ const Artikel = (props) => {
                                     {tanggalFix}
                                 </div>
                             </div>
+
+                            <img src={aset_5} className='assets aset5'></img>
+                            <img src={aset_8} className='assets aset8'></img>
+                            <img src={aset_9} className='assets aset9'></img>
                         </div>
                 }
 
@@ -148,28 +187,28 @@ const Artikel = (props) => {
                                             <li>
                                                 <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
                                                     <div className="artikel-social-media-logo">
-                                                        <i className='fab fa-facebook-f' style={{fontSize:'18px'}}></i> 
+                                                        <img src={facebook} alt='logo-facebook'></img>
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="https://twitter.com/revmen_id" target="_blank">
                                                     <div className="artikel-social-media-logo">
-                                                        <i className='fab fa-twitter' style={{fontSize:'18px'}}></i> 
+                                                        <img src={twitter} alt='logo-twitter'></img>
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="https://instagram.com/revolusimental_id" target="_blank">
                                                     <div className="artikel-social-media-logo">
-                                                        <i className='fab fa-instagram' style={{fontSize:'18px'}}></i> 
+                                                        <img src={instagram} alt='logo-instagram'></img> 
                                                     </div>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
                                                     <div className="artikel-social-media-logo">
-                                                        <i className='fab fa-youtube' style={{fontSize:'18px'}}></i> 
+                                                        <img src={youtube} alt='logo-youtube'></img>
                                                     </div>
                                                 </a>
                                             </li>

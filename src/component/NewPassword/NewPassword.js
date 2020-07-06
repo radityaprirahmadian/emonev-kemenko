@@ -71,28 +71,29 @@ const NewPassword = () => {
         }
     },[confirm,password])
 
+    const changePassword = async (formData) => {
+        console.log(formData)
+        console.log(userDetail && userDetail._id)
+        console.log(login_awal)
+        const config={
+            headers: {
+                'X-Auth-Token' : `aweuaweu ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+            await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${userDetail && userDetail._id}`,formData,config)
+        
+        } 
+        catch(err){
+            console.log(err)
+        }
+    }
+
     const onSubmit = (e) => {
         e.preventDefault()
 
-        const changePassword = async (formData) => {
-            console.log(formData)
-            console.log(userDetail && userDetail._id)
-            console.log(login_awal)
-            const config={
-                headers: {
-                    'X-Auth-Token' : `aweuaweu ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            }
-    
-            try {
-                await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${userDetail && userDetail._id}`,formData,config)
-            
-            } 
-            catch(err){
-                console.log(err)
-            }
-        }
 
         changePassword({
             password,
@@ -102,6 +103,16 @@ const NewPassword = () => {
     }
 
 
+    const onKeyPress = (e) => {
+        if(e.key === 'Enter') {
+        e.preventDefault()
+            changePassword({
+                password,
+                login_awal
+            })
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
+        }
+      }
     const handlePassword = (e) => {
         e.preventDefault()
         setSeen1(!seen1)
@@ -137,7 +148,7 @@ const NewPassword = () => {
 
                                         <form onSubmit={onSubmit} autoComplete="off">
                                             <div>
-                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} placeholder="Kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
                                                         {
                                                             seen1 ?
@@ -148,7 +159,7 @@ const NewPassword = () => {
                                                 </button>
                                             </div>
                                             <div>
-                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} placeholder="Konfirmasi kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'white'}} onClick={confirmPassword}>
                                                         {
                                                             seen2 ?
@@ -181,7 +192,7 @@ const NewPassword = () => {
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
                                     <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
                                     <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
-                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '39px'}}/> 
+                                    <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '12.53px'}}/> 
                                 </div>
                             
                             </div>

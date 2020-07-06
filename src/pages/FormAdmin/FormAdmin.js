@@ -15,6 +15,7 @@ const FormAdmin = (props) => {
         const { user, token,userDetail } = useContext(AuthContext);
         const history = useHistory();
         const [allInstansi, setAllInstansi] = useState([])
+        const [loading, setLoading] = useState(false)
 
         const [admin, setAdmin] = useState({
             nama: '',
@@ -67,6 +68,7 @@ const FormAdmin = (props) => {
 
 
         const addNewAdmin = async (formData) => {
+            setLoading(true)
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`,
@@ -79,8 +81,9 @@ const FormAdmin = (props) => {
                 history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
             }
             catch (err) {
-                console.log(err)
+                alert(err.data.message)
             }
+            setLoading(false)
         }
 
         const onSubmit = (e) => {
@@ -112,7 +115,8 @@ const FormAdmin = (props) => {
               <div className="tajuk-page">
                   <h1> FORM ADMIN</h1>
               </div>
-              <div className="admin-1-container">
+            <div style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
+              <div className="admin-1-container" >
                     <form id='form-admin' className="form-admin-1" onSubmit={onSubmit} autoComplete="off">
                         <div>
                             <label>Nama</label>
@@ -183,8 +187,9 @@ const FormAdmin = (props) => {
                         </div>
                     </form>
 
-                    <div className="admin-navigation-button">
+                    <div className="admin-navigation-button" style={{textAlign:'right' , marginRight: '100px'}}>
                         <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
+                    </div>
                     </div>
                 </div>
           </Fragment>  

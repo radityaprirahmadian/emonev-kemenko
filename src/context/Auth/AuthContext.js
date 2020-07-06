@@ -50,7 +50,6 @@ const AuthState = (props) => {
             dispatch({
                 type: 'AUTH_ERROR'
             })
-            console.log(err.response.data.message)
             alert(err.response.data.message)      
         }
         setLoadingFalse()

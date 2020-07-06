@@ -87,7 +87,7 @@
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
-    background-color: #FF3D37;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
@@ -111,7 +111,7 @@
     font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
-    background-color: #FF3D37;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
@@ -122,7 +122,11 @@
 }
 
 .simpan-monev {
-    background-color: #848988;
+    background-color: white;
+    color: #D4362E;
+    box-sizing: border-box;
+    font-weight: 900;
+    border: 2px solid #D4362E;
 }
 
 .previous-last-1{
@@ -133,7 +137,7 @@
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #FF3D37;
+    background-color: #D4362E;
     color: white;
     border:none;
     box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);

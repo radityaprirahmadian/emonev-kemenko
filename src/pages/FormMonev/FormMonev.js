@@ -2,6 +2,8 @@ import React,{ Component,Fragment,useState,useContext,useEffect} from 'react';
 import './FormMonev.css';
 import logo_kemenko from '../../assets/logo_kemenko.png'
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
+import logo_footer from '../../assets/logo_footer.png'
+import images from '../../assets/image.png'
 import { Link,useHistory} from 'react-router-dom';
 import axios from 'axios'
 import objectToFormData from '../../objectToFormDataUtil'
@@ -17,7 +19,7 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormMonev =  (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocument, editDocumentFalse, isPreviewing, preview, loading,setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, isEditing, editDocument, editDocumentFalse, instansiDocumentDetail , isPreviewing, preview, loading,setLoadingFalse, setLoadingTrue } = useContext(ArtikelContext)
     const { token,userDetail } = useContext(AuthContext)
     const history = useHistory()
     const Link = Scroll.Link
@@ -29,33 +31,20 @@ const FormMonev =  (props) => {
     const pilihanPeriode = ['Tahunan', 'Caturwulanan']
 
     const [ instansiDetail , setInstansiDetail] = useState({})
-    console.log(instansiDetail)
 
-    useEffect(() => {
-        const getInstansiDetail = async () => {
-            setLoadingTrue()
-            const config = {
-                headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`,
-                }
-            }
-            try {
-                if(props.match.params.id) {
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,config)
-                    setInstansiDetail(res.data.instansi)
-                } else {
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
-                    setInstansiDetail(res.data.instansi)
-                }
-            }
-            catch (err) {
-                console.log(err)
-            }
-            setLoadingFalse()
+    const nol = (i) => {
+        if (i < 10) {
+            i = "0" + i;
         }
-        getInstansiDetail()
-    },[userDetail,props.match.params.id])
+        return i;
+    }
 
+    const mydate = new Date(Date.now());
+    const hour = nol(mydate.getHours());
+    const minute = nol(mydate.getMinutes());
+    const date = mydate.getDate();
+    let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
+    let str = hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
 
     const [data, setData] = useState({
         tahun: '',
@@ -129,6 +118,7 @@ const FormMonev =  (props) => {
     const [propOptions, setPropOptions] = useState([])
     const [gerakanOptions, setGerakanOptions] = useState([])
     const [selectedKp, setSelectedKp] = useState(false)
+    const [selectedGerakan, setSelectedGerakan] = useState({})
     const [deletedMedia, setDeletedMedia] = useState([])
     const [deletedBerkas, setDeletedBerkas] = useState([])
     const [deletedLampiranTempat, setDeletedLampiranTempat] = useState([])
@@ -137,12 +127,36 @@ const FormMonev =  (props) => {
 
     const addFormGerakan = (e) => {
         e.preventDefault()
-        if(formGerakan.length < 4) {
+        if (formGerakan.length < 4) {
             let forms = formGerakan.concat([''])
             setFormGerakan(
-              forms
+                forms
             )
+            documentDetail && setSelectedGerakan({ ...selectedGerakan, [`gerakan-${forms.length}`]: '' })
         }
+    }
+
+    useEffect(() => {
+        setData({ ...data, gerakan: Object.values(selectedGerakan).join(',') })
+    }, [selectedGerakan])
+
+    const onChangeGerakan = (e) => {
+        setSelectedGerakan({ ...selectedGerakan, [e.target.name]: e.target.value })
+    }
+
+    const onDeleteGerakanForm = (deleted) => {
+        const deletedGerakan = Object.values(selectedGerakan).filter((deletedGerakan, index) => {
+            if (index === deleted + 1) return deletedGerakan
+        })
+        const gerakanArray = Object.values(selectedGerakan).filter(selected => selected !== deletedGerakan[0])
+        const gerakanObj = {}
+        gerakanArray.forEach((gerakan, i) => {
+            gerakanObj[`gerakan-${i}`] = gerakan
+        })
+        setSelectedGerakan(gerakanObj)
+        let forms = formGerakan
+        forms.pop()
+        setFormGerakan(forms)
     }
 
     const [sk,setSk] = useState({
@@ -228,6 +242,7 @@ const FormMonev =  (props) => {
 
 		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
         setLoadingFalse()
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
     }
 
     const onSubmit = async (event) => {
@@ -270,8 +285,8 @@ const FormMonev =  (props) => {
         try {
             const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=monev',formData,config,)
             onSubmitSK()
-            alert(res.data.message)
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
+            alert(res.data.message)
         }
         catch(err){
             alert(err.data.message)
@@ -279,6 +294,12 @@ const FormMonev =  (props) => {
         setLoadingFalse()
     }
     
+
+    const getFIleExtension = (filename) => {
+        let ext = /^.+\.([^.]+)$/.exec(filename);
+        return ext == null ? "" : ext[1];
+    }
+
     const onEdit = async (event) => {
         setLoadingTrue()
 		event.preventDefault()
@@ -329,8 +350,8 @@ const FormMonev =  (props) => {
 
 		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
         onSubmitSK()
-        alert(res.data.message)
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
+        alert(res.data.message)
         setLoadingFalse()
         editDocumentFalse()
     }
@@ -339,6 +360,9 @@ const FormMonev =  (props) => {
         e.preventDefault()
         preview()
     }
+
+    const [ skExtension , setSkExtension] = useState('')
+    console.log(skExtension)
 
     useEffect(() => {
         if(instansiDetail){
@@ -351,6 +375,9 @@ const FormMonev =  (props) => {
     
             const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`
             setSkGambar(gambar)
+            const fileExt = getFIleExtension(gambar)
+            setSkExtension(fileExt)
+
         }
     },[instansiDetail])
 
@@ -378,6 +405,32 @@ const FormMonev =  (props) => {
             editDocumentFalse()
         }
     },[])
+
+    useEffect(() => {
+        const getInstansiDetail = async () => {
+            setLoadingTrue()
+            const config = {
+                headers: {
+                    'X-Auth-Token': `aweuaweu ${token}`,
+                }
+            }
+            try {
+                if(props.match.params.id) {
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,config)
+                    setInstansiDetail(res.data.instansi)
+                } else {
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,config)
+                    setInstansiDetail(res.data.instansi)
+                }
+            }
+            catch (err) {
+                console.log(err)
+            }
+            setLoadingFalse()
+        }
+        getInstansiDetail()
+    },[userDetail,props.match.params.id])
+
 
     useEffect(() => {
         const getProp = (kp) => {
@@ -409,7 +462,18 @@ const FormMonev =  (props) => {
             setLampiranKetercapaian(documentDetail.form.lampiran.ketercapaian)
             setSelectedKp(documentDetail.form.kp)
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
+            const gerakanArray = documentDetail.form.gerakan.split(',')
+            const gerakanObj = {}
+
+            gerakanArray.forEach((gerakan, i) => {
+                gerakanObj[`gerakan-${i}`] = gerakan
+            })
+
+            setSelectedGerakan(gerakanObj)
+            setFormGerakan(new Array(gerakanArray.length - 1))
+
+
+            const mediaFileUrl = documentDetail && documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -419,7 +483,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl2 = documentDetail.form.lampiran.berkas.map(berkas => `https://api.simonev.revolusimental.go.id${berkas.path}`)
+            const mediaFileUrl2 = documentDetail && documentDetail.form.lampiran.berkas.map(berkas => `https://api.simonev.revolusimental.go.id${berkas.path}`)
             const files2 = []
             mediaFileUrl2.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -429,7 +493,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl3 = documentDetail.form.lampiran.tempat.map(tempat => `https://api.simonev.revolusimental.go.id${tempat.path}`)
+            const mediaFileUrl3 = documentDetail &&  documentDetail.form.lampiran.tempat.map(tempat => `https://api.simonev.revolusimental.go.id${tempat.path}`)
             const files3 = []
             mediaFileUrl3.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -439,7 +503,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl4 = documentDetail.form.lampiran.hasil.map(hasil => `https://api.simonev.revolusimental.go.id${hasil.path}`)
+            const mediaFileUrl4 = documentDetail && documentDetail.form.lampiran.hasil.map(hasil => `https://api.simonev.revolusimental.go.id${hasil.path}`)
             const files4 = []
             mediaFileUrl4.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -449,7 +513,7 @@ const FormMonev =  (props) => {
                 })
             })
 
-            const mediaFileUrl5 = documentDetail.form.lampiran.ketercapaian.map(ketercapaian => `https://api.simonev.revolusimental.go.id${ketercapaian.path}`)
+            const mediaFileUrl5 = documentDetail && documentDetail.form.lampiran.ketercapaian.map(ketercapaian => `https://api.simonev.revolusimental.go.id${ketercapaian.path}`)
             const files5 = []
             mediaFileUrl5.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -638,7 +702,7 @@ const FormMonev =  (props) => {
                                                         style={{marginLeft: '69px', width:'955px' , height: '42px'}}
                                                     >
                                                         {
-                                                            kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                            kpOptions&&kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                         }
                                                     </select> :
                                                     <select 
@@ -649,7 +713,7 @@ const FormMonev =  (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {
-                                                            kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                            kpOptions&&kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                         }
                                                     </select>
                                                 }
@@ -665,7 +729,7 @@ const FormMonev =  (props) => {
                                                         style={{marginLeft: '84px' , width:'955px'}}
                                                     >
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                            propOptions&&propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select> :
@@ -677,7 +741,7 @@ const FormMonev =  (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {
-                                                            propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 116 ? `${prop.substr(0, 113)}...` : prop}</option>)
+                                                            propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                         }
                                                         {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                     </select>
@@ -690,161 +754,197 @@ const FormMonev =  (props) => {
                                                     <div>
                                                         <label>Gerakan</label>
                                                         {
-                                                            documentDetail ?
-                                                            <select 
-                                                                onChange={onChange} 
-                                                                class="gnrm-select"
-                                                                name="gerakan"
-                                                                style={{marginLeft: '145px'}}
-                                                            >
-                                                                {
-                                                                    gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                                }
-                                                            </select> :
-                                                            <select 
-                                                                onChange={onChange} 
-                                                                class="gnrm-select"
-                                                                name="gerakan"
-                                                                style={{marginLeft: '145px'}}
-                                                            >
-                                                                <option selected={true} hidden></option>
-                                                                {
-                                                                    gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                }
-                                                            </select>
+                                                            isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
+                                                                <select
+                                                                    onChange={onChange}
+                                                                    class="gnrm-select"
+                                                                    name="gerakan-0"
+                                                                    style={{ marginLeft: '145px' }}
+                                                                >
+                                                                    <option value={selectedGerakan['gerakan-0']} defaultValue>{selectedGerakan['gerakan-0']}</option>
+                                                                    {
+                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                            let alreadySelected = false
+                                                                            Object.values(selectedGerakan).forEach(selected => {
+                                                                                if (gerakan === selected) alreadySelected = true
+                                                                            });
+                                                                            return <option key={i} value={gerakan} selected={gerakan === selectedGerakan['gerakan-0'] ? true : false} hidden={alreadySelected}>{gerakan}</option>
+                                                                        })
+                                                                    }
+                                                                </select> :
+                                                                <select
+                                                                    onChange={onChangeGerakan}
+                                                                    class="gnrm-select"
+                                                                    name="gerakan-0"
+                                                                    style={{ marginLeft: '145px' }}
+                                                                >
+                                                                    <option selected={true} hidden></option>
+                                                                    {
+                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                            let alreadySelected = false
+                                                                            Object.values(selectedGerakan).forEach(selected => {
+                                                                                if (gerakan === selected) alreadySelected = true
+                                                                            });
+                                                                            return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
+                                                                        })
+                                                                    }
+                                                                </select>
                                                         }
                                                     </div>
                                                     {
-                                                        formGerakan.map((form,index) => {
-                                                            return(
-                                                                <div key={index}>
-                                                                    <label>Gerakan</label>
-                                                                    {
-                                                                        documentDetail ?
-                                                                        <select 
-                                                                            // onChange={onChangeGerakan} 
+                                                        isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
+                                                            Object.values(selectedGerakan)
+                                                                .filter(selected => selected !== selectedGerakan['gerakan-0'])
+                                                                .map((_, index) => {
+                                                                    return (
+                                                                        <div>
+                                                                            <label>Gerakan</label>
+                                                                            <select
+                                                                                onChange={onChangeGerakan}
+                                                                                class="gnrm-select"
+                                                                                name={`gerakan-${index + 1}`}
+                                                                                style={{ marginLeft: '145px' }}
+                                                                            >
+                                                                                <option value={_} defaultValue hidden={_ === '' ? true : false}>{_}</option>
+                                                                                {
+                                                                                    gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                        let alreadySelected = false
+                                                                                        Object.values(selectedGerakan).forEach(selected => {
+                                                                                            if (gerakan === selected) alreadySelected = true
+                                                                                        });
+                                                                                        return <option key={i} value={gerakan} selected={gerakan === selectedGerakan[`gerakan-${index + 1}`]} hidden={alreadySelected}>{gerakan}</option>
+                                                                                    })
+                                                                                }
+                                                                            </select>
+                                                                            <span className="remove-form" onClick={() => onDeleteGerakanForm(index)}>
+                                                                                <i className=""> x </i>
+                                                                            </span>
+                                                                        </div>
+                                                                    )
+                                                                }) :
+                                                            formGerakan.map((form, index) => {
+                                                                return (
+                                                                    <div key={index}>
+                                                                        <label>Gerakan</label>
+                                                                        <select
+                                                                            onChange={onChangeGerakan}
                                                                             class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{marginLeft: '145px'}}
-                                                                        >
-                                                                            {
-                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                                            }
-                                                                        </select> :
-                                                                        <select 
-                                                                            // onChange={onChangeGerakan} 
-                                                                            class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{marginLeft: '145px'}}
+                                                                            name={`gerakan-${index + 1}`}
+                                                                            style={{ marginLeft: '145px' }}
                                                                         >
                                                                             <option selected={true} hidden></option>
                                                                             {
-                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                    let alreadySelected = false
+                                                                                    Object.values(selectedGerakan).forEach(selected => {
+                                                                                        if (gerakan === selected) alreadySelected = true
+                                                                                    });
+                                                                                    return <option key={i} value={gerakan} hidden={alreadySelected} selected={gerakan === selectedGerakan[`gerakan-${index + 1}`]}>{gerakan}</option>
+                                                                                })
                                                                             }
                                                                         </select>
-                                                                    }
-                                                                </div>
-                                                            )
-                                                        })
+                                                                        <span className="remove-form" onClick={() => onDeleteGerakanForm(index)}>
+                                                                            <i className=""> x </i>
+                                                                        </span>
+                                                                    </div>
+                                                                )
+                                                            })
                                                     }
-                                                        {
-                                                            formGerakan.length < 4 ?
-                                                                <div>
-                                                                    <label className="tambah-lembaga" >
-                                                                        Tambah Gerakan 
-                                                                    </label>
-                                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
-                                                                </div>  
+                                                    {
+                                                        formGerakan.length < 4 ?
+                                                            <div>
+                                                                <label className="tambah-lembaga" >
+                                                                    Tambah Gerakan
+                                                            </label>
+                                                                <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addFormGerakan} />
+                                                            </div>
                                                             : ''
-                                                        }
+                                                    }
                                                 </Fragment>
                                             }
                                         </Fragment>
-                                    :
+                                        :
                                         <Fragment>
-                                            <div>
-                                                    <label>Gerakan</label>
+                                                    <div>
+                                                        <label>Gerakan</label>
+                                                        {
+                                                            documentDetail ?
+                                                                <select
+                                                                    onChange={onChange}
+                                                                    class="gnrm-select"
+                                                                    name="gerakan"
+                                                                    style={{ marginLeft: '145px' }}
+                                                                >
+                                                                    {
+                                                                        gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
+                                                                    }
+                                                                </select> :
+                                                                <select
+                                                                    onChange={onChange}
+                                                                    class="gnrm-select"
+                                                                    name="gerakan"
+                                                                    style={{ marginLeft: '145px' }}
+                                                                >
+                                                                    <option selected={true} hidden></option>
+                                                                    {
+                                                                        gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                    }
+                                                                </select>
+                                                        }
+                                                    </div>
                                                     {
-                                                        documentDetail ?
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select> :
-                                                        <select 
-                                                            onChange={onChange} 
-                                                            class="gnrm-select"
-                                                            name="gerakan"
-                                                            style={{marginLeft: '145px'}}
-                                                        >
-                                                            <option selected={true} hidden></option>
-                                                            {
-                                                                gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                            }
-                                                        </select>
-                                                    }
-                                                </div>
-                                                {
-                                                        formGerakan.map((form,index) => {
-                                                            return(
+                                                        formGerakan.map((form, index) => {
+                                                            return (
                                                                 <div key={index}>
                                                                     <label>Gerakan</label>
                                                                     {
                                                                         documentDetail ?
-                                                                        <select 
-                                                                            // onChange={onChangeGerakan} 
-                                                                            class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{marginLeft: '145px'}}
-                                                                        >
-                                                                            {
-                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan ? true : false} value={gerakan}>{gerakan}</option>)
-                                                                            }
-                                                                        </select> :
-                                                                        <select 
-                                                                            // onChange={onChangeGerakan} 
-                                                                            class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{marginLeft: '145px'}}
-                                                                        >
-                                                                            <option selected={true} hidden></option>
-                                                                            {
-                                                                                gerakanOptions&&gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                            }
-                                                                        </select>
+                                                                            <select
+                                                                                // onChange={onChangeGerakan} 
+                                                                                class="gnrm-select"
+                                                                                name="gerakan"
+                                                                                style={{ marginLeft: '145px' }}
+                                                                            >
+                                                                                {
+                                                                                    gerakanOptions && gerakanOptions.map((gerakan, i) => {
+                                                                                        let alreadySelected = false
+                                                                                        Object.values(selectedGerakan).forEach(selected => {
+                                                                                            if (gerakan === selected) alreadySelected = true
+                                                                                        });
+                                                                                        return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
+                                                                                    })
+                                                                                }
+                                                                            </select> :
+                                                                            <select
+                                                                                // onChange={onChangeGerakan} 
+                                                                                class="gnrm-select"
+                                                                                name="gerakan"
+                                                                                style={{ marginLeft: '145px' }}
+                                                                            >
+                                                                                <option selected={true} hidden></option>
+                                                                                {
+                                                                                    gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                                }
+                                                                            </select>
                                                                     }
                                                                 </div>
                                                             )
                                                         })
                                                     }
-                                                        {
-                                                            formGerakan.length < 4 ?
-                                                                <div>
-                                                                    <label className="tambah-lembaga" >
-                                                                        Tambah Gerakan 
-                                                                    </label>
-                                                                        <img src={plus2} style={{position:'absolute' , marginTop:'-3px' , marginLeft:'20px',cursor:'pointer'}} onClick={addFormGerakan}/>
-                                                                </div>  
+                                                    {
+                                                        formGerakan.length < 4 ?
+                                                            <div>
+                                                                <label className="tambah-lembaga" >
+                                                                    Tambah Gerakan
+                                                    </label>
+                                                                <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addFormGerakan} />
+                                                            </div>
                                                             : ''
-                                                        }
-                                        </Fragment>
+                                                    }
+                                                </Fragment>
                                 }
                         </div>
-                        <div className="monev-navigation-button">
-                            <Link 
-                                to="identitas"
-                                spy={true}
-                                smooth={true}
-                                duration={500}
-                                offset={-30}
-                            > 
-                                <button className="previous"><i className="material-icons" style={{fontSize:'36px'}}>expand_less</i></button>
-                            </Link>
+                        <div className="gnrm-navigation-button">
                             <Link 
                                 to="tujuan_pelaporan"
                                 spy={true}
@@ -852,7 +952,7 @@ const FormMonev =  (props) => {
                                 duration={500}
                                 offset={-30}
                             > 
-                                <button className="forward"><i className="material-icons" style={{fontSize:'36px'}}>expand_more</i></button>
+                                <button className="forward tes"><i className="material-icons" style={{fontSize:'36px'}}>expand_more</i></button>
                             </Link>
                         </div>
                     </div>
@@ -880,7 +980,14 @@ const FormMonev =  (props) => {
                                         <div>
                                             <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
                                             <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
-                                                <img src={skGambar} alt={getFileName(instansiDetail.sk&&instansiDetail.sk.foto)} style={{width:'fit-content' , height: 'fit-content'}}/><br/>
+                                                {
+                                                    skExtension === 'pdf' ? 
+                                                        ('')
+                                                    :
+                                                        <Fragment>
+                                                            <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
+                                                        </Fragment>
+                                                }
                                                 <div
                                                     className="gnrm-sasaran" 
                                                     style={{height: "42px", 
@@ -898,20 +1005,27 @@ const FormMonev =  (props) => {
                                             <div style={{marginLeft:'210px'}}>
                                                 {
                                                     sk.sk_status ?
-                                                        <Fragment>
-                                                                <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButton}/>
-                                                                <label htmlFor="sudah" className='wowowow' style={{marginRight:'65px'}}>Sudah</label>
-                                                                <input type="radio" id="belum" name="sk_status" value={sk.sk_status} onChange={onChangeButtonFalse}/>
-                                                                <label htmlFor="belum" className='wowowow'>Belum</label>
-                                                        </Fragment>
+                                                    <Fragment>
+                                                        <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} checked={true} onChange={onChangeButton} />
+                                                            <span className='checked-radio'></span>
+                                                        </label>
+                                                        <label htmlFor="belum" className='label-radio'>Belum
+                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={sk.sk_status} onChange={onChangeButtonFalse} />
+                                                            <span className='checked-radio'></span>
+                                                        </label>
+                                                    </Fragment>
                                                     :
-                                                        <Fragment>
-                                                                <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} onChange={onChangeButton}/>
-                                                                <label htmlFor="sudah" style={{marginRight:'65px'}}>Sudah</label>
-                                                                <input type="radio" id="belum" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButtonFalse}/>
-                                                                <label htmlFor="belum">Belum</label>
-                                                        </Fragment>
-
+                                                    <Fragment>
+                                                        <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} onChange={onChangeButton} />
+                                                            <span className='checked-radio'></span>
+                                                        </label>
+                                                        <label htmlFor="belum" className='label-radio' >Belum
+                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={sk.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                            <span className='checked-radio'></span>
+                                                        </label>
+                                                    </Fragment>
                                                 }
                                             </div>
                                         </div>
@@ -928,8 +1042,8 @@ const FormMonev =  (props) => {
                                                                     fontWeight:'700'
                                                                     }}
                                                             type="text" 
-                                                            name="no_sk"
-                                                            value={sk.no_sk}
+                                                            name="sk_no"
+                                                            value={sk.sk_no}
                                                             onChange={onChangeSK}
                                                             required
                                                         />
@@ -963,6 +1077,7 @@ const FormMonev =  (props) => {
                                                                 >
                                                                     {
                                                                         skFile.map((lampiran,index) => {
+                                                                            const fileExt = getFIleExtension(lampiran.name)
                                                                             const objectURL = URL.createObjectURL(lampiran)
                                                                             return(
                                                                                 <div key={index}>
@@ -975,7 +1090,12 @@ const FormMonev =  (props) => {
                                                                                             className="d-flex align-items-center justify-content-center"
                                                                                         >
                                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                                {
+                                                                                                    fileExt === 'pdf' ? 
+                                                                                                        <img src={images} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                    :
+                                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                }
                                                                                             </div>
                                                                                         </div>
                                                                                         <div style={{marginTop:'10px' , 
@@ -2063,6 +2183,14 @@ const FormMonev =  (props) => {
                     <div className="title-preview-page">
                         PREVIEW LAPORAN
                     </div>
+                    {
+                    loading ?
+                    <div style={{ marginLeft: '68px' }}>
+                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                            <Spinner />
+                        </div> 
+                    </div>
+                    :
                     <div className="preview-picture" style={{padding: '43px 98px'}}>
                         <div className="preview-header">
                             <table>
@@ -2073,19 +2201,34 @@ const FormMonev =  (props) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style={{fontSize:"12px"}} >
-                                        <td>
-                                            <img src={logo_kemenko} style={{width:"100px" , position: 'absolute'}}/>
-                                        </td>
-                                        <td>
-                                            <h1 style={{lineHeight:'16px', fontWeight:'bold'}}>Gerakan Nasional Revolusi Mental</h1>
-                                                <h1 style={{lineHeight:'16px', fontWeight:'bold'}}>Sekretariat</h1>
-                                                <h1 style={{lineHeight:'16px'}}>Jl. Medan Merdeka Barat No. 3, Jakarta Pusat 10110 <br/>
-                                                Gedung Kementerian Koordinator Bidang Pembangunan Manusia & Kebudayaan <br/>
-                                                Telp (021) 34830544; Fax (021) 34830745; <br/>
-                                                website : www.revolusimental.go.id, email: halo@revolusimental.go.id</h1>
-                                        </td>
-                                    </tr>
+                                    {
+                                        instansiDocumentDetail ?
+                                            <tr style={{fontSize:"12px"}} >
+                                                <td style={{position:'relative'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                                </td>
+                                                <td>
+                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                    <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDocumentDetail&&instansiDocumentDetail.alamat}<br />
+                                                            Telp {instansiDocumentDetail&&instansiDocumentDetail.kontak}; Fax {instansiDocumentDetail&&instansiDocumentDetail.fax}; <br />
+                                                            website : {instansiDocumentDetail&&instansiDocumentDetail.website}, email: {instansiDocumentDetail&&instansiDocumentDetail.email}</h1>
+                                                </td>
+                                            </tr>
+                                        :
+                                            <tr style={{fontSize:"12px"}} >
+                                                <td style={{position:'relative'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                                </td>
+                                                <td>
+                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                    <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDetail&&instansiDetail.alamat}<br />
+                                                            Telp {instansiDetail&&instansiDetail.kontak}; Fax {instansiDetail&&instansiDetail.fax}; <br />
+                                                            website : {instansiDetail&&instansiDetail.website}, email: {instansiDetail&&instansiDetail.email}</h1>
+                                                </td>
+                                            </tr>
+                                    }
                                 </tbody>
                             </table>
 
@@ -2093,32 +2236,27 @@ const FormMonev =  (props) => {
                             <br/>
                             <div className="judul-preview" style={{textAlign:"center", fontSize:'12px'}}>
                                 <h1 style={{lineHeight:'25px', fontWeight:'bold'}}>
-                                    Proteksi Input Program Gerakan Nasioal Revolusi Mental (GNRM) Tahun 
-                                    <span style={{color:'#D33732'}}> {data.tahun}</span>
+                                    Proteksi Hasil Monitoring dan Evaluasi 
                                 </h1>
 
                                 <h1 style={{lineHeight:'25px', fontWeight:'bold'}}>
-                                    GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun 
-                                    <span style={{color:'#D33732'}}> {data.tahun}</span>
+                                    GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun {data.tahun}
                                 </h1><br/>
                                 
                                 <h1 style={{lineHeight:'15px'}}>Dilarang menyalin, menyimpan, memperbanyakan sebagian atau seluruh isi laporan ini dalam bentuk <br/> apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sekretariat Revolusi Mental</h1><br/>
 
                                 <h1 style={{lineHeight:'35px', fontWeight:'bold'}}>
                                     LAPORAN MONITORING DAN EVALUASI<br/>
-                                    GNRM 2020
+                                    GNRM {data.tahun}
                                 </h1><br/>
                                 
                                 <h1 style={{lineHeight:'15px'}}> 
-                                    ID Laporan : 
-                                    <span style={{color:'#D33732'}}> {data.id_laporan}</span>
+                                    ID Laporan : {data.id_laporan}
                                 </h1>
 
                                 <h1 style={{lineHeight:'15px'}}> 
-                                    Laporan Triwulan ke 1 Tahun ke
-                                    <span style={{color:'#D33732'}}> 2 </span> 
-                                    GNRM Tahun 2020 <br/>
-                                    <span style={{color:'#D33732'}}> {instansi} </span>
+                                    Laporan {data.id_laporan} GNRM Tahun {data.tahun} <br/>
+                                    {instansiDocumentDetail && instansiDocumentDetail.nama}
                                 </h1>
                             </div>
                         </div>
@@ -2132,13 +2270,17 @@ const FormMonev =  (props) => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>Waktu Unggah : {str}</td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>1.</td>
                                             <td >Instansi</td> 
                                        </tr>
                                        <tr>
                                             <td></td>
-                                            <td style={{paddingTop:'12px', paddingBottom:'32px'}}>{instansi}</td> 
+                                            <td style={{paddingTop:'12px', paddingBottom:'32px'}}>{instansiDocumentDetail && instansiDocumentDetail.nama}</td> 
                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>2.</td>
@@ -2162,6 +2304,54 @@ const FormMonev =  (props) => {
                                                 {data.metode}
                                             </td> 
                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                <div style={{
+                                                    height: "fit-content",
+                                                    width: "955px",
+                                                    borderRadius: '5px',
+                                                    padding: '10px',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    overflow: 'hidden'
+                                                }}
+                                                >
+                                                    {
+                                                        lampiranTempat && lampiranTempat.map((lampiran,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                <div style={{
+                                                                    width: '150px',
+                                                                    height: '150px',
+                                                                    marginRight: '35px',
+                                                                    position: 'relative'
+                                                                }}
+                                                                    className="d-flex align-items-center justify-content-center"
+                                                                >
+                                                                    <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{
+                                                                    marginTop: '10px',
+                                                                    width: '150px',
+                                                                    height: '20px',
+                                                                    wordWrap: 'break-word',
+                                                                    lineHeight: '20px',
+                                                                }}
+                                                                >
+                                                                    <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )  
+                                                        })
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>4.</td>
                                             <td>Hasil Monitoring dan Evaluasi Program (Pelaporan Kinerja)</td> 
@@ -2173,6 +2363,54 @@ const FormMonev =  (props) => {
                                             {data.evaluasi}
                                             </td> 
                                        </tr>
+                                       <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                <div style={{
+                                                    height: "fit-content",
+                                                    width: "955px",
+                                                    borderRadius: '5px',
+                                                    padding: '10px',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    overflow: 'hidden'
+                                                }}
+                                                >
+                                                    {
+                                                        lampiranHasil && lampiranHasil.map((lampiran,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                <div style={{
+                                                                    width: '150px',
+                                                                    height: '150px',
+                                                                    marginRight: '35px',
+                                                                    position: 'relative'
+                                                                }}
+                                                                    className="d-flex align-items-center justify-content-center"
+                                                                >
+                                                                    <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{
+                                                                    marginTop: '10px',
+                                                                    width: '150px',
+                                                                    height: '20px',
+                                                                    wordWrap: 'break-word',
+                                                                    lineHeight: '20px',
+                                                                }}
+                                                                >
+                                                                    <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )  
+                                                        })
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>5.</td>
                                             <td>ketercapaian Indikator dan Target (Pengukuran Kinerja)</td> 
@@ -2184,6 +2422,54 @@ const FormMonev =  (props) => {
                                             {data.target}
                                             </td> 
                                        </tr>
+                                       <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                <div style={{
+                                                    height: "fit-content",
+                                                    width: "955px",
+                                                    borderRadius: '5px',
+                                                    padding: '10px',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    overflow: 'hidden'
+                                                }}
+                                                >
+                                                    {
+                                                        lampiranKetercapaian && lampiranKetercapaian.map((lampiran,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                <div style={{
+                                                                    width: '150px',
+                                                                    height: '150px',
+                                                                    marginRight: '35px',
+                                                                    position: 'relative'
+                                                                }}
+                                                                    className="d-flex align-items-center justify-content-center"
+                                                                >
+                                                                    <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{
+                                                                    marginTop: '10px',
+                                                                    width: '150px',
+                                                                    height: '20px',
+                                                                    wordWrap: 'break-word',
+                                                                    lineHeight: '20px',
+                                                                }}
+                                                                >
+                                                                    <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )  
+                                                        })
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>6.</td>
                                             <td>Tindak Lanjut Hasil Monitoring dan Evaluasi</td> 
@@ -2200,10 +2486,100 @@ const FormMonev =  (props) => {
                                        </tr>
                                        <tr>
                                             <td></td>
-                                            <td style={{paddingTop:'12px', paddingBottom:'32px'}}>Nam augue neque fermentum non, magnis. Nibh eu sed vel eleifend cursus arcu faucibus sapien integer. Aenean duis convallis enim lobortis. Venenatis cursus nibh porta magnis orci, nunc. Massa ut feugiat posuere facilisi. Imperdiet sed felis faucibus mattis et, nunc non. Pharetra non vitae purus non pharetra commodo rutrum enim. Eu viverra magna dictum non vitae velit amet. Nibh at aliquet ultrices proin suscipit sit. Nisl auctor leo, tincidunt non volutpat iaculis est nibh non. Massa sed blandit facilisi pharetra faucibus sed non ac. Sit aliquam tellus morbi a faucibus. 
-                                            Ullamcorper ultrices porta nulla erat in magna ante. Aliquet vel eget id interdum ornare. Ut ipsum ullamcorper at vel orci arcu laoreet in. Sed tempor tortor mattis augue pellentesque consectetur. Elit elementum vel consectetur purus.
-                                            </td> 
-                                       </tr>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                <div style={{
+                                                    height: "fit-content",
+                                                    width: "955px",
+                                                    borderRadius: '5px',
+                                                    padding: '10px',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    overflow: 'hidden'
+                                                }}
+                                                >
+                                                    {
+                                                        media && media.map((lampiran,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                <div style={{
+                                                                    width: '150px',
+                                                                    height: '150px',
+                                                                    marginRight: '35px',
+                                                                    position: 'relative'
+                                                                }}
+                                                                    className="d-flex align-items-center justify-content-center"
+                                                                >
+                                                                    <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{
+                                                                    marginTop: '10px',
+                                                                    width: '150px',
+                                                                    height: '20px',
+                                                                    wordWrap: 'break-word',
+                                                                    lineHeight: '20px',
+                                                                }}
+                                                                >
+                                                                    <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )  
+                                                        })
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                <div style={{
+                                                    height: "fit-content",
+                                                    width: "955px",
+                                                    borderRadius: '5px',
+                                                    padding: '10px',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    overflow: 'hidden'
+                                                }}
+                                                >
+                                                    {
+                                                        berkas && berkas.map((lampiran,index) => {
+                                                        return(
+                                                            <div key={index}>
+                                                                <div style={{
+                                                                    width: '150px',
+                                                                    height: '150px',
+                                                                    marginRight: '35px',
+                                                                    position: 'relative'
+                                                                }}
+                                                                    className="d-flex align-items-center justify-content-center"
+                                                                >
+                                                                    <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{
+                                                                    marginTop: '10px',
+                                                                    width: '150px',
+                                                                    height: '20px',
+                                                                    wordWrap: 'break-word',
+                                                                    lineHeight: '20px',
+                                                                }}
+                                                                >
+                                                                    <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        )  
+                                                        })
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
                                        <tr>
                                             <td></td>
                                             <td style={{paddingTop:'154px'}}>
@@ -2215,24 +2591,34 @@ const FormMonev =  (props) => {
                                     </tbody> 
                                 </table>
                             </div>
-                                <div className="preview-ttd" style={{marginTop:'10px', marginBottom:'119px' , fontSize:'12px'}}>
-                                    <div style={{textAlign:'left' , marginLeft:'893px'}}>
-                                        <h1>..................., ...................</h1><br/>
-                                        <h1>{data.penanggung_jawab.nama}</h1>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <h1>TTD</h1>
-                                        <h1>{data.penanggung_jawab.nip}</h1>
-                                    </div>
+                            <div className="preview-ttd" style={{ marginTop: '10px', fontSize: '12px' }}>
+                                <div style={{ textAlign: 'left', marginLeft: '893px' }}>
+                                    <h1>..................., ...................</h1><br />
+                                    <h1>{data.penanggung_jawab.nama}</h1>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <h1>TTD</h1>
+                                    <h1>NIP. {data.penanggung_jawab.nip}</h1>
                                 </div>
-
+                            </div>
+                            <hr style={{ backgroundColor: 'black', marginTop: '64px' }} />
+                            <div className="preview-footer" style={{ marginBottom: '119px' }}>
+                                <div style={{ textAlign: 'left' }}>
+                                    <img src={logo_footer} />
+                                </div>
+                                <div className='spacer'></div>
+                                <div style={{ textAlign: 'right' }}>
+                                    <img src={logo_footer} />
+                                </div>
+                            </div>
                             
                             
                             <button className="button-edit-kembali" onClick={setPreview}>SUNTING KEMBALI</button>
                             
                             <button className="button-unggah" type='submit' form="form-monev">UNGGAH LAPORAN</button>
                     </div>
+                    }
                 </div>
                 {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
         </Fragment>  

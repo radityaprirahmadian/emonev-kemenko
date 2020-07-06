@@ -57,13 +57,15 @@
 }
 
 .form-reminder-1 .reminder-tujuan{
-    margin-left: 85px;
+    margin-left: 10px;
+    margin-right: 50px;
     height: 42px;
     width: 366px;
 }
 
 .form-reminder-1 .reminder-akun{
-    margin-left: 106px;
+    margin-left: 10px;
+    margin-right: 50px;
     height: 42px;
     width: 366px; 
 }
@@ -96,7 +98,7 @@
     cursor: pointer;
     font-family: 'Open-Sans', sans-serif;
     border-radius: 5px;
-    background-color: #8E4134;
+    background-color: #D4362E;
     color: white;
     border:none;
     font-weight: bold;

@@ -16,6 +16,7 @@ const EditAdmin = (props) => {
     const history = useHistory();
     const [foto, setFoto] = useState([])
     const [allInstansi, setAllInstansi] = useState([])
+    const [ avatar, setAvatar ] = useState();
 
     const [userData, setUserData] = useState ({
         nama_pendek: '',
@@ -70,6 +71,8 @@ const EditAdmin = (props) => {
                     role: res.data.user.role,
                     username: res.data.user.username
                 })
+                const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
+                setAvatar(wow)
             }
             catch (err) {
                 console.log(err)
@@ -203,7 +206,7 @@ const EditAdmin = (props) => {
                                     <label>Foto Profil</label><br/>
                                         <div className="photo-profile-container">
                                             <div className="photo-profile">
-                                                <img src={fotos}></img>
+                                                <img src={avatar} alt="user-avatar"></img>
                                             </div>
                                             {/* <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
                                             <input 
@@ -218,7 +221,7 @@ const EditAdmin = (props) => {
                                                 name="media"
                                             /> */}
                                         </div>
-                                    <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-admin/${props.match.params.id}`}>
+                                    <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-profile-admin/${props.match.params.id}`}>
                                         <button 
                                             style={{pointer:'none'}}
                                             className="button-submit-profile"

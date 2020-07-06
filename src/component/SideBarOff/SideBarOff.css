@@ -218,6 +218,10 @@ div.col-md-10{
     margin-left: 5px;
 }
 
+.side-bar-menu-off .row {
+    width: 53px;
+}
+
 .home_icon{
     width: 24px;
     height: 40px;
@@ -494,10 +498,20 @@ div.col-md-10{
     margin-left: 120%;
   }
   
-  .side-bar-menu-off .active .side-bar-item:hover .tooltiptext {
+  .side-bar-menu-off .side-bar-item:hover .tooltiptext {
     visibility: visible;
+    color: white;
+    background-color: rgba(0,0,0,0);
+    background-image: linear-gradient(to right bottom , #E76975 , #FDB99B );
   }
 
+  .side-bar-menu-off .active .side-bar-item:hover .tooltiptext {
+    visibility: visible;
+    background-color: #59CBA6;
+    color: black;
+    background-image: none;
+  }
+  
 .popup-check-instansi {
     width: 400px;
     height: 300px;

@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import './FormGNRM.css';
 import logo_kemenko from '../../assets/logo_kemenko.png'
+import images from '../../assets/image.png'
 import logo_footer from '../../assets/logo_footer.png'
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import { Link, useHistory } from 'react-router-dom';
@@ -18,9 +19,8 @@ import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const FormGNRM = (props) => {
-    const { documentDetail, getDocumentDetail, resetDocument, user, isEditing, editDocumentFalse, editDocument, isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
+    const { documentDetail, getDocumentDetail, resetDocument, user, isEditing, instansiDocumentDetail, editDocumentFalse, editDocument, isPreviewing, preview, setLoadingTrue, setLoadingFalse, loading } = useContext(ArtikelContext)
     const { userDetail, token } = useContext(AuthContext)
-    console.log(userDetail)
     const Link = Scroll.Link;
     console.log(documentDetail)
     const history = useHistory()
@@ -29,7 +29,7 @@ const FormGNRM = (props) => {
     const type = 'gnrm'
 
     const [instansiDetail, setInstansiDetail] = useState({})
-    console.log(instansiDetail)
+    console.log(instansiDocumentDetail)
 
     const [data, setData] = useState({
         tahun: '',
@@ -199,6 +199,7 @@ const FormGNRM = (props) => {
     }
 
     const [skFile, setSKFile] = useState([])
+    console.log(skFile)
     const [skGambar, setSkGambar] = useState();
     const [skGambars, setSkGambars] = useState();
 
@@ -248,6 +249,7 @@ const FormGNRM = (props) => {
 
     const onSubmitSK = async (event) => {
         setLoadingTrue()
+
         const formData = objectToFormData(sk)
 
         if (skFile.length > 0) {
@@ -266,8 +268,8 @@ const FormGNRM = (props) => {
                 'X-Auth-Token': `aweuaweu ${token}`,
             },
         }
-        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
-        alert(res.data.message)
+        const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail.instansi&&userDetail.instansi._id}`,formData,config,)
+        history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         setLoadingFalse()
     }
 
@@ -303,6 +305,11 @@ const FormGNRM = (props) => {
         alert(res.data.message)
         resetDocument()
         setLoadingFalse()
+    }
+
+    const getFIleExtension = (filename) => {
+        let ext = /^.+\.([^.]+)$/.exec(filename);
+        return ext == null ? "" : ext[1];
     }
 
     const onEdit = async (event) => {
@@ -398,6 +405,9 @@ const FormGNRM = (props) => {
         getInstansiDetail()
     }, [userDetail, props.match.params.id])
 
+    const [ skExtension , setSkExtension] = useState('')
+    console.log(skExtension)
+
     useEffect(() => {
         if (instansiDetail) {
             setSk({
@@ -408,7 +418,9 @@ const FormGNRM = (props) => {
             })
     
             const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`
+            const fileExt = getFIleExtension(gambar)
             setSkGambar(gambar)
+            setSkExtension(fileExt)
         }
     }, [instansiDetail])
 
@@ -450,7 +462,7 @@ const FormGNRM = (props) => {
             setSelectedGerakan(gerakanObj)
             setFormGerakan(new Array(gerakanArray.length - 1))
 
-            const mediaFileUrl = documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
+            const mediaFileUrl = documentDetail&&documentDetail.form.lampiran.media.map(media => `https://api.simonev.revolusimental.go.id${media.path}`)
             const files = []
             mediaFileUrl.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -460,7 +472,7 @@ const FormGNRM = (props) => {
                 })
             })
 
-            const mediaFileUrl2 = documentDetail.form.lampiran.kondisi_awal.map(kondisi_awal => `https://api.simonev.revolusimental.go.id${kondisi_awal.path}`)
+            const mediaFileUrl2 = documentDetail&&documentDetail.form.lampiran.kondisi_awal.map(kondisi_awal => `https://api.simonev.revolusimental.go.id${kondisi_awal.path}`)
             const files2 = []
             mediaFileUrl2.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -470,7 +482,7 @@ const FormGNRM = (props) => {
                 })
             })
 
-            const mediaFileUrl3 = documentDetail.form.lampiran.proses.map(proses => `https://api.simonev.revolusimental.go.id${proses.path}`)
+            const mediaFileUrl3 = documentDetail&&documentDetail.form.lampiran.proses.map(proses => `https://api.simonev.revolusimental.go.id${proses.path}`)
             const files3 = []
             mediaFileUrl3.forEach(url => {
                 fetch(url).then(res => res.blob()).then(blob => {
@@ -486,7 +498,6 @@ const FormGNRM = (props) => {
             setMediaUrl(mediaFileUrl)
             setLampiranKondisiUrl(mediaFileUrl2)
             setLampiranProsesUrl(mediaFileUrl3)
-
         }
     }, [documentDetail])
 
@@ -658,13 +669,21 @@ const FormGNRM = (props) => {
                                                     <div>
                                                         <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Lampiran SK</label>
                                                         <div style={{ width: 'fit-content', height: 'fit-content', marginLeft: '230px' }}>
-                                                            <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
+                                                            {
+                                                                skExtension === 'pdf' ? 
+                                                                    ('')
+                                                                :
+                                                                    <Fragment>
+                                                                        <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
+                                                                    </Fragment>
+                                                            }
                                                             <div
                                                                 className="gnrm-sasaran"
                                                                 style={{
                                                                     height: "42px",
                                                                     width: "955px",
-                                                                    fontWeight: '700'
+                                                                    fontWeight: '700',
+                                                                    marginTop: '10px'
                                                                 }}
                                                             >{getFileName(instansiDetail.sk && instansiDetail.sk.foto)}</div>
                                                         </div>
@@ -678,17 +697,25 @@ const FormGNRM = (props) => {
                                                             {
                                                                 sk.sk_status ?
                                                                     <Fragment>
-                                                                        <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButton} />
-                                                                        <label htmlFor="sudah" className='wowowow' style={{ marginRight: '65px' }}>Sudah</label>
-                                                                        <input type="radio" id="belum" name="sk_status" value={sk.sk_status} onChange={onChangeButtonFalse} />
-                                                                        <label htmlFor="belum" className='wowowow'>Belum</label>
+                                                                        <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} checked={true} onChange={onChangeButton} />
+                                                                            <span className='checked-radio'></span>
+                                                                        </label>
+                                                                        <label htmlFor="belum" className='label-radio'>Belum
+                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={sk.sk_status} onChange={onChangeButtonFalse} />
+                                                                            <span className='checked-radio'></span>
+                                                                        </label>
                                                                     </Fragment>
                                                                     :
                                                                     <Fragment>
-                                                                        <input type="radio" id="sudah" name="sk_status" value={sk.sk_status} onChange={onChangeButton} />
-                                                                        <label htmlFor="sudah" style={{ marginRight: '65px' }}>Sudah</label>
-                                                                        <input type="radio" id="belum" name="sk_status" value={sk.sk_status} checked={true} onChange={onChangeButtonFalse} />
-                                                                        <label htmlFor="belum">Belum</label>
+                                                                        <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} onChange={onChangeButton} />
+                                                                            <span className='checked-radio'></span>
+                                                                        </label>
+                                                                        <label htmlFor="belum" className='label-radio' >Belum
+                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={sk.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                            <span className='checked-radio'></span>
+                                                                        </label>
                                                                     </Fragment>
 
                                                             }
@@ -708,15 +735,15 @@ const FormGNRM = (props) => {
                                                                             fontWeight: '700'
                                                                         }}
                                                                         type="text"
-                                                                        name="no_sk"
-                                                                        value={sk.no_sk}
+                                                                        name="sk_no"
+                                                                        value={sk.sk_no}
                                                                         onChange={onChangeSK}
                                                                         required
                                                                     />
                                                                 </div>
                                                                 <div>
                                                                     <label>Lampiran SK</label>
-                                                                    <label htmlFor='testing10' className='label_lampiran' style={{ marginLeft: '110px' }}><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                                    <label htmlFor='testing10' required className='label_lampiran' style={{ marginLeft: '110px' }}><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
                                                                     <input
                                                                         id="testing10"
                                                                         className="gnrm-penjelasan"
@@ -727,10 +754,9 @@ const FormGNRM = (props) => {
                                                                         }}
                                                                         onChange={onChangeSKFile}
                                                                         type="file"
-                                                                        accept="image/*"
+                                                                        accept="image/*,application/pdf"
                                                                         name="media"
-                                                                        multiple
-                                                                        required
+
                                                                     />
                                                                 </div>
                                                                 <div>
@@ -748,20 +774,25 @@ const FormGNRM = (props) => {
                                                                     >
                                                                         {
                                                                             skFile.map((lampiran, index) => {
+                                                                                const fileExt = getFIleExtension(lampiran.name) 
                                                                                 const objectURL = URL.createObjectURL(lampiran)
                                                                                 return (
                                                                                     <div key={index}>
                                                                                         <div style={{
                                                                                             width: '150px',
                                                                                             height: '150px',
-                                                                                            backgroundColor: 'pink',
                                                                                             marginRight: '35px',
                                                                                             position: 'relative'
                                                                                         }}
                                                                                             className="d-flex align-items-center justify-content-center"
                                                                                         >
                                                                                             <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                {
+                                                                                                    fileExt === 'pdf' ? 
+                                                                                                        <img src={images} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                    :
+                                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                }
                                                                                             </div>
                                                                                         </div>
                                                                                         <div style={{
@@ -1037,7 +1068,7 @@ const FormGNRM = (props) => {
                                                                     style={{ marginLeft: '145px' }}
                                                                 >
                                                                     {
-                                                                        gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
+                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
                                                                     }
                                                                 </select> :
                                                                 <select
@@ -1048,7 +1079,7 @@ const FormGNRM = (props) => {
                                                                 >
                                                                     <option selected={true} hidden></option>
                                                                     {
-                                                                        gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
+                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
                                                                     }
                                                                 </select>
                                                         }
@@ -1276,7 +1307,7 @@ const FormGNRM = (props) => {
                                                     }}
                                                     >
                                                         {
-                                                            lampiranKondisi.map((lampiran, index) => {
+                                                            lampiranKondisi && lampiranKondisi.map((lampiran, index) => {
                                                                 const objectURL = URL.createObjectURL(lampiran)
                                                                 return (
                                                                     <div key={index}>
@@ -1319,7 +1350,6 @@ const FormGNRM = (props) => {
                                                                                 {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
                                                                             </p>
                                                                         </div>
-
                                                                     </div>
                                                                 )
                                                             })
@@ -1339,7 +1369,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         >
                                                             {
-                                                                lampiranKondisiUrl.map((url, index) => {
+                                                                lampiranKondisiUrl && lampiranKondisiUrl.map((url, index) => {
                                                                     return (
                                                                         <div key={index}>
                                                                             <div style={{
@@ -1532,7 +1562,7 @@ const FormGNRM = (props) => {
                                                     }}
                                                     >
                                                         {
-                                                            lampiranProses.map((lampiran, index) => {
+                                                            lampiranProses && lampiranProses.map((lampiran, index) => {
                                                                 const objectURL = URL.createObjectURL(lampiran)
                                                                 return (
                                                                     <div key={index}>
@@ -1595,7 +1625,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         >
                                                             {
-                                                                lampiranProsesUrl.map((url, index) => {
+                                                                lampiranProsesUrl && lampiranProsesUrl.map((url, index) => {
                                                                     return (
                                                                         <div key={index}>
                                                                             <div style={{
@@ -1726,7 +1756,7 @@ const FormGNRM = (props) => {
                                                     </div>
                                                 </Fragment>
                                                 :
-                                                documentDetail.form.pihak_terkait.map((pihak, index) => {
+                                                documentDetail&&documentDetail.form.pihak_terkait.map((pihak, index) => {
                                                     return (
                                                         <Fragment key={index}>
                                                             <div>
@@ -1904,7 +1934,7 @@ const FormGNRM = (props) => {
                                                     }}
                                                     >
                                                         {
-                                                            media.map((media, index) => {
+                                                            media && media.map((media, index) => {
                                                                 const objectURL = URL.createObjectURL(media)
                                                                 return (
                                                                     <div key={index}>
@@ -1967,7 +1997,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         >
                                                             {
-                                                                mediaUrl.map((url, index) => {
+                                                                mediaUrl && mediaUrl.map((url, index) => {
                                                                     return (
                                                                         <div key={index}>
                                                                             <div style={{
@@ -2123,6 +2153,14 @@ const FormGNRM = (props) => {
                 <div className="title-preview-page">
                     PREVIEW RENCANA PELAKSANAAN PROGRAM
                     </div>
+                    {
+                        loading ?
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div>
+                        </div>
+                        :
                 <div className="preview-picture" style={{ padding: '43px 98px' }}>
                     <div className="preview-header">
                         <table>
@@ -2133,19 +2171,34 @@ const FormGNRM = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style={{ fontSize: "12px" }} >
-                                    <td>
-                                        <img src={logo_kemenko} style={{ width: "100px", position: 'absolute' }} />
-                                    </td>
-                                    <td>
-                                        <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
-                                        <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
-                                        <h1 style={{ lineHeight: '16px' }}>Jl. Medan Merdeka Barat No. 3, Jakarta Pusat 10110 <br />
-                                                Gedung Kementerian Koordinator Bidang Pembangunan Manusia & Kebudayaan <br />
-                                                Telp (021) 34830544; Fax (021) 34830745; <br />
-                                                website : www.revolusimental.go.id, email: halo@revolusimental.go.id</h1>
-                                    </td>
-                                </tr>
+                                {
+                                    instansiDocumentDetail ?
+                                        <tr style={{fontSize:"12px"}} >
+                                            <td style={{position:'relative'}}>
+                                                <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                            </td>
+                                            <td>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDocumentDetail&&instansiDocumentDetail.alamat}<br />
+                                                        Telp {instansiDocumentDetail&&instansiDocumentDetail.kontak}; Fax {instansiDocumentDetail&&instansiDocumentDetail.fax}; <br />
+                                                        website : {instansiDocumentDetail&&instansiDocumentDetail.website}, email: {instansiDocumentDetail&&instansiDocumentDetail.email}</h1>
+                                            </td>
+                                        </tr>
+                                    :
+                                        <tr style={{fontSize:"12px"}} >
+                                            <td style={{position:'relative'}}>
+                                                <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                            </td>
+                                            <td>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDetail&&instansiDetail.alamat}<br />
+                                                        Telp {instansiDetail&&instansiDetail.kontak}; Fax {instansiDetail&&instansiDetail.fax}; <br />
+                                                        website : {instansiDetail&&instansiDetail.website}, email: {instansiDetail&&instansiDetail.email}</h1>
+                                            </td>
+                                        </tr>
+                                }
                             </tbody>
                         </table>
                         <hr style={{ backgroundColor: 'black' }} />
@@ -2196,7 +2249,7 @@ const FormGNRM = (props) => {
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>{documentDetail && documentDetail.instansi}</td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>{instansiDocumentDetail && instansiDocumentDetail.nama}</td>
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
                                     <td>2.</td>
@@ -2231,10 +2284,54 @@ const FormGNRM = (props) => {
                                     <td></td>
                                     <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
                                         {data.kondisi_awal}<br />
-                                        <div>
-                                            <div>
 
-                                            </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        <div style={{
+                                            height: "fit-content",
+                                            width: "955px",
+                                            borderRadius: '5px',
+                                            padding: '10px',
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            overflow: 'hidden'
+                                        }}
+                                        >
+                                            {
+                                                lampiranKondisi && lampiranKondisi.map((lampiran,index) => {
+                                                return(
+                                                    <div key={index}>
+                                                        <div style={{
+                                                            width: '150px',
+                                                            height: '150px',
+                                                            marginRight: '35px',
+                                                            position: 'relative'
+                                                        }}
+                                                            className="d-flex align-items-center justify-content-center"
+                                                        >
+                                                            <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                            </div>
+                                                        </div>
+                                                        <div style={{
+                                                            marginTop: '10px',
+                                                            width: '150px',
+                                                            height: '20px',
+                                                            wordWrap: 'break-word',
+                                                            lineHeight: '20px',
+                                                        }}
+                                                        >
+                                                            <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                )  
+                                                })
+                                            }
                                         </div>
                                     </td>
                                 </tr>
@@ -2256,6 +2353,54 @@ const FormGNRM = (props) => {
                                     <td></td>
                                     <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
                                         {data.proses}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        <div style={{
+                                            height: "fit-content",
+                                            width: "955px",
+                                            borderRadius: '5px',
+                                            padding: '10px',
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            overflow: 'hidden'
+                                        }}
+                                        >
+                                            {
+                                                lampiranProses && lampiranProses.map((lampiran,index) => {
+                                                return(
+                                                    <div key={index}>
+                                                        <div style={{
+                                                            width: '150px',
+                                                            height: '150px',
+                                                            marginRight: '35px',
+                                                            position: 'relative'
+                                                        }}
+                                                            className="d-flex align-items-center justify-content-center"
+                                                        >
+                                                            <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                            </div>
+                                                        </div>
+                                                        <div style={{
+                                                            marginTop: '10px',
+                                                            width: '150px',
+                                                            height: '20px',
+                                                            wordWrap: 'break-word',
+                                                            lineHeight: '20px',
+                                                        }}
+                                                        >
+                                                            <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                )  
+                                                })
+                                            }
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
@@ -2283,9 +2428,51 @@ const FormGNRM = (props) => {
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>Nam augue neque fermentum non, magnis. Nibh eu sed vel eleifend cursus arcu faucibus sapien integer. Aenean duis convallis enim lobortis. Venenatis cursus nibh porta magnis orci, nunc. Massa ut feugiat posuere facilisi. Imperdiet sed felis faucibus mattis et, nunc non. Pharetra non vitae purus non pharetra commodo rutrum enim. Eu viverra magna dictum non vitae velit amet. Nibh at aliquet ultrices proin suscipit sit. Nisl auctor leo, tincidunt non volutpat iaculis est nibh non. Massa sed blandit facilisi pharetra faucibus sed non ac. Sit aliquam tellus morbi a faucibus.
-                                    Ullamcorper ultrices porta nulla erat in magna ante. Aliquet vel eget id interdum ornare. Ut ipsum ullamcorper at vel orci arcu laoreet in. Sed tempor tortor mattis augue pellentesque consectetur. Elit elementum vel consectetur purus.
-                                            </td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        <div style={{
+                                            height: "fit-content",
+                                            width: "955px",
+                                            borderRadius: '5px',
+                                            padding: '10px',
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            overflow: 'hidden'
+                                        }}
+                                        >
+                                            {
+                                                media && media.map((lampiran,index) => {
+                                                return(
+                                                    <div key={index}>
+                                                        <div style={{
+                                                            width: '150px',
+                                                            height: '150px',
+                                                            marginRight: '35px',
+                                                            position: 'relative'
+                                                        }}
+                                                            className="d-flex align-items-center justify-content-center"
+                                                        >
+                                                            <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
+                                                                <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                            </div>
+                                                        </div>
+                                                        <div style={{
+                                                            marginTop: '10px',
+                                                            width: '150px',
+                                                            height: '20px',
+                                                            wordWrap: 'break-word',
+                                                            lineHeight: '20px',
+                                                        }}
+                                                        >
+                                                            <p className="gnrm-media--name" style={{textAlign:'center'}}>
+                                                                {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                )  
+                                                })
+                                            }
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -2324,6 +2511,7 @@ const FormGNRM = (props) => {
 
                     <button className="button-unggah" type='submit' form='form-gnrm'>UNGGAH LAPORAN</button>
                 </div>
+            }
             </div>
             {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
         </Fragment >

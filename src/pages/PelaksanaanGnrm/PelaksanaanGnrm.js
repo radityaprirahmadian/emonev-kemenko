@@ -26,7 +26,6 @@ const GNRM  = (props) => {
     const [ documents , setDocuments] = useState([])
     const history = useHistory()
     const [ filterValue , setFilterValue ] = useState({})
-    console.log(documents)
 
     const [ filter, setFilter ] = useState({
         limit: '10',
@@ -46,21 +45,6 @@ const GNRM  = (props) => {
         totalDoc,
     } = filter
 
-    const getDocumentLength = async () => {
-        const config= {
-            headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
-            }
-        }
-        try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm`, config)
-            setFilterValue(res.data.filter)
-            setFilter({...filter, totalDoc: res.data.document.length, page: '1'})
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
     const getAllDocument = async () => {
         setLoadingTrue()
         const config= {
@@ -71,6 +55,7 @@ const GNRM  = (props) => {
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}`, config)
             setDocuments(res.data.document)
+            setFilterValue(res.data.filter)
             setFilter({...filter, totalDoc: res.data.total})
             setLoadingFalse()
         }

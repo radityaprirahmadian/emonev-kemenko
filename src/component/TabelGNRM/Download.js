@@ -16,7 +16,6 @@ const Download = (props) => {
         document1: '',
         instansi: ''
     })
-    console.log(document)
     const [show,setHide] = useState(false)
 
     useEffect(() => {

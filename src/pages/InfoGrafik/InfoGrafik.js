@@ -69,15 +69,15 @@ const Dashboard = (props) => {
     console.log(page)
     console.log(documentCard)
 
-    const getDocumentCardLength = async () => {
-        try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
-            setDocumentCardLength(res.data.kabar)
-        }
-        catch (err) {
-            console.log(err)  
-        }  
-    }
+    // const getDocumentCardLength = async () => {
+    //     try {
+    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
+    //         setDocumentCardLength(res.data.total)
+    //     }
+    //     catch (err) {
+    //         console.log(err)  
+    //     }  
+    // }
 
     const getDocumentCard = async () => {
       setLoading(true)
@@ -85,9 +85,12 @@ const Dashboard = (props) => {
             if(userDetail.role === 'admin'){
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`)
                 setDocumentCard(res.data.kabar)
+                setDocumentCardLength(res.data.total)
+
             } else {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}`)
                 setDocumentCard(res.data.kabar)
+                setDocumentCardLength(res.data.total)
             }
       }
       catch(err) {
@@ -98,7 +101,6 @@ const Dashboard = (props) => {
 
     useEffect(() =>{
       getDocumentCard()
-      getDocumentCardLength()
 
       fetch("https://api.simonev.revolusimental.go.id/api/v1/instansi")
       .then(res => res.json())
@@ -108,8 +110,9 @@ const Dashboard = (props) => {
 
     useEffect(() =>{
         getDocumentCard()
-        getDocumentCardLength()
     },[filterCard])
+
+    const [documentLengthArr , setDocumentLengthArr] = useState([])
 
     useEffect(() => {
       const getInstansiDetail = async () => {
@@ -134,9 +137,11 @@ const Dashboard = (props) => {
       getInstansiDetail()
   },[])
 
+  console.log(documentLengthArr)
 
-      const onNextFilter = (e) => {
-        if(page < (documentCardLength && Math.ceil(documentCardLength.length / 3))) {
+
+      const onNextFilter = (e)  => {
+        if(page < (documentCardLength && Math.ceil(documentCardLength / 3))) {
             e.preventDefault()
             const a = parseInt(page)
             return setFilterCard({
@@ -186,6 +191,18 @@ const Dashboard = (props) => {
     setSelectedinstansi(e.target.value)
   }
 
+  useEffect(() => {
+    let arr = []
+    for (let i = 0 ; i < documentCardLength ; i++) {
+      arr.push(i)
+    }
+    console.log(arr)
+    setDocumentLengthArr(arr)
+
+  }, [documentCardLength])
+
+  console.log(documentCardLength)
+
   return (
       <Fragment>
             <SideBarOff/>
@@ -228,10 +245,7 @@ const Dashboard = (props) => {
                         statistikActive ?
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-prev" style={{top:'35%' , left:'-32px'}} onClick={onPrevStatistik}>
-                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                            </div>
-                            <div className="button-home-next" style={{top:'35%' , right:'-32px'}} onClick={onNextStatistik}>
+                            <div className="button-home-next" style={{top:'35%' , right:'-32px' , backgroundColor:'#343A40'}} onClick={onNextStatistik}>
                                 <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
                             </div>
                             <StatistikGNRM 
@@ -245,9 +259,14 @@ const Dashboard = (props) => {
                                 Keterangan : 
                               </p>
                               <p className="">
-                                Sumbu Y merupakan jumlah gerakan
+                                Sumbu vertikal merupakan jumlah gerakan
                               </p>
                             </div>
+                          </div>
+
+                          <div className='slider-dashboard'>
+                              <div className="active-slider-dashboard"></div>
+                              <div className='nonactive-slider-dashboard'></div>
                           </div>
 
                           <div className="drop-down-menu">
@@ -256,14 +275,14 @@ const Dashboard = (props) => {
 
                             <div className="select-waktu-periode">
                               <form> 
+                                  <label>
+                                    Periode
+                                  </label>
+                                  <br/>
                                   <select onChange={onChangePeriode}>
                                     <option value="tahun">Tahun</option>
                                     <option value="caturwulan">Caturwulan</option>
                                   </select>
-                                  <br/>
-                                  <label>
-                                    Periode
-                                  </label>
                               </form>
                             </div>
 
@@ -272,6 +291,10 @@ const Dashboard = (props) => {
                                 periode === 'tahun'
                                 ?
                                 <form> 
+                                  <label>
+                                    Tahun
+                                  </label>
+                                  <br/>
                                   <select onChange={onChangeWaktu}>
                                     <option defaultValue hidden>Pilih Tahun</option>
                                     {
@@ -286,13 +309,14 @@ const Dashboard = (props) => {
                                         })
                                     }
                                   </select>
-                                  <br/>
-                                  <label>
-                                    Tahun
-                                  </label>
+
                               </form>
                               :
                               <form> 
+                                  <label>
+                                    Caturwulan
+                                  </label>
+                                  <br/>
                                   <select onChange={onChangeWaktu}>
                                     <option defaultValue hidden>Pilih Caturwulan</option>
                                     <option defaultValue value='caturwulan1' >Caturwulan ke-1</option>
@@ -301,10 +325,7 @@ const Dashboard = (props) => {
                                     <option defaultValue value='caturwulan4' >Caturwulan ke-4</option>
                                     
                                   </select>
-                                  <br/>
-                                  <label>
-                                    Caturwulan
-                                  </label>
+
                               </form>
                               }
                             </div>
@@ -314,11 +335,8 @@ const Dashboard = (props) => {
                         :
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-prev" style={{top:'35%' , left:'-32px'}} onClick={onPrevStatistik}>
+                            <div className="button-home-prev" style={{top:'35%' , left:'-32px' , backgroundColor:'#343A40'}} onClick={onPrevStatistik}>
                                 <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                            </div>
-                            <div className="button-home-next" style={{top:'35%' , right:'-32px'}} onClick={onNextStatistik}>
-                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
                             </div>
                             <StatistikMonev 
                                 color='#8380EA'
@@ -330,26 +348,31 @@ const Dashboard = (props) => {
                                 Keterangan : 
                               </p>
                               <p className="">
-                                Sumbu Y merupakan progres laporan yang dikerjakan
+                                Sumbu vertikal merupakan progres laporan yang dikerjakan
                               </p>
                             </div>
                           </div>
-                          
+
+                          <div className='slider-dashboard'>
+                              <div className='nonactive-slider-dashboard'></div>
+                              <div className="active-slider-dashboard"></div>
+                          </div>
+
                           <div className="drop-down-menu">
 
                             <div className="spacer"></div>
 
                             <div className="select-waktu-periode">
                               <form> 
+                                  <label>
+                                    Periode
+                                  </label>
+                                  <br/>
                                   <select onChange={onChangePeriode}>
                                     <option defaultValue hidden>Pilih Periode</option>
                                     <option value="tahun">Tahun</option>
                                     <option value="caturwulan">Caturwulan</option>
                                   </select>
-                                  <br/>
-                                  <label>
-                                    Periode
-                                  </label>
                               </form>
                             </div>
 
@@ -357,6 +380,10 @@ const Dashboard = (props) => {
                               user && user.role === 'owner' ? 
                                 <div className="select-waktu-periode">
                                   <form> 
+                                      <label>
+                                        Instansi
+                                      </label>
+                                      <br/>
                                       <select onChange={onChangeInstansi}>
                                         <option defaultValue hidden>Pilih Instansi</option>
                                         {
@@ -365,10 +392,6 @@ const Dashboard = (props) => {
                                           ))
                                         }
                                       </select>
-                                      <br/>
-                                      <label>
-                                        Instansi
-                                      </label>
                                   </form>
                                 </div>
                               : ''
@@ -405,30 +428,56 @@ const Dashboard = (props) => {
                                         );
                                     })
                             }
+                            {
+                              documentCardLength > 2 ?
+                                <Fragment>
+                                  {
+                                    page === '1' ? 
+                                      <div className="button-home-next" style={{top:'200px' , backgroundColor:'#343A40' , right:'-7px'}} onClick={onNextFilter}>
+                                          <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                      </div>
+                                    : 
+                                    <Fragment>
+                                      {
+                                        page === JSON.stringify(Math.ceil(documentCardLength/3)) ?
+                                          <div className="button-home-prev" style={{top:'200px' , backgroundColor:'#343A40' , left:'-32px'}} onClick={onPrevFilter}>
+                                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                          </div>
+                                        :
+                                          <Fragment>
+                                            <div className="button-home-prev" style={{top:'200px' , backgroundColor:'#343A40' , left:'-32px'}} onClick={onPrevFilter}>
+                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                            </div>
+                                            <div className="button-home-next" style={{top:'200px' , backgroundColor:'#343A40' , right:'-7px'}} onClick={onNextFilter}>
+                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                            </div>
+                                          </Fragment>
+                                      }
+                                    </Fragment>                                  
+                                  }
+                                </Fragment>
+                              :
+                              ''
+                            }
                           </Fragment>
-                          }
-                        {
-                          documentCard.length > 2 ?
-                            <Fragment>
-                              <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                  <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
-                              </div>
-                              <div className="button-home-next" style={{top:'200px'}} onClick={onNextFilter}>
-                                  <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
-                              </div>
-                            </Fragment>
-                          :
-                          ''
                         }
-                          
                     </div>
+                        <div className='container-mark'>
+                            {
+                                documentLengthArr && documentLengthArr.slice(0 , (Math.ceil(documentCardLength/3))).map((gambar, index) => {
+                                    return(
+                                        <div className={index+1 === (parseInt(page)) ? 'slider-mark active' : 'slider-mark'}></div>
+                                    )
+                                }) 
+                            }
+                        </div>
                   </div>
                 
-                <div style={{marginLeft:'80px'}}>
+                <div style={{marginLeft:'80px' , marginBottom:'80px'}}>
                     <div className="tajuk-page3">
                         <p>GALERI</p>
                     </div>
-                    <Gallery/>
+                    <Gallery pagination={true}/>
                 </div>
               </div>
       </Fragment>

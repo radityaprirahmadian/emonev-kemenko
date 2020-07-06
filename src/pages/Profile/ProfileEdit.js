@@ -10,12 +10,14 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 import Notification from '../../component/Notification/Notification';
 
 const ProfileEdit = (props) => {
 
     const { token, getUserDetail,user, userDetail } = useContext(AuthContext);
     const history = useHistory();
+    const [ loading , setLoading ] = useState(true)
     const [seen, setSeen] = useState(false)
     const [foto, setFoto] = useState([])
 
@@ -53,40 +55,44 @@ const ProfileEdit = (props) => {
         kontak: '',
     })
 
+    const [ isFoto , setIsFoto ] = useState(false)
+
     const { nama, email, kontak } = userData;
     console.log(userData)
     console.log(nama)
     console.log(email)
     console.log(kontak)
 
-    console.log(props.match.params.id)
-
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
+        setIsFoto(true)
         setFoto([...event.target.files])
         if(event.target.files && event.target.files[0]){
             setFotos(URL.createObjectURL(event.target.files[0]))
         }
     }
 
-    useEffect (() => {
-        const getUserToUpdate = async () => {
-            const config = {
-                headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`
-                }
-            }
-            try {
-                const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
-                console.log(res.data)
-                setUserData({nama: res.data.user.nama , email:res.data.user.email , kontak: res.data.user.kontak})
-            }
-            catch (err) {
-                console.log(err)
+    const getUserToUpdate = async () => {
+        setLoading(true)
+        const config = {
+            headers: {
+                'X-Auth-Token': `aweuaweu ${token}`
             }
         }
+        try {
+            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
+            console.log(res.data)
+            setUserData({nama: res.data.user.nama , email:res.data.user.email , kontak: res.data.user.kontak})
+        }
+        catch (err) {
+            console.log(err)
+        }
+        setLoading(false)
+    }
+
+    useEffect (() => {
         getUserToUpdate()
-    }, [])
+    }, [props.match.params.id])
 
 
     const onChange = (e) => {
@@ -103,6 +109,7 @@ const ProfileEdit = (props) => {
     },[userDetail])
 
     const updateUserData = async (formData) => {
+        setLoading(true)
         console.log(formData)
         const config = {
             headers: {
@@ -113,13 +120,19 @@ const ProfileEdit = (props) => {
         try {
             const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
             alert(res.data.message)
-            updateUserPhoto()
+            if(isFoto) {
+                updateUserPhoto()
+            } else {
+                history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
+                window.location.reload()
+            }
             console.log(res)
         }
         catch (err) {
             alert(err.message)
             console.log(err)
         }
+        setLoading(true)
     }
 
     const updateUserPhoto = async () => {
@@ -183,6 +196,14 @@ const ProfileEdit = (props) => {
                                 <Notification/>
                         }
                     </div>
+                    {
+                    loading ?
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div> 
+                        </div>
+                        :
                     <div className="container-fluid">
                             <form id="form-profile" onSubmit={onSubmitEdit}>
                             <div className="row">
@@ -278,6 +299,7 @@ const ProfileEdit = (props) => {
                         </div>
                             </form>
                     </div>
+                    }
                 </div>
             </Fragment>
         );

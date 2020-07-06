@@ -13,6 +13,7 @@
     height: fit-content;
     margin-left: 100px;
     margin-top: 16px;
+    margin-right: 20px;
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
@@ -47,7 +48,8 @@
 
 .form-admin-1 .admin-instansi{
     margin-left: 146px;
-    border-radius: 5px;
+    border-radius: 5px;    
+    border: 1px solid #ACACAC;
     width: 366px;
     height: 42px; 
 }
@@ -73,7 +75,7 @@
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #8E4134;
+    background-color: #D4362E;
     color: white;
     border:none;
     font-weight: bold;
@@ -85,7 +87,7 @@
 }
 .forward:active,
 .previous:active {
-    background-color: #C04B3E;
+    background-color: #D4362E;
 }
 
 .button-password {
