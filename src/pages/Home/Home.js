@@ -155,8 +155,18 @@ const Home = () => {
         setLoading(false)
     }
 
-    const onChange = (e) => {
+    const [selected1 , setSelected1] = useState(true)
+    const [selected2 , setSelected2]  = useState(true)
+
+    const onChange = (e,index) => {
         setFilterCard({...filterCard,[e.target.name]:e.target.value})
+        if(index === 1) {
+            setSelected1(false)
+            setSelected2(true)
+        } else {
+            setSelected1(true)
+            setSelected2(false)
+        }
     }
     const { pathname } = useLocation();
 
@@ -412,10 +422,10 @@ const Home = () => {
                                     } */}
 
                                     <div className="button-home-prev" onClick={onPrev}>
-                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
+                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                                     </div>
                                     <div className="button-home-next" onClick={onNext}>
-                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
+                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                                     </div>
                                 </div>
                             </div>                           
@@ -430,8 +440,8 @@ const Home = () => {
                                         </div>
 
                                         <div className="section-4-filter">
-                                            <select className="filter-a" name="nama_instansi" onChange={onChange}>
-                                                <option value="" disabled selected hidden>Pilih Kementerian/Lembaga</option>
+                                            <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,1)}>
+                                                <option value="" disabled selected={selected1} hidden>Pilih Kementerian/Lembaga</option>
                                             {
                                                 instansi ? 
                                                     instansi.map((instansi,index) => {
@@ -443,8 +453,8 @@ const Home = () => {
                                             }    
                                             </select>
                                             <br/>
-                                            <select className="filter-a" name="nama_instansi" onChange={onChange}>
-                                                <option value="" disabled selected hidden>Pilih Pemerintah Daerah</option>
+                                            <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,2)}>
+                                                <option value="" disabled selected={selected2} hidden>Pilih Pemerintah Daerah</option>
                                                 {
                                                 instansiDaerah ? 
                                                     instansiDaerah.map((instansi,index) => {
@@ -499,24 +509,24 @@ const Home = () => {
                                                     {
                                                         page === '1' ? 
                                                             <Fragment>
-                                                                <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
-                                                                    <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                                <div className="button-home-next" style={{top:'35%' , right:'-57px'}} onClick={onNextFilter}>
+                                                                    <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                                                                 </div>
                                                             </Fragment>
                                                         : 
                                                             <Fragment>
                                                                 {
                                                                     page === JSON.stringify(Math.ceil(documentCardLenght/2)) ?
-                                                                        <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                                                            <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
+                                                                        <div className="button-home-prev" style={{top:'35%' , left: '-42px'}} onClick={onPrevFilter}>
+                                                                            <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                                                                         </div>
                                                                     :
                                                                         <Fragment>
-                                                                            <div className="button-home-prev" style={{top:'200px'}} onClick={onPrevFilter}>
-                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_back</i>
+                                                                            <div className="button-home-prev" style={{top:'35%' , left: '-42px'}} onClick={onPrevFilter}>
+                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                                                                             </div>
-                                                                            <div className="button-home-next" style={{top:'200px' , right:'-47px'}} onClick={onNextFilter}>
-                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'24px'}}>arrow_forward</i>
+                                                                            <div className="button-home-next" style={{top:'35%' , right:'-57px'}} onClick={onNextFilter}>
+                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                                                                             </div>
                                                                         </Fragment>
                                                                 }

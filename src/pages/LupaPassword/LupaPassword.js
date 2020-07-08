@@ -9,12 +9,14 @@ import aset_4 from '../../assets/decoration/aset_4.png'
 import aset_5 from '../../assets/decoration/aset_5.png'
 import aset_6 from '../../assets/decoration/aset_6.png'
 import aset_7 from '../../assets/decoration/aset_7.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const LupaPassword = (props) => {
     const token = new URLSearchParams(props.location.search).get('token')
     const history = useHistory()
     const [user,setUser] = useState({})
     const [insertPassword,setInsertPassword] = useState(false)
+    const [loading , setLoading] = useState(false)
     const [wow,setEmail] = useState({
         email:''
     })
@@ -27,6 +29,7 @@ const LupaPassword = (props) => {
     }
 
     const postEmail = async (data) => {
+        setLoading(true)
         console.log(data)
         const config = {
             headers: {
@@ -42,6 +45,7 @@ const LupaPassword = (props) => {
             console.log(err)
             alert(err.data.message)
         }
+        setLoading(false)
     }
 
     const onSubmitEmail = (e) => {
@@ -145,6 +149,15 @@ const LupaPassword = (props) => {
         })
     }
 
+    const onKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            changePassword({
+                password
+            })
+        }
+      }
+
 
     const handlePassword = (e) => {
         e.preventDefault()
@@ -167,6 +180,16 @@ const LupaPassword = (props) => {
     return(
         <Fragment>
             <Topbar kunci={false}/>
+
+            {
+                loading ? 
+                    <div style={{ marginLeft: '68px' }}>
+                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                            <Spinner />
+                        </div> 
+                    </div>
+                :
+                <Fragment>
                 {
                     !insertPassword ?
                         <div className="login-page">
@@ -206,7 +229,7 @@ const LupaPassword = (props) => {
                                 </div>
                             </div>
                         </div>
-                        : 
+                        :
                         <div className="login-page">
                             <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
                                 <div className="col-5 login" style={{width:'424px'}}>
@@ -230,7 +253,7 @@ const LupaPassword = (props) => {
 
                                         <form onSubmit={onSubmit} autoComplete="off">
                                             <div>
-                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} placeholder="Kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
                                                         {
                                                             seen1 ?
@@ -241,7 +264,7 @@ const LupaPassword = (props) => {
                                                 </button>
                                             </div>
                                             <div>
-                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} placeholder="Konfirmasi kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'white'}} onClick={confirmPassword}>
                                                         {
                                                             seen2 ?
@@ -279,6 +302,8 @@ const LupaPassword = (props) => {
                             
                             </div>
                         </div>
+                        }
+                    </Fragment>
                 }
         </Fragment>
     )

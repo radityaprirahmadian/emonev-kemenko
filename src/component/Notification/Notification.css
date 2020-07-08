@@ -33,7 +33,7 @@
     background-color: white;
     position: absolute;
     z-index: 999;
-    bottom:-386px;
+    bottom:-400px;
     left: -510px;
     box-shadow: 3px 3px 5px 3px rgba(0,0,0,0.2);
     text-align: left;
@@ -48,11 +48,13 @@
 }
 
 .popup-right {
-    margin-left: 210px;
+    margin-left: 280px;
     font-weight: 600;
     color: #8E4134;
     cursor: pointer;
 }
+
+
 
 .card-popup {
     width: 555px;
@@ -90,6 +92,14 @@
     height: 50px;
     line-height: 50px;
     font-size: 14px;
+    letter-spacing: 0;
     font-weight: normal;
     border-bottom: 3px solid rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.polygon {
+    position: absolute;
+    top: -14px;
+    right: 8px;
 }

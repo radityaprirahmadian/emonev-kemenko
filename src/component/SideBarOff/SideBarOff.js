@@ -4,7 +4,7 @@ import profil from '../../assets/Profil.png';
 import logo_kemenko from '../../assets/logo_kemenko.png';
 import toggle_off from '../../assets/logo/toggle_off.svg';
 import toggle_on from '../../assets/logo/toggle_on.svg';
-import {Link, NavLink , useHistory} from 'react-router-dom';
+import {Link, NavLink , useHistory , useLocation} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import { LayoutContext } from '../../context/Layout/LayoutContext';
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
@@ -14,6 +14,7 @@ const SideBarOff = (props) => {
     const { isAuthenticated, loading, logout, token, user, userDetail, loadUser, getUserDetail, remember, rememberToken } = useContext(AuthContext);
     const { sidebar, setSidebar } = useContext(LayoutContext);
     const history = useHistory();
+    const { pathname } = useLocation();
     const { allReminder, reminder, setAllReminder , getReminder, resetNotif } = useContext(NotifContext)
     const [instansiDetail , setInstansiDetail] = useState({})
 
@@ -35,12 +36,14 @@ const SideBarOff = (props) => {
     
     const [hide, setHide] = useState(true)
 
-    const onClickToProfileInstansi = (e) => {
-        e.preventDefault()
-        history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id))
-        setHide(true)
-        
-    }
+    // const onClickToProfileInstansi = (e) => {
+    //     e.preventDefault()
+    //     history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id))
+    // }
+
+    useEffect(() => {
+        props.setId(userDetail&&userDetail._id)
+    },[userDetail])
 
     const handleLogout = () => {
         logout();
@@ -63,11 +66,6 @@ const SideBarOff = (props) => {
             try {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
                 setInstansiDetail(res.data.instansi)
-                if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
-                    setHide(false)
-                } else {
-                    setHide(true)
-                }
             }
             catch (err) {
                 console.log(err)
@@ -76,28 +74,41 @@ const SideBarOff = (props) => {
         getInstansiDetail()
     },[userDetail])
 
+
+    useEffect(() => {
+        if(pathname !== `/admin/profile-instansi/${instansiDetail&&instansiDetail._id}` || pathname !== `/admin/edit-profile-instansi/${instansiDetail&&instansiDetail._id}` ) {
+            {
+                if(instansiDetail.alamat === '' || instansiDetail.kontak === '' || instansiDetail.website === '' || instansiDetail.fax === '') {
+                    setHide(false)
+                } else {
+                    setHide(true)
+                }
+            }
+        }
+    },[instansiDetail , pathname])
+
+
     useEffect(() => {
         const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setAvatar(wow)
     },[userDetail])
 
-    console.log(instansiDetail)
-
         return(
             <Fragment>
-                {/* {
-                   hide ?
-                    '' 
-                    :
-                    <div className="popup-check">
-                        <div className="popup-check-instansi">
-                            ISI PROFILE INSTANSI DULU BROW <br/>
-                            <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
-                                <button className="button-to-instansi">PERGI KE HALAMAN INSTANSI</button>
-                            </NavLink>
-                        </div>
+{
+               hide ?
+                '' 
+                :
+                <div className="popup-check">
+                    <div className="popup-check-instansi">
+                        <div className='popup-check-instansi-title'>Profile Instansi Belum Lengkap</div> <br/>
+                        <div>Untuk dapat mengisi laporan,<br/> harap mengisi profil instansi anda <br/>terlebih dahulu.</div> <br/><br/><br/><br/><br/>
+                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
+                            <button className="button-to-instansi">LENGKAPI PROFIL</button>
+                        </NavLink>
                     </div>
-                } */}
+                </div>
+            }
 
                 {
                     sidebar ? 
@@ -210,7 +221,7 @@ const SideBarOff = (props) => {
                                                                     <div className="reminder_icon"></div>
                                                                 </div>
                                                                 <div className="col-md-10">
-                                                                    <div className="label-menu">Reminder</div>
+                                                                    <div className="label-menu">Notifikasi</div>
                                                                 </div>
                                                             </div>
                                                     </li>

@@ -38,6 +38,9 @@ const FormGNRM = (props) => {
         kp: '',
         prop: '',
         gerakan: '',
+        sk_status: '',
+        sk_no: '',
+        sk_kendala: '',
         kegiatan: {
             nama_program: '',
             penjelasan_kegiatan: '',
@@ -187,15 +190,15 @@ const FormGNRM = (props) => {
     })
 
     const onChangeButton = (e) => {
-        return setSk({ ...sk, sk_status: true })
+        return setData({ ...data, sk_status: true})
     }
 
     const onChangeButtonFalse = (e) => {
-        return setSk({ ...sk, sk_status: false })
+        return setData({ ...data, sk_status: false, sk_no: '' })
     }
 
     const onChangeSK = (e) => {
-        return setSk({ ...sk, [e.target.name]: e.target.value })
+        return setData({ ...data, [e.target.name]: e.target.value })
     }
 
     const [skFile, setSKFile] = useState([])
@@ -287,6 +290,9 @@ const FormGNRM = (props) => {
         for (let i = 0; i < lampiranKondisi.length; i++) {
             formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i])
         }
+        for (let i = 0; i < skFile.length; i++) {
+            formData.append(`sk`, skFile[i])
+        }
 
         for (let pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1])
@@ -300,7 +306,6 @@ const FormGNRM = (props) => {
         }
 
         const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm', formData, config,)
-        onSubmitSK()
         history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
         resetDocument()
@@ -336,6 +341,13 @@ const FormGNRM = (props) => {
             }
         } else { formData.append('lampiran_kondisi_awal', new File([null], 'blob')) }
 
+        if (skFile.length > 0) {
+            for (let i = 0; i < skFile.length; i++) {
+                formData.append(`sk`, skFile[i])
+            }
+        } else { formData.append('sk', new File([null], 'blob')) }
+
+
         for (let pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1])
         }
@@ -348,7 +360,6 @@ const FormGNRM = (props) => {
         }
 
         const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`, formData, config)
-        onSubmitSK()
         history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         alert(res.data.message)
         resetDocument()
@@ -410,8 +421,8 @@ const FormGNRM = (props) => {
 
     useEffect(() => {
         if (instansiDetail) {
-            setSk({
-                ...sk,
+            setData({
+                ...data,
                 sk_no: instansiDetail.sk && instansiDetail.sk.no,
                 sk_status: instansiDetail.sk && instansiDetail.sk.status,
                 sk_kendala: instansiDetail.sk && instansiDetail.sk.kendala
@@ -538,7 +549,7 @@ const FormGNRM = (props) => {
 
     return (
         <Fragment>
-            <SideBarOff />
+                <SideBarOff setId={props.setId}/>
             <div className="background-after-login">
                 <img src={bg_1} alt='bg1' style={{ position: 'fixed', top: '0', left: '0' }} />
                 <img src={bg_2} alt='bg2' style={{ position: 'fixed', top: '0', right: '0' }} />
@@ -664,7 +675,7 @@ const FormGNRM = (props) => {
                                                                 marginLeft: '230px',
                                                                 fontWeight: '700'
                                                             }}
-                                                        >{sk.sk_no}</div>
+                                                        >{data.sk_no}</div>
                                                     </div>
                                                     <div>
                                                         <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Lampiran SK</label>
@@ -695,25 +706,25 @@ const FormGNRM = (props) => {
                                                         <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Sudah Terbentuk <br /> Gugus Tugas?</label>
                                                         <div style={{ marginLeft: '210px' }}>
                                                             {
-                                                                sk.sk_status ?
+                                                                data.sk_status ?
                                                                     <Fragment>
                                                                         <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} checked={true} onChange={onChangeButton} />
+                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
                                                                             <span className='checked-radio'></span>
                                                                         </label>
                                                                         <label htmlFor="belum" className='label-radio'>Belum
-                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={sk.sk_status} onChange={onChangeButtonFalse} />
+                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
                                                                             <span className='checked-radio'></span>
                                                                         </label>
                                                                     </Fragment>
                                                                     :
                                                                     <Fragment>
                                                                         <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} onChange={onChangeButton} />
+                                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
                                                                             <span className='checked-radio'></span>
                                                                         </label>
                                                                         <label htmlFor="belum" className='label-radio' >Belum
-                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={sk.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
                                                                             <span className='checked-radio'></span>
                                                                         </label>
                                                                     </Fragment>
@@ -722,7 +733,7 @@ const FormGNRM = (props) => {
                                                         </div>
                                                     </div>
                                                     {
-                                                        sk.sk_status ?
+                                                        data.sk_status ?
                                                             <Fragment>
                                                                 <div>
                                                                     <label>Input Nomor SK</label>
@@ -736,7 +747,7 @@ const FormGNRM = (props) => {
                                                                         }}
                                                                         type="text"
                                                                         name="sk_no"
-                                                                        value={sk.sk_no}
+                                                                        value={data.sk_no}
                                                                         onChange={onChangeSK}
                                                                         required
                                                                     />
@@ -756,7 +767,6 @@ const FormGNRM = (props) => {
                                                                         type="file"
                                                                         accept="image/*,application/pdf"
                                                                         name="media"
-                                                                        required
                                                                     />
                                                                 </div>
                                                                 <div>
@@ -827,7 +837,7 @@ const FormGNRM = (props) => {
                                                                     }}
                                                                     type="text"
                                                                     name="sk_kendala"
-                                                                    value={sk.sk_kendala}
+                                                                    value={data.sk_kendala}
                                                                     onChange={onChangeSK}
                                                                 />
                                                             </div>
@@ -1060,7 +1070,7 @@ const FormGNRM = (props) => {
                                                     <div>
                                                         <label>Gerakan</label>
                                                         {
-                                                            documentDetail ?
+                                                            documentDetail && documentDetail.form.gerakan ?
                                                                 <select
                                                                     onChange={onChange}
                                                                     class="gnrm-select"
@@ -1916,7 +1926,6 @@ const FormGNRM = (props) => {
                                                 accept="image/*"
                                                 name="media"
                                                 multiple
-                                                required
                                             />
                                         </div>
                                         <div>

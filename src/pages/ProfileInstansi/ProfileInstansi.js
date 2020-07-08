@@ -65,7 +65,7 @@ const ProfileInstansi = (props) => {
 
         return(
             <Fragment>
-                <SideBarOff/>
+                <SideBarOff setId={props.setId}/>
                 <Popup notif={props.notif}/>
                 <div className="background-after-login">
                     <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>

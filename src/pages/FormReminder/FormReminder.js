@@ -14,10 +14,11 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import plus2 from '../../assets/plus2.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const FormReminder = (props) => {
     const { token,userDetail } = useContext(AuthContext)
-    
+    const [ loading, setLoading ] = useState(false)
     const history = useHistory()
     const [ users , setUsers ] = useState([])
     const [ totalUsers, setTotalUsers] = useState()
@@ -165,6 +166,7 @@ const FormReminder = (props) => {
     }, []);
 
     const addNewNotification = async (formData) => {
+        setLoading(true)
         console.log(formData)
         const config = {
             headers: {
@@ -187,6 +189,7 @@ const FormReminder = (props) => {
         catch (err) {
             console.log(err)
         }
+        setLoading(false)
     }
 
     const onSubmit = (e) => {
@@ -248,7 +251,7 @@ const FormReminder = (props) => {
 
     return(
       <Fragment>
-          <SideBarOff/>
+          <SideBarOff setId={props.setId}/>
           <Popup notif={props.notif}/>
           <div className="background-after-login">
                     <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
@@ -259,7 +262,16 @@ const FormReminder = (props) => {
           <div className="tajuk-page">
               <h1>FORMULIR NOTIFIKASI</h1>
           </div>
-          <div style={{width:'fit-content' , height: 'fit-content' , margin: 'auto'}}>
+
+        {
+            loading ?  
+            <div style={{ marginLeft: '68px' }}>
+                <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                    <Spinner />
+                </div> 
+            </div>
+            :
+            <div style={{width:'fit-content' , height: 'fit-content' , margin: 'auto'}}>
             <div className="reminder-1-container" >
                 <div className="asal-reminder" style={{lineHeight:'20px'}}>
                     Dari <br/>
@@ -447,6 +459,7 @@ const FormReminder = (props) => {
                 </form>
             </div>
           </div>
+        }
       </Fragment>  
     );
 }

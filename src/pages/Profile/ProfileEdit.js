@@ -119,10 +119,10 @@ const ProfileEdit = (props) => {
         }
         try {
             const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
-            alert(res.data.message)
             if(isFoto) {
                 updateUserPhoto()
             } else {
+                alert(res.data.message)
                 history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
                 window.location.reload()
             }
@@ -178,7 +178,7 @@ const ProfileEdit = (props) => {
     console.log(foto)
         return(
             <Fragment>
-                <SideBarOff/>
+                <SideBarOff setId={props.setId}/>
                 <Popup notif={props.notif}/>
                 <div className="background-after-login">
                     <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>

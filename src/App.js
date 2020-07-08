@@ -52,6 +52,7 @@ const App = () => {
   const [ notifs, setNotifs] = useState([])
 
   console.log(id)
+  console.log('test')
 
   useEffect(() => {
     let cleanup = false;
@@ -95,6 +96,8 @@ const App = () => {
                         exact
                         path="/:role/dashboard"
                         component={Dashboard}
+                        setId = {setId}
+                        setId = {setId}
                         notif={notifs}
                       />
                     </Route>
@@ -103,6 +106,7 @@ const App = () => {
                         exact 
                         path="/:role/rencana-pelaksanaan-program" 
                         component={GNRM}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -111,6 +115,7 @@ const App = () => {
                         exact
                         path="/:role/laporan-monev"
                         component={Monev}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -119,6 +124,7 @@ const App = () => {
                         exact
                         path="/:role/kabar-gnrm"
                         component={Infografis}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -127,6 +133,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-kabar-gnrm/"
                         component={FormInfografis}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -135,6 +142,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-kabar-gnrm-edit/:id"
                         component={FormInfografis}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -143,6 +151,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-gnrm/"
                         component={FormGNRM}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -151,6 +160,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-gnrm-edit/:id"
                         component={FormGNRM}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -159,6 +169,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-instansi/"
                         component={FormInstansi}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -167,6 +178,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-instansi-edit/:id"
                         component={FormInstansi}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -175,6 +187,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-monev/"
                         component={FormMonev}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -183,6 +196,7 @@ const App = () => {
                         exact
                         path="/:role/formulir-monev-edit/:id"
                         component={FormMonev}
+                        setId = {setId}
                         notif={notifs} 
                       />
                     </Route>
@@ -192,6 +206,7 @@ const App = () => {
                           exact
                           path="/:role/edit-admin/:id"
                           component={EditAdmin}
+                          setId = {setId}
                           notif={notifs} 
                         />
                       </PrivateRoute>
@@ -201,6 +216,7 @@ const App = () => {
                         exact
                         path="/:role/profile/:id" 
                         component={Profile}
+                        setId = {setId}
                         notif={notifs}
                       />
                     </Route>
@@ -209,6 +225,7 @@ const App = () => {
                         exact
                         path="/:role/edit-profile/:id"
                         component={ProfileEdit}
+                        setId = {setId}
                         notif={notifs}
                       />
                     </Route> 
@@ -218,6 +235,7 @@ const App = () => {
                         exact
                         path="/:role/kelola-admin"
                         component={Admin}
+                        setId = {setId}
                         notif={notifs}
                       />
                       </PrivateRoute>
@@ -228,6 +246,7 @@ const App = () => {
                         exact
                         path="/:role/kelola-profile-admin/:id"
                         component={ProfileAdmin}
+                        setId = {setId}
                         notif={notifs}
                       />
                       </PrivateRoute>
@@ -245,17 +264,19 @@ const App = () => {
                         exact
                         path="/:role/formulir-tambah-admin"
                         component={FormAdmin}
+                        setId = {setId}
                         notif={notifs}
                         />
                       </PrivateRoute>
                     </Route>  
                     <Route path="/galeri" component={GalleryPage}/>
                     <Route path="/:role/notifikasi">
-                      <PrivateRoute path="/:role/notifikasi">
+                      <PrivateRoute path="/:role/notifikasi" setId = {setId}>
                         <PrivateRouteAdmin
                         exact
                         path="/:role/notifikasi"
                         component={Reminder}
+                        setId = {setId}
                         notif={notifs}
                         />
                       </PrivateRoute>
@@ -266,17 +287,18 @@ const App = () => {
                         exact
                         path="/:role/formulir-notifikasi"
                         component={FormReminder}
+                        setId = {setId}
                         notif={notifs}
                         />
                       </PrivateRoute>
                     </Route> 
-                    <Route path="/:role/notifikasi" >
+                    <Route path="/:role/notifikasi-saya" >
                       <PrivateRoute
                         exact
-                        path="/:role/notifikasi"
+                        path="/:role/notifikasi-saya"
                         component={Notifikasi}
-                        notif={notifs}
                         setId={setId}
+                        notif={notifs}
                       />
                     </Route> 
                     <Route path="/:role/profile-instansi/:id" >
@@ -284,8 +306,8 @@ const App = () => {
                         exact
                         path="/:role/profile-instansi/:id"
                         component={ProfileInstansi}
+                        setId = {setId}
                         notif={notifs}
-                        setId={setId}
                       />
                     </Route>
                     <Route path="/:role/edit-profile-instansi/:id" >
@@ -293,8 +315,8 @@ const App = () => {
                         exact
                         path="/:role/edit-profile-instansi/:id"
                         component={ProfileInstansiEdit}
+                        setId = {setId}
                         notif={notifs}
-                        setId={setId}
                       />
                     </Route>
                     {/* {/* <Route path="/preview-gnrm/:id">
@@ -302,6 +324,7 @@ const App = () => {
                         exact
                         path="/preview-gnrm/:id"
                         component={PreviewGNRM}
+                        setId = {setId}
                         notif={notifs}
                       />
                     </Route>  */}
@@ -310,6 +333,7 @@ const App = () => {
                         exact
                         path="/:role/kelola-instansi"
                         component={Instansi}
+                        setId = {setId}
                         notif={notifs}
                       />
                     </Route>

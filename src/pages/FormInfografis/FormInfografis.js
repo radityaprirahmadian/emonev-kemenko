@@ -186,7 +186,7 @@ const FormInfografis = (props) => {
 
     return(
         <Fragment>
-            <SideBarOff/>
+            <SideBarOff setId={props.setId}/>
             <div className="background-after-login"/>
             <Popup notif={props.notif}/>
             <div className="background-after-login">

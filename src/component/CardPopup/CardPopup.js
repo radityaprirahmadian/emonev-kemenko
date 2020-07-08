@@ -21,7 +21,12 @@ const CardPopup = (props) => {
         <Fragment>
             <div className='card-popup' style={{borderBottom:'2px solid rgba(0,0,0,0.2)' , padding:'10px'}}>
                 <div className="notifikasi-photo" style={{margin: '0px'}}>
-                    <img src={avatar}/>
+                    <div style={{position:'relative' , marginTop : '7px'}}>
+                        <div style={{width: '70px' , height: '70px' , borderRadius: '50%' , overflow:'hidden'}}>
+                            <img src={`https://api.simonev.revolusimental.go.id${props.foto}`} alt='user-avatar' className="avatar-notif"/>
+                        </div>
+                        <img src={`https://api.simonev.revolusimental.go.id${props.logo}`} alt='user-logo' style={{width:'30px' , height: '30px'}} className="logo-notif"/>
+                    </div>
                 </div>
                 <div className='card-popup-body'>
                     <div className='card-popup-isi'>{props.nama} dari <span style={{fontWeight:'700'}}>{props.dari}</span> memberi pesan kepada anda</div><br/>

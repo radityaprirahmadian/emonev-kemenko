@@ -32,6 +32,12 @@ const NotifState = (props) => {
         })
     }
     
+    const deleteNotifNew = () => {
+        dispatch({
+            type: 'DELETE_NOTIF',
+        })
+    }
+
     const getReminder = async (token) => {
         const config = {
             headers: {
@@ -44,7 +50,7 @@ const NotifState = (props) => {
                 type: 'GET_ALL_REMINDER',
                 payload: res.data.notifikasi
             })
-            setAllReminder(res.data.total && res.data.notifikasi.dibaca)
+            setAllReminder(res.data.notifikasi.filter(reminder => reminder.dibaca === false).length)
         }
         catch(err) {
             console.log(err)
@@ -66,7 +72,8 @@ const NotifState = (props) => {
                 setAllReminder,
                 getReminder,
                 resetNotif,
-                setNotifNew
+                setNotifNew,
+                deleteNotifNew
             }}
         >
             {props.children}

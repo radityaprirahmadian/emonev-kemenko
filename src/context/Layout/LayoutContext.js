@@ -18,7 +18,7 @@ const reducer = (state, action) => {
 }
 
 const initialState = {
-    sidebar: true,
+    sidebar: false,
 	loading: true,
 	active: true,
 }

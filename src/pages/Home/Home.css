@@ -96,6 +96,8 @@
 .col-8{
     /* border: 1px solid black; */
     padding: 0px;
+    left: -12px;
+
 }
 
 .home-section-4-title {
@@ -155,8 +157,8 @@
 
 
 .button-home-prev {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     text-align: center;
     position: absolute;
     left: -30px;
@@ -167,8 +169,8 @@
 }
 
 .button-home-next {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     text-align: center;
     position: absolute;
     right: -30px;

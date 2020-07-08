@@ -2,7 +2,7 @@ import React,{Fragment, Component, useEffect, useState, useContext} from 'react'
 import './Gallery.css';
 import axios from 'axios'
 import triangle from '../../assets/Vector.png';
-import trash from '../../assets/trash.png';
+import hapuss from '../../assets/mdi_delete.png';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'
 import Pagination from "react-js-pagination";
@@ -40,7 +40,7 @@ const Gallery = (props) => {
         try {
             if(userDetail){
                 if(userDetail.role === 'admin'){
-                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?instansi=${userDetail.instansi.nama_pendek}&page=${pages}&limit=${limit}`)
+                    const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?instansi=${userDetail&&userDetail.instansi.nama_pendek}&page=${pages}&limit=${limit}`)
                     setTotal(res.data.total_gnrm)
                     setPage(Math.ceil(res.data.total / 9))
                     console.log(res)
@@ -73,7 +73,7 @@ const Gallery = (props) => {
 
     useEffect(() => {
         getAllGallery();
-    },[filter])
+    },[filter , userDetail])
 
     const deleteGallery = async (e) => {
         const config={
@@ -96,7 +96,6 @@ const Gallery = (props) => {
         e.preventDefault()
         setOpen(true)
         setGambar(galler)
-        console.log(gambar)
     }
 
     const onClose = (e) => {
@@ -211,7 +210,7 @@ const Gallery = (props) => {
                                                                 />
                                                                 {
                                                                     user && user.role === 'owner' ?
-                                                                            <img src={trash} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999' , cursor:'pointer'}}/>
+                                                                            <img src={hapuss} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999' , cursor:'pointer'}}/>
                                                                     : 
                                                                     ''
                                                                 }

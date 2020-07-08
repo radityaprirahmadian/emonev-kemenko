@@ -53,8 +53,9 @@
 
 .notifikasi-card {
     margin-left: 84px;
+    margin-right: 20px;
     margin-top: 19px;
-    width: 1200px;
+    max-width: 100%;
     box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
     background-color: white;
     margin-bottom: 40px;
@@ -69,6 +70,7 @@
 }
 
 .notifikasi-card-body{
+    width: 100%;
     height: 178px;
     display: flex;
     border-bottom: 1px solid grey;
@@ -77,15 +79,14 @@
 .notifikasi-photo{
     margin-left: 11px;
     margin-top: 49px;
+    margin-right: 20px;
 }
 
-.notifikasi-photo img{
-    height: 80px;
-}
 .notifikasi-detail{
     margin-left: 11px;
-    width: 1076px;
+    width: 100%;
     font-size: 12px;
+    margin-right: 17px;
     letter-spacing: 0.01em;
     line-height: 15px;
     /* border: 1px solid black; */
@@ -96,12 +97,27 @@
     margin-top: 11px;
 }
 .notifikasi-detail .isi-notifikasi{
-    width: 1076px;
+    max-width: 100%;
     height: 86px;
     margin-top: 10px;   
+    margin-right: 17px;
     letter-spacing: 0.01em;
     line-height: 15px;
     /* border: 1px solid black; */
+}
+
+.avatar-notif {
+    position: relative;
+    height: 80px;
+    width: auto;
+}
+
+.logo-notif {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 40px;
+    width: 40px;
 }
 
 .notifikasi-detail .pengirim-notifikasi{

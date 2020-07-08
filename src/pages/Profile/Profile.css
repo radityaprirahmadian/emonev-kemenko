@@ -87,11 +87,6 @@
     overflow: hidden;
 }
 
-.photo-profile img{
-    width: 180px;
-    height: 180px;
-}
-
 .photo-profile-container u{
     text-align: center;
     font-weight: 600;

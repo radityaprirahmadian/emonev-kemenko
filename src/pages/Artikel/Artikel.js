@@ -102,7 +102,7 @@ const Artikel = (props) => {
                             <div className="judul-artikel">
                                 {infografisDetail && infografisDetail.judul}
                                 <div className="logo-artikel">
-                                    <img src={`https://api.simonev.revolusimental.go.id${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian' style={{width:'90px',height:'85.5px'}}/>
+                                    <img src={`https://api.simonev.revolusimental.go.id${infografisDetail&&infografisDetail.instansi.logo}`} alt='logo_kementerian'/>
                                 </div>
                             </div>
                             <div className="card-artikel">

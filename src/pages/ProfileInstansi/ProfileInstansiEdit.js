@@ -10,12 +10,14 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import objectToFormData from '../../objectToFormDataUtil'
+import Spinner from '../../component/Spinner/Spinner'
 import Notification from '../../component/Notification/Notification';
 
 const ProfileInstansiEdit = (props) => {
     const { token, userDetail,user} = useContext(AuthContext);
     const history = useHistory()
     const [ foto, setFoto ] = useState([])
+    const [loading , setLoading ] = useState(false)
     const [ instansiDetail , setInstansiDetail] = useState({})
     console.log(instansiDetail)
     const jenis = ['Kementerian' , 'Pemerintah Daerah']
@@ -44,6 +46,7 @@ const ProfileInstansiEdit = (props) => {
     }
 
     const getInstansiDetail = async () => {
+        setLoading(true)
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`,
@@ -56,9 +59,11 @@ const ProfileInstansiEdit = (props) => {
         catch (err) {
             console.log(err)
         }
+        setLoading(false)
     }
 
     const editInstansi = async (data) => {
+        setLoading(true)
         console.log(data)
         const formData = objectToFormData(data)
 
@@ -87,8 +92,7 @@ const ProfileInstansiEdit = (props) => {
         catch(err) {
             alert(err.data.message)
         }
-        
-        
+        setLoading(false)   
     }
 
     const onChangeInstansi = (e) => {
@@ -131,7 +135,7 @@ const ProfileInstansiEdit = (props) => {
 
         return(
             <Fragment>
-                <SideBarOff/>
+                <SideBarOff setId={props.setId}/>
                 <Popup notif={props.notif}/>
                 <div className="background-after-login">
                     <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
@@ -149,100 +153,106 @@ const ProfileInstansiEdit = (props) => {
                                 <Notification/>
                         }
                     </div>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <form id="form-profile">
-                            <div className="col"> 
-                            
-                                <div className="form-profile-page">
-                                <div className="data" >
-                                    <label>Nama Instansi</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '10px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
-                                    <input className="show-profile" type="text" style={{fontWeight:'700'}} name="nama_pendek" value={newInstansi.nama_pendek} onChange={onChangeInstansi}></input>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
-                                    <select className="show-profile" type="text" name="jenis" onChange={onChangeInstansi}>
-                                        {  
-                                            jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
-                                        }
-                                    </select>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'32px'}}>Kontak</label><br/>
-                                    <input className="show-profile" type="text" name="kontak" value={newInstansi.kontak} onChange={onChangeInstansi}></input>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'32px'}}>Alamat</label><br/>
-                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px', paddingTop: '10px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'64px'}}>Fax</label><br/>
-                                    <input className="show-profile" type="text" name="fax" value={newInstansi.fax} onChange={onChangeInstansi}></input>
-                                </div>
-
-                                <div className="data">
-                                    <label style={{marginTop:'64px'}}>Website</label><br/>
-                                    <input className="show-profile" type="text" name="website" value={newInstansi.website} onChange={onChangeInstansi}></input>
-                                </div>
-                                <div className="data">
-                                    <label style={{marginTop:'64px'}}>Email</label><br/>
-                                    <input className="show-profile" type="email" name="email" value={newInstansi.email} onChange={onChangeInstansi}></input>
-                                </div>
-                                </div>
+                    {
+                        loading ?
+                            <div style={{ marginLeft: '68px' }}>
+                                <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                    <Spinner />
+                                </div> 
                             </div>
-                            </form>
+                            :
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <form id="form-profile">
+                                        <div className="col"> 
+                                            <div className="form-profile-page">
+                                                <div className="data" >
+                                                    <label>Nama Instansi</label><br/>
+                                                    <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '10px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
+                                                </div>
 
-                            <div className="col">
-                                <div className="photo-profile-page">
-                                    <label>Foto Profil Instansi</label><br/>
-                                    <div className="photo-profile-container">
-                                        <div className="photo-profile">
-                                            <img src={fotos}></img>
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
+                                                    <input className="show-profile" type="text" style={{fontWeight:'700'}} name="nama_pendek" value={newInstansi.nama_pendek} onChange={onChangeInstansi}></input>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                    <select className="show-profile" type="text" name="jenis" onChange={onChangeInstansi}>
+                                                        {  
+                                                            jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Kontak</label><br/>
+                                                    <input className="show-profile" type="text" name="kontak" value={newInstansi.kontak} onChange={onChangeInstansi}></input>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Alamat</label><br/>
+                                                    <textarea className="show-profile" type="text" style={{height:'84px',lineHeight: '20px', paddingTop: '10px'}} name="alamat" value={newInstansi.alamat} onChange={onChangeInstansi}></textarea>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Fax</label><br/>
+                                                    <input className="show-profile" type="text" name="fax" value={newInstansi.fax} onChange={onChangeInstansi}></input>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Website</label><br/>
+                                                    <input className="show-profile" type="text" name="website" value={newInstansi.website} onChange={onChangeInstansi}></input>
+                                                </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Email</label><br/>
+                                                    <input className="show-profile" type="email" name="email" value={newInstansi.email} onChange={onChangeInstansi}></input>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
+                                    </form>
+
+                                    <div className="col">
+                                        <div className="photo-profile-page">
+                                            <label>Foto Profil Instansi</label><br/>
+                                            <div className="photo-profile-container">
+                                                <div className="photo-profile">
+                                                    <img src={fotos}></img>
+                                                </div>
+                                                <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
+                                                    <input 
+                                                        id="testing"
+                                                        className="gnrm-penjelasan" 
+                                                        style={{height: "42px", 
+                                                                marginLeft: "28px", 
+                                                                width: "955px"}} 
+                                                        onChange={onChangeFiles}
+                                                        type="file"
+                                                        accept="image/*"
+                                                        name="media"
+                                                    />
+                                            </div>
+                                            <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${instansiDetail && instansiDetail._id}`}>
+                                                <button 
+                                                    type="submit"
+                                                    className="button-submit-profile"   
+                                                > BATAL
+                                                </button>
+                                            </Link>
+
                                             <input 
-                                                id="testing"
-                                                className="gnrm-penjelasan" 
-                                                style={{height: "42px", 
-                                                        marginLeft: "28px", 
-                                                        width: "955px"}} 
-                                                onChange={onChangeFiles}
-                                                type="file"
-                                                accept="image/*"
-                                                name="media"
-                                            />
+                                                    form="form-profile"
+                                                    type="submit"
+                                                    className="button-submit-profile-edit"
+                                                    value="SIMPAN"
+                                                    onClick={onSubmit}
+                                                > 
+                                            </input>
+                                        </div>
                                     </div>
-                                    <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/${instansiDetail && instansiDetail._id}`}>
-                                        <button 
-                                            type="submit"
-                                            className="button-submit-profile"   
-                                        > BATAL
-                                        </button>
-                                    </Link>
-
-                                    <input 
-                                            form="form-profile"
-                                            type="submit"
-                                            className="button-submit-profile-edit"
-                                            value="SIMPAN"
-                                            onClick={onSubmit}
-                                        > 
-                                    </input>
                                 </div>
-
                             </div>
-
-                        </div>
-                    </div>
+                    }
                 </div>
             </Fragment>
         );

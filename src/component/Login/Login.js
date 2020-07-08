@@ -7,6 +7,7 @@ import { Link, useHistory, withRouter } from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import NewPassword from '../NewPassword/NewPassword';
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
+import { LayoutContext } from '../../context/Layout/LayoutContext';
 import aset_1 from '../../assets/decoration/aset_1.png'
 import aset_2 from '../../assets/decoration/aset_2.png'
 import aset_3 from '../../assets/decoration/aset_3.png'
@@ -19,6 +20,7 @@ import Spinner from '../../component/Spinner/Spinner'
 
 const Login = (props) => {
     const { isAuthenticated, login, fail, token, loadUser, user, remember, rememberToken, userDetail, loading } = useContext(AuthContext);
+    const { sidebar, setSidebar } = useContext(LayoutContext);
     const history = useHistory();
 
     const [users, setUser] = useState ({
@@ -66,6 +68,7 @@ const Login = (props) => {
         console.log(userDetail)
         if(userDetail && !userDetail.login_awal) {
             props.setId(userDetail._id)
+            setSidebar();
             props.history.push(`/${userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
         }
     })

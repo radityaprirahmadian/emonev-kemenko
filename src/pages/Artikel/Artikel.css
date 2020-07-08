@@ -25,12 +25,12 @@
 
 .assets.aset5 {
     bottom: -20px;
-    right: -20px;
+    right: -30px;
 }
 
 .assets.aset9 {
     top: -20px;
-    left: -20px;
+    left: -30px;
 }
 
 .assets.aset8 {
@@ -96,6 +96,12 @@
     position: absolute;
     top: 0;
     right: -500px;
+}
+
+.logo-artikel img {
+    object-fit: contain;
+    width: 100px;
+    height: 100px;
 }
 
 .gambar-infografis {

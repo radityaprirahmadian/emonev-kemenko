@@ -32,10 +32,6 @@ const Dashboard = (props) => {
 
     console.log(userDetail)
 
-    useEffect(() => {
-      setNotifNew(props.notif)
-    },[props.notif])
-
     const [filterCard,setFilterCard] = useState({
         page:'1',
     })
@@ -100,42 +96,21 @@ const Dashboard = (props) => {
     }
 
     useEffect(() =>{
-      getDocumentCard()
-
-      fetch("https://api.simonev.revolusimental.go.id/api/v1/instansi")
-      .then(res => res.json())
-      .then(data => setInstansiData(data.instansi));
-      
-    },[])
-
-    useEffect(() =>{
         getDocumentCard()
     },[filterCard])
 
     const [documentLengthArr , setDocumentLengthArr] = useState([])
 
     useEffect(() => {
-      const getInstansiDetail = async () => {
-          const config = {
-              headers: {
-                  'X-Auth-Token': `aweuaweu ${token}`,
-              }
-          }
-          try {
-              const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail && userDetail.instansi._id}`,config)
-              setInstansiDetail(res.data.instansi)
-              if(res.data.instansi.alamat === '' || res.data.instansi.kontak === '' || res.data.instansi.website === '' || res.data.instansi.fax === '') {
-                  setHide(false)
-              } else {
-                  setHide(true)
-              }
-          }
-          catch (err) {
-              console.log(err)
-          }
-      }
-      getInstansiDetail()
+
+      fetch("https://api.simonev.revolusimental.go.id/api/v1/instansi")
+      .then(res => res.json())
+      .then(data => setInstansiData(data.instansi));
   },[])
+
+  useEffect(() =>{
+    getDocumentCard()
+  },[userDetail])
 
   console.log(documentLengthArr)
 
@@ -205,23 +180,8 @@ const Dashboard = (props) => {
 
   return (
       <Fragment>
-            <SideBarOff/>
+            <SideBarOff setId={props.setId}/>
             <Popup notif={props.notif}/>
-
-            {
-               hide ?
-                '' 
-                :
-                <div className="popup-check">
-                    <div className="popup-check-instansi">
-                        <div className='popup-check-instansi-title'>Profile Instansi Belum Lengkap</div> <br/>
-                        <div>Untuk dapat mengisi laporan,<br/> harap mengisi profil instansi anda <br/>terlebih dahulu.</div> <br/><br/><br/><br/><br/>
-                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
-                            <button className="button-to-instansi" onClick={onClickToProfileInstansi}>LENGKAPI PROFIL</button>
-                        </NavLink>
-                    </div>
-                </div>
-            }
             <div className="background-after-login">
                 <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
                 <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
@@ -245,8 +205,8 @@ const Dashboard = (props) => {
                         statistikActive ?
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-next" style={{top:'35%' , right:'-32px' , backgroundColor:'#343A40'}} onClick={onNextStatistik}>
-                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                            <div className="button-home-next" style={{top:'45%' , right:'-45px' , backgroundColor:'#343A40'}} onClick={onNextStatistik}>
+                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                             </div>
                             <StatistikGNRM 
                                 color='#8380EA'
@@ -335,8 +295,8 @@ const Dashboard = (props) => {
                         :
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-prev" style={{top:'35%' , left:'-32px' , backgroundColor:'#343A40'}} onClick={onPrevStatistik}>
-                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                            <div className="button-home-prev" style={{top:'45%' , left:'-45px' , backgroundColor:'#343A40'}} onClick={onPrevStatistik}>
+                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                             </div>
                             <StatistikMonev 
                                 color='#8380EA'
@@ -433,23 +393,23 @@ const Dashboard = (props) => {
                                 <Fragment>
                                   {
                                     page === '1' ? 
-                                      <div className="button-home-next" style={{top:'200px' , backgroundColor:'#343A40' , right:'-7px'}} onClick={onNextFilter}>
-                                          <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                      <div className="button-home-next" style={{top:'45%' , backgroundColor:'#343A40' , right:'-22px'}} onClick={onNextFilter}>
+                                          <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                                       </div>
                                     : 
                                     <Fragment>
                                       {
                                         page === JSON.stringify(Math.ceil(documentCardLength/3)) ?
-                                          <div className="button-home-prev" style={{top:'200px' , backgroundColor:'#343A40' , left:'-32px'}} onClick={onPrevFilter}>
-                                              <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                          <div className="button-home-prev" style={{top:'45%' , backgroundColor:'#343A40' , left:'-42px'}} onClick={onPrevFilter}>
+                                              <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                                           </div>
                                         :
                                           <Fragment>
-                                            <div className="button-home-prev" style={{top:'200px' , backgroundColor:'#343A40' , left:'-32px'}} onClick={onPrevFilter}>
-                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_back</i>
+                                            <div className="button-home-prev" style={{top:'45%' , backgroundColor:'#343A40' , left:'-42px'}} onClick={onPrevFilter}>
+                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
                                             </div>
-                                            <div className="button-home-next" style={{top:'200px' , backgroundColor:'#343A40' , right:'-7px'}} onClick={onNextFilter}>
-                                                <i className="material-icons" style={{fontSize:'16px' , lineHeight:'24px'}}>arrow_forward</i>
+                                            <div className="button-home-next" style={{top:'45%' , backgroundColor:'#343A40' , right:'-22px'}} onClick={onNextFilter}>
+                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
                                             </div>
                                           </Fragment>
                                       }

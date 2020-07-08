@@ -21,6 +21,11 @@
     margin-bottom: 25px;
 }
 
+.gnrm-media--image{
+    width: 150px;
+    height: 150px;
+}
+
 .form-gnrm div{
     margin-bottom: 16px;
 }

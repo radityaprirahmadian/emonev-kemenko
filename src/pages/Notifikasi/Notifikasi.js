@@ -34,7 +34,7 @@ const Notifikasi = (props) => {
     console.log(allReminder)
     return(
         <Fragment>
-            <SideBarOff/>
+                <SideBarOff setId={props.setId}/>
                 <Popup notif={props.notif}/>
                 <div className="background-after-login">
                         <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
@@ -50,7 +50,7 @@ const Notifikasi = (props) => {
                     </div>
 
                     <div className="notifikasi-card">
-                        <div className="notifikasi-card-header">
+                         <div className="notifikasi-card-header">
                             Hari ini
                         </div>
                         {
@@ -63,6 +63,8 @@ const Notifikasi = (props) => {
                                             judul={reminder.judul}
                                             nama={reminder.dari.nama}
                                             dari={reminder.dari.instansi}
+                                            logo={reminder.dari.logo}
+                                            foto={reminder.dari.foto}
                                             isi={reminder.isi}
                                         />
                                     )

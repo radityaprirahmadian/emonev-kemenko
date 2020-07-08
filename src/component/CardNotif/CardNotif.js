@@ -19,7 +19,12 @@ const CardNotif = (props) => {
     return(
         <div className="notifikasi-card-body" >
             <div className="notifikasi-photo">
-                <img src={avatar}/>
+                <div style={{position:'relative' , marginTop : '7px'}}>
+                    <div style={{width: '80px' , height: '80px' , borderRadius: '50%' , overflow:'hidden'}}>
+                        <img src={`https://api.simonev.revolusimental.go.id${props.foto}`} alt='user-avatar' className="avatar-notif"/>
+                    </div>
+                    <img src={`https://api.simonev.revolusimental.go.id${props.logo}`} alt='user-logo' className="logo-notif"/>
+                </div>
             </div>
             <div className="notifikasi-detail">
                 <p className="judul-notifikasi">{props.judul}</p>

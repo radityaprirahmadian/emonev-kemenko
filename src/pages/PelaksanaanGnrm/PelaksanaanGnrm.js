@@ -95,7 +95,7 @@ const GNRM  = (props) => {
     // if (!loading) {
         return(
             <Fragment>
-                <SideBarOff/>
+                <SideBarOff setId={props.setId}/>
                 <div className="background-after-login">
                         <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
                         <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>

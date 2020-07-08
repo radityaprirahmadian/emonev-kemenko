@@ -4,6 +4,7 @@ import logo_kemenko from '../../assets/logo_kemenko.png'
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import logo_footer from '../../assets/logo_footer.png'
 import images from '../../assets/image.png'
+import imgFile from '../../assets/file.png'
 import { Link,useHistory} from 'react-router-dom';
 import axios from 'axios'
 import objectToFormData from '../../objectToFormDataUtil'
@@ -55,6 +56,9 @@ const FormMonev =  (props) => {
         },
         kp: '',
         prop: '',
+        sk_status: '',
+        sk_no: '',
+        sk_kendala : '',
         gerakan: '',
         waktu: '',
         tempat: '',
@@ -159,22 +163,16 @@ const FormMonev =  (props) => {
         setFormGerakan(forms)
     }
 
-    const [sk,setSk] = useState({
-        sk_status: '',
-        sk_no: '',
-        sk_kendala : ''
-    })
-
     const onChangeButton = (e) => {
-        return setSk({...sk , sk_status: true})
+        return setData({...data , sk_status: true})
     }
 
     const onChangeButtonFalse = (e) => {
-        return setSk({...sk , sk_status: false})
+        return setData({...data , sk_status: false , sk_no: ''})
     }
 
     const onChangeSK = (e) => {
-        return setSk({...sk , [e.target.name]: e.target.value})
+        return setData({...data , [e.target.name]: e.target.value})
     }
 
     const [skFile,setSKFile] = useState([])
@@ -223,27 +221,11 @@ const FormMonev =  (props) => {
 		else setData({ ...data, [event.target.name]: event.target.value })
     }
 
-    const onSubmitSK = async (event) => {
-        setLoadingTrue()
-        const formData = objectToFormData(sk)
-
-        if (skFile.length > 0) {
-            for (let i = 0; i < skFile.length; i++) {
-                formData.append(`sk`, skFile[i])
-            }
-        }  else {formData.append('sk', new File([null], 'blob'))}
-
-        const config = {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-				'X-Auth-Token': `aweuaweu ${token}`,
-			},
-		}
-
-		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail&&userDetail.instansi._id}`,formData,config,)
-        setLoadingFalse()
-        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
-    }
+    // const cekEkstension = (ext) => {
+    //     if(ext !== 'pdf' || ext !== 'jpeg' || ext !== 'jpg' || ext !== 'png'){
+    //         alert('Anda memasukkan file dengan eksensi yang salah!')
+    //     }
+    // }
 
     const onSubmit = async (event) => {
         setLoadingTrue()
@@ -269,7 +251,11 @@ const FormMonev =  (props) => {
         
         for (let i = 0; i < lampiranKetercapaian.length; i++) {
 			formData.append(`lampiran_ketercapaian`, lampiranKetercapaian[i])
-		}
+        }
+        
+        for (let i = 0; i < skFile.length; i++) {
+            formData.append(`sk`, skFile[i])
+        }
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
@@ -284,9 +270,8 @@ const FormMonev =  (props) => {
 
         try {
             const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=monev',formData,config,)
-            onSubmitSK()
-            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
             alert(res.data.message)
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         }
         catch(err){
             alert(err.data.message)
@@ -336,6 +321,11 @@ const FormMonev =  (props) => {
             }
         }  else {formData.append('lampiran_ketercapaian', new File([null], 'blob'))}
         
+        if (skFile.length > 0) {
+            for (let i = 0; i < skFile.length; i++) {
+                formData.append(`sk`, skFile[i])
+            }
+        }  else {formData.append('sk', new File([null], 'blob'))}
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
@@ -349,9 +339,8 @@ const FormMonev =  (props) => {
 		}
 
 		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
-        onSubmitSK()
-        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         alert(res.data.message)
+        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         setLoadingFalse()
         editDocumentFalse()
     }
@@ -366,8 +355,8 @@ const FormMonev =  (props) => {
 
     useEffect(() => {
         if(instansiDetail){
-            setSk({
-                ...sk,
+            setData({
+                ...data,
                 sk_no: instansiDetail.sk&&instansiDetail.sk.no,
                 sk_status: instansiDetail.sk&&instansiDetail.sk.status,
                 sk_kendala: instansiDetail.sk&&instansiDetail.sk.kendala
@@ -589,7 +578,7 @@ const FormMonev =  (props) => {
 
     return(
     <Fragment>
-        <SideBarOff/>
+            <SideBarOff setId={props.setId}/>
             <div className="background-after-login">
                 <img src={bg_1} alt='bg1' style={{position: 'fixed' , top:'0' , left: '0'}}/>
                 <img src={bg_2} alt='bg2' style={{position: 'fixed' , top:'0' , right: '0'}}/>
@@ -868,7 +857,7 @@ const FormMonev =  (props) => {
                                                     <div>
                                                         <label>Gerakan</label>
                                                         {
-                                                            documentDetail ?
+                                                            documentDetail && documentDetail.form.gerakan ?
                                                                 <select
                                                                     onChange={onChange}
                                                                     class="gnrm-select"
@@ -975,7 +964,7 @@ const FormMonev =  (props) => {
                                                         marginLeft: '230px',
                                                         fontWeight:'700'
                                                         }}
-                                            >{sk.sk_no}</div>
+                                            >{data.sk_no}</div>
                                         </div>
                                         <div>
                                             <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
@@ -1004,25 +993,25 @@ const FormMonev =  (props) => {
                                             <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
                                             <div style={{marginLeft:'210px'}}>
                                                 {
-                                                    sk.sk_status ?
+                                                    data.sk_status ?
                                                     <Fragment>
                                                         <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} checked={true} onChange={onChangeButton} />
+                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
                                                             <span className='checked-radio'></span>
                                                         </label>
                                                         <label htmlFor="belum" className='label-radio'>Belum
-                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={sk.sk_status} onChange={onChangeButtonFalse} />
+                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
                                                             <span className='checked-radio'></span>
                                                         </label>
                                                     </Fragment>
                                                     :
                                                     <Fragment>
                                                         <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={sk.sk_status} onChange={onChangeButton} />
+                                                            <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
                                                             <span className='checked-radio'></span>
                                                         </label>
                                                         <label htmlFor="belum" className='label-radio' >Belum
-                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={sk.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                            <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
                                                             <span className='checked-radio'></span>
                                                         </label>
                                                     </Fragment>
@@ -1030,7 +1019,7 @@ const FormMonev =  (props) => {
                                             </div>
                                         </div>
                                             {
-                                                sk.sk_status ?
+                                                data.sk_status ?
                                                 <Fragment>
                                                     <div>
                                                         <label>Input Nomor SK</label>
@@ -1043,7 +1032,7 @@ const FormMonev =  (props) => {
                                                                     }}
                                                             type="text" 
                                                             name="sk_no"
-                                                            value={sk.sk_no}
+                                                            value={data.sk_no}
                                                             onChange={onChangeSK}
                                                             required
                                                         />
@@ -1059,9 +1048,8 @@ const FormMonev =  (props) => {
                                                                     width: "955px"}} 
                                                             onChange={onChangeSKFile}
                                                             type="file"
-                                                            accept="image/*"
+                                                            accept="image/* , application/pdf"
                                                             name="media"
-                                                            required
                                                         />
                                                     </div>
                                                         <div>
@@ -1079,11 +1067,11 @@ const FormMonev =  (props) => {
                                                                         skFile.map((lampiran,index) => {
                                                                             const fileExt = getFIleExtension(lampiran.name)
                                                                             const objectURL = URL.createObjectURL(lampiran)
+                                                                            // cekEkstension(fileExt)
                                                                             return(
                                                                                 <div key={index}>
                                                                                         <div style={{width:'150px', 
                                                                                                     height:'150px', 
-                                                                                                    backgroundColor:'pink', 
                                                                                                     marginRight:'35px', 
                                                                                                     position:'relative'
                                                                                                     }}
@@ -1126,7 +1114,7 @@ const FormMonev =  (props) => {
                                                                 width: "955px"}} 
                                                         type="text" 
                                                         name="sk_kendala"
-                                                        value={sk.sk_kendala}
+                                                        value={data.sk_kendala}
                                                         onChange={onChangeSK}
                                                     />
                                                 </div>
@@ -1278,6 +1266,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1286,8 +1275,7 @@ const FormMonev =  (props) => {
                                                         return(
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
+                                                                                height:'150px',  
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'
                                                                                 }}
@@ -1334,6 +1322,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1342,7 +1331,6 @@ const FormMonev =  (props) => {
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
                                                                                 height:'150px', 
-                                                                                backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'}}
                                                                         className="d-flex align-items-center justify-content-center"
@@ -1466,6 +1454,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1474,8 +1463,7 @@ const FormMonev =  (props) => {
                                                         return(
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
+                                                                                height:'150px',  
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'
                                                                                 }}
@@ -1522,6 +1510,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1530,7 +1519,6 @@ const FormMonev =  (props) => {
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
                                                                                 height:'150px', 
-                                                                                backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'}}
                                                                         className="d-flex align-items-center justify-content-center"
@@ -1642,6 +1630,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1651,7 +1640,6 @@ const FormMonev =  (props) => {
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
                                                                                 height:'150px', 
-                                                                                backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'
                                                                                 }}
@@ -1698,6 +1686,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1706,7 +1695,6 @@ const FormMonev =  (props) => {
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
                                                                                 height:'150px', 
-                                                                                backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'}}
                                                                         className="d-flex align-items-center justify-content-center"
@@ -1848,6 +1836,7 @@ const FormMonev =  (props) => {
                                             padding: '10px',
                                             display: 'flex',
                                             flexWrap: 'wrap',
+                                            overflow: 'hidden'
                                         }} 
                                         >
                                             {
@@ -1857,7 +1846,6 @@ const FormMonev =  (props) => {
                                                         <div key={index}>
                                                                 <div style={{width:'150px', 
                                                                             height:'150px', 
-                                                                            backgroundColor:'pink', 
                                                                             marginRight:'35px', 
                                                                             position:'relative'
                                                                             }}
@@ -1904,6 +1892,7 @@ const FormMonev =  (props) => {
                                             padding: '10px',
                                             display: 'flex',
                                             flexWrap: 'wrap',
+                                            overflow: 'hidden'
                                         }} 
                                         >
                                             {
@@ -1911,8 +1900,7 @@ const FormMonev =  (props) => {
                                                     return(
                                                         <div key={index}>
                                                                 <div style={{width:'150px', 
-                                                                            height:'150px', 
-                                                                            backgroundColor:'pink', 
+                                                                            height:'150px',  
                                                                             marginRight:'35px', 
                                                                             position:'relative'}}
                                                                     className="d-flex align-items-center justify-content-center"
@@ -1962,7 +1950,7 @@ const FormMonev =  (props) => {
                                                 width: "955px"}} 
                                         onChange={onChangeBerkas}
                                         type="file"
-                                        accept="image/*"
+                                        accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf,"
                                         name="media"
                                         multiple
                                     />
@@ -1978,6 +1966,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -1986,15 +1975,14 @@ const FormMonev =  (props) => {
                                                         return(
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
+                                                                                height:'150px',  
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'
                                                                                 }}
                                                                         className="d-flex align-items-center justify-content-center"
                                                                     >
                                                                         <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                            <img src={imgFile} style={{width: '150px' , height: '150px'}} alt={lampiran.name} className="gnrm-media--image"/>
                                                                         </div>
                                                                         <div style={{position:'absolute', 
                                                                                     backgroundColor:'#C04B3E' , 
@@ -2034,6 +2022,7 @@ const FormMonev =  (props) => {
                                                 padding: '10px',
                                                 display: 'flex',
                                                 flexWrap: 'wrap',
+                                                overflow: 'hidden'
                                             }} 
                                             >
                                                 {
@@ -2042,13 +2031,12 @@ const FormMonev =  (props) => {
                                                             <div key={index}>
                                                                     <div style={{width:'150px', 
                                                                                 height:'150px', 
-                                                                                backgroundColor:'pink', 
                                                                                 marginRight:'35px', 
                                                                                 position:'relative'}}
                                                                         className="d-flex align-items-center justify-content-center"
                                                                     >
                                                                         <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                            <img src={imgFile} style={{width: '150px' , height: '150px'}} alt={getFileName(url)} className="gnrm-media--image"/>
                                                                         </div>
                                                                         <div style={{position:'absolute', 
                                                                                     backgroundColor:'#C04B3E' , 
@@ -2558,7 +2546,7 @@ const FormMonev =  (props) => {
                                                                     className="d-flex align-items-center justify-content-center"
                                                                 >
                                                                     <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                        <img src={images} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
+                                                                        <img src={imgFile} alt={lampiran.name} style={{ width: '150px', height: '150px'}} className="gnrm-media--image" />
                                                                     </div>
                                                                 </div>
                                                                 <div style={{

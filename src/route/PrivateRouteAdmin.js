@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { AuthContext } from '../context/Auth/AuthContext'
 
-const PrivateRouteAdmin = ({ component: Component, notif, ...rest }) => {
+const PrivateRouteAdmin = ({ component: Component, setId , notif, ...rest }) => {
 	const { isAuthenticated, loading, user } = useContext(AuthContext)
 	return (
 		<Route
@@ -11,7 +11,7 @@ const PrivateRouteAdmin = ({ component: Component, notif, ...rest }) => {
 				user && user.role === 'admin' ? (
 					<Redirect to={`/admin/dashboard`} />
 				) : (
-					<Component {...props} notif={notif}/>
+					<Component {...props} notif={notif} setId={setId}/>
 				)
 			}
 		/>

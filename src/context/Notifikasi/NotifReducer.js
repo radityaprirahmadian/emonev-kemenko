@@ -24,6 +24,12 @@ export default (state, action) => {
                 notifNew: action.payload
             }
 
+        case 'DELETE_NOTIF':
+            return{
+                ...state,
+                notifNew: []
+            }
+
         default :
             return state;
     }

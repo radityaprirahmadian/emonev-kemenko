@@ -1,20 +1,17 @@
-import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment , useEffect} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
-class NotFound extends Component {
-    render(){
-        return(
-            <Fragment>
-                <div className="text-center">
-                    <h1>WAKWAW</h1>
-                    <Link to="/">
-                        <button className="btn btn-primary">BACK TO HOME</button>
-                    </Link>
-                </div>
-            </Fragment>
+const NotFound = (props) => {
 
-        )
-    }
+    useEffect(() => {
+        props.history.goBack(-2)
+    }, [])
+
+
+    return(
+        <Fragment>
+        </Fragment>
+    )
 }
 
 export default NotFound;
