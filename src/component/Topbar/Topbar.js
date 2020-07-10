@@ -128,7 +128,10 @@ const Topbar = (props) => {
                 $(".top-bar").removeClass("scroll");
             }
         });
-
+        
+        const onTop = (e) => {
+            window.scrollTo(0, 0);
+        }
 
 
 
@@ -137,7 +140,9 @@ const Topbar = (props) => {
                     <header className={props.kunci ? "top-bar" : "top-bar-default"}>
                         <nav className="top-bar-navigation">
                             <div className="top-bar-logo">
-                                <img src={gif_logo} alt="logo kemenko" className="logo-kemenko" />
+                                <NavLink exact to="/" activeClassName="active" onClick={onTop}>
+                                    <img src={gif_logo} alt="logo kemenko" className="logo-kemenko" />
+                                </NavLink>
                             </div>
 
                             <div className="spacer"/>
@@ -157,7 +162,7 @@ const Topbar = (props) => {
                                             <div className="top-bar-menu-container no-2">
                                                 Pelaksanaan GNRM
                                                 <span style={{marginLeft:'10px'}}>
-                                                    <i className="fa fa-angle-down" style={{fontSize:'18px'}}></i>
+                                                    <i className="fa fa-angle-down"></i>
                                                 </span>  
                                                 <div className="jarak">
                                                 </div>
@@ -182,18 +187,18 @@ const Topbar = (props) => {
                                                                             }
                                                                             {
                                                                                 instansi.logo ?
-                                                                                    <div style={{width:'75px' , display:'inline-block'}}>
+                                                                                    <div className="logo-megamenu">
                                                                                         <img src={`https://api.simonev.revolusimental.go.id${instansi.logo}`} className='logo-in-megamenu' alt='logo'/>
                                                                                     </div>
                                                                                 :
-                                                                                    <div style={{width:'75px' , display:'inline-block'}}>
+                                                                                    <div className='logo-megamenu'>
                                                                                         <img src={logo_kemenko} className='logo-in-megamenu' alt='logo'/>
                                                                                     </div>
                                                                             }
                                                                             <div className="sub-menu-kementrian">
                                                                                 <div className='topbar-kabar'>
-                                                                                    <div style={{width:'100%',height:'90px'}}>
-                                                                                        <h1 style={{textAlign:'center', lineHeight:'90px', fontWeight:'800'}}>
+                                                                                    <div className='topbar-kabar-head'>
+                                                                                        <h1 className='topbar-head-head'>
                                                                                             KABAR GNRM
                                                                                         </h1>
                                                                                     </div>
@@ -213,14 +218,14 @@ const Topbar = (props) => {
                                                                                 <div className="topbar-program">
                                                                                     {
                                                                                         instansi.gerakan ?
-                                                                                        <div style={{width:'100%',height:'90px'}}>
-                                                                                            <h1 style={{textAlign:'center', lineHeight:'90px',fontWeight:'800'}}>
+                                                                                        <div className='topbar-kabar-head'>
+                                                                                            <h1 className='topbar-head-head'>
                                                                                                 {instansi.gerakan.toUpperCase()}
                                                                                             </h1>
                                                                                         </div>
                                                                                         :
-                                                                                        <div style={{width:'100%',height:'90px'}}>
-                                                                                        <h1 style={{textAlign:'center', lineHeight:'90px',fontWeight:'800'}}>
+                                                                                        <div className='topbar-kabar-head'>
+                                                                                        <h1 className='topbar-head-head'>
                                                                                         </h1>
                                                                                     </div>
                                                                                     }

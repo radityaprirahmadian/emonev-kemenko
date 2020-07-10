@@ -159,3 +159,167 @@
     border-radius: 5px;
     color: white;
 }
+
+@media only screen and (max-width: 1266px) { 
+    .gallery-container {
+        width: 140vh;
+        height: fit-content;
+        margin: auto;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+    }
+    
+    .gallery-item {
+        width: 38vh;
+        height: 38vh;
+        margin-top: 7vh;
+        margin-bottom: 7vh;
+        margin-right: 13vh;
+        background-color: gray;
+        position: relative;
+    }
+    
+    .gallery-item:nth-child(9n + 3),
+    .gallery-item:nth-child(9n + 6),
+    .gallery-item:nth-child(9n + 9) {
+        margin-right: 0;
+    }
+    
+    .hover-nama {
+        position: absolute;
+        width: fit-content;
+        font-size: 'Montserrat' , sans-serif;
+        z-index: 2;
+        background-color: rgba(0,0,0,0.7);
+        color: white;
+        border-radius: 0.5vh;
+        padding: 0.5vh;
+        height: 3vh;
+        font-size: 2vh;
+        font-weight: 600;
+        top: -2vh;
+        left: -7vh;
+        display: none;
+    }
+    
+    .gallery-item:hover .hover-nama{
+        display: inline-block;
+    }
+    
+    .triangle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        z-index: 3;
+    }
+    
+    .gallery-item .test_gambar_gallery{
+        height: 38vh;
+        width: 38vh;
+        position: absolute;
+        z-index: 2;
+    }
+    
+    .gallery-item:nth-child(9n+1) .test_gallery,
+    .gallery-item:nth-child(9n+5) .test_gallery,
+    .gallery-item:nth-child(9n+9) .test_gallery{
+        position: absolute;
+        z-index: 1;
+        width: 38vh;
+        height: 38vh;
+        bottom: -2vh;
+        right:-2vh;
+        box-sizing: border-box;
+        background-color:none;
+    }
+    
+    .gallery-item:nth-child(9n+1) .test_gallery,
+    .gallery-item:nth-child(9n+5) .test_gallery,
+    .gallery-item:nth-child(9n+9) .test_gallery
+    {
+        border: 0.8vh solid #FDE47F;
+    }
+    
+    .test_decor {
+        display: none;
+    }
+    
+    .gallery-item:nth-child(9n+1) .test_decor,
+    .gallery-item:nth-child(9n+4) .test_decor,
+    .gallery-item:nth-child(9n+7) .test_decor {
+        display: inline-block;
+        position: absolute;
+        width: 50px;
+        height: 200px;
+        left: -120px;
+    }
+    
+    
+    /* .gallery-item:nth-child(1):before,
+    .gallery-item:nth-child(3):before{
+        content:"";
+        position: absolute;
+        left:25px;
+        right:-25px;
+        top:25px;
+        bottom:-25px;
+        border:5px solid black;
+        border-right-width:5px;
+        border-left-width:5px;
+    } */
+    
+    .page-item .page-link{
+        font-family: 'Montserrat' , sans-serif;
+        border: none;
+        color: #343A40;
+        font-weight: 600;
+        font-size: 1.5vh;
+        text-align: center;
+        padding: 0;
+        margin-left: 0.4vh;
+        margin-right: 0.5vh;
+        height: 2vh;
+        width: 2vh;
+        background-color: rgba(0,0,0,0);
+    }
+    
+    .page-item:first-child .page-link,
+    .page-item:last-child .page-link,
+    .page-item:nth-child(2) .page-link,
+    .page-item:nth-last-child(2) .page-link {
+        background-color: rgba(0,0,0,0);   
+        /* box-shadow: 3px 3px 3px rgba(0,0,0,0.5); */
+        color: #C04B3E;
+        font-size: 1.3vh;
+    }
+    
+    
+    
+    .page-item.active .page-link {
+        background-color: #343A40;
+        border-radius: 0.4vh;
+        box-shadow: 0.3vh 0.3vh 0.3vh rgba(0,0,0,0.5);
+        border: none;
+        color:white;
+    }
+    
+    .page-item .page-link:hover {
+        background-color: #343A40;
+        border-radius: 0.4vh;
+        box-shadow: 0.3vh 0.3vh 0.3vh rgba(0,0,0,0.5);
+        color: white;
+    }
+    
+    .page-item:first-child .page-link:hover {
+        background-color: 343A40; 
+    }
+    
+    .page-item.active .page-link:hover {
+        background-color:#343A40;
+        border-radius: 0.4vh;
+        box-shadow: 0.3vh 0.3vh 0.3vh rgba(0,0,0,0.5);
+        color: white;
+    }
+}

@@ -409,12 +409,12 @@ const SideBarOff = (props) => {
                                             </li>
                                         </NavLink> 
                                         <li className="side-bar-item">
-                                            <div className="toggle-button-on" style={{color:'white', left:'19px'}}  onClick={() => handleClickToggle()}>
+                                            <div className="toggle-button-on" style={{color:'white'}}  onClick={() => handleClickToggle()}>
                                                 <div className="toggle_icon_on"></div>
                                             </div>
                                         </li>
                                         <li className="side-bar-item">
-                                            <div className="logout-button" style={{color:'white', left:'19px'}} onClick={()=>handleLogout()}>
+                                            <div className="logout-button" style={{color:'white'}} onClick={()=>handleLogout()}>
                                                 <div className="logout_icon"></div>
                                             </div>
                                         </li> 

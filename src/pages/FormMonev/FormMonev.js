@@ -28,7 +28,11 @@ const FormMonev =  (props) => {
     const type = 'monev'
 
     const [instansi,setInstansi] = useState('')
-    const pilihanTahun = ['2020','2021','2022','2023']
+    const pilihanTahun = [];
+    const todaysYear = new Date().getFullYear();
+    for (let year = todaysYear; year >= 2020; year--) {
+        pilihanTahun.push(year);
+    }
     const pilihanPeriode = ['Tahunan', 'Caturwulanan']
 
     const [ instansiDetail , setInstansiDetail] = useState({})
@@ -2571,8 +2575,8 @@ const FormMonev =  (props) => {
                                        <tr>
                                             <td></td>
                                             <td style={{paddingTop:'154px'}}>
-                                            Demikian hasil laporan monitoring dan evaluasi triwulan ke 1 tahun 
-                                            <span style={{color:'#D33732'}}> {data.tahun} </span> 
+                                            Demikian hasil laporan monitoring dan evaluasi {data.id_laporan} tahun 
+                                            {data.tahun} 
                                             ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya. <br/>
                                             Atas perhatiannya diucapkan terimakasih.</td> 
                                        </tr>

@@ -1,5 +1,5 @@
 .footer {
-    /* height: 536px; */
+    height: 536px;
     position: relative;
     /* bottom:0; */
     width: 100%;
@@ -23,7 +23,6 @@
 .footer-left-menu ul li{
     font-size: 24px;
     margin-bottom: 24px;
-
 }
 
 .footer-left-social-logo ul li {
@@ -50,6 +49,7 @@
 
 .center-line {
     margin-top: 55px;
+    height:'290px'
 }
 
 
@@ -144,4 +144,127 @@ tbody .footer-head {
 .footer-head-title-sosial{
     font-weight: 700;
     overflow: visible;
+}
+
+.footer.pt-5 .col-6 {
+    height:360px;
+}
+
+.footer.pt-5>.row{
+    margin-top:10%;
+}
+
+.footer-left-social-logo .col-sm-11 {
+    padding-left: 0;
+}
+
+.footer-left-social-logo .col-sm-11 ul li h1{
+    font-size:12px;
+    line-height:28px;
+    font-weight:700;
+}
+
+@media only screen and (max-width: 1266px) {
+    .footer-left-menu ul li{
+        font-size: 3vh;
+        margin-bottom: 2vh;
+    }
+    .footer-left-title {
+        font-size: 4vh;
+        font-weight: bold;
+        margin-bottom: 3vh;
+    }
+
+    .footer-left-social {
+        font-size: 4vh;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+
+    .footer-left-social-logo .col-sm-11 {
+        padding-right: 0;
+        width: 20px;
+    }
+
+    .footer-left-social-logo .col-sm-11 {
+        padding-right: 0;
+        width: 20px;
+    }
+
+    .footer.pt-5 .col-6 {
+        height:100%;
+    }
+
+    .footer.pt-5>.row {
+        height: 40vh;
+        margin-top: 10vh;
+
+    }
+    .footer-left-social-logo .col-sm-1 img {
+        width: 3vh;
+        height: 3vh;
+    }
+
+    .footer-left-social-logo .col-sm-11 ul li h1 {
+        font-size: 2vh;
+        line-height: 3.5vh;
+        margin-bottom: 0;
+        padding-left: 1.5vh;
+    }
+
+    .footer-left {
+        margin: 5vh 0 10vh 10%;
+    }
+
+    .footer-right-logo {
+        width: 95%;
+        margin-top: 8%;
+        display: flex;
+        height: 100%;
+        align-items: center;
+    }
+
+    .footer-right-menu {
+        margin-top: 5%;
+    }
+
+    .footer-right-menu img{
+        height: 2vh;
+        width: 2vh;
+        float: left;
+        margin-bottom: 1vh;
+    }
+    .footer-right-menu ul li{
+        font-size: 1.5vh;
+        padding-top: 1vh;
+        margin-left: 4vh;
+    }
+
+    .footer-left-social-logo ul li {
+        margin-bottom: 1vh;
+    }
+
+    /* .footer-left-social-logo .col-sm-11 {
+        width: 1vh;
+    }
+
+    .footer-left-social-logo .col-sm-11 {
+        width: 5vh;
+    } */
+    .center-line {
+        margin-top: 8vh;
+        height:35vh;
+    }
+
+    .footer {
+        height: 70vh;
+        position: relative;
+        /* bottom:0; */
+        width: 100%;
+        background-image: linear-gradient(to bottom , #59CBA6 , #FDE47F);
+        color: black;
+        box-sizing: border-box;
+        padding: 25vh 17px 2px 20px;
+        overflow: hidden;
+    }
 }

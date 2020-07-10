@@ -77,6 +77,7 @@ export default function StatistikGNRM(props) {
   const chartOptions = {
     defaultFontStyle: "bold",
     // defaultFontSize: 2,
+    aspectRatio: props.aspect || 2,
     legend: {
       display: false
     },
@@ -136,10 +137,9 @@ export default function StatistikGNRM(props) {
   }
 
   return (
-    <div className="chart d-flex justify-content-center align-items-center" style={{height: props.height || '410px' , maxWidth: '100%'
-    }}>
+    <div className="chart d-flex justify-content-center align-items-center" style={{height: '50vh' , width: '100%'}}>
       {statistik && data ? (
-        <Bar data={data} options={chartOptions} />
+        <Bar data={data} options={chartOptions} height={null} width={null} />
       ) : (
           <Spinner color={props.color || "#E76975"} />
         )}

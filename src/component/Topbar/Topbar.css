@@ -20,9 +20,9 @@
     z-index: 10;
 }
 
-.top-bar.scroll{
+/* .top-bar.scroll{
     background-color: #D33732;
-}
+} */
 
 .top-bar li>.active .top-bar-menu-container{
     border-bottom: 2px solid white;
@@ -47,14 +47,19 @@
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 1px;
-    border-bottom: 2px solid rgba(0,0,0,0);
-    
+    border-bottom: 2px solid rgba(0,0,0,0);  
 }
 
 .top-bar-menu-container.no-2 {
     position: relative;
     box-sizing: border-box;
 }
+
+
+.top-bar-menu-container.no-2 .fa.fa-angle-down {
+    font-size: 18px;
+}
+
 .top-bar-menu-2 .top-bar-menu-container.no-2:hover {
     background-color: #59CBA6;
     padding: 10px 10px 0 10px;
@@ -71,7 +76,7 @@
 }
 
 .top-bar-menu-container:hover{
-    border-bottom: 2px solid #FC801A;
+    border-bottom: 2px solid white;
     transition: all 0.2s ease-in-out;
 }
 
@@ -186,7 +191,7 @@
 .sub-menu-kementrian ul li {
     height: 64px;
     width: 370px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     font-size: 16px;
     line-height: 22px;
     overflow: hidden;
@@ -326,4 +331,357 @@
     margin-right: 60px;
 }
 
+.logo-megamenu {
+    width: 75px;
+    display: inline-block;
+}
 
+.topbar-kabar-head {
+    width: 100%;
+    height: 90px;
+}
+
+.topbar-head-head {
+    text-align: center;
+    line-height: 90px;
+    font-weight: 800;
+}   
+
+.kabar-mega-li {
+    height: fit-content;
+    margin-bottom: 6px;
+    padding: 0;
+}
+
+.kabar-mega-div {
+    height: fit-content;
+    width: 100%;
+    background-color: white;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid black;
+    position: relative;
+}
+
+.kabar-mega-div>.fas.fa-chevron-up,
+.kabar-acordion>.fas.fa-chevron-down {
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    left: 320px;
+}
+
+.kabar-mega-judul {
+    height: fit-content;
+    width: 90%;
+}
+
+.kabar-mega-image {
+    width: 100%;
+    text-align: center;
+}
+
+.kabar-mega-image>img{
+    width: 200px;
+    height: auto;
+    margin: 10px auto;
+}
+
+.kabar-mega-deskripsi {
+    height: fit-content;
+    font-weight: 600px;
+    width: 90%;
+    margin: 16px 20px;
+    text-align: justify;
+}
+
+@media only screen and (max-width: 1266px) {
+    .top-bar-menu-container {
+        font-size: 2.5vh;
+        width: 100%;
+    }
+
+    .sub-menu-hover {
+        display: none;
+        margin-top: 27%;
+    }
+
+    .top-bar-menu-container.no-2 .fa.fa-angle-down {
+        font-size: 2.5vh;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1vh;
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 0 10px 10px 0;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #272727; 
+        border-radius: 10px;
+    }
+
+    .top-bar-navigation .logo-kemenko {
+        padding-left: 11px;
+        height: 100%;
+        width: 90%;
+        margin-left: 0vh;
+    }
+
+    .sub-menu-kementrian ul li {
+        height: 10vh;
+        width: 100%;
+        font-size: 2vh;
+        line-height: 3vh;
+        overflow: hidden;
+    }
+
+    .kabar-acordion {
+        width: 50vh;
+        height: 6vh;
+        background-color: white;
+        border: 1px solid black;
+        line-height: 6vh;
+        border-radius: 2vh;
+        padding-left: 12px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .topbar-kabar-head {
+        width: 100%;
+        height: 10vh;
+    }
+    
+    .topbar-head-head {
+        text-align: center;
+        line-height: 15vh;
+        font-weight: 800;
+    }   
+
+    .sub-menu-kementrian,
+    .sub-menu-2-kementrian {
+        display: none;
+        color: black;
+        position: absolute;
+        top: 17px;
+        background-color: #FDE47F;
+        height: 93%;
+        overflow: auto;
+
+    }
+
+    .topbar-kabar{
+        width: 60vh;
+        height: 100%;  
+        position: absolute;
+        left:60vh;
+        overflow-y: auto;
+        direction: ltr;
+        border-radius: 10px;
+    }
+    
+
+    .menu-kementrian ul li:hover .sub-menu-kementrian {
+        display: inline-block;
+        width:120vh;
+        left: 35vh;
+        border-radius: 10px;  
+    }
+
+    .menu-kementrian ul li:hover .sub-menu-kementrian ul {
+        display: flex;
+        flex-flow: row wrap;
+        padding-top: 16px;
+        padding-left: 4vh;
+    }
+
+    .topbar-program{
+        width: 60vh;
+        height: 100%;
+        position: absolute;
+        overflow-y: auto;
+        direction: ltr;
+        border-right: 2px solid rgba(0,0,0,0.2);
+    }
+    
+    .logo-simonev{
+        height: 70%;
+        width: 70%;
+    }
+
+    .menu-kementrian {
+        width: 35vh;
+        height: 93%;
+        margin: 17px 0 25px 5px;
+        color: white;
+        text-align: center;
+        overflow-y: auto;
+        font-size: 2vh;
+        direction: rtl;
+    }
+
+    .top-bar-logo-simonev {
+        width: 20%;
+        margin-right: 0;
+    }
+    
+    .button-topbar {
+        width: 22vh;
+        height: 5vh;
+        color: white;
+        background-color: #424FC8;
+        font-family: 'Open Sans' , sans-serif;
+        font-weight: 700;
+        font-size: 2vh;
+        line-height: 5vh;
+        border: none;
+        border-radius: 3vh;
+        margin-bottom: 2vh;
+    }
+
+    .top-bar-logo {
+        width: 20%;
+    }
+    
+    .nama-instansi-megamenu a{
+        line-height: 3vh;
+    }
+
+    .top-bar {
+        height: 15%;
+    }
+    .top-bar-default {
+        height: 15%;
+    }
+    
+
+    .jarak {
+        width: 100%;
+        bottom: 0vh;
+    }
+
+    .top-bar-menu-container:hover .jarak {
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 100%;
+    }
+
+    .top-bar-menu-container:hover .sub-menu-hover {
+        width: 160vh;
+        height: 80vh;
+        overflow-y: auto;
+        top: 15%;
+        left: -60vh;
+        justify-content: center;
+    }
+
+    .top-bar-menu-container.no-2:hover {
+        justify-content: center;
+    }
+
+    .menu-kementrian>ul>li {
+        /* background-color: #3F5064; */
+        width: 100%;
+        border-radius: 10px 0 0 10px;
+        margin-bottom: 5px;
+        height: 15vh;
+        line-height: 2px;
+        display: inline-block;
+    }
+    
+    .logo-in-megamenu{
+        margin-top: 1vh;
+        margin-left: 1vh;
+        line-height: 12vh;
+        height: 12vh;
+        /* width: auto;
+        float: left;
+        clear: both; */
+    }
+
+    .logo-megamenu {
+        width: 12vh;
+    }
+
+    .nama-instansi-megamenu{
+        display: inline-block;
+        position: relative;
+        top:-5vh;
+        width: 50%;
+        height: 3vh;
+        padding-top: 30px;
+    }
+    
+    .kabar-mega-div {
+        height: fit-content;
+        width: 50vh;
+        background-color: white;
+        padding: 2vh;
+        border-radius: 10px;
+        border: 1px solid black;
+        position: relative;
+    }
+    
+    .kabar-mega-div>.fas.fa-chevron-up,
+    .kabar-acordion>.fas.fa-chevron-down {
+        font-size: 2vh;
+        text-align: center;
+        border: none;
+        padding: 0;
+        height: 2vh;
+        width: 2vh;
+        border-radius: 3px;
+        cursor: pointer;
+        position: absolute;
+        top: 2vh;
+        left: 90%;
+    }
+    
+    .kabar-mega-judul {
+        height: fit-content;
+        width: 90%;
+    }
+    
+    .kabar-mega-image {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .kabar-mega-image>img{
+        width: 20vh;
+        height: auto;
+        margin: 10px auto;
+    }
+    
+    .kabar-mega-deskripsi {
+        height: fit-content;
+        font-weight: 600;
+        width: 90%;
+        margin: 1vh 2vh;
+        text-align: justify;
+    }
+    
+}
+
+@media only screen and (max-width: 770px) {
+    .top-bar-menu-container:hover .sub-menu-hover {
+        width: 160vh;
+        height: 80vh;
+        overflow-y: auto;
+        top: 0;
+        left: -60vh;
+        justify-content: center;
+    }
+}

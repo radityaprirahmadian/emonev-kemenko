@@ -26,9 +26,9 @@ const Footer = () => {
 
         return(
             <Fragment>
-                <div className="footer pt-5">
-                    <div className="row" style={{marginTop:'10%'}}>
-                        <div className="col-6" style={{height:'360px'}}>
+                <div className="footer">
+                    <div className="row">
+                        <div className="col-6">
                             <div className="footer-left">
                                 <div className="footer-left-menu">
                                     <div className="footer-left-title">
@@ -125,26 +125,26 @@ const Footer = () => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            <div className="col-sm-11" style={{paddingLeft:'0'}}>
+                                            <div className="col-sm-11">
                                                 <ul>
                                                     <li>
                                                         <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Revolusi Mental</h1>
+                                                            <h1>Revolusi Mental</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://twitter.com/revmen_id" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>@revmen_id</h1>
+                                                            <h1>@revmen_id</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://instagram.com/revolusimental_id" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>revolusimental_id</h1>
+                                                            <h1>revolusimental_id</h1>
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
-                                                            <h1 style={{fontSize:'12px', lineHeight:'28px', fontWeight:'700'}}>Revolusi Mental</h1>
+                                                            <h1>Revolusi Mental</h1>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -155,8 +155,8 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-6" style={{height:'360px', display:'inline-block' , paddingLeft: '0'}}>
-                            <img src={line} alt="garis" style={{position:'absolute', left:'-15px', top:'55px', height:'290px'}}/>
+                        <div className="col-6" style={{display:'inline-block' , paddingLeft: '0'}}>
+                            <img src={line} alt="garis" style={{position:'absolute', left:'-15px'}} className='center-line'/>
                                     
                             <div className="footer-right">
                                 <div className="footer-right-logo">

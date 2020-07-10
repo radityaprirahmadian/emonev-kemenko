@@ -52,8 +52,8 @@ const Popup = (props) => {
     useEffect(() => {
         if(notifs){
             if(notifs && notifs.length > not.length) {
-                alert('Anda Mendapatkan Sebuah Notifikasi Baru')
                 getReminder(token)
+                alert('Anda Mendapatkan Sebuah Notifikasi Baru')
                 setNot(notifNew)
                 setNotifs([])
             }

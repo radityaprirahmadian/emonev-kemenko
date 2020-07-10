@@ -44,3 +44,14 @@
     color: white;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1266px) {
+    .gallery-title{
+        text-align: right;
+        margin-right: 15vh;
+        margin-top: 20vh;
+        font-size: 4.2vh;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+    }
+}

@@ -254,7 +254,7 @@ const LupaPassword = (props) => {
                                         <form onSubmit={onSubmit} autoComplete="off">
                                             <div>
                                                 <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
-                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'white'}} onClick={handlePassword}>
+                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,)'}} onClick={handlePassword}>
                                                         {
                                                             seen1 ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
@@ -265,7 +265,7 @@ const LupaPassword = (props) => {
                                             </div>
                                             <div>
                                                 <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
-                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'white'}} onClick={confirmPassword}>
+                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'rgba(0,0,0,0)'}} onClick={confirmPassword}>
                                                         {
                                                             seen2 ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>

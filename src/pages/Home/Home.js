@@ -203,15 +203,30 @@ const Home = () => {
         getAllDocument()
     }, [])
 
-    const [hidden, setHidden] = useState([
-        true,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-      ]);
+    const [hidden, setHidden] = useState([]);
+
+    useEffect(() => {
+        if(documents && documents.length < 7) {
+            let arr = [true]
+            for(let i = 0  ; i < documents.length - 1 ; i++) {
+                arr.push(false)
+            }
+
+            setHidden(arr)
+        } else {
+            setHidden([
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+              ])
+        }
+    }, [documents])
+
+    console.log(hidden)
 
       useEffect(() => {
         let cleanup = false;
@@ -248,10 +263,16 @@ const Home = () => {
         let change = [...hidden];
     
         const minIndex = 0;
-        const maxIndex = 6;
-    
+        let maxIndex = ''
+        if(documents && documents.length < 7) {
+            maxIndex = documents.length - 1;
+        }
+        else {
+            maxIndex = 6;
+        }
+
         change[trueIndex >= minIndex ? trueIndex : minIndex] = false;
-        change[trueIndex > minIndex ? trueIndex - 1 : maxIndex] = true;
+        change[trueIndex > minIndex ? trueIndex - 1 : parseInt(maxIndex)] = true;
     
         setHidden([...change]);
       };
@@ -262,10 +283,17 @@ const Home = () => {
         let change = [...hidden];
     
         const minIndex = 0;
-        const maxIndex = 6;
+        let maxIndex = ''
+        if(documents && documents.length < 7) {
+            maxIndex = documents.length - 1;
+        }
+        else {
+            maxIndex = 6;
+        }
+
     
-        change[trueIndex <= maxIndex ? trueIndex : minIndex] = false;
-        change[trueIndex < maxIndex ? trueIndex + 1 : minIndex] = true;
+        change[trueIndex <= parseInt(maxIndex) ? trueIndex : minIndex] = false;
+        change[trueIndex < parseInt(maxIndex) ? trueIndex + 1 : minIndex] = true;
     
         setHidden([...change]);
       };
@@ -338,95 +366,150 @@ const Home = () => {
                     <div className="home" style={{margin:'0'}}>
                         <div className="home-section-1">
                             {
-                                // datas.post.slice((datas.post.length - 7)).map((data, index) => {
-                                documents.slice(0,7).map((document, index) => {
-                                    const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
-                                    return (
-                                        <Fragment>
-                                            <div key={index} className={hidden[index] ? "home-pic" : "d-none"} style={{height:'768px'}}>
-                                                <div style={{backgroundColor:'rgba(0,0,0,0.8)', width:'100%' , height:'768px',  position:'absolute'}}>
+                                documents && documents.length > 6 ?
+                                    documents.slice(0,7).map((document, index) => {
+                                        const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
+                                        console.log(i)
+                                        return (
+                                            <Fragment>
+                                                <div key={index} className={hidden[index] ? "home-pic" : "d-none"}>
+                                                    <div className='opacity-8'>
+                                                    </div>
+                                                        <img src={i[0]} className='home-pic-img' />
+                                                    
                                                 </div>
-                                                    <img src={i[index]} style={{width: '100%' , height: '768px'}}/>
-                                                
-                                            </div>
-                                        </Fragment>
-                                        );
-                                    })
+                                            </Fragment>
+                                            );
+                                        })
+                                :
+                                    documents.slice(0,documents.length).map((document, index) => {
+                                        const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
+                                        return (
+                                            <Fragment>
+                                                <div key={index} className={hidden[index] ? "home-pic" : "d-none"}>
+                                                    <div className='opacity-8'>
+                                                    </div>
+                                                        <img src={i[0]} className='home-pic-img' />
+                                                    
+                                                </div>
+                                            </Fragment>
+                                            );
+                                        })
                             }
 
                             <div className="home-desc">
                                 {
-                                    // datas.post.slice((datas.post.length - 7 )).map((datas,index) => {
-                                    documents.slice(0,7).map((document, index) => {
-                                    return (
-                                            <ArtikelHome
-                                                key={index}
-                                                document={document}
-                                                hidden={hidden}
-                                                index={index}
-                                                tanggal_dibuat={document.tanggal_dibuat}
-                                                judul={document.judul}
-                                                instansi={document.instansi.nama_pendek}
-                                                _id={document._id}    
-                                            />
-                                            // <ArtikelHome
-                                            //     key={index}
-                                            //     document={datas}
-                                            //     hidden={hidden}
-                                            //     index={index}
-                                            //     tanggal_dibuat={datas.date}
-                                            //     nama_program={datas.title}
-                                            //     instansi={datas.nama}
-                                            //     gnrm_id={index}  />
-                                            );
-                                        })
+                                    documents && documents.length > 6 ?
+                                        documents.slice(0,7).map((document, index) => {
+                                        return (
+                                                <ArtikelHome
+                                                    key={index}
+                                                    document={document}
+                                                    hidden={hidden}
+                                                    index={index}
+                                                    tanggal_dibuat={document.tanggal_dibuat}
+                                                    judul={document.judul}
+                                                    instansi={document.instansi.nama_pendek}
+                                                    _id={document._id}    
+                                                />
+                                                // <ArtikelHome
+                                                //     key={index}
+                                                //     document={datas}
+                                                //     hidden={hidden}
+                                                //     index={index}
+                                                //     tanggal_dibuat={datas.date}
+                                                //     nama_program={datas.title}
+                                                //     instansi={datas.nama}
+                                                //     gnrm_id={index}  />
+                                                );
+                                            })
+                                    :
+                                        documents.slice(0,documents.length).map((document, index) => {
+                                            return (
+                                                    <ArtikelHome
+                                                        key={index}
+                                                        document={document}
+                                                        hidden={hidden}
+                                                        index={index}
+                                                        tanggal_dibuat={document.tanggal_dibuat}
+                                                        judul={document.judul}
+                                                        instansi={document.instansi.nama_pendek}
+                                                        _id={document._id}    
+                                                    />
+                                                    // <ArtikelHome
+                                                    //     key={index}
+                                                    //     document={datas}
+                                                    //     hidden={hidden}
+                                                    //     index={index}
+                                                    //     tanggal_dibuat={datas.date}
+                                                    //     nama_program={datas.title}
+                                                    //     instansi={datas.nama}
+                                                    //     gnrm_id={index}  />
+                                                    );
+                                                })  
                                 }
 
 
                                 <div className="home-other">
-                                    {documents.slice(0,7).map((document, index) => {
-                                        const i = `https://api.simonev.revolusimental.go.id${document.instansi.logo}`
-                                        return (
-                                            <Link to={'/artikel/'+ (document._id)} className={hidden[index] ? "d-none" : "home-other-news"}>
-                                                <div key={index}>
-                                                    <div className="home-news-logo">
-                                                        <img className="logo-bos" src={i} alt='logo_kementerian' style={{}}/>  
-                                                    </div>
-        
-        
-                                                    <div className="home-news-title">
-                                                        {document.judul.lenght > 25 ? document.judul.substr(0,22)`...` : document.judul }  
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                            );
-                                        })
+                                    {
+                                        documents && documents.length > 6 ?
+                                            documents.slice(0,7).map((document, index) => {
+                                                const i = `https://api.simonev.revolusimental.go.id${document.instansi.logo}`
+                                                return (
+                                                    <Fragment>
+                                                        <Link to={'/artikel/'+ (document._id)} className={hidden[index] ? "d-none" : "home-other-news"}>
+                                                            <div className={hidden[index-1]  ? 'test-progress' : hidden[index + 6] ? 'test-progress' : 'd-none'}>
+                                                                <span className='span-progress' style={{borderRadius:'0px'}}><span className="progress" style={{borderRadius:'0px'}}></span></span>
+                                                            </div>
+                                                            <div key={index}>
+                                                                <div className="home-news-logo">
+                                                                    <img className="logo-bos" src={i} alt='logo_kementerian' style={{}}/>  
+                                                                </div>
+                    
+                                                                <div className="home-news-title">
+                                                                    {document.judul.lenght > 25 ? document.judul.substr(0,22)`...` : document.judul }  
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </Fragment>
+                                                    );
+                                                })
+                                        :
+                                            documents.slice(0,documents.length).map((document, index) => {
+                                                const i = `https://api.simonev.revolusimental.go.id${document.instansi.logo}`
+                                                return (
+                                                    <Fragment>
+                                                        <Link to={'/artikel/'+ (document._id)} className={hidden[index] ? "d-none" : "home-other-news"}>
+                                                            <div className={hidden[index-1]  ? 'test-progress' : hidden[index + documents.length-1] ? 'test-progress' : 'd-none'}>
+                                                                <span className='span-progress' style={{borderRadius:'0px'}}><span className="progress"style={{borderRadius:'0px'}}></span></span>
+                                                            </div>
+                                                            <div key={index}>
+                                                                <div className="home-news-logo">
+                                                                    <img className="logo-bos" src={i} alt='logo_kementerian' style={{}}/>  
+                                                                </div>
+                    
+                                                                <div className="home-news-title">
+                                                                    {document.judul.lenght > 25 ? document.judul.substr(0,22)`...` : document.judul }  
+                                                                </div>
+                                                            </div>
+                                                        </Link>
+                                                    </Fragment>
+                                                    );
+                                                })
                                     }
-                                    {/* {
-                                        datas.post.slice((datas.post.length - 7)).map((datas, index) => {
-                                        return (
-                                            <Link to={'/artikel/'+ (datas.index)} className={hidden[index] ? "d-none" : "home-other-news"}>
-                                                <div key={index}>
-                                                    <div className="home-news-logo">
-                                                        <img className="logo-bos" src={logo_kemenko} style={{}}/>  
-                                                    </div>
-        
-        
-                                                    <div className="home-news-title">
-                                                        {datas.title}  
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                            );
-                                        })
-                                    } */}
 
-                                    <div className="button-home-prev" onClick={onPrev}>
-                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
-                                    </div>
-                                    <div className="button-home-next" onClick={onNext}>
-                                        <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
-                                    </div>
+                                    {
+                                        documents && documents.length > 1 ?
+                                            <Fragment>
+                                                <div className="button-home-prev a" onClick={onPrev}>
+                                                    <i className="material-icons">arrow_back</i>
+                                                </div>
+                                                <div className="button-home-next a" onClick={onNext}>
+                                                    <i className="material-icons">arrow_forward</i>
+                                                </div>
+                                            </Fragment>
+                                        : ''
+                                    }
                                 </div>
                             </div>                           
                         </div>
@@ -494,11 +577,11 @@ const Home = () => {
                                                 </Fragment>
                                             }
                                         </div>
-                                        <div className='container-mark'>
+                                        <div className='container-mark1'>
                                             {
                                                 documentLengthArr && documentLengthArr.slice(0 , (Math.ceil(documentCardLenght/2))).map((gambar, index) => {
                                                     return(
-                                                        <div className={index+1 === (parseInt(page)) ? 'slider-mark active' : 'slider-mark'}></div>
+                                                        <div className={index+1 === (parseInt(page)) ? 'slider-mark1 active' : 'slider-mark1'}></div>
                                                     )
                                                 }) 
                                             }
@@ -509,24 +592,24 @@ const Home = () => {
                                                     {
                                                         page === '1' ? 
                                                             <Fragment>
-                                                                <div className="button-home-next" style={{top:'35%' , right:'-57px'}} onClick={onNextFilter}>
-                                                                    <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                                                <div className="button-home-next1"  onClick={onNextFilter}>
+                                                                    <i className="material-icons" >arrow_forward</i>
                                                                 </div>
                                                             </Fragment>
                                                         : 
                                                             <Fragment>
                                                                 {
                                                                     page === JSON.stringify(Math.ceil(documentCardLenght/2)) ?
-                                                                        <div className="button-home-prev" style={{top:'35%' , left: '-42px'}} onClick={onPrevFilter}>
-                                                                            <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                                                        <div className="button-home-prev1" onClick={onPrevFilter}>
+                                                                            <i className="material-icons" >arrow_back</i>
                                                                         </div>
                                                                     :
                                                                         <Fragment>
-                                                                            <div className="button-home-prev" style={{top:'35%' , left: '-42px'}} onClick={onPrevFilter}>
-                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                                                            <div className="button-home-prev1" onClick={onPrevFilter}>
+                                                                                <i className="material-icons" >arrow_back</i>
                                                                             </div>
-                                                                            <div className="button-home-next" style={{top:'35%' , right:'-57px'}} onClick={onNextFilter}>
-                                                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                                                            <div className="button-home-next1" onClick={onNextFilter}>
+                                                                                <i className="material-icons" >arrow_forward</i>
                                                                             </div>
                                                                         </Fragment>
                                                                 }
@@ -545,7 +628,7 @@ const Home = () => {
 
                         <div className="home-section-2 center">
                             <div className="container">
-                                <div className="d-flex justify-content-between mb-5">
+                                <div className="d-flex justify-content-between mb-3">
                                     <div className="home-section-2-title">
                                         Statistik Tahun {tahun}
                                     </div>
@@ -564,11 +647,11 @@ const Home = () => {
                                         }
                                     </select>
                                 </div>
-                                <div className="home-statistik mt-5" style={{width: '100%'}}>
+                                <div className="home-statistik mt-3" style={{width: '100%'}}>
                                     <StatistikGNRM 
                                         color='#8380EA'
                                         tahun={tahun}
-                                        height='500px'
+                                        aspect={2.8}
                                     />
                                     <div className="keterangan">
                                         <p className="">
@@ -585,7 +668,7 @@ const Home = () => {
 
 
                         <div style={{position:"relative"}}>
-                            <div className="home-section-3" style={{width:'1300px', height:'fit-content', margin:'auto'}}>
+                            <div className="home-section-3">
                                 <div className="home-section-3-title">
                                     Galeri
                                 </div>
@@ -593,9 +676,11 @@ const Home = () => {
                                 <Gallery pagination={false}/>
                                 
                                 <Link to='/galeri'>
-                                <button className="button-lihat-gallery">
-                                    LIHAT GALERI LAINNYA
-                                </button>
+                                <div className="div-button-gallery">
+                                    <button className="button-lihat-gallery">
+                                        LIHAT GALERI LAINNYA
+                                    </button>
+                                </div>
                                 </Link>
                             </div>
                         </div>

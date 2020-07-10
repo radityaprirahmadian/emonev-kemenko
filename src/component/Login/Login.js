@@ -162,7 +162,7 @@ const Login = (props) => {
                                             onChange={onChange}
                                             onKeyPress={onKeyPress}
                                         />
-                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' }} onClick={handlePassword}>
+                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)' }} onClick={handlePassword}>
                                                         {
                                                             seen ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        

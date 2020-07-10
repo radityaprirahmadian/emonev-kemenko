@@ -2,8 +2,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     /* margin: 32px 38px 0 88px; */
-
-
 }
 
 .card-container {
@@ -13,6 +11,7 @@
     border-radius: 10px;
     height: 574px;
     color: white;
+    margin-right:20px;
 }
 
 .card-container-dashboard {
@@ -64,7 +63,7 @@
     border-radius: 30px;
     background-color: #424FC8;
     color: white;
-    width: 110px;
+    width: 160px;
     height: 30px;
     font-size: 16px;
     font-weight: bold;
@@ -115,3 +114,211 @@
 .card-date {
     margin: 0 0 0 10px
 }
+
+.card-container {
+    width: 50vh;
+    height: 68vh;
+    border: 0.5px solid white;
+    border-radius: 1vh;
+    margin-right:3vh;
+}
+
+.card-background img {
+    width: 47.5vh;
+    height: 48vh;
+    border-radius: 1vh;
+    margin: 1vh;
+}
+
+.card-container-dashboard {
+    /* margin-right:  */
+    width: 400px;
+    height: 500px;
+    box-sizing: border-box;
+}
+
+.card-container-dashboard:nth-child(3n + 1) {
+    border: 5px solid #424FC8;
+    box-sizing: border-box;
+}
+
+.card-container-dashboard:nth-child(3n + 2) {
+    border: 5px solid #FCCB82;
+    box-sizing: border-box;
+}
+
+.card-container-dashboard:nth-child(3n + 3) {
+    border: 5px solid #E76975;
+    box-sizing: border-box;
+}
+
+.date-and-button{
+    display: flex;
+    flex-direction: row;
+    margin-top: 7.2vh;
+    /* border: 1px solid black; */
+}
+
+.bottom-card ul li{
+    display: inline-block;
+}
+
+.card-date{
+    line-height: 4.2vh;
+    font-size: 2.3vh;
+    margin-left:2vh;
+}
+
+.spacer{
+    flex:1;
+}
+
+.detail-button{
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 4vh;
+    background-color: #424FC8;
+    color: white;
+    width: 18vh;
+    height: 4vh;
+    font-size: 1.65vh;
+    font-weight: bold;
+    margin-left: 0px;
+    border:none;
+    margin-top: 0px;
+    margin-right: 1vh;
+    /* margin */
+}
+
+.card-background {
+    width: 47.5vh;
+    box-sizing: border-box;
+}
+
+.card-background-dashboard {
+    width: 420px;
+    box-sizing: border-box;
+}
+
+.card-title-bottom-inf {
+    font-size: 2vh;
+    font-weight: normal;
+    margin: 0 0 0 2vh;
+}
+
+.card-container-dashboard .card-background-dashboard img {
+    width: 390px;
+    box-sizing: border-box;
+    height: 400px;
+    overflow: hidden;
+}
+
+.card-title-bottom{
+    font-size: 2vh;
+    font-weight: bold;
+    margin: 1vh 0 0 2vh;
+}
+
+/* @media only screen and (max-width: 1566px) {
+    .card-container {
+        width: 50vh;
+        height: 68vh;
+        border: 0.5px solid white;
+        border-radius: 1vh;
+        margin-right:3vh;
+    }
+
+    .card-background img {
+        width: 47.5vh;
+        height: 48vh;
+        border-radius: 1vh;
+        margin: 1vh;
+    }
+    
+    .card-container-dashboard {
+        width: 400px;
+        height: 500px;
+        box-sizing: border-box;
+    }
+    
+    .card-container-dashboard:nth-child(3n + 1) {
+        border: 5px solid #424FC8;
+        box-sizing: border-box;
+    }
+    
+    .card-container-dashboard:nth-child(3n + 2) {
+        border: 5px solid #FCCB82;
+        box-sizing: border-box;
+    }
+    
+    .card-container-dashboard:nth-child(3n + 3) {
+        border: 5px solid #E76975;
+        box-sizing: border-box;
+    }
+    
+    .date-and-button{
+        display: flex;
+        flex-direction: row;
+        margin-top: 6.7vh;
+    }
+    
+    .bottom-card ul li{
+        display: inline-block;
+    }
+    
+    .card-date{
+        line-height: 4.2vh;
+        font-size: 2.3vh;
+    }
+    
+    .spacer{
+        flex:1;
+    }
+    
+    .detail-button{
+        font-family: 'Open Sans', sans-serif;
+        box-sizing: border-box;
+        cursor: pointer;
+        border-radius: 4vh;
+        background-color: #424FC8;
+        color: white;
+        width: 18vh;
+        height: 4vh;
+        font-size: 1.65vh;
+        font-weight: bold;
+        margin-left: 0px;
+        border:none;
+        margin-top: 0px;
+        margin-right: 1vh;
+    }
+    
+    .card-background {
+        width: 47.5vh;
+        box-sizing: border-box;
+    }
+    
+    .card-background-dashboard {
+        width: 420px;
+        box-sizing: border-box;
+    }
+    
+    .card-title-bottom-inf {
+        font-size: 2vh;
+        font-weight: normal;
+        margin: 0 0 0 2vh;
+    }
+    
+    .card-container-dashboard .card-background-dashboard img {
+        width: 390px;
+        box-sizing: border-box;
+        height: 400px;
+        overflow: hidden;
+    }
+    
+    .card-title-bottom{
+        font-size: 2vh;
+        font-weight: bold;
+        margin: 1vh 0 0 2vh;
+    }
+} */

@@ -74,7 +74,12 @@ const FormGNRM = (props) => {
         deleted_kondisi: []
     })
 
-    const pilihanTahun = ['2020', '2021', '2022', '2023']
+    const pilihanTahun = [];
+    const todaysYear = new Date().getFullYear();
+    for (let year = todaysYear; year >= 2020; year--) {
+        pilihanTahun.push(year);
+    }
+
     const pilihanPeriode = ['Tahunan', 'Caturwulan']
     const {
         tahun,
@@ -2183,9 +2188,11 @@ const FormGNRM = (props) => {
                             <tbody>
                                 {
                                     instansiDocumentDetail ?
-                                        <tr style={{fontSize:"12px"}} >
+                                        <tr style={{fontSize:"12px" , height: 'fit-content'}} >
                                             <td style={{position:'relative'}}>
-                                                <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                                <div style={{height:'inherit'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ width: "100px", position: 'absolute' , verticalAlign:'middle' }} />
+                                                </div>
                                             </td>
                                             <td>
                                                 <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
@@ -2196,9 +2203,11 @@ const FormGNRM = (props) => {
                                             </td>
                                         </tr>
                                     :
-                                        <tr style={{fontSize:"12px"}} >
+                                        <tr style={{fontSize:"12px" , height: 'fit-content'}} >
                                             <td style={{position:'relative'}}>
-                                                <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
+                                                <div style={{height:'inherit'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ width: "100px", position: 'absolute' , verticalAlign:'middle' }} />
+                                                </div>
                                             </td>
                                             <td>
                                                 <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
