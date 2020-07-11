@@ -55,6 +55,9 @@ const style = StyleSheet.create({
         marginTop: 6,
     },
 
+    alamat: {
+        width: 300
+    }, 
 
     headerMargBot: {
         marginBottom: 8
@@ -72,8 +75,9 @@ const style = StyleSheet.create({
     },
 
     images : {
-        width: 80,
-        height: 80,
+        width: 200,
+        height: 200,
+        objectFit: 'contain',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -89,7 +93,7 @@ const style = StyleSheet.create({
     isiFlex: {
         marginLeft: 20,
         marginTop: 10,
-        marginBottom: 25,
+        marginBottom: 30,
         display: 'flex',
         flexDirection: "row"
     },
@@ -98,7 +102,28 @@ const style = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
-        textAlign:'justify',
+        textAlign:'center',
+        width: 220,
+        height: 220,
+        position : 'relative',
+        overflow: 'hidden',
+    },
+
+    imagesFlie : {
+        width: 80,
+        height: 80,
+        objectFit: 'contain',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+    },
+
+    isiimageFile: {
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        textAlign:'center',
         width: 100,
         height: 100,
         position : 'relative',
@@ -188,8 +213,6 @@ const DownloadMonev = (props) => {
     let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
     let str =  hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
 
-
-    console.log(props.data)
     return(
             <Document size='A4'>
                 <Page style={style.body}>
@@ -203,7 +226,7 @@ const DownloadMonev = (props) => {
                             <Text style={style.headerBold}>
                                 Sekretariat
                             </Text>
-                            <Text>
+                            <Text style={style.alamat}>
                                 {props.data.instansi && props.data.instansi.alamat}
                             </Text>
                             {/* <Text>
@@ -296,7 +319,7 @@ const DownloadMonev = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.tempat.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
@@ -306,15 +329,29 @@ const DownloadMonev = (props) => {
                             }
                         </View>
                         <Text style={style.headerBold}>
-                            4.       Hasil Monitoring dan Evaluasi Program ( Pelaporan Kinerja )
+                            4.       Hasil Monitoring dan Kendala Program ( Pelaporan Kinerja )
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
                                 {props.data.document1.form && props.data.document1.form.hasil}
                             </Text>
-                        {/* <Text style={style.text}>
-                            {props.data.document1.form && props.data.document1.form.evaluasi}
-                        </Text> */}
+                            <Text style={style.text}>
+                                {props.data.document1.form && props.data.document1.form.evaluasi}
+                            </Text>
+                        </View>
+                        <View style={style.isiFlex}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.hasil.map((media,index) => {
+                                    return(
+                                        <View style={style.isiimage} wrap={false}>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
+                                            <Text style={style.textimage}>
+                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
+                                            </Text>
+                                        </View>
+                                    )   
+                                })
+                            }
                         </View>
                         <Text style={style.headerBold}>
                             5.        Ketercapaian Indikator dan Target ( Pengukuran Kerja )
@@ -327,7 +364,7 @@ const DownloadMonev = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.ketercapaian.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
@@ -350,7 +387,7 @@ const DownloadMonev = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.media.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
@@ -363,10 +400,10 @@ const DownloadMonev = (props) => {
                             {
                                 props.data.document1.form && props.data.document1.form.lampiran.berkas.map((media,index) => {
                                     return(
-                                        <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                        <View style={style.isiimageFile} wrap={false}>
+                                            <Image style={style.imagesFile} source={image}/>
                                             <Text style={style.textimage}>
-                                                {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
+                                                {media.filename.length > 20 ? `${media.filename.substr(0,17)}...` : media.filename}
                                             </Text>
                                         </View>
                                     )   

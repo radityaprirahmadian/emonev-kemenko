@@ -4,17 +4,21 @@ import axios from 'axios';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import lock from '../../assets/lock.png';
 import {Link, useHistory} from 'react-router-dom';
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
 import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
+import Spinner from '../../component/Spinner/Spinner'
 import bg_4 from '../../assets/decoration/bg_4.png'
 
 const EditAdmin = (props) => {
     const { user, token, getUserDetail, userDetail } = useContext(AuthContext);
     const history = useHistory();
     const [foto, setFoto] = useState([])
+    const { sidebar } = useContext(LayoutContext)
+    const [loading , setLoading] = useState(false)
     const [allInstansi, setAllInstansi] = useState([])
     const [ avatar, setAvatar ] = useState();
 
@@ -55,6 +59,7 @@ const EditAdmin = (props) => {
 
     useEffect (() => {
         const getUserToUpdate = async () => {
+            setLoading(true)
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`
@@ -77,6 +82,7 @@ const EditAdmin = (props) => {
             catch (err) {
                 console.log(err)
             }
+            setLoading(false)
         }
         getUserToUpdate()
     }, [])
@@ -154,49 +160,104 @@ const EditAdmin = (props) => {
                     <div className="tajuk-page">
                         EDIT ADMIN
                     </div>
+                    {
+                    loading ?
+                        <div style={{ marginLeft: '68px' }}>
+                            <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                <Spinner />
+                            </div> 
+                        </div>
+                        :
+                        <Fragment>
+                        <div style={sidebar ? {transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                     <div className="container-fluid">
                         <div className="row">
                             <form id="form-profile" onSubmit={onSubmitEdit}>
                             <div className="col"> 
                             
-                                <div className="form-profile-page">
-                                    <div className="data">
-                                        <label>Nama</label><br/>
-                                        <input className="show-profile" type="text" name='nama' value={nama} onChange={onChange}></input>
-                                    </div>
+                                <div className="form-profile-page" style={sidebar? {marginLeft:'188px'} : {marginLeft:'0'}}>
+                                    {
+                                        !sidebar ?
+                                        <Fragment>
+                                            <div className="data">
+                                                <label>Nama</label><br/>
+                                                <input className="show-profile" type="text" name='nama' value={nama} onChange={onChange}></input>
+                                            </div>
 
-                                    <div className="data">
-                                        <label>Instansi</label><br/>
-                                        <div className="persist">{nama_pendek}</div>
-                                        <div className="button-lock" >
-                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
-                                        </div>
-                                    </div>
+                                            <div className="data">
+                                                <label>Instansi</label><br/>
+                                                <div className="persist">{nama_pendek}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
 
-                                    <div className="data">
-                                        <label>Level</label><br/>
-                                        <div className="persist">{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
-                                        <div className="button-lock" >
-                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
-                                        </div>
-                                    </div>
+                                            <div className="data">
+                                                <label>Level</label><br/>
+                                                <div className="persist">{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
 
-                                    <div className="data">
-                                        <label>Username</label><br/>
-                                        <div className="persist">{username}</div>
-                                        <div className="button-lock" >
-                                            <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
-                                        </div>
-                                    </div>
+                                            <div className="data">
+                                                <label>Username</label><br/>
+                                                <div className="persist">{username}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
 
-                                    <div className="data">
-                                        <label>Email</label><br/>
-                                        <input className="show-profile" type="email" name='email' value={email} onChange={onChange}></input>
-                                    </div>
-                                    <div className="data">
-                                        <label>Nomor Telepon</label><br/>
-                                        <input className="show-profile" type="text" name='kontak' value={kontak} onChange={onChange}></input>
-                                    </div>
+                                            <div className="data">
+                                                <label>Email</label><br/>
+                                                <input className="show-profile" type="email" name='email' value={email} onChange={onChange}></input>
+                                            </div>
+                                            <div className="data">
+                                                <label>Nomor Telepon</label><br/>
+                                                <input className="show-profile" type="text" name='kontak' value={kontak} onChange={onChange}></input>
+                                            </div>
+                                        </Fragment>
+                                    :
+                                        <Fragment>
+                                            <div className="data">
+                                                <label>Nama</label><br/>
+                                                <input className="show-profile" style={{width:'466px'}} type="text" name='nama' value={nama} onChange={onChange}></input>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Instansi</label><br/>
+                                                <div className="persist" style={{width:'466px'}}>{nama_pendek}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Level</label><br/>
+                                                <div className="persist" style={{width:'466px'}}>{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Username</label><br/>
+                                                <div className="persist" style={{width:'466px'}}>{username}</div>
+                                                <div className="button-lock" >
+                                                    <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
+                                                </div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Email</label><br/>
+                                                <input className="show-profile" style={{width:'466px'}} type="email" name='email' value={email} onChange={onChange}></input>
+                                            </div>
+                                            <div className="data">
+                                                <label>Nomor Telepon</label><br/>
+                                                <input className="show-profile" style={{width:'466px'}} type="text" name='kontak' value={kontak} onChange={onChange}></input>
+                                            </div>
+                                        </Fragment>
+                                    }
                                 </div>
                             </div>
                             </form>
@@ -239,9 +300,11 @@ const EditAdmin = (props) => {
                                 </div>
 
                             </div>
-
+                            </div>
                         </div>
                     </div>
+                    </Fragment>
+                    }
                 </div>
             </Fragment>
         );

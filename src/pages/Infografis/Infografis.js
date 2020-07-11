@@ -1,5 +1,6 @@
 import React, { useContext , useState, useEffect } from 'react' ; 
 import {AuthContext} from '../../context/Auth/AuthContext'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 import SideBarOff from '../../component/SideBarOff/SideBarOff'
 import {Link} from 'react-router-dom'
 import plus from '../../assets/plus.png'
@@ -17,6 +18,7 @@ import bg_4 from '../../assets/decoration/bg_4.png'
 
 const Infografis = (props) => {
     const { user, token, userDetail } = useContext(AuthContext)
+    const { sidebar } = useContext(LayoutContext)
     const [ documents , setDocuments] = useState([])
     const [ filterValue , setFilterValue ] = useState({})
     const [loading, setLoading] = useState(false)
@@ -132,6 +134,7 @@ const Infografis = (props) => {
                                     <Notification/>
                             }
                         </div>
+                        <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                             <div className="input-dan-tajuk">
                                 <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-kabar-gnrm`}>
                                     <button className="tambah-program">
@@ -144,12 +147,12 @@ const Infografis = (props) => {
                                 </Link>
                             </div>
 
-                <FilterInfografis
-                    filterValue={filterValue}
-                    getDocument={getAllDocument}
-                    setFilter={setFilter}
-                    filter={filter}
-                />
+                        <FilterInfografis
+                            filterValue={filterValue}
+                            getDocument={getAllDocument}
+                            setFilter={setFilter}
+                            filter={filter}
+                        />
 
                         <div className="table-container">
                             <table className="table-gnrm" style={{marginRight:'20px'}}>
@@ -206,6 +209,7 @@ const Infografis = (props) => {
                     limit={limit}
                     page={page}
                 />
+                </div>
                 </div>
         </div>
     )

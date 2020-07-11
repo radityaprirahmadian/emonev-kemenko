@@ -4,16 +4,20 @@ import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import bg_card from '../../assets/bg_card.png';
 import {Link} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 import axios from 'axios'
 import Popup from '../../component/Popup/Popup';
 import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import Spinner from '../../component/Spinner/Spinner'
 
 const ProfileAdmin = (props) => {
     const { token } = useContext(AuthContext);
     const [ userDetail, setUserDetail ] = useState();
+    const [loading , setLoading] = useState(false)
+    const { sidebar } = useContext(LayoutContext)
     console.log(userDetail)
     const [ avatar, setAvatar ] = useState();
     console.log(avatar)
@@ -21,6 +25,7 @@ const ProfileAdmin = (props) => {
 
     useEffect (() => {
         const getUserToShow = async () => {
+            setLoading(true)
             const config = {
                 headers: {
                     'X-Auth-Token': `aweuaweu ${token}`
@@ -36,6 +41,7 @@ const ProfileAdmin = (props) => {
             catch (err) {
                 console.log(err)
             }
+            setLoading(false)
         }
         getUserToShow()
     }, [])
@@ -57,39 +63,83 @@ const ProfileAdmin = (props) => {
                     <div className="tajuk-page">
                         PROFIL
                     </div>
+                    <div style={sidebar ? {transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                     <div className="container-fluid">
+                    {
+                            loading ?
+                            <div style={{ marginLeft: '68px' }}>
+                                <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                    <Spinner />
+                                </div> 
+                            </div>
+                            :
                         <div className="row">
                             <form id="form-profile">
                             <div className="col"> 
                             
-                                <div className="form-profile-page">
-                                <div className="data">
-                                    <label>Nama</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.nama}</div>
-                                </div>
+                                <div className="form-profile-page" style={sidebar? {marginLeft:'188px'} : {marginLeft:'0'}}>
+                                {
+                                        !sidebar ?
+                                        <Fragment>
+                                            <div className="data">
+                                                <label>Nama</label><br/>
+                                                <div className="show-profile" type="text">{userDetail && userDetail.nama}</div>
+                                            </div>
 
-                                <div className="data">
-                                    <label>Instansi</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
-                                </div>
+                                            <div className="data">
+                                                <label>Instansi</label><br/>
+                                                <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
+                                            </div>
 
-                                <div className="data">
-                                    <label>Role</label><br/>
-                                    <div className="show-profile" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
-                                </div>
+                                            <div className="data">
+                                                <label>Role</label><br/>
+                                                <div className="show-profile" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
+                                            </div>
 
-                                <div className="data">
-                                    <label>Username</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
-                                </div>
-                                <div className="data">
-                                    <label>Email</label><br/>
-                                    <div className="show-profile" type="email">{userDetail && userDetail.email}</div>
-                                </div>
-                                <div className="data">
-                                    <label>Nomor Telepon</label><br/>
-                                    <div className="show-profile" type="text">{userDetail && userDetail.kontak}</div>
-                                </div>
+                                            <div className="data">
+                                                <label>Username</label><br/>
+                                                <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
+                                            </div>
+                                            <div className="data">
+                                                <label>Email</label><br/>
+                                                <div className="show-profile" type="email">{userDetail && userDetail.email}</div>
+                                            </div>
+                                            <div className="data">
+                                                <label>Nomor Telepon</label><br/>
+                                                <div className="show-profile" type="text">{userDetail && userDetail.kontak}</div>
+                                            </div>
+                                            </Fragment>
+                                        :
+                                        <Fragment>
+                                            <div className="data">
+                                                <label>Nama</label><br/>
+                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.nama}</div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Instansi</label><br/>
+                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Role</label><br/>
+                                                <div className="show-profile" style={{width:'466px'}} type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
+                                            </div>
+
+                                            <div className="data">
+                                                <label>Username</label><br/>
+                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.username}</div>
+                                            </div>
+                                            <div className="data">
+                                                <label>Email</label><br/>
+                                                <div className="show-profile" style={{width:'466px'}} type="email">{userDetail && userDetail.email}</div>
+                                            </div>
+                                            <div className="data">
+                                                <label>Nomor Telepon</label><br/>
+                                                <div className="show-profile"  style={{width:'466px'}} type="text">{userDetail && userDetail.kontak}</div>
+                                            </div>
+                                            </Fragment>
+                                    }
                                 </div>
                             </div>
                             </form>
@@ -115,10 +165,11 @@ const ProfileAdmin = (props) => {
                                 </div>
 
                             </div>
-
+                            </div>
+                            }
                         </div>
                     </div>
-                </div>
+                    </div>
             </Fragment>
         );
     }

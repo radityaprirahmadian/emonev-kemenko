@@ -1,6 +1,7 @@
 import React,{Component,Fragment,useContext,useState,useEffect} from 'react';
 import axios from 'axios';
 import trash from '../../assets/trash.png';
+import './FormInstansi.css';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import {useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
@@ -12,10 +13,12 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 const FormInstansi = (props) => {
         const Link = Scroll.Link;
         const { user, token } = useContext(AuthContext);
+        const { sidebar } = useContext(LayoutContext)
         const history = useHistory();
         const [allInstansi, setAllInstansi] = useState([])
         const [isEditing , setIsEditing] = useState(false)
@@ -250,332 +253,667 @@ const FormInstansi = (props) => {
                         </div> 
                     </div>
                     :
-                    <form id='form-admin' className="form-admin-1" onSubmit={isEditing ? onEdit : onSubmit} style={{width:'fit-content' , height: 'fit-content', margin: 'auto'}}>
-                        <Element id="instansi" name="instansi">
-                            <div className="admin-1-container">
-                                <div>
-                                    <label>Nama Instansi</label>
-                                    <input 
-                                        className="admin-nama" 
-                                        type="text" 
-                                        name="nama" 
-                                        value={newInstansi.nama} 
-                                        onChange={onChangeInstansi} 
-                                        required={true}
-                                        style={{width:'955px', marginLeft:'97px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Nama Pendek</label>
-                                    <input 
-                                        className="admin-nama" 
-                                        type="text" 
-                                        name="nama_pendek" 
-                                        value={newInstansi.nama_pendek} 
-                                        onChange={onChangeInstansi}  
-                                        required={true}
-                                        style={{width:'366px', marginLeft:'101px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Jenis</label>
-                                    {
-                                        instansiDetail && instansiDetail.jenis ?
-                                            <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
-                                                <option value="" defaultValue="" hidden></option>
+                    <div style={sidebar ? {marginLeft:'188px' , marginRight: '20px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                        <form id='form-admin' className="form-admin-1" onSubmit={isEditing ? onEdit : onSubmit} style={{width:'fit-content' , height: 'fit-content', margin: 'auto'}}>
+                            {
+                                !sidebar ?
+                                <Fragment>
+                                    <Element id="instansi" name="instansi">
+                                        <div className="admin-1-container">
+                                            <div>
+                                                <label>Nama Instansi</label>
+                                                <input 
+                                                    className="admin-nama" 
+                                                    type="text" 
+                                                    name="nama" 
+                                                    value={newInstansi.nama} 
+                                                    onChange={onChangeInstansi} 
+                                                    required={true}
+                                                    style={{width:'955px', marginLeft:'97px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Nama Pendek</label>
+                                                <input 
+                                                    className="admin-nama" 
+                                                    type="text" 
+                                                    name="nama_pendek" 
+                                                    value={newInstansi.nama_pendek} 
+                                                    onChange={onChangeInstansi}  
+                                                    required={true}
+                                                    style={{width:'366px', marginLeft:'101px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Jenis</label>
                                                 {
-                                                jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
-                                                }
-                                            </select>
-                                            :
-                                            <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
-                                                <option selected={true} hidden></option>
-                                                {
-                                                jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
-                                                }
-                                            </select>
-                                    }
-                                </div>
-                                <div>
-                                    <label>Kontak Instansi</label>
-                                    <input 
-                                        className="admin-username" 
-                                        type="text" 
-                                        name="kontak" 
-                                        value={newInstansi.kontak} 
-                                        onChange={onChangeInstansi} 
-                                        required={true} 
-                                        style={{marginLeft:'87px', width:'366px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Logo Instansi</label>
-                                    <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
-                                    <input 
-                                        id="testing"
-                                        className="gnrm-penjelasan" 
-                                        style={{height: "178px", 
-                                                marginLeft: "108px", 
-                                                width: "178px"}} 
-                                        onChange={onChangeFiles}
-                                        type="file"
-                                        accept="image/*"
-                                        name="logo"
-                                    />
-                                    <div>
-                                    {
-                                        media && media.length > 0 ? (
-                                            <div style={{height: "178px", 
-                                                marginTop:'5px',
-                                                marginLeft: "214px", 
-                                                width: "178px",
-                                                border: '1px solid black',
-                                                padding: '10px',
-                                                overflow: 'hidden'
-                                            }} 
-                                            > 
-                                                {
-                                                    media.map((media,index) => {
-                                                        const objectURL = URL.createObjectURL(media)
-                                                        return(
-                                                            <div key={index}>
-                                                                    <div style={{width:'120px', 
-                                                                                height:'120px',  
-                                                                                margin:'auto', 
-                                                                                position:'relative'
-                                                                                }}
-                                                                        className="d-flex align-items-center justify-content-center"
-                                                                    >
-                                                                        <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
-                                                                        </div>
-                                                                        <div style={{position:'absolute', 
-                                                                                    backgroundColor:'#C04B3E' , 
-                                                                                    width:'25px' , 
-                                                                                    height:'25px', 
-                                                                                    borderRadius:'50%', 
-                                                                                    top:'-7px', 
-                                                                                    right:'-7px', 
-                                                                                    lineHeight:'25px', 
-                                                                                    textAlign:'center',
-                                                                                    cursor:'pointer',
-                                                                                    color:'white'}}
-                                                                        onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
-                                                                    </div>
-                                                                    <div style={{marginTop:'10px' , 
-                                                                                width:'150px' , 
-                                                                                height:'20px', 
-                                                                                wordWrap: 'break-word',
-                                                                                lineHeight:'20px',}}
-                                                                    >
-                                                                        <p className="gnrm-media--name">
-                                                                            {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
-                                                                        </p>
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        )
-                                                    })
+                                                    instansiDetail && instansiDetail.jenis ?
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                            <option value="" defaultValue="" hidden></option>
+                                                            {
+                                                            jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
+                                                            }
+                                                        </select>
+                                                        :
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                            <option selected={true} hidden></option>
+                                                            {
+                                                            jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
+                                                            }
+                                                        </select>
                                                 }
                                             </div>
-                                        ) : (
-                                            <div style={{height: "178px", 
-                                                marginTop:'5px',
-                                                marginLeft: "214px", 
-                                                width: "178px",
-                                                border: '1px solid black',
-                                                padding: '10px',
-                                                overflow: 'hidden'
-                                                }} 
-                                            > 
-                                                {
-                                                    mediaUrl.map((url,index) => {
-                                                        return(
-                                                            <div key={index}>
-                                                                    <div style={{width:'120px', 
-                                                                                height:'120px', 
-                                                                                margin:'auto', 
-                                                                                position:'relative'}}
-                                                                        className="d-flex align-items-center justify-content-center"
-                                                                    >
-                                                                        <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
-                                                                        </div>
-                                                                        <div style={{position:'absolute', 
-                                                                                    backgroundColor:'#C04B3E' , 
-                                                                                    width:'25px' , 
-                                                                                    height:'25px', 
-                                                                                    borderRadius:'50%', 
-                                                                                    top:'-7px', 
-                                                                                    right:'-7px', 
-                                                                                    lineHeight:'25px', 
-                                                                                    textAlign:'center',
-                                                                                    cursor:'pointer',
-                                                                                    color:'white'}}
-                                                                        onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
-                                                                    </div>
-                                                                    <div style={{marginTop:'10px' , 
-                                                                                width:'150px' , 
-                                                                                height:'20px', 
-                                                                                wordWrap: 'break-word',
-                                                                                lineHeight:'20px'}}
-                                                                    >
-                                                                        <p className="gnrm-media--name">
-                                                                            {getFileName(url)}
-                                                                        </p>
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
+                                            <div>
+                                                <label>Kontak Instansi</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="kontak" 
+                                                    value={newInstansi.kontak} 
+                                                    onChange={onChangeInstansi} 
+                                                    required={true} 
+                                                    style={{marginLeft:'87px', width:'366px'}}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    </div>
-                                </div>
-                                <div>
-                                    <label  style={{textAlign:'right', clear:'both' , float:'left'}}>Alamat</label>
-                                    <textarea 
-                                        className="admin-username" 
-                                        type="text" 
-                                        name="alamat" 
-                                        value={newInstansi.alamat} 
-                                        onChange={onChangeInstansi} 
-                                        style={{marginLeft:'156px', width:'955px' , height: '84px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Fax</label>
-                                    <input 
-                                        className="admin-username" 
-                                        type="text" 
-                                        name="fax" 
-                                        value={newInstansi.fax} 
-                                        onChange={onChangeInstansi} 
-                                        style={{marginLeft:'186px', width:'366px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Website</label>
-                                    <input 
-                                        className="admin-username" 
-                                        type="text" 
-                                        name="website" 
-                                        value={newInstansi.website} 
-                                        onChange={onChangeInstansi} 
-                                        style={{marginLeft:'150px', width:'366px'}}
-                                    />
-                                </div>
-                                <div>
-                                    <label>Email Instansi</label>
-                                    <input 
-                                        className="admin-username" 
-                                        type="email" 
-                                        name="email" 
-                                        value={newInstansi.email} 
-                                        onChange={onChangeInstansi} 
-                                        style={{marginLeft:'102px', width:'366px'}}
-                                    />
-                                </div>
-
-                                {
-                                    isEditing ?
-                                        <div className="admin-navigation-button">
-                                                <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
-                                        </div>
-                                    :
-                                    <div className="gnrm-navigation-button">
-                                        <Link 
-                                            to="admin_form"
-                                            spy={true}
-                                            smooth={true}
-                                            duration={500}
-                                            offset={-30}
-                                        >
-                                            <button className="forward" style={{right:'-1109px'}}><i className="material-icons">expand_more</i></button>
-                                        </Link>
-                                    </div>
-                                }
-                            </div>
-                        </Element>
-
-                        {
-                            !props.match.params.id ?
-                        <Element id="admin_form" name="admin_form">
-                            <div className="admin-1-container" style={{marginBottom:'227px'}}>
-                            <div className="gnrm-title">
-                                FORMULIR ADMIN
-                            </div>
-                                    <div>
-                                        <label>Nama</label>
-                                        <input 
-                                            className="admin-nama" 
-                                            type="text" 
-                                            name="user_nama" 
-                                            value={newInstansi.user_nama} 
-                                            onChange={onChangeInstansi} 
-                                            required={true}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
-                                        <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
-                                            Admin
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label>Username</label>
-                                        <input 
-                                            className="admin-username" 
-                                            type="text" 
-                                            name="user_username" 
-                                            value={newInstansi.user_username} 
-                                            onChange={onChangeInstansi}
-                                            required={true} 
-                                        />
-                                    </div>
-                                    <div>
-                                        <label>Kata Sandi</label>
-                                        <input 
-                                            className="admin-password" 
-                                            type={seen ? "text" : "password"} 
-                                            name="user_password" 
-                                            value={newInstansi.user_password} 
-                                            onChange={onChangeInstansi}
-                                            required={true} 
-                                        />
-                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
-                                        {
-                                                seen ?
-                                                    <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                            <div>
+                                                <label>Logo Instansi</label>
+                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <input 
+                                                    id="testing"
+                                                    className="gnrm-penjelasan" 
+                                                    style={{height: "178px", 
+                                                            marginLeft: "108px", 
+                                                            width: "178px"}} 
+                                                    onChange={onChangeFiles}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    name="logo"
+                                                />
+                                                <div>
+                                                {
+                                                    media && media.length > 0 ? (
+                                                        <div style={{height: "178px", 
+                                                            marginTop:'5px',
+                                                            marginLeft: "214px", 
+                                                            width: "178px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        > 
+                                                            {
+                                                                media.map((media,index) => {
+                                                                    const objectURL = URL.createObjectURL(media)
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'120px', 
+                                                                                            height:'120px',  
+                                                                                            margin:'auto', 
+                                                                                            position:'relative'
+                                                                                            }}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px',}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    ) : (
+                                                        <div style={{height: "178px", 
+                                                            marginTop:'5px',
+                                                            marginLeft: "214px", 
+                                                            width: "178px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            overflow: 'hidden'
+                                                            }} 
+                                                        > 
+                                                            {
+                                                                mediaUrl.map((url,index) => {
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'120px', 
+                                                                                            height:'120px', 
+                                                                                            margin:'auto', 
+                                                                                            position:'relative'}}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px'}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {getFileName(url)}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label  style={{textAlign:'right', clear:'both' , float:'left'}}>Alamat</label>
+                                                <textarea 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="alamat" 
+                                                    value={newInstansi.alamat} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'156px', width:'955px' , height: '84px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Fax</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="fax" 
+                                                    value={newInstansi.fax} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'186px', width:'366px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Website</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="website" 
+                                                    value={newInstansi.website} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'150px', width:'366px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Email Instansi</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="email" 
+                                                    name="email" 
+                                                    value={newInstansi.email} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'102px', width:'366px'}}
+                                                />
+                                            </div>
+            
+                                            {
+                                                isEditing ?
+                                                    <div className="admin-navigation-button">
+                                                            <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
+                                                    </div>
                                                 :
-                                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                <div className="gnrm-navigation-button" style={{textAlign:'right'}}>
+                                                    <Link 
+                                                        to="admin_form"
+                                                        spy={true}
+                                                        smooth={true}
+                                                        duration={500}
+                                                        offset={-30}
+                                                    >
+                                                        <button className="forward" style={{right:'-1109px'}}><i className="material-icons">expand_more</i></button>
+                                                    </Link>
+                                                </div>
                                             }
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <label>Kontak Admin</label>
-                                        <input 
-                                            className="admin-username" 
-                                            type="text" 
-                                            name="user_kontak" 
-                                            value={newInstansi.user_kontak} 
-                                            onChange={onChangeInstansi}
-                                            required={true}
-                                            style={{marginLeft:'95px'}} 
-                                        />
-                                    </div>
+                                        </div>
+                                    </Element>
+            
+                                    {
+                                        !props.match.params.id ?
+                                    <Element id="admin_form" name="admin_form">
+                                        <div className="admin-1-container" style={{marginBottom:'227px'}}>
+                                        <div className="gnrm-title">
+                                            FORMULIR ADMIN
+                                        </div>
+                                                <div>
+                                                    <label>Nama</label>
+                                                    <input 
+                                                        className="admin-nama" 
+                                                        type="text" 
+                                                        name="user_nama" 
+                                                        value={newInstansi.user_nama} 
+                                                        onChange={onChangeInstansi} 
+                                                        required={true}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                                    <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
+                                                        Admin
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label>Username</label>
+                                                    <input 
+                                                        className="admin-username" 
+                                                        type="text" 
+                                                        name="user_username" 
+                                                        value={newInstansi.user_username} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true} 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Kata Sandi</label>
+                                                    <input 
+                                                        className="admin-password" 
+                                                        type={seen ? "text" : "password"} 
+                                                        name="user_password" 
+                                                        value={newInstansi.user_password} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true} 
+                                                    />
+                                                    <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
+                                                    {
+                                                            seen ?
+                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                            :
+                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                        }
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <label>Kontak Admin</label>
+                                                    <input 
+                                                        className="admin-username" 
+                                                        type="text" 
+                                                        name="user_kontak" 
+                                                        value={newInstansi.user_kontak} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true}
+                                                        style={{marginLeft:'95px'}} 
+                                                    />
+                                                </div>
+            
+                                            <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                                    <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
+                                            </div>
+                                        </div>
+                                    </Element>
+                                    : 
+                                    ''
+                                }
+                                </Fragment>
+                                :
 
-                                <div className="admin-navigation-button">
-                                        <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
-                                </div>
-                            </div>
-                        </Element>
-                        : 
-                            ''
-                        }
-                    </form>
+                                <Fragment>
+                                    <Element id="instansi" name="instansi">
+                                        <div className="admin-1-container-test">
+                                            <div>
+                                                <label>Nama Instansi</label>
+                                                <input 
+                                                    className="admin-nama" 
+                                                    type="text" 
+                                                    name="nama" 
+                                                    value={newInstansi.nama} 
+                                                    onChange={onChangeInstansi} 
+                                                    required={true}
+                                                    style={{width:'767px', marginLeft:'97px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Nama Pendek</label>
+                                                <input 
+                                                    className="admin-nama" 
+                                                    type="text" 
+                                                    name="nama_pendek" 
+                                                    value={newInstansi.nama_pendek} 
+                                                    onChange={onChangeInstansi}  
+                                                    required={true}
+                                                    style={{width:'366px', marginLeft:'101px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Jenis</label>
+                                                {
+                                                    instansiDetail && instansiDetail.jenis ?
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                            <option value="" defaultValue="" hidden></option>
+                                                            {
+                                                            jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
+                                                            }
+                                                        </select>
+                                                        :
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                            <option selected={true} hidden></option>
+                                                            {
+                                                            jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
+                                                            }
+                                                        </select>
+                                                }
+                                            </div>
+                                            <div>
+                                                <label>Kontak Instansi</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="kontak" 
+                                                    value={newInstansi.kontak} 
+                                                    onChange={onChangeInstansi} 
+                                                    required={true} 
+                                                    style={{marginLeft:'87px', width:'366px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Logo Instansi</label>
+                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <input 
+                                                    id="testing"
+                                                    className="gnrm-penjelasan" 
+                                                    style={{height: "178px", 
+                                                            marginLeft: "108px", 
+                                                            width: "178px"}} 
+                                                    onChange={onChangeFiles}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    name="logo"
+                                                />
+                                                <div>
+                                                {
+                                                    media && media.length > 0 ? (
+                                                        <div style={{height: "178px", 
+                                                            marginTop:'5px',
+                                                            marginLeft: "214px", 
+                                                            width: "178px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        > 
+                                                            {
+                                                                media.map((media,index) => {
+                                                                    const objectURL = URL.createObjectURL(media)
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'120px', 
+                                                                                            height:'120px',  
+                                                                                            margin:'auto', 
+                                                                                            position:'relative'
+                                                                                            }}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px',}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    ) : (
+                                                        <div style={{height: "178px", 
+                                                            marginTop:'5px',
+                                                            marginLeft: "214px", 
+                                                            width: "178px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            overflow: 'hidden'
+                                                            }} 
+                                                        > 
+                                                            {
+                                                                mediaUrl.map((url,index) => {
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'120px', 
+                                                                                            height:'120px', 
+                                                                                            margin:'auto', 
+                                                                                            position:'relative'}}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px'}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {getFileName(url)}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label  style={{textAlign:'right', clear:'both' , float:'left'}}>Alamat</label>
+                                                <textarea 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="alamat" 
+                                                    value={newInstansi.alamat} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'156px', width:'767px' , height: '84px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Fax</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="fax" 
+                                                    value={newInstansi.fax} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'186px', width:'366px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Website</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="text" 
+                                                    name="website" 
+                                                    value={newInstansi.website} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'150px', width:'366px'}}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label>Email Instansi</label>
+                                                <input 
+                                                    className="admin-username" 
+                                                    type="email" 
+                                                    name="email" 
+                                                    value={newInstansi.email} 
+                                                    onChange={onChangeInstansi} 
+                                                    style={{marginLeft:'102px', width:'366px'}}
+                                                />
+                                            </div>
+            
+                                            {
+                                                isEditing ?
+                                                    <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                                            <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
+                                                    </div>
+                                                :
+                                                <div className="gnrm-navigation-button" style={{textAlign:'right'}}>
+                                                    <Link 
+                                                        to="admin_form"
+                                                        spy={true}
+                                                        smooth={true}
+                                                        duration={500}
+                                                        offset={-30}
+                                                    >
+                                                        <button className="forward" style={{right:'-921px'}}><i className="material-icons">expand_more</i></button>
+                                                    </Link>
+                                                </div>
+                                            }
+                                        </div>
+                                    </Element>
+            
+                                    {
+                                        !props.match.params.id ?
+                                    <Element id="admin_form" name="admin_form">
+                                        <div className="admin-1-container-test" style={{marginBottom:'227px'}}>
+                                        <div className="gnrm-title">
+                                            FORMULIR ADMIN
+                                        </div>
+                                                <div>
+                                                    <label>Nama</label>
+                                                    <input 
+                                                        className="admin-nama" 
+                                                        type="text" 
+                                                        name="user_nama" 
+                                                        value={newInstansi.user_nama} 
+                                                        onChange={onChangeInstansi} 
+                                                        required={true}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                                    <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
+                                                        Admin
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label>Username</label>
+                                                    <input 
+                                                        className="admin-username" 
+                                                        type="text" 
+                                                        name="user_username" 
+                                                        value={newInstansi.user_username} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true} 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Kata Sandi</label>
+                                                    <input 
+                                                        className="admin-password" 
+                                                        type={seen ? "text" : "password"} 
+                                                        name="user_password" 
+                                                        value={newInstansi.user_password} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true} 
+                                                    />
+                                                    <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
+                                                    {
+                                                            seen ?
+                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                            :
+                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                        }
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <label>Kontak Admin</label>
+                                                    <input 
+                                                        className="admin-username" 
+                                                        type="text" 
+                                                        name="user_kontak" 
+                                                        value={newInstansi.user_kontak} 
+                                                        onChange={onChangeInstansi}
+                                                        required={true}
+                                                        style={{marginLeft:'95px'}} 
+                                                    />
+                                                </div>
+            
+                                            <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                                    <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
+                                            </div>
+                                        </div>
+                                    </Element>
+                                    : 
+                                    ''
+                                }
+                                </Fragment>
+                            }
+                        </form>
+                    </div>
                 }
           </Fragment>  
         );

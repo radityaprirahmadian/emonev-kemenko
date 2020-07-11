@@ -3,6 +3,7 @@ import './FormAdmin.css';
 import axios from 'axios';
 import trash from '../../assets/trash.png';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 import {Link, useHistory} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Popup from '../../component/Popup/Popup';
@@ -17,7 +18,7 @@ const FormAdmin = (props) => {
         const history = useHistory();
         const [allInstansi, setAllInstansi] = useState([])
         const [loading, setLoading] = useState(false)
-
+        const { sidebar } = useContext(LayoutContext)
         const [admin, setAdmin] = useState({
             nama: '',
             instansi: '',
@@ -124,82 +125,84 @@ const FormAdmin = (props) => {
                             </div>
                         </div>
                         :
-            <div style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
-              <div className="admin-1-container" >
-                    <form id='form-admin' className="form-admin-1" onSubmit={onSubmit} autoComplete="off">
-                        <div>
-                            <label>Nama</label>
-                            <input 
-                                className="admin-nama" 
-                                type="text" 
-                                name="nama" 
-                                value={nama} 
-                                onChange={onChange} 
-                                required
-                            />
-                        </div>
-                        <div>
-                            {
-                                user && user.role === 'owner' ?
-                                <Fragment>
-                                    <label>Instansi</label>
-                                    <select className="admin-instansi" name="instansi" onChange={onChange} required>
-                                        <option value="" defaultValue="" hidden></option>
+                        <div style={sidebar ? {marginLeft:'188px', transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                            <div style={{width:'fit-content' , height:'fit-content' , margin:'auto'}}>
+                            <div className="admin-1-container" style={sidebar ? {width:'1050px', transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                                    <form id='form-admin' className="form-admin-1" onSubmit={onSubmit} autoComplete="off">
+                                        <div>
+                                            <label>Nama</label>
+                                            <input 
+                                                className="admin-nama" 
+                                                type="text" 
+                                                name="nama" 
+                                                value={nama} 
+                                                onChange={onChange} 
+                                                required
+                                            />
+                                        </div>
+                                        <div>
                                             {
-                                                allInstansi.map((instansi,index) => {
-                                                    return(
-                                                        <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
-                                                    )
-                                                })
+                                                user && user.role === 'owner' ?
+                                                <Fragment>
+                                                    <label>Instansi</label>
+                                                    <select className="admin-instansi" name="instansi" onChange={onChange} required>
+                                                        <option value="" defaultValue="" hidden></option>
+                                                            {
+                                                                allInstansi.map((instansi,index) => {
+                                                                    return(
+                                                                        <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                                    )
+                                                                })
 
+                                                            }
+                                                    </select>
+                                                </Fragment>
+                                                : ''
                                             }
-                                    </select>
-                                </Fragment>
-                                : ''
-                            }
-                        </div>
-                        <div>
-                            <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
-                            <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
-                                Admin
-                            </div>
-                        </div>
-                        <div>
-                            <label>Username</label>
-                            <input 
-                                className="admin-username" 
-                                type="text" 
-                                name="username" 
-                                value={username} 
-                                onChange={onChange}
-                                required 
-                            />
-                        </div>
-                        <div>
-                            <label>Kata Sandi</label>
-                            <input 
-                                className="admin-password" 
-                                type={seen ? "text" : "password"} 
-                                name="password" 
-                                value={password} 
-                                onChange={onChange}
-                                required 
-                            />
-                            <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
-                                    {
-                                        seen ?
-                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
-                                        :
-                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
-                                    }
-                            </button>
-                        </div>
-                    </form>
+                                        </div>
+                                        <div>
+                                            <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                            <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
+                                                Admin
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label>Username</label>
+                                            <input 
+                                                className="admin-username" 
+                                                type="text" 
+                                                name="username" 
+                                                value={username} 
+                                                onChange={onChange}
+                                                required 
+                                            />
+                                        </div>
+                                        <div>
+                                            <label>Kata Sandi</label>
+                                            <input 
+                                                className="admin-password" 
+                                                type={seen ? "text" : "password"} 
+                                                name="password" 
+                                                value={password} 
+                                                onChange={onChange}
+                                                required 
+                                            />
+                                            <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
+                                                    {
+                                                        seen ?
+                                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                        :
+                                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                    }
+                                            </button>
+                                        </div>
+                                    </form>
 
-                    <div className="admin-navigation-button" style={{textAlign:'right' , marginRight: '100px'}}>
-                        <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
-                    </div>
-                    </div>
+                                    <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                        <input className="button-daftar" form='form-admin' type='submit' value='DAFTAR'></input>
+                                    </div>
+                                    </div>
+                                </div>
                 </div>
               }
           </Fragment>  

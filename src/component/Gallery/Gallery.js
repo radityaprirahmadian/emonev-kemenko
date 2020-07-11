@@ -7,6 +7,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'
 import Pagination from "react-js-pagination";
 import { AuthContext } from '../../context/Auth/AuthContext';
+import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 // import ".../bootstrap/less/bootstrap.less";
 import Spinner from '../../component/Spinner/Spinner'
@@ -237,6 +238,18 @@ const Gallery = (props) => {
                                         )
                                     })
                                 }
+                            
+                            {
+                                !props.pagination ?
+                                    <div className="div-button-gallery">
+                                        <Link to='/galeri'>
+                                            <button className="button-lihat-gallery">
+                                                LIHAT GALERI LAINNYA
+                                            </button>
+                                        </Link>
+                                    </div>
+                                : ''
+                            }
                             {
                                 props.pagination && total > '9' ?
                                         <Pagination

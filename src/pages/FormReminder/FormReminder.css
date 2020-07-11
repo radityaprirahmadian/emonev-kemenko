@@ -70,11 +70,26 @@
     width: 366px; 
 }
 
+.form-reminder-1 .reminder-tujuan-test{
+    margin-left: 35px;
+    margin-right: 50px;
+    height: 42px;
+    width: 272px;
+}
+
+.form-reminder-1 .reminder-akun-test{
+    margin-left: 35px;
+    margin-right: 50px;
+    height: 42px;
+    width: 272px; 
+}
+
 .form-reminder-1 .reminder-judul{
     margin-left: 78px;
     width: 955px;
     height: 42px; 
 }
+
 .form-reminder-1 .reminder-isi{
     margin-left: 106px;
     width: 955px;
@@ -87,12 +102,16 @@
     height: 24px; 
 }
 
+.reminder-navigation-button {
+    text-align: right;
+}
+
 .button-kirim{
     width: 225px;
     height: 46px;
     padding: 0px;
     margin-top: 80px;
-    margin-left: 946px;
+    margin-right: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
     cursor: pointer;

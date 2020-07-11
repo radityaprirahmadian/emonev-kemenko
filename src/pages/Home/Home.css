@@ -47,13 +47,12 @@
 
 .test-progress {
     height: 3px;
-    width: 100%;
+    width: 100% + 2px;
     top: 0;
-    left: 0;
-    right: 0;
+    left: -1px;
+    right: -1px;
     position: absolute;
     background-color: rgba(0,0,0,0);
-    overflow: hidden;
 }
 
 .test-progress span {
@@ -177,7 +176,7 @@
     position: absolute;
     top: 150px;
     height: 380px;
-    left: 36px;
+    left: 48px;
 }
 
 .home-title {
@@ -242,7 +241,7 @@
 
 .button-home-next1 {
     top:35%;
-    right: -57px; 
+    right: 0; 
 }
 
 .home-other {
@@ -270,9 +269,9 @@
     border-right: 1px solid white;
     border-bottom: 1px solid white;
     position: relative;
+    box-sizing: border-box;
     padding-top: 12px;
     padding-left: 4px;
-    overflow: hidden;
     background-color: rgba(255,255,255,0.75);
     border-radius: 0 0 10px 10px;
 }
@@ -356,7 +355,7 @@
 }
 
 .button-lihat-gallery{
-    margin: 0px 20px 80px 0px;
+    margin: 0px 0px 80px 0px;
     font-weight: bold;
     font-size: 16px;
     width: 273px;
@@ -368,7 +367,7 @@
 }
 
 .div-button-gallery {
-    /* width: 100%; */
+    width: 100%;
     text-align: right;
 }
 
@@ -430,7 +429,7 @@
 }
 
 .col-4 {
-    width: 30vh;
+    width: 30vw;
 }
 
 .home-section-4 .row {
@@ -438,7 +437,7 @@
 }
 
 .col-8 {
-    width: 50vh;
+    width: 50vw;
 }
 
 .filter-a{
@@ -492,7 +491,7 @@
 
 .button-home-next1 {
     top:35%;
-    right: 12vh; 
+    right: -5vh; 
 }
 
 .button-home-next1 {
@@ -512,13 +511,13 @@
         line-height: 3vh;
         font-weight: 600;
         margin: auto;
-        width: 100%;
+        width: 30vh;
         height: 15vh;
         color: black;
         /* border-top: 4px solid white; */
         padding-top: 1vh;
         padding-left: 0.5vh;
-        overflow: hidden;
+        box-sizing: border-box;
         background-color: rgba(255,255,255,0.75);
         border-radius: 0 0 2vh 2vh;
     }
@@ -591,7 +590,7 @@
         position: absolute;
         top: 20vh;
         height: 380px;
-        left: 5vh;
+        left: 7vh;
     }
 
     .home-button-lanjut{
@@ -636,7 +635,7 @@
         font-size: 6vh;
         margin-top: 1%;
         line-height: 150%;
-        width: 60vh;
+        width: 100vh;
         margin-top: 2vh;
     }
 
@@ -660,7 +659,7 @@
     }
 
     .button-lihat-gallery{
-        margin: 0px 3vh 8vh 0px;
+        margin: 0px 0px 8vh 0px;
         font-weight: bold;
         font-size: 1.9vh;
         width: 30vh;
@@ -697,7 +696,7 @@
     }
 
     .col-4 {
-        width: 30vh;
+        width: 30vw;
     }
 
     .home-section-4 .row {
@@ -705,7 +704,7 @@
     }
 
     .col-8 {
-        width: 50vh;
+        width: 50vw;
     }
 
     .filter-a{
@@ -754,12 +753,12 @@
 
     .button-home-prev1 {
         top:35%;
-        left: -6vh; 
+        left: -7vh; 
     }
     
     .button-home-next1 {
         top:35%;
-        right: 12vh; 
+        right: -4vh; 
     }
 
     .button-home-next1 {

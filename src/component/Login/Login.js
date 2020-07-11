@@ -127,7 +127,7 @@ const Login = (props) => {
                                 </div> 
                             </div>
                             :
-                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
+                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'120px'}}>
                                 <div className="col-5 login" style={{width:'424px'}}>
                                     <div className="login-page-left-title">
                                         <h1>LOGIN</h1>

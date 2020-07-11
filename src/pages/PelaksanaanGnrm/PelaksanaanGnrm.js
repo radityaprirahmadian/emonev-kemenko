@@ -19,10 +19,12 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 const GNRM  = (props) => {
     const { resetDocument , editDocumentFalse, loading, setLoadingFalse, setLoadingTrue , preview } = useContext(ArtikelContext)
     const { user, token, userDetail } = useContext(AuthContext)
+    const { sidebar } = useContext(LayoutContext)
     const [ documents , setDocuments] = useState([])
     const history = useHistory()
     const [ filterValue , setFilterValue ] = useState({})
@@ -114,6 +116,7 @@ const GNRM  = (props) => {
                                         <Notification/>
                                 }
                             </div>
+                            <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                             <div className="input-dan-tajuk">
                                     <button className="tambah-program" onClick={() => handleReset()}>
                                         <img src={plus}></img>
@@ -136,10 +139,10 @@ const GNRM  = (props) => {
                                 <thead className="table-head">
                                     <tr>
                                         <th width='70px'>Tahun</th>
-                                        <th width='276px'>Kegiatan Prioritas</th>
-                                        <th width='276px'>Proyek Prioritas</th>
-                                        <th width='193px' className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
-                                        <th width='204px'>Pihak Terkait</th>
+                                        <th width={sidebar ? '216px' : '276px'}>Kegiatan Prioritas</th>
+                                        <th width={sidebar ? '216px' : '276px'}>Proyek Prioritas</th>
+                                        <th width={sidebar ? '160px' : '193px'} className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
+                                        <th width={sidebar ? '169px' : '204px'}>Pihak Terkait</th>
                                         <th width='133px'>Pejabat Eselon</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>
@@ -188,6 +191,7 @@ const GNRM  = (props) => {
                             limit={limit}
                             page={page}
                         />
+                </div>
                 </div>
             </Fragment>
 

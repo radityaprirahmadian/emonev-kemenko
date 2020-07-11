@@ -22,6 +22,10 @@ const style = StyleSheet.create({
         position: 'relative'
     },
 
+    alamat: {
+        width: 300
+    }, 
+
     header: {
         textAlign: 'center',     
     },
@@ -72,8 +76,9 @@ const style = StyleSheet.create({
     },
 
     images : {
-        width: 80,
-        height: 80,
+        width: 200,
+        height: 200,
+        objectFit: 'contain',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -89,7 +94,7 @@ const style = StyleSheet.create({
     isiFlex: {
         marginLeft: 20,
         marginTop: 10,
-        marginBottom: 25,
+        marginBottom: 30,
         display: 'flex',
         flexDirection: "row"
     },
@@ -98,9 +103,9 @@ const style = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
-        textAlign:'justify',
-        width: 100,
-        height: 100,
+        textAlign:'center',
+        width: 220,
+        height: 220,
         position : 'relative',
         overflow: 'hidden',
     },
@@ -200,7 +205,7 @@ const DownloadGNRM = (props) => {
                             <Text style={style.headerBold}>
                                 Sekretariat
                             </Text>
-                            <Text>
+                            <Text style={style.alamat}>
                                 {props.data.instansi && props.data.instansi.alamat}
                             </Text>
                             {/* <Text>
@@ -290,7 +295,7 @@ const DownloadGNRM = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.kondisi_awal.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
@@ -321,7 +326,7 @@ const DownloadGNRM = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.proses.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
@@ -360,7 +365,7 @@ const DownloadGNRM = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.media.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={image}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>

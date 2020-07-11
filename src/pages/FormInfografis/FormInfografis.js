@@ -15,10 +15,12 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 const FormInfografis = (props) => {
     const { infografisDetail,setInfografis,isEditing,editDocument,editDocumentFalse, loading, setLoadingTrue, setLoadingFalse } = useContext(InfografisContext)
     const { token,userDetail } = useContext(AuthContext)
+    const { sidebar } = useContext(LayoutContext)
     const history = useHistory()
 
 
@@ -208,172 +210,345 @@ const FormInfografis = (props) => {
                             </div> 
                         </div>
                     :
-                    <form>
-                        <div className="form-container" style={{marginRight:'20px'}}>
-                            <div className="form-infografis">
-                                <div>
-                                    <label>Judul Kabar</label>
-                                    <input 
-                                        type="text"
-                                        style={{width:'955px', height:'42px' , marginLeft:'123px'}} 
-                                        name='judul'
-                                        value={judul}
-                                        onChange={onChange}
-                                    >
-                                    </input>
-                                </div>
-                                <div>
-                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
-                                    <textarea  
-                                        type="text"
-                                        style={{width:'955px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
-                                        name='deskripsi'
-                                        value={deskripsi}
-                                        onChange={onChange}
-                                    >
-                                    </textarea>
-                                </div>
-                                <div>
-                                    <label>Lampiran Infografis</label>
-                                    <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
-                                    <input 
-                                        id="testing"
-                                        className="gnrm-penjelasan" 
-                                        onChange={onChangeFiles}
-                                        type="file"
-                                        accept="image/*"
-                                        name="media"
-                                        multiple
-                                    />
-                                </div>
-                                <div>
-                                    {
-                                        media && media.length > 0 ? (
-                                            <div style={{height: "fit-content", 
-                                                marginLeft: "217px", 
-                                                width: "955px",
-                                                border: '1px solid black',
-                                                padding: '10px',
-                                                display: 'flex',
-                                                flexWrap: 'wrap',
-                                                overflow: 'hidden'
-                                            }} 
-                                            >
+                    <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                        <form>
+                            {
+                                !sidebar ?
+                                <Fragment>
+
+                                    <div className="form-container" style={{marginRight:'20px'}}>
+                                        <div className="form-infografis">
+                                            <div>
+                                                <label>Judul Kabar</label>
+                                                <input 
+                                                    type="text"
+                                                    style={{width:'955px', height:'42px' , marginLeft:'123px'}} 
+                                                    name='judul'
+                                                    value={judul}
+                                                    onChange={onChange}
+                                                >
+                                                </input>
+                                            </div>
+                                            <div>
+                                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
+                                                <textarea  
+                                                    type="text"
+                                                    style={{width:'955px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    name='deskripsi'
+                                                    value={deskripsi}
+                                                    onChange={onChange}
+                                                >
+                                                </textarea>
+                                            </div>
+                                            <div>
+                                                <label>Lampiran Infografis</label>
+                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <input 
+                                                    id="testing"
+                                                    className="gnrm-penjelasan" 
+                                                    onChange={onChangeFiles}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    name="media"
+                                                    multiple
+                                                />
+                                            </div>
+                                            <div>
                                                 {
-                                                    media.map((media,index) => {
-                                                        const objectURL = URL.createObjectURL(media)
-                                                        return(
-                                                            <div key={index}>
-                                                                    <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
-                                                                                marginRight:'35px', 
-                                                                                position:'relative'
-                                                                                }}
-                                                                        className="d-flex align-items-center justify-content-center"
-                                                                    >
-                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                    media && media.length > 0 ? (
+                                                        <div style={{height: "fit-content", 
+                                                            marginLeft: "217px", 
+                                                            width: "955px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            display: 'flex',
+                                                            flexWrap: 'wrap',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        >
+                                                            {
+                                                                media.map((media,index) => {
+                                                                    const objectURL = URL.createObjectURL(media)
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'150px', 
+                                                                                            height:'150px', 
+                                                                                            backgroundColor:'pink', 
+                                                                                            marginRight:'35px', 
+                                                                                            position:'relative'
+                                                                                            }}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px',}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
                                                                         </div>
-                                                                        <div style={{position:'absolute', 
-                                                                                    backgroundColor:'#C04B3E' , 
-                                                                                    width:'25px' , 
-                                                                                    height:'25px', 
-                                                                                    borderRadius:'50%', 
-                                                                                    top:'-7px', 
-                                                                                    right:'-7px', 
-                                                                                    lineHeight:'25px', 
-                                                                                    textAlign:'center',
-                                                                                    cursor:'pointer',
-                                                                                    color:'white'}}
-                                                                        onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
-                                                                    </div>
-                                                                    <div style={{marginTop:'10px' , 
-                                                                                width:'150px' , 
-                                                                                height:'20px', 
-                                                                                wordWrap: 'break-word',
-                                                                                lineHeight:'20px',}}
-                                                                    >
-                                                                        <p className="gnrm-media--name">
-                                                                            {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
-                                                                        </p>
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        )
-                                                    })
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    ) : (
+                                                        <div style={{height: "fit-content", 
+                                                            marginLeft: "217px", 
+                                                            width: "955px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            display: 'flex',
+                                                            flexWrap: 'wrap',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        >
+                                                            {
+                                                                mediaUrl.map((url,index) => {
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'150px', 
+                                                                                            height:'150px', 
+                                                                                            backgroundColor:'pink', 
+                                                                                            marginRight:'35px', 
+                                                                                            position:'relative'}}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px'}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {getFileName(url)}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
                                                 }
                                             </div>
-                                        ) : (
-                                            <div style={{height: "fit-content", 
-                                                marginLeft: "217px", 
-                                                width: "955px",
-                                                border: '1px solid black',
-                                                padding: '10px',
-                                                display: 'flex',
-                                                flexWrap: 'wrap',
-                                                overflow: 'hidden'
-                                            }} 
-                                            >
+                                        </div>
+
+                                        <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                            {
+                                                isEditing ? 
+                                                    <button type="submit" className="unggah-infografis" onClick={onEdit}>UNGGAH KABAR GNRM</button>
+                                                :
+                                                    <button type="submit" className="unggah-infografis" onClick={onSubmit}>UNGGAH KABAR GNRM</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </Fragment>
+                                :
+                                <Fragment>
+                                    <div className="form-container-test" style={{marginRight:'20px'}}>
+                                        <div className="form-infografis">
+                                            <div>
+                                                <label>Judul Kabar</label>
+                                                <input 
+                                                    type="text"
+                                                    style={{width:'767px', height:'42px' , marginLeft:'123px'}} 
+                                                    name='judul'
+                                                    value={judul}
+                                                    onChange={onChange}
+                                                >
+                                                </input>
+                                            </div>
+                                            <div>
+                                                <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
+                                                <textarea  
+                                                    type="text"
+                                                    style={{width:'767px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    name='deskripsi'
+                                                    value={deskripsi}
+                                                    onChange={onChange}
+                                                >
+                                                </textarea>
+                                            </div>
+                                            <div>
+                                                <label>Lampiran Infografis</label>
+                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <input 
+                                                    id="testing"
+                                                    className="gnrm-penjelasan" 
+                                                    onChange={onChangeFiles}
+                                                    type="file"
+                                                    accept="image/*"
+                                                    name="media"
+                                                    multiple
+                                                />
+                                            </div>
+                                            <div>
                                                 {
-                                                    mediaUrl.map((url,index) => {
-                                                        return(
-                                                            <div key={index}>
-                                                                    <div style={{width:'150px', 
-                                                                                height:'150px', 
-                                                                                backgroundColor:'pink', 
-                                                                                marginRight:'35px', 
-                                                                                position:'relative'}}
-                                                                        className="d-flex align-items-center justify-content-center"
-                                                                    >
-                                                                        <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                    media && media.length > 0 ? (
+                                                        <div style={{height: "fit-content", 
+                                                            marginLeft: "217px", 
+                                                            width: "767px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            display: 'flex',
+                                                            flexWrap: 'wrap',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        >
+                                                            {
+                                                                media.map((media,index) => {
+                                                                    const objectURL = URL.createObjectURL(media)
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'150px', 
+                                                                                            height:'150px', 
+                                                                                            backgroundColor:'pink', 
+                                                                                            marginRight:'35px', 
+                                                                                            position:'relative'
+                                                                                            }}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(true, media.name, media)}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px',}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
                                                                         </div>
-                                                                        <div style={{position:'absolute', 
-                                                                                    backgroundColor:'#C04B3E' , 
-                                                                                    width:'25px' , 
-                                                                                    height:'25px', 
-                                                                                    borderRadius:'50%', 
-                                                                                    top:'-7px', 
-                                                                                    right:'-7px', 
-                                                                                    lineHeight:'25px', 
-                                                                                    textAlign:'center',
-                                                                                    cursor:'pointer',
-                                                                                    color:'white'}}
-                                                                        onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
-                                                                    </div>
-                                                                    <div style={{marginTop:'10px' , 
-                                                                                width:'150px' , 
-                                                                                height:'20px', 
-                                                                                wordWrap: 'break-word',
-                                                                                lineHeight:'20px'}}
-                                                                    >
-                                                                        <p className="gnrm-media--name">
-                                                                            {getFileName(url)}
-                                                                        </p>
-                                                                    </div>
-                                                                
-                                                            </div>
-                                                        )
-                                                    })
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    ) : (
+                                                        <div style={{height: "fit-content", 
+                                                            marginLeft: "217px", 
+                                                            width: "767px",
+                                                            border: '1px solid black',
+                                                            padding: '10px',
+                                                            display: 'flex',
+                                                            flexWrap: 'wrap',
+                                                            overflow: 'hidden'
+                                                        }} 
+                                                        >
+                                                            {
+                                                                mediaUrl.map((url,index) => {
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <div style={{width:'150px', 
+                                                                                            height:'150px', 
+                                                                                            backgroundColor:'pink', 
+                                                                                            marginRight:'35px', 
+                                                                                            position:'relative'}}
+                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                >
+                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    </div>
+                                                                                    <div style={{position:'absolute', 
+                                                                                                backgroundColor:'#C04B3E' , 
+                                                                                                width:'25px' , 
+                                                                                                height:'25px', 
+                                                                                                borderRadius:'50%', 
+                                                                                                top:'-7px', 
+                                                                                                right:'-7px', 
+                                                                                                lineHeight:'25px', 
+                                                                                                textAlign:'center',
+                                                                                                cursor:'pointer',
+                                                                                                color:'white'}}
+                                                                                    onClick={(e) => onDeleteMedia(false, getFileName(url))}> X </div>
+                                                                                </div>
+                                                                                <div style={{marginTop:'10px' , 
+                                                                                            width:'150px' , 
+                                                                                            height:'20px', 
+                                                                                            wordWrap: 'break-word',
+                                                                                            lineHeight:'20px'}}
+                                                                                >
+                                                                                    <p className="gnrm-media--name">
+                                                                                        {getFileName(url)}
+                                                                                    </p>
+                                                                                </div>
+                                                                            
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
                                                 }
                                             </div>
-                                        )
-                                    }
-                                </div>
-                            </div>
+                                        </div>
 
-                            <div className="gnrm-navigation-button">
-                                {
-                                    isEditing ? 
-                                        <button type="submit" className="unggah-infografis" onClick={onEdit}>UNGGAH KABAR GNRM</button>
-                                    :
-                                        <button type="submit" className="unggah-infografis" onClick={onSubmit}>UNGGAH KABAR GNRM</button>
-                                }
-                            </div>
-
-                        </div>
-                    </form>
+                                        <div className="admin-navigation-button" style={{textAlign:'right'}}>
+                                            {
+                                                isEditing ? 
+                                                    <button type="submit" className="unggah-infografis" onClick={onEdit}>UNGGAH KABAR GNRM</button>
+                                                :
+                                                    <button type="submit" className="unggah-infografis" onClick={onSubmit}>UNGGAH KABAR GNRM</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </Fragment>
+                            }
+                        </form>
+                    </div>
                 }
             </div>
         </Fragment>

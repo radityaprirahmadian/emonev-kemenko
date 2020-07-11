@@ -45,17 +45,21 @@ const Popup = (props) => {
     // },[notifNew])
 
     useEffect(() => {
-        setNotifs(props.notif)
-        setNotifNew(props.notif)
+        if(userDetail && userDetail.role === 'admin') {
+            setNotifs(props.notif)
+            setNotifNew(props.notif)
+        }
     },[props.notif])
 
     useEffect(() => {
-        if(notifs){
-            if(notifs && notifs.length > not.length) {
-                getReminder(token)
-                alert('Anda Mendapatkan Sebuah Notifikasi Baru')
-                setNot(notifNew)
-                setNotifs([])
+        if(userDetail && userDetail.role === 'admin') {
+            if(notifs){
+                if(notifs && notifs.length > not.length) {
+                    getReminder(token)
+                    alert('Anda Mendapatkan Sebuah Notifikasi Baru')
+                    setNot(notifNew)
+                    setNotifs([])
+                }
             }
         }
     },[notifNew && notifNew.length])

@@ -21,12 +21,14 @@ import StatistikGNRM from '../../component/Statistik/StatistikGNRM'
 import StatistikMonev from '../../component/Statistik/StatistikMonev'
 import { useHistory, NavLink } from 'react-router-dom';
 import Spinner from '../../component/Spinner/Spinner'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 const Dashboard = (props) => {
     const [instansiDetail , setInstansiDetail] = useState({})
     const [loading, setLoading] = useState(false)
     const { isAuthenticated, login, userDetail , role, email, password, user, token } = useContext(AuthContext);
     const { notifNew , setNotifNew } = useContext(NotifContext)
+    const { sidebar } = useContext(LayoutContext)
     const history = useHistory()
     const [ statistikActive , setStatistikActive] = useState(true)
 
@@ -198,6 +200,7 @@ const Dashboard = (props) => {
                         <Notification/>
                       }
                     </div>
+                    <div style={sidebar ? {marginLeft : '188px' , marginRight: '20px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                   <div className="dashboard-section">
 
 
@@ -205,8 +208,8 @@ const Dashboard = (props) => {
                         statistikActive ?
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-next" style={{top:'45%' , right:'-45px' , backgroundColor:'#343A40'}} onClick={onNextStatistik}>
-                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                            <div className="button-home-next2" onClick={onNextStatistik}>
+                                <i className="material-icons">arrow_forward</i>
                             </div>
                             <StatistikGNRM 
                                 color='#8380EA'
@@ -295,8 +298,8 @@ const Dashboard = (props) => {
                         :
                         <Fragment>
                           <div className="infografik-statistik" style={{position:'relative'}}>
-                            <div className="button-home-prev" style={{top:'45%' , left:'-45px' , backgroundColor:'#343A40'}} onClick={onPrevStatistik}>
-                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                            <div className="button-home-prev2"  onClick={onPrevStatistik}>
+                                <i className="material-icons" >arrow_back</i>
                             </div>
                             <StatistikMonev 
                                 color='#8380EA'
@@ -393,23 +396,23 @@ const Dashboard = (props) => {
                                 <Fragment>
                                   {
                                     page === '1' ? 
-                                      <div className="button-home-next" style={{top:'45%' , backgroundColor:'#343A40' , right:'-22px'}} onClick={onNextFilter}>
-                                          <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                      <div className="button-home-next3" onClick={onNextFilter}>
+                                          <i className="material-icons" >arrow_forward</i>
                                       </div>
                                     : 
                                     <Fragment>
                                       {
                                         page === JSON.stringify(Math.ceil(documentCardLength/3)) ?
-                                          <div className="button-home-prev" style={{top:'45%' , backgroundColor:'#343A40' , left:'-42px'}} onClick={onPrevFilter}>
-                                              <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                          <div className="button-home-prev3" onClick={onPrevFilter}>
+                                              <i className="material-icons" >arrow_back</i>
                                           </div>
                                         :
                                           <Fragment>
-                                            <div className="button-home-prev" style={{top:'45%' , backgroundColor:'#343A40' , left:'-42px'}} onClick={onPrevFilter}>
-                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_back</i>
+                                            <div className="button-home-prev3"  onClick={onPrevFilter}>
+                                                <i className="material-icons" >arrow_back</i>
                                             </div>
-                                            <div className="button-home-next" style={{top:'45%' , backgroundColor:'#343A40' , right:'-22px'}} onClick={onNextFilter}>
-                                                <i className="material-icons" style={{fontSize:'22px' , lineHeight:'36px'}}>arrow_forward</i>
+                                            <div className="button-home-next3"  onClick={onNextFilter}>
+                                                <i className="material-icons" >arrow_forward</i>
                                             </div>
                                           </Fragment>
                                       }
@@ -439,6 +442,7 @@ const Dashboard = (props) => {
                     </div>
                     <Gallery pagination={true}/>
                 </div>
+                  </div>
               </div>
       </Fragment>
     );

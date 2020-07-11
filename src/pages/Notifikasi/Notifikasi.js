@@ -17,11 +17,13 @@ import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 const Notifikasi = (props) => {
     const { token } = useContext(AuthContext)
     const { allReminder , setAllReminder, reminder, getReminder } = useContext(NotifContext)
     const [ reminderRev,setReminderRev ] = useState([])
+    const { sidebar } = useContext(LayoutContext)
     
     useEffect(() => {
         getReminder(token)
@@ -48,7 +50,7 @@ const Notifikasi = (props) => {
                             <p>NOTIFIKASI</p>
                         </div>
                     </div>
-
+                    <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                     <div className="notifikasi-card">
                          <div className="notifikasi-card-header">
                             Hari ini
@@ -72,6 +74,7 @@ const Notifikasi = (props) => {
                             )
                             : ''
                         }
+                    </div>
                     </div>
         </Fragment>
 

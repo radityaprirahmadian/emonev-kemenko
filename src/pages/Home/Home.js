@@ -517,7 +517,7 @@ const Home = () => {
                         <div className="home-section-4">
                             <div className="costum-container container-fluid">
                                 <div className="row">
-                                    <div className="col-4">
+                                    <div className="col" style={{width:'40%'}}>
                                         <div className="home-section-4-title">
                                             Filter Kementerian/ Lembaga/ Pemerintah Daerah
                                         </div>
@@ -551,7 +551,7 @@ const Home = () => {
                                         </div>
                                     </div>
                                     
-                                    <div className="col-8" >
+                                    <div className="col" style={{width:'60%'}}>
                                         <div style={{display:'flex' , flexDirection:'row'}}>
                                             {
                                                 loading ?
@@ -674,14 +674,7 @@ const Home = () => {
                                 </div>
                                 
                                 <Gallery pagination={false}/>
-                                
-                                <Link to='/galeri'>
-                                <div className="div-button-gallery">
-                                    <button className="button-lihat-gallery">
-                                        LIHAT GALERI LAINNYA
-                                    </button>
-                                </div>
-                                </Link>
+                
                             </div>
                         </div>
 

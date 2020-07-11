@@ -122,6 +122,7 @@ const LupaPassword = (props) => {
     },[confirm,password])
 
     const changePassword = async (formData) => {
+        setLoading(true)
         console.log(formData)
         console.log(user)
         const config={
@@ -133,13 +134,14 @@ const LupaPassword = (props) => {
 
         try {
             const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${user && user._id}`,formData,config)
-            alert(res.data.message)        
+            alert(res.data.message + 'kata sandi anda , silahkan login kembali')        
             history.push('/login')
         
         } 
         catch(err){
-            console.log(err)
+            alert(err.response.data.message)
         }
+        setLoading(false)
     }
 
     const onSubmit = (e) => {
@@ -193,7 +195,7 @@ const LupaPassword = (props) => {
                 {
                     !insertPassword ?
                         <div className="login-page">
-                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
+                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'120px'}}>
                                 <div className="col-5 login" style={{width:'424px'}}>
                                     <div className="login-page-left-title">
                                         <h1>LOGIN</h1>
@@ -231,7 +233,7 @@ const LupaPassword = (props) => {
                         </div>
                         :
                         <div className="login-page">
-                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'173px'}}>
+                            <div className="row" style={{margin:'auto' , width:'1134px', height:'506px', marginTop:'120px'}}>
                                 <div className="col-5 login" style={{width:'424px'}}>
                                     <div className="login-page-left-title">
                                         <h1>LOGIN</h1>
@@ -253,8 +255,8 @@ const LupaPassword = (props) => {
 
                                         <form onSubmit={onSubmit} autoComplete="off">
                                             <div>
-                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
-                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,)'}} onClick={handlePassword}>
+                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} tabIndex='1' onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
+                                                <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)'}} onClick={handlePassword}>
                                                         {
                                                             seen1 ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
@@ -264,7 +266,7 @@ const LupaPassword = (props) => {
                                                 </button>
                                             </div>
                                             <div>
-                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} tabIndex='2' onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'rgba(0,0,0,0)'}} onClick={confirmPassword}>
                                                         {
                                                             seen2 ?

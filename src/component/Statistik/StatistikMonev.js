@@ -131,7 +131,7 @@ export default function StatistikMonev(props) {
   }
 
   return (
-    <div className="chart d-flex justify-content-center align-items-center" style={{height:'410px' , maxWidth: '100%'
+    <div className="chart d-flex justify-content-center align-items-center" style={{height:'54vh' , maxWidth: '100%'
     }}>
       {statistik && data ? (
         <Line data={data} options={chartOptions} />

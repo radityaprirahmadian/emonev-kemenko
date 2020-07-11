@@ -14,6 +14,7 @@ import FilterInstansi from '../../component/FilterInstansi/FilterInstansi'
 import { AuthContext } from '../../context/Auth/AuthContext'
 import TabelInstansi from '../../component/TabelInstansi/TabelInstansi'
 import Spinner from '../../component/Spinner/Spinner'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 
 
 
@@ -21,6 +22,7 @@ const Instansi = (props) => {
     const { token,userDetail } = useContext(AuthContext)
     const [instansi,setInstansi] = useState([])
     const [instansiRev,setInstansiRev] = useState([])
+    const { sidebar } = useContext(LayoutContext)
     const [loading, setLoading] = useState(false)
     console.log(instansi)
     const [filter,setFilter] = useState({
@@ -110,81 +112,83 @@ const Instansi = (props) => {
                         <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                     </div>
                     <Popup notif={props.notif}/>
-                        <div className="input-dan-tajuk">
-                            <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-instansi`}>
-                                <button className="tambah-program">
-                                    <img src={plus}></img>
-                                    <div className="spacer"></div>
-                                    <p className="text-input-program">
-                                        Input Instansi
-                                    </p>
-                                </button>
-                            </Link>
-                            <div className="spacer"></div>
-                            <div className="tajuk-page-2">
-                                <p>KELOLA INSTANSI</p>
+                    <div style={{marginRight:'20px' , marginTop:'23px'}}>
+                        <div className="tajuk-page-2">
+                            <div>KELOLA INSTANSI</div>
+                        </div>
+                        <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                            <div className="input-dan-tajuk">
+                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-instansi`}>
+                                    <button className="tambah-program">
+                                        <img src={plus}></img>
+                                        <div className="spacer"></div>
+                                        <p className="text-input-program">
+                                            Input Instansi
+                                        </p>
+                                    </button>
+                                </Link>
                             </div>
-                        </div>
-                        
-                        <FilterInstansi
-                            getInstansi={getAllInstansi}
-                            setFilter={setFilter}
-                            filter={filter}
-                            nama={nama}
-                            jenis={jenis}
                             
-                        />
+                            <FilterInstansi
+                                getInstansi={getAllInstansi}
+                                setFilter={setFilter}
+                                filter={filter}
+                                nama={nama}
+                                jenis={jenis}
+                                
+                            />
 
-                        <div className="table-container">
-                            <table className="table-monev" style={{marginRight:'20px'}}>
-                                <thead className="table-head-monev">
-                                    <tr>
-                                        <th width='572px'>Nama Instansi</th>
-                                        <th width='258px'>Nama Pendek</th>
-                                        <th width='258px'>Jenis</th>
-                                        <th width='42px'></th>
-                                        <th width='42px'></th>
-                                    </tr>
-                                </thead>
+                            <div className="table-container">
+                                <table className="table-monev" style={{marginRight:'20px'}}>
+                                    <thead className="table-head-monev">
+                                        <tr>
+                                            <th width={sidebar ? '384px' :'572px'}>Nama Instansi</th>
+                                            <th width='258px'>Nama Pendek</th>
+                                            <th width='258px'>Jenis</th>
+                                            <th width='42px'></th>
+                                            <th width='42px'></th>
+                                        </tr>
+                                    </thead>
+                                    {
+                                        !loading && (
+                                            <tbody className="table-body-monev">
+                                                {
+                                                    instansi.map((instansi,index) => {
+                                                        return(
+                                                            <TabelInstansi
+                                                                key={index}
+                                                                id={instansi._id}
+                                                                nama={instansi.nama}
+                                                                nama_pendek={instansi.nama_pendek}
+                                                                jenis={instansi.jenis}
+                                                                delete={deleteInstansi}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                            </tbody>
+                                        )
+                                    }
+                                </table>
                                 {
-                                    !loading && (
-                                        <tbody className="table-body-monev">
-                                            {
-                                                instansi.map((instansi,index) => {
-                                                    return(
-                                                        <TabelInstansi
-                                                            key={index}
-                                                            id={instansi._id}
-                                                            nama={instansi.nama}
-                                                            nama_pendek={instansi.nama_pendek}
-                                                            jenis={instansi.jenis}
-                                                            delete={deleteInstansi}
-                                                        />
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    )
+                                    loading && 
+                                    <div style={{ marginLeft: '68px' }}>
+                                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                            <Spinner />
+                                        </div> 
+                                    </div>
                                 }
-                            </table>
-                            {
-                                loading && 
-                                <div style={{ marginLeft: '68px' }}>
-                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
-                                        <Spinner />
-                                    </div> 
-                                </div>
-                            }
-                        </div>
-                <Pagination
-                    setFilter={setFilter}
-                    filter={filter}
-                    total={totalDoc}
-                    limit={limit}
-                    page={page}
-                />
+                            </div>
+                    <Pagination
+                        setFilter={setFilter}
+                        filter={filter}
+                        total={totalDoc}
+                        limit={limit}
+                        page={page}
+                    />
+                    </div>
+                </div>
             </Fragment>
-
     )
 }
 

@@ -3,6 +3,7 @@ import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import lock from '../../assets/lock.png';
 import {Link} from 'react-router-dom';
 import { AuthContext } from '../../context/Auth/AuthContext'
+import {LayoutContext} from '../../context/Layout/LayoutContext'
 import axios from 'axios'
 import Popup from '../../component/Popup/Popup';
 import bg_1 from '../../assets/decoration/bg_1.png'
@@ -14,6 +15,7 @@ import Spinner from '../../component/Spinner/Spinner'
 
 const ProfileInstansi = (props) => {
     const { token, userDetail,user} = useContext(AuthContext);
+    const { sidebar } = useContext(LayoutContext)
     const [ foto, setFoto ] = useState();
     const [ loading, setLoading] = useState(false)
     const [ instansiDetail , setInstansiDetail] = useState({})
@@ -83,6 +85,7 @@ const ProfileInstansi = (props) => {
                                 <Notification/>
                         }
                     </div>
+                    <div style={sidebar ? {marginRight: '20px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                     <div className="container-fluid">
                         {
                             loading ?  
@@ -96,45 +99,91 @@ const ProfileInstansi = (props) => {
                                 <form id="form-profile">
                                 <div className="col"> 
                                 
-                                    <div className="form-profile-page">
-                                    <div className="data" >
-                                        <label>Nama Instansi</label><br/>
-                                        <div className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px' , lineHeight:'20px' , paddingTop:'10px'}}>{instansiDetail && instansiDetail.nama}</div>
-                                    </div>
+                                <div className="form-profile-page" style={sidebar? {marginLeft:'188px', transition: 'all 0.3s ease-in-out'} : {marginLeft:'0'}}>
+                                    {
+                                        !sidebar ?
+                                            <Fragment>
+                                                <div className="data" >
+                                                    <label>Nama Instansi</label><br/>
+                                                    <div className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px' , lineHeight:'20px' , paddingTop:'10px' , paddingBottom:'10px'}}>{instansiDetail && instansiDetail.nama}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
-                                        <div className="show-profile" type="text" style={{fontWeight:'700'}}>{instansiDetail && instansiDetail.nama_pendek}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
+                                                    <div className="show-profile" type="text" style={{fontWeight:'700'}}>{instansiDetail && instansiDetail.nama_pendek}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'32px'}}>Jenis</label><br/>
-                                        <div className="show-profile" type="text">{instansiDetail && instansiDetail.jenis}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                    <div className="show-profile" type="text">{instansiDetail && instansiDetail.jenis}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'32px'}}>Kontak</label><br/>
-                                        <div className="show-profile" type="text">{instansiDetail && instansiDetail.kontak}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Kontak</label><br/>
+                                                    <div className="show-profile" type="text">{instansiDetail && instansiDetail.kontak}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'32px'}}>Alamat</label><br/>
-                                        <div className="show-profile" type="text" style={{height:'84px' , lineHeight:'20px' , paddingTop:'10px'}}>{instansiDetail && instansiDetail.alamat}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Alamat</label><br/>
+                                                    <div className="show-profile" type="text" style={{height:'84px' , lineHeight:'20px' , paddingTop:'10px' , paddingBottom:'10px'}}>{instansiDetail && instansiDetail.alamat}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'64px'}}>Fax</label><br/>
-                                        <div className="show-profile" type="text">{instansiDetail && instansiDetail.fax}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Fax</label><br/>
+                                                    <div className="show-profile" type="text">{instansiDetail && instansiDetail.fax}</div>
+                                                </div>
 
-                                    <div className="data">
-                                        <label style={{marginTop:'64px'}}>Website</label><br/>
-                                        <div className="show-profile" type="email">{instansiDetail && instansiDetail.website}</div>
-                                    </div>
-                                    <div className="data">
-                                        <label style={{marginTop:'64px'}}>Email</label><br/>
-                                        <div className="show-profile" type="text">{instansiDetail && instansiDetail.email}</div>
-                                    </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Website</label><br/>
+                                                    <div className="show-profile" type="email">{instansiDetail && instansiDetail.website}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Email</label><br/>
+                                                    <div className="show-profile" type="text">{instansiDetail && instansiDetail.email}</div>
+                                                </div>
+                                            </Fragment>
+                                        :
+                                            <Fragment>
+                                                <div className="data" >
+                                                    <label>Nama Instansi</label><br/>
+                                                    <div className="show-profile" type="text" style={{height:'84px'  , width:'466px', marginBottom:'16px' , lineHeight:'20px' , paddingTop:'10px', paddingBottom:'10px'}}>{instansiDetail && instansiDetail.nama}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
+                                                    <div className="show-profile" type="text" style={{fontWeight:'700' , width:'466px'}}>{instansiDetail && instansiDetail.nama_pendek}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}}type="text">{instansiDetail && instansiDetail.jenis}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Kontak</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}}type="text">{instansiDetail && instansiDetail.kontak}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'32px'}}>Alamat</label><br/>
+                                                    <div className="show-profile" type="text" style={{height:'84px', width:'466px', lineHeight:'20px' , paddingTop:'10px' , paddingBottom:'10px'}}>{instansiDetail && instansiDetail.alamat}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Fax</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{instansiDetail && instansiDetail.fax}</div>
+                                                </div>
+
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Website</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="email">{instansiDetail && instansiDetail.website}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label style={{marginTop:'64px'}}>Email</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{instansiDetail && instansiDetail.email}</div>
+                                                </div>
+                                            </Fragment>
+                                            }
                                     </div>
                                 </div>
                                 </form>
@@ -163,6 +212,7 @@ const ProfileInstansi = (props) => {
 
                             </div>
                         }
+                    </div>
                     </div>
                 </div>
             </Fragment>

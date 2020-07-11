@@ -10,7 +10,7 @@ import FormAdmin from '../../pages/FormAdmin/FormAdmin';
 import FormReminder from '../../pages/FormReminder/FormReminder';
 import Home from '../../pages/Home/Home';
 import logo_gif_1 from '../../assets/log_gif_1.gif'
-import gif_logo from '../../assets/gif_logo.gif'
+import gif_logo from '../../assets/gif_putih.gif'
 import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'

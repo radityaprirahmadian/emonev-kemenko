@@ -37,7 +37,7 @@ const KabarMegaMenu = (props) => {
                                 detail && (props.kabar._id === detail._id)  ?
                                     <div className='kabar-mega-div'>
                                         <i className='fas fa-chevron-up' onClick={(event) => onClick(event,props.kabar)}></i>                                        
-                                        <div className='kabar-mega-judul'>{detail&&detail.judul}</div><br/><br/>
+                                        <div className='kabar-mega-judul' onClick={(event) => onClick(event,props.kabar)}>{detail&&detail.judul}</div><br/><br/>
                                         <div className='kabar-mega-image' style={{textAlign: 'center' , width: '100%'}}>   
                                             <img src={documents&&documents[0]}></img>
                                         </div>
