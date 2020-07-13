@@ -12,6 +12,7 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import Spinner from '../../component/Spinner/Spinner'
+import placeholder from '../../assets/Profil.png'
 
 const ProfileAdmin = (props) => {
     const { token } = useContext(AuthContext);
@@ -35,8 +36,11 @@ const ProfileAdmin = (props) => {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
                 console.log(res.data)
                 setUserDetail(res.data.user)
-                const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
-                setAvatar(wow)
+                
+                if(res.data.user.foto) {
+                    const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
+                    setAvatar(wow)
+                }
             }
             catch (err) {
                 console.log(err)
@@ -148,9 +152,16 @@ const ProfileAdmin = (props) => {
                                 <div className="photo-profile-page">
                                     <label>Foto Profil</label><br/>
                                     <div className="photo-profile-container">
-                                        <div className="photo-profile">
-                                            <img src={avatar}></img>
-                                        </div>
+                                        {
+                                            avatar ?
+                                                <div className="photo-profile">
+                                                    <img src={avatar}></img>
+                                                </div>
+                                            :
+                                                <div className="photo-profile">
+                                                    <img src={placeholder}></img>
+                                                </div>
+                                        }
                                     </div>
                                     <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/edit-admin/${userDetail && userDetail._id}`}>
                                     <input 

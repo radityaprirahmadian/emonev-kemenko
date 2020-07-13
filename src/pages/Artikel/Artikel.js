@@ -75,6 +75,7 @@ const Artikel = (props) => {
 
     useEffect(() => {
         setInfografis(props.match.params.id)
+        window.scrollTo(0, 0);
     },[props.match.params.id])
 
     useEffect(() => {

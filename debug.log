@@ -3,3 +3,5 @@
 [0605/200142.945:ERROR:settings.cc(320)] Settings magic is not 1129342067
 [0606/231352.743:ERROR:settings.cc(320)] Settings magic is not 1129342067
 [0628/204516.726:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0713/140615.988:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0713/140616.738:ERROR:exception_snapshot_win.cc(98)] thread ID 1044 not found in process

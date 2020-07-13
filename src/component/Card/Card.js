@@ -30,7 +30,7 @@ const Card = (props) => {
         return(
             <Fragment>
                 {
-                    !token ?
+                    !props.logged_in ?
                             <div className="card-container" style={{backgroundColor:`${props.bgcolor}` , color:`${props.color}` , backgroundImage:`${props.bgimage}`}}>
                                 <div className="top-card">
                                     <div className="card-background">

@@ -51,14 +51,14 @@ const NewPassword = () => {
             if(password === confirm) {
                 setPassword({
                     ...pass,
-                    err: 'Password Sama',
+                    err: 'Kata Sandi Sama',
                     disable: false,
                     login_awal: false,
                 })
             } else {
                 setPassword({
                     ...pass,
-                    err: 'Password Tidak Sama',
+                    err: 'Kata Sandi Tidak Sama',
                     disable: true
                 })
             }
@@ -84,22 +84,21 @@ const NewPassword = () => {
 
         try {
             await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${userDetail && userDetail._id}`,formData,config)
+            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
         
         } 
         catch(err){
-            console.log(err)
+            alert(err.response.data.message)
         }
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
-
-
         changePassword({
             password,
             login_awal
         })
-        history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
+
     }
 
 
@@ -110,7 +109,6 @@ const NewPassword = () => {
                 password,
                 login_awal
             })
-            history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
         }
       }
     const handlePassword = (e) => {
@@ -148,7 +146,7 @@ const NewPassword = () => {
 
                                         <form onSubmit={onSubmit} autoComplete="off">
                                             <div>
-                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} onChange={onChange} onKeyPress={onKeyPress} placeholder="Kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} tabIndex='1' onChange={onChange} onKeyPress={!disable && onKeyPress} placeholder="Kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)'}} onClick={handlePassword}>
                                                         {
                                                             seen1 ?
@@ -159,7 +157,7 @@ const NewPassword = () => {
                                                 </button>
                                             </div>
                                             <div>
-                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} onChange={onChange} onKeyPress={onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
+                                                <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} tabIndex='2' onChange={onChange} onKeyPress={!disable && onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'rgba(0,0,0,0)'}} onClick={confirmPassword}>
                                                         {
                                                             seen2 ?
@@ -175,7 +173,7 @@ const NewPassword = () => {
                                             {
                                                 disable ?
                                                     <Fragment>
-                                                        <div className="pesan-ubah" style={{color:'red' , left: '182px'}}>{err}</div>
+                                                        <div className="pesan-ubah" style={{color:'red' , left: '175px'}}>{err}</div>
                                                         <button className="button-ubah" type="submit" disabled style={{backgroundColor:'grey'}}>UBAH KATA SANDI</button>
                                                     </Fragment>
                                                 :

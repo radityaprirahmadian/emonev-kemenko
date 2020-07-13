@@ -15,6 +15,7 @@ import $ from 'jquery';
 import { AuthContext } from '../../context/Auth/AuthContext'
 import Megamenu from '../../component/MegaMenu/MegaMenu'
 import KabarMegaMenu from '../../component/KabarMegaMenu/KabarMegaMenu'
+import { LayoutContext } from '../../context/Layout/LayoutContext';
 
 
 // const Bawa = props.kunci;
@@ -23,6 +24,7 @@ import KabarMegaMenu from '../../component/KabarMegaMenu/KabarMegaMenu'
 const Topbar = (props) => {
     
     const { isAuthenticated, token, loadUser,userDetail} = useContext(AuthContext);
+    const { megamenu, setMegamenuHide, setMegamenuShow} = useContext(LayoutContext);
     
 
     const [instansi, setInstansi] = useState([])
@@ -167,8 +169,8 @@ const Topbar = (props) => {
                                                 <div className="jarak">
                                                 </div>
 
-                                                <div className="sub-menu-hover">
-                                                    <div className="menu-kementrian">
+                                                <div className={megamenu ? "sub-menu-hover active" : 'sub-menu-hover'}>
+                                                    <div className="menu-kementrian" onMouseOver={setMegamenuHide}>
                                                         <ul>
                                                             {
                                                                 instansi.map((instansi,index) => {
@@ -176,14 +178,23 @@ const Topbar = (props) => {
                                                                     return (
                                                                         <li key={instansi._id} className="menu-1-kementrian">
                                                                             {
-                                                                                instansi.nama_pendek.length > 15 ?
-                                                                                    <div className='nama-instansi-megamenu' style={{paddingTop:'20px' , top: '-20px'}}>
+                                                                                instansi.nama_pendek.length > 22 ?
+                                                                                    <div className='nama-instansi-megamenu' style={{paddingTop:'10px' , top: '-10px'}}>
                                                                                         <a>{instansi.nama_pendek}</a>
                                                                                     </div>
-                                                                                :
-                                                                                    <div className='nama-instansi-megamenu'>
-                                                                                        <a>{instansi.nama_pendek}</a>
-                                                                                    </div>
+                                                                                : 
+                                                                                    <Fragment>
+                                                                                        {
+                                                                                            instansi.nama_pendek.length > 15 ?
+                                                                                                <div className='nama-instansi-megamenu' style={{paddingTop:'20px' , top: '-20px'}}>
+                                                                                                    <a>{instansi.nama_pendek}</a>
+                                                                                                </div>
+                                                                                            :
+                                                                                                <div className='nama-instansi-megamenu'>
+                                                                                                    <a>{instansi.nama_pendek}</a>
+                                                                                                </div>
+                                                                                        }
+                                                                                    </Fragment>
                                                                             }
                                                                             {
                                                                                 instansi.logo ?

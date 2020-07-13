@@ -10,8 +10,20 @@ const reducer = (state, action) => {
 		case 'SET_SIDEBAR':
 			return {
 				...state,
-				sidebar: !state.sidebar
+				sidebar: !state.sidebar,
 			}
+
+		case 'SET_MEGAMENU_HIDE':
+			return{
+				state,
+				megamenu: false
+			}
+
+			case 'SET_MEGAMENU_SHOW':
+				return{
+					state,
+					megamenu: true
+				}
         default:
 			return state
 	}
@@ -21,6 +33,7 @@ const initialState = {
     sidebar: false,
 	loading: true,
 	active: true,
+	megamenu: false
 }
 
 export const LayoutContext = createContext(initialState);
@@ -32,12 +45,23 @@ const LayoutState = (props) => {
     const setSidebar = () => {
 		dispatch({ type: 'SET_SIDEBAR' })
 	}
+
+	const setMegamenuHide = () => {
+		dispatch({ type: 'SET_MEGAMENU_HIDE' })
+	}
+
+	const setMegamenuShow = () => {
+		dispatch({ type: 'SET_MEGAMENU_SHOW' })
+	}
 	
     return (
 		<LayoutContext.Provider
 			value={{
 				sidebar: state.sidebar,
 				loading: state.loading,
+				megamenu: state.megamenu,
+				setMegamenuHide,
+				setMegamenuShow,
 				setSidebar,
 			}}
 		>

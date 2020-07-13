@@ -140,7 +140,7 @@ const Login = (props) => {
 
                                 
                                 <div className="col-7 login" style={{width:'693px'}}>
-                                    <form className="form-login" autoComplete="off" id='form-login' onSubmit={onSubmit}> 
+                                    <form className="form-login" autoComplete="off" id='form-login' onSubmit={onSubmit} style={{marginLeft:'108.250px'}}> 
                                         <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'32px', marginLeft:'15px'}}>Nama Akun</label><br/>
                                         <input 
                                             type="text" 
@@ -162,7 +162,7 @@ const Login = (props) => {
                                             onChange={onChange}
                                             onKeyPress={onKeyPress}
                                         />
-                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)' }} onClick={handlePassword}>
+                                        <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)' }} onKeyPress={onKeyPress} onClick={handlePassword}>
                                                         {
                                                             seen ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        

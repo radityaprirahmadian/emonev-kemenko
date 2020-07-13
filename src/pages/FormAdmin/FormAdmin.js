@@ -24,12 +24,13 @@ const FormAdmin = (props) => {
             instansi: '',
             role: 'admin',
             username: '',
-            password: ''
+            password: '',
+            email: ''
         })
 
         const [seen, setSeen] = useState(false)
 
-        const { nama, instansi, role, username, password } = admin
+        const { nama, instansi, role, username, password, email } = admin
         console.log(admin)
 
         const onChange = (e) =>{
@@ -61,7 +62,7 @@ const FormAdmin = (props) => {
             axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
-                console.log('wow')
+                console.log(res.data)
             })
             .catch(err => {
                 console.log('wow', +err)
@@ -83,7 +84,7 @@ const FormAdmin = (props) => {
                 history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kelola-admin`)
             }
             catch (err) {
-                alert(err.data.message)
+                alert(err.response.data.message)
             }
             setLoading(false)
         }
@@ -95,14 +96,30 @@ const FormAdmin = (props) => {
                 instansi,
                 role,
                 username,
-                password
+                password,
+                email
             })
         }
+
 
         const handlePassword = (e) => {
             e.preventDefault()
             setSeen(!seen)
         }
+
+        
+    const onKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            addNewAdmin({
+                nama,
+                instansi,
+                role,
+                username,
+                password
+            })
+        }
+      }
 
         return(
           <Fragment>
@@ -137,6 +154,7 @@ const FormAdmin = (props) => {
                                                 name="nama" 
                                                 value={nama} 
                                                 onChange={onChange} 
+                                                onKeyPress={onKeyPress}
                                                 required
                                             />
                                         </div>
@@ -145,7 +163,7 @@ const FormAdmin = (props) => {
                                                 user && user.role === 'owner' ?
                                                 <Fragment>
                                                     <label>Instansi</label>
-                                                    <select className="admin-instansi" name="instansi" onChange={onChange} required>
+                                                    <select className="admin-instansi" name="instansi" onChange={onChange} onKeyPress={onKeyPress} required>
                                                         <option value="" defaultValue="" hidden></option>
                                                             {
                                                                 allInstansi.map((instansi,index) => {
@@ -175,6 +193,7 @@ const FormAdmin = (props) => {
                                                 value={username} 
                                                 onChange={onChange}
                                                 required 
+                                                onKeyPress={onKeyPress}
                                             />
                                         </div>
                                         <div>
@@ -186,8 +205,9 @@ const FormAdmin = (props) => {
                                                 value={password} 
                                                 onChange={onChange}
                                                 required 
+                                                onKeyPress={onKeyPress}
                                             />
-                                            <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
+                                            <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onKeyPress={onKeyPress} onClick={handlePassword}>
                                                     {
                                                         seen ?
                                                             <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
@@ -195,6 +215,18 @@ const FormAdmin = (props) => {
                                                             <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
                                                     }
                                             </button>
+                                        </div>
+                                        <div>
+                                            <label>Email</label>
+                                            <input 
+                                                className="admin-role" 
+                                                type="email" 
+                                                name="email" 
+                                                value={email} 
+                                                onChange={onChange}
+                                                required 
+                                                onKeyPress={onKeyPress}
+                                            />
                                         </div>
                                     </form>
 

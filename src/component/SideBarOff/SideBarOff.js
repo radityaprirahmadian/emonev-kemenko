@@ -76,9 +76,9 @@ const SideBarOff = (props) => {
 
 
     useEffect(() => {
-        if(pathname !== `/admin/profile-instansi/${instansiDetail&&instansiDetail._id}` || pathname !== `/admin/edit-profile-instansi/${instansiDetail&&instansiDetail._id}` ) {
-            {
-                if(instansiDetail.alamat === '' || instansiDetail.kontak === '' || instansiDetail.website === '' || instansiDetail.fax === '') {
+        if(pathname != `/admin/profile-instansi/${instansiDetail&&instansiDetail._id}`) {
+            if(pathname != `/admin/edit-profile-instansi/${instansiDetail&&instansiDetail._id}`) {
+                if(instansiDetail.alamat === '' || instansiDetail.kontak === '' || instansiDetail.website === '' || instansiDetail.fax === '' || instansiDetail.nama === '' || instansiDetail.nama_pendek === '' || instansiDetail.email === '' || instansiDetail.logo === '') {
                     setHide(false)
                 } else {
                     setHide(true)
@@ -101,7 +101,7 @@ const SideBarOff = (props) => {
                 :
                 <div className="popup-check">
                     <div className="popup-check-instansi">
-                        <div className='popup-check-instansi-title'>Profile Instansi Belum Lengkap</div> <br/>
+                        <div className='popup-check-instansi-title'>Profil Instansi Belum Lengkap</div> <br/>
                         <div>Untuk dapat mengisi laporan,<br/> harap mengisi profil instansi anda <br/>terlebih dahulu.</div> <br/><br/><br/><br/><br/>
                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id)} activeClassName="active">
                             <button className="button-to-instansi">LENGKAPI PROFIL</button>

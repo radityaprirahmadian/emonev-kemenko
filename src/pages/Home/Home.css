@@ -41,7 +41,11 @@
     padding: 0;
     font-weight: bold;
     border-color: rgba(0,0,0,0);
-    background: #FDE47F;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('../../assets/dropdown_logo.png') 90% / 15% no-repeat #fDE47f;
+    background-size: 2.5vh;
 }
 
 
@@ -77,13 +81,6 @@
 @-moz-keyframes progressBar {
     0% { width: 0; }
     100% { width: 100%; }
-}
-
-
-.home-statistik-tahun select {
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; /* Safari and Chrome */
-    appearance:none;
 }
 
 .home-section-4 {
@@ -164,11 +161,17 @@
 .filter-a{
     margin-bottom: 16px;
     padding-left: 10px;
+    padding-right: 10px;
     width: 370px;
     height: 56px;
     border-radius: 10px;
     font-weight: bold;
     color: #848988;
+    -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../../assets/dropdown_logo.png') 96% / 15% no-repeat #EEE;
+  background-size: 3vh;
     border: 1px solid rgba(0,0,0,0.3);
 }
 
@@ -448,6 +451,11 @@
     border-radius: 2vh;
     font-weight: bold;
     font-size: 2.5vh;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('../../assets/dropdown_logo.png') 96% / 15% no-repeat #EEE;
+    background-size: 3vh;
     color: #848988;
     border: 1px solid rgba(0,0,0,0.3);
 }
@@ -616,7 +624,11 @@
         font-size: 3vh;
         font-weight: bold;
         border-color: rgba(0,0,0,0);
-        background: #FDE47F;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url('../../assets/dropdown_logo.png') 90% / 15% no-repeat #FDE47F;
+        background-size: 2.5vh;
     }
 
     .home-section-2-title{
@@ -715,6 +727,11 @@
         border-radius: 2vh;
         font-weight: bold;
         font-size: 2.5vh;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: url('../../assets/dropdown_logo.png') 96% / 15% no-repeat #EEE;
+        background-size: 3vh;
         color: #848988;
         border: 1px solid rgba(0,0,0,0.3);
     }

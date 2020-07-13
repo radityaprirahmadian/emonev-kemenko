@@ -38,6 +38,7 @@ const FormMonev =  (props) => {
     const pilihanPeriode = ['Tahunan', 'Caturwulanan']
 
     const [ instansiDetail , setInstansiDetail] = useState({})
+    console.log(instansiDetail)
 
     const nol = (i) => {
         if (i < 10) {
@@ -170,7 +171,7 @@ const FormMonev =  (props) => {
     }
 
     const onChangeButton = (e) => {
-        return setData({...data , sk_status: true})
+        return setData({...data , sk_status: true , sk_kendala: ''})
     }
 
     const onChangeButtonFalse = (e) => {
@@ -258,7 +259,7 @@ const FormMonev =  (props) => {
         for (let i = 0; i < lampiranKetercapaian.length; i++) {
 			formData.append(`lampiran_ketercapaian`, lampiranKetercapaian[i])
         }
-        
+
         for (let i = 0; i < skFile.length; i++) {
             formData.append(`sk`, skFile[i])
         }
@@ -292,6 +293,7 @@ const FormMonev =  (props) => {
     }
 
     const onEdit = async (event) => {
+        console.log('a')
         setLoadingTrue()
 		event.preventDefault()
 
@@ -328,10 +330,8 @@ const FormMonev =  (props) => {
         }  else {formData.append('lampiran_ketercapaian', new File([null], 'blob'))}
         
         if (skFile.length > 0) {
-            for (let i = 0; i < skFile.length; i++) {
-                formData.append(`sk`, skFile[i])
+                formData.append(`sk`, skFile[0])
             }
-        }  else {formData.append('sk', new File([null], 'blob'))}
 
 		for (let pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1])
@@ -344,11 +344,17 @@ const FormMonev =  (props) => {
 			},
 		}
 
-		const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
+		try {
+            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,formData,config,)
         alert(res.data.message)
         history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
-        setLoadingFalse()
+
         editDocumentFalse()
+        }
+        catch(err) {
+            console.log(err.response)
+        }
+        setLoadingFalse()
     }
 
     const setPreview = (e) => {
@@ -357,6 +363,7 @@ const FormMonev =  (props) => {
     }
 
     const [ skExtension , setSkExtension] = useState('')
+    const [ skFileUrl , setSkFileUrl] = useState([])
     console.log(skExtension)
 
     useEffect(() => {
@@ -372,10 +379,40 @@ const FormMonev =  (props) => {
             setSkGambar(gambar)
             const fileExt = getFIleExtension(gambar)
             setSkExtension(fileExt)
-
+            
+            if(instansiDetail.sk&&instansiDetail.sk.foto) {
+                const mediaFileUrl = [`https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`]
+                const files = []
+                mediaFileUrl.forEach(url => {
+                    fetch(url).then(res => res.blob()).then(blob => {
+                        const objectURL = URL.createObjectURL(blob)
+                        blob.name = getFileName(url)
+                        files.push(blob)
+                    })
+                })
+    
+                // setSKFile(files)
+                setSkFileUrl(mediaFileUrl)
+            }
         }
     },[instansiDetail])
 
+    // useEffect(() => {
+    //     const mediaFileUrl = [`https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`]
+    //     const files = []
+    //     mediaFileUrl.forEach(url => {
+    //         fetch(url).then(res => res.blob()).then(blob => {
+    //             const objectURL = URL.createObjectURL(blob)
+    //             blob.name = getFileName(url)
+    //             files.push(blob)
+    //         })
+    //     })
+
+    //     setSKFile(files)
+    //     setSkFileUrl(mediaFileUrl)
+    // }, [data.sk_status])
+
+    console.log(skGambar)
 
     useEffect(() => {
         (async () => {
@@ -685,8 +722,6 @@ const FormMonev =  (props) => {
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
                                     </div>
-                                    {
-                                        instansiDetail && instansiDetail.jenis === 'Kementerian' ?
                                             <Fragment>
 
                                                 <div>
@@ -861,86 +896,6 @@ const FormMonev =  (props) => {
                                                     </Fragment>
                                                 }
                                             </Fragment>
-                                            :
-                                            <Fragment>
-                                                        <div>
-                                                            <label>Gerakan</label>
-                                                            {
-                                                                documentDetail && documentDetail.form.gerakan ?
-                                                                    <select
-                                                                        onChange={onChange}
-                                                                        class="gnrm-select"
-                                                                        name="gerakan"
-                                                                        style={{ marginLeft: '145px' }}
-                                                                    >
-                                                                        {
-                                                                            gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
-                                                                        }
-                                                                    </select> :
-                                                                    <select
-                                                                        onChange={onChange}
-                                                                        class="gnrm-select"
-                                                                        name="gerakan"
-                                                                        style={{ marginLeft: '145px' }}
-                                                                    >
-                                                                        <option selected={true} hidden></option>
-                                                                        {
-                                                                            gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                        }
-                                                                    </select>
-                                                            }
-                                                        </div>
-                                                        {
-                                                            formGerakan.map((form, index) => {
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <label>Gerakan</label>
-                                                                        {
-                                                                            documentDetail ?
-                                                                                <select
-                                                                                    // onChange={onChangeGerakan} 
-                                                                                    class="gnrm-select"
-                                                                                    name="gerakan"
-                                                                                    style={{ marginLeft: '145px' }}
-                                                                                >
-                                                                                    {
-                                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => {
-                                                                                            let alreadySelected = false
-                                                                                            Object.values(selectedGerakan).forEach(selected => {
-                                                                                                if (gerakan === selected) alreadySelected = true
-                                                                                            });
-                                                                                            return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
-                                                                                        })
-                                                                                    }
-                                                                                </select> :
-                                                                                <select
-                                                                                    // onChange={onChangeGerakan} 
-                                                                                    class="gnrm-select"
-                                                                                    name="gerakan"
-                                                                                    style={{ marginLeft: '145px' }}
-                                                                                >
-                                                                                    <option selected={true} hidden></option>
-                                                                                    {
-                                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                                    }
-                                                                                </select>
-                                                                        }
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                        {
-                                                            formGerakan.length < 4 ?
-                                                                <div>
-                                                                    <label className="tambah-lembaga" >
-                                                                        Tambah Gerakan
-                                                        </label>
-                                                                    <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addFormGerakan} />
-                                                                </div>
-                                                                : ''
-                                                        }
-                                                    </Fragment>
-                                    }
                             </div>
                             <div className="gnrm-navigation-button">
                                 <Link 
@@ -962,174 +917,366 @@ const FormMonev =  (props) => {
                                     GUGUS TUGAS GNRM
                                 </div>
                                 <div className="form-gnrm">
-                                {
-                                    instansiDetail.sk && instansiDetail.sk.status ? 
-                                        <Fragment>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
-                                                <div
-                                                    className="gnrm-sasaran" 
-                                                    style={{height: "42px", 
-                                                            marginLeft: '230px',
-                                                            fontWeight:'700'
-                                                            }}
-                                                >{data.sk_no}</div>
-                                            </div>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
-                                                <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
-                                                    {
-                                                        skExtension === 'pdf' ? 
-                                                            ('')
-                                                        :
-                                                            <Fragment>
-                                                                <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
-                                                            </Fragment>
-                                                    }
-                                                    <div
-                                                        className="gnrm-sasaran" 
-                                                        style={{height: "42px", 
-                                                                width: "955px",
-                                                                fontWeight:'700'
-                                                                }}
-                                                    >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
-                                                </div>
-                                            </div>
-                                        </Fragment>
-                                    :
-                                        <Fragment>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
-                                                <div style={{marginLeft:'210px'}}>
-                                                    {
-                                                        data.sk_status ?
-                                                        <Fragment>
-                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                            <label htmlFor="belum" className='label-radio'>Belum
-                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                        </Fragment>
-                                                        :
-                                                        <Fragment>
-                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                            <label htmlFor="belum" className='label-radio' >Belum
-                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                        </Fragment>
-                                                    }
-                                                </div>
-                                            </div>
-                                                {
-                                                    data.sk_status ?
-                                                    <Fragment>
-                                                        <div>
-                                                            <label>Input Nomor SK</label>
-                                                            <input
-                                                                className="gnrm-sasaran" 
-                                                                style={{height: "42px", 
-                                                                        marginLeft: '84px',
-                                                                        width: "955px",
-                                                                        fontWeight:'700'
-                                                                        }}
-                                                                type="text" 
-                                                                name="sk_no"
-                                                                value={data.sk_no}
-                                                                onChange={onChangeSK}
-                                                                required
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <label>Lampiran SK</label>
-                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
-                                                            <input 
-                                                                id="testing10"
-                                                                className="gnrm-penjelasan" 
-                                                                style={{height: "42px", 
-                                                                        marginLeft: "30px", 
-                                                                        width: "955px"}} 
-                                                                onChange={onChangeSKFile}
-                                                                type="file"
-                                                                accept="image/* , application/pdf"
-                                                                name="media"
-                                                            />
-                                                        </div>
-                                                            <div>
-                                                                    <div style={{height: "fit-content", 
-                                                                        marginLeft: "210px", 
-                                                                        width: "955px",
-                                                                        border: '1px solid #ACACAC',
-                                                                        borderRadius: '5px',
-                                                                        padding: '10px',
-                                                                        display: 'flex',
-                                                                        flexWrap: 'wrap',
-                                                                    }} 
-                                                                    >
-                                                                        {
-                                                                            skFile.map((lampiran,index) => {
-                                                                                const fileExt = getFIleExtension(lampiran.name)
-                                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                                // cekEkstension(fileExt)
-                                                                                return(
-                                                                                    <div key={index}>
-                                                                                            <div style={{width:'150px', 
-                                                                                                        height:'150px', 
-                                                                                                        marginRight:'35px', 
-                                                                                                        position:'relative'
-                                                                                                        }}
-                                                                                                className="d-flex align-items-center justify-content-center"
-                                                                                            >
-                                                                                                <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                                    {
-                                                                                                        fileExt === 'pdf' ? 
-                                                                                                            <img src={images} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
-                                                                                                        :
-                                                                                                            <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
-                                                                                                    }
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div style={{marginTop:'10px' , 
-                                                                                                        width:'150px' , 
-                                                                                                        height:'20px', 
-                                                                                                        wordWrap: 'break-word',
-                                                                                                        lineHeight:'20px',}}
-                                                                                            >
-                                                                                                <p className="gnrm-media--name">
-                                                                                                    {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
-                                                                                                </p>
-                                                                                            </div>
+                                    {
+                                        isEditing ? 
+                                            <Fragment>
+                                                 <div>
+                                                     <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
+                                                     <div style={{marginLeft:'210px'}}>
+                                                         {
+                                                             data.sk_status ?
+                                                             <Fragment>
+                                                                 <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                     <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                                 <label htmlFor="belum" className='label-radio'>Belum
+                                                                     <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                             </Fragment>
+                                                             :
+                                                             <Fragment>
+                                                                 <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                     <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                                 <label htmlFor="belum" className='label-radio' >Belum
+                                                                     <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                             </Fragment>
+                                                         }
+                                                     </div>
+                                                 </div>
+                                                     {
+                                                         data.sk_status ?
+                                                         <Fragment>
+                                                             <div>
+                                                                 <label>Input Nomor SK</label>
+                                                                 <input
+                                                                     className="gnrm-sasaran" 
+                                                                     style={{height: "42px", 
+                                                                             marginLeft: '84px',
+                                                                             width: "955px",
+                                                                             fontWeight:'700'
+                                                                             }}
+                                                                     type="text" 
+                                                                     name="sk_no"
+                                                                     value={data.sk_no}
+                                                                     onChange={onChangeSK}
+                                                                     required
+                                                                 />
+                                                             </div>
+                                                             <div>
+                                                                 <label>Lampiran SK</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <input 
+                                                                     id="testing10"
+                                                                     className="gnrm-penjelasan" 
+                                                                     style={{height: "42px", 
+                                                                             marginLeft: "30px", 
+                                                                             width: "955px"}} 
+                                                                     onChange={onChangeSKFile}
+                                                                     type="file"
+                                                                     accept="image/* , application/pdf"
+                                                                     name="media"
+                                                                 />
+                                                             </div>
+                                                                <div>
+                                                                 {
+                                                                                skFile && skFile.length > 0 ?
+                                                                                        <div style={{height: "fit-content", 
+                                                                                            marginLeft: "210px", 
+                                                                                            width: "955px",
+                                                                                            border: '1px solid #ACACAC',
+                                                                                            borderRadius: '5px',
+                                                                                            padding: '10px',
+                                                                                            display: 'flex',
+                                                                                            flexWrap: 'wrap',
+                                                                                        }} 
+                                                                                        >
+                                                                                            {
+                                                                                                skFile.map((lampiran,index) => {
+                                                                                                    const fileExt = getFIleExtension(lampiran.name)
+                                                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
+                                                                                        </div>
+                                                                                    :
+                                                                                    <div style={{height: "fit-content", 
+                                                                                    marginLeft: "210px", 
+                                                                                    width: "955px",
+                                                                                    border: '1px solid #ACACAC',
+                                                                                    borderRadius: '5px',
+                                                                                    padding: '10px',
+                                                                                    display: 'flex',
+                                                                                    flexWrap: 'wrap',
+                                                                                }} 
+                                                                                >
+                                                                                    {
                                                                                         
+                                                                                                skFileUrl.map((url,index) => {
+                                                                                                    const fileExt = getFIleExtension(getFileName(url))
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                                <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {getFileName(url).length > 18 ? `${getFileName(url).substr(0, 15)}...` : getFileName(url)}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
                                                                                     </div>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-                                                        </div>
-                                                    </Fragment>
+                                                                                    }
+                                                                            </div>
+                                                         </Fragment>
+                                                         :
+                                                         <div>
+                                                             <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
+                                                             <textarea 
+                                                                 className="gnrm-nama-program" 
+                                                                 style={{height: "300px", 
+                                                                         marginLeft: "140px", 
+                                                                         width: "955px"}} 
+                                                                 type="text" 
+                                                                 name="sk_kendala"
+                                                                 value={data.sk_kendala}
+                                                                 onChange={onChangeSK}
+                                                             />
+                                                         </div>
+                                                     }
+                                                 </Fragment>
+                                             :
+                                                <Fragment>
+                                                    {
+                                                    instansiDetail.sk && instansiDetail.sk.status ? 
+                                                        <Fragment>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
+                                                                <div
+                                                                    className="gnrm-sasaran" 
+                                                                    style={{height: "42px", 
+                                                                            marginLeft: '230px',
+                                                                            fontWeight:'700'
+                                                                            }}
+                                                                >{data.sk_no}</div>
+                                                            </div>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
+                                                                <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
+                                                                    {
+                                                                        skExtension === 'pdf' ? 
+                                                                            ('')
+                                                                        :
+                                                                            <Fragment>
+                                                                                <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
+                                                                            </Fragment>
+                                                                    }
+                                                                    <div
+                                                                        className="gnrm-sasaran" 
+                                                                        style={{height: "42px", 
+                                                                                width: "955px",
+                                                                                fontWeight:'700'
+                                                                                }}
+                                                                    >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
+                                                                </div>
+                                                            </div>
+                                                        </Fragment>
                                                     :
-                                                    <div>
-                                                        <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
-                                                        <textarea 
-                                                            className="gnrm-nama-program" 
-                                                            style={{height: "300px", 
-                                                                    marginLeft: "140px", 
-                                                                    width: "955px"}} 
-                                                            type="text" 
-                                                            name="sk_kendala"
-                                                            value={data.sk_kendala}
-                                                            onChange={onChangeSK}
-                                                        />
-                                                    </div>
-                                                }
-                                            </Fragment>
-                                        }
+                                                        <Fragment>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
+                                                                <div style={{marginLeft:'210px'}}>
+                                                                    {
+                                                                        data.sk_status ?
+                                                                        <Fragment>
+                                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                            <label htmlFor="belum" className='label-radio'>Belum
+                                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                        </Fragment>
+                                                                        :
+                                                                        <Fragment>
+                                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                            <label htmlFor="belum" className='label-radio' >Belum
+                                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                        </Fragment>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                                {
+                                                                    data.sk_status ?
+                                                                    <Fragment>
+                                                                        <div>
+                                                                            <label>Input Nomor SK</label>
+                                                                            <input
+                                                                                className="gnrm-sasaran" 
+                                                                                style={{height: "42px", 
+                                                                                        marginLeft: '84px',
+                                                                                        width: "955px",
+                                                                                        fontWeight:'700'
+                                                                                        }}
+                                                                                type="text" 
+                                                                                name="sk_no"
+                                                                                value={data.sk_no}
+                                                                                onChange={onChangeSK}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <label>Lampiran SK</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <input 
+                                                                                id="testing10"
+                                                                                className="gnrm-penjelasan" 
+                                                                                style={{height: "42px", 
+                                                                                        marginLeft: "30px", 
+                                                                                        width: "955px"}} 
+                                                                                onChange={onChangeSKFile}
+                                                                                type="file"
+                                                                                accept="image/* , application/pdf"
+                                                                                name="media"
+                                                                            />
+                                                                            </div>
+
+                                                                            <div>
+                                                                                        <div style={{height: "fit-content", 
+                                                                                            marginLeft: "210px", 
+                                                                                            width: "955px",
+                                                                                            border: '1px solid #ACACAC',
+                                                                                            borderRadius: '5px',
+                                                                                            padding: '10px',
+                                                                                            display: 'flex',
+                                                                                            flexWrap: 'wrap',
+                                                                                        }} 
+                                                                                        >
+                                                                                            {
+                                                                                                skFile.map((lampiran,index) => {
+                                                                                                    const fileExt = getFIleExtension(lampiran.name)
+                                                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
+                                                                                        </div>
+                                                                        </div>
+                                                                    </Fragment>
+                                                                    :
+                                                                    <div>
+                                                                        <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
+                                                                        <textarea 
+                                                                            className="gnrm-nama-program" 
+                                                                            style={{height: "300px", 
+                                                                                    marginLeft: "140px", 
+                                                                                    width: "955px"}} 
+                                                                            type="text" 
+                                                                            name="sk_kendala"
+                                                                            value={data.sk_kendala}
+                                                                            onChange={onChangeSK}
+                                                                        />
+                                                                    </div>
+                                                                }
+                                                            </Fragment>
+                                                        }
+                                                </Fragment>
+                                             }
                                 </div>
                             
                                 <div className="gnrm-navigation-button">
@@ -2249,8 +2396,6 @@ const FormMonev =  (props) => {
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
                                     </div>
-                                    {
-                                        instansiDetail && instansiDetail.jenis === 'Kementerian' ?
                                             <Fragment>
 
                                                 <div>
@@ -2425,86 +2570,7 @@ const FormMonev =  (props) => {
                                                     </Fragment>
                                                 }
                                             </Fragment>
-                                            :
-                                            <Fragment>
-                                                        <div>
-                                                            <label>Gerakan</label>
-                                                            {
-                                                                documentDetail && documentDetail.form.gerakan ?
-                                                                    <select
-                                                                        onChange={onChange}
-                                                                        class="gnrm-select"
-                                                                        name="gerakan"
-                                                                        style={{ marginLeft: '145px' }}
-                                                                    >
-                                                                        {
-                                                                            gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
-                                                                        }
-                                                                    </select> :
-                                                                    <select
-                                                                        onChange={onChange}
-                                                                        class="gnrm-select"
-                                                                        name="gerakan"
-                                                                        style={{ marginLeft: '145px' }}
-                                                                    >
-                                                                        <option selected={true} hidden></option>
-                                                                        {
-                                                                            gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                        }
-                                                                    </select>
-                                                            }
-                                                        </div>
-                                                        {
-                                                            formGerakan.map((form, index) => {
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <label>Gerakan</label>
-                                                                        {
-                                                                            documentDetail ?
-                                                                                <select
-                                                                                    // onChange={onChangeGerakan} 
-                                                                                    class="gnrm-select"
-                                                                                    name="gerakan"
-                                                                                    style={{ marginLeft: '145px' }}
-                                                                                >
-                                                                                    {
-                                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => {
-                                                                                            let alreadySelected = false
-                                                                                            Object.values(selectedGerakan).forEach(selected => {
-                                                                                                if (gerakan === selected) alreadySelected = true
-                                                                                            });
-                                                                                            return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
-                                                                                        })
-                                                                                    }
-                                                                                </select> :
-                                                                                <select
-                                                                                    // onChange={onChangeGerakan} 
-                                                                                    class="gnrm-select"
-                                                                                    name="gerakan"
-                                                                                    style={{ marginLeft: '145px' }}
-                                                                                >
-                                                                                    <option selected={true} hidden></option>
-                                                                                    {
-                                                                                        gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                                    }
-                                                                                </select>
-                                                                        }
-                                                                    </div>
-                                                                )
-                                                            })
-                                                        }
-                                                        {
-                                                            formGerakan.length < 4 ?
-                                                                <div>
-                                                                    <label className="tambah-lembaga" >
-                                                                        Tambah Gerakan
-                                                        </label>
-                                                                    <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addFormGerakan} />
-                                                                </div>
-                                                                : ''
-                                                        }
-                                                    </Fragment>
-                                    }
+                                            
                             </div>
                             <div className="gnrm-navigation-button">
                                 <Link 
@@ -2527,173 +2593,365 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div className="form-gnrm">
                                 {
-                                    instansiDetail.sk && instansiDetail.sk.status ? 
-                                        <Fragment>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
-                                                <div
-                                                    className="gnrm-sasaran" 
-                                                    style={{height: "42px", 
-                                                            marginLeft: '230px',
-                                                            fontWeight:'700'
-                                                            }}
-                                                >{data.sk_no}</div>
-                                            </div>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
-                                                <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
-                                                    {
-                                                        skExtension === 'pdf' ? 
-                                                            ('')
-                                                        :
-                                                            <Fragment>
-                                                                <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
-                                                            </Fragment>
-                                                    }
-                                                    <div
-                                                        className="gnrm-sasaran" 
-                                                        style={{height: "42px", 
-                                                                width: "955px",
-                                                                fontWeight:'700'
-                                                                }}
-                                                    >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
-                                                </div>
-                                            </div>
-                                        </Fragment>
-                                    :
-                                        <Fragment>
-                                            <div>
-                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
-                                                <div style={{marginLeft:'210px'}}>
-                                                    {
-                                                        data.sk_status ?
-                                                        <Fragment>
-                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                            <label htmlFor="belum" className='label-radio'>Belum
-                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                        </Fragment>
-                                                        :
-                                                        <Fragment>
-                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
-                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                            <label htmlFor="belum" className='label-radio' >Belum
-                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
-                                                                <span className='checked-radio'></span>
-                                                            </label>
-                                                        </Fragment>
-                                                    }
-                                                </div>
-                                            </div>
-                                                {
-                                                    data.sk_status ?
-                                                    <Fragment>
-                                                        <div>
-                                                            <label>Input Nomor SK</label>
-                                                            <input
-                                                                className="gnrm-sasaran" 
-                                                                style={{height: "42px", 
-                                                                        marginLeft: '84px',
-                                                                        width: "767px",
-                                                                        fontWeight:'700'
-                                                                        }}
-                                                                type="text" 
-                                                                name="sk_no"
-                                                                value={data.sk_no}
-                                                                onChange={onChangeSK}
-                                                                required
-                                                            />
-                                                        </div>
-                                                        <div>
-                                                            <label>Lampiran SK</label>
-                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
-                                                            <input 
-                                                                id="testing10"
-                                                                className="gnrm-penjelasan" 
-                                                                style={{height: "42px", 
-                                                                        marginLeft: "30px", 
-                                                                        width: "955px"}} 
-                                                                onChange={onChangeSKFile}
-                                                                type="file"
-                                                                accept="image/* , application/pdf"
-                                                                name="media"
-                                                            />
-                                                        </div>
-                                                            <div>
-                                                                    <div style={{height: "fit-content", 
-                                                                        marginLeft: "210px", 
-                                                                        width: "767px",
-                                                                        border: '1px solid #ACACAC',
-                                                                        borderRadius: '5px',
-                                                                        padding: '10px',
-                                                                        display: 'flex',
-                                                                        flexWrap: 'wrap',
-                                                                    }} 
-                                                                    >
-                                                                        {
-                                                                            skFile.map((lampiran,index) => {
-                                                                                const fileExt = getFIleExtension(lampiran.name)
-                                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                                // cekEkstension(fileExt)
-                                                                                return(
-                                                                                    <div key={index}>
-                                                                                            <div style={{width:'150px', 
-                                                                                                        height:'150px', 
-                                                                                                        marginRight:'35px', 
-                                                                                                        position:'relative'
-                                                                                                        }}
-                                                                                                className="d-flex align-items-center justify-content-center"
-                                                                                            >
-                                                                                                <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                                    {
-                                                                                                        fileExt === 'pdf' ? 
-                                                                                                            <img src={images} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
-                                                                                                        :
-                                                                                                            <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
-                                                                                                    }
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div style={{marginTop:'10px' , 
-                                                                                                        width:'150px' , 
-                                                                                                        height:'20px', 
-                                                                                                        wordWrap: 'break-word',
-                                                                                                        lineHeight:'20px',}}
-                                                                                            >
-                                                                                                <p className="gnrm-media--name">
-                                                                                                    {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
-                                                                                                </p>
-                                                                                            </div>
+                                isEditing ? 
+                                            <Fragment>
+                                                 <div>
+                                                     <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
+                                                     <div style={{marginLeft:'210px'}}>
+                                                         {
+                                                             data.sk_status ?
+                                                             <Fragment>
+                                                                 <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                     <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                                 <label htmlFor="belum" className='label-radio'>Belum
+                                                                     <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                             </Fragment>
+                                                             :
+                                                             <Fragment>
+                                                                 <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                     <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                                 <label htmlFor="belum" className='label-radio' >Belum
+                                                                     <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                     <span className='checked-radio'></span>
+                                                                 </label>
+                                                             </Fragment>
+                                                         }
+                                                     </div>
+                                                 </div>
+                                                     {
+                                                         data.sk_status ?
+                                                         <Fragment>
+                                                             <div>
+                                                                 <label>Input Nomor SK</label>
+                                                                 <input
+                                                                     className="gnrm-sasaran" 
+                                                                     style={{height: "42px", 
+                                                                             marginLeft: '84px',
+                                                                             width: "767px",
+                                                                             fontWeight:'700'
+                                                                             }}
+                                                                     type="text" 
+                                                                     name="sk_no"
+                                                                     value={data.sk_no}
+                                                                     onChange={onChangeSK}
+                                                                     required
+                                                                 />
+                                                             </div>
+                                                             <div>
+                                                                 <label>Lampiran SK</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <input 
+                                                                     id="testing10"
+                                                                     className="gnrm-penjelasan" 
+                                                                     style={{height: "42px", 
+                                                                             marginLeft: "30px", 
+                                                                             width: "767px"}} 
+                                                                     onChange={onChangeSKFile}
+                                                                     type="file"
+                                                                     accept="image/* , application/pdf"
+                                                                     name="media"
+                                                                 />
+                                                             </div>
+                                                                <div>
+                                                                 {
+                                                                                skFile && skFile.length > 0 ?
+                                                                                        <div style={{height: "fit-content", 
+                                                                                            marginLeft: "210px", 
+                                                                                            width: "767px",
+                                                                                            border: '1px solid #ACACAC',
+                                                                                            borderRadius: '5px',
+                                                                                            padding: '10px',
+                                                                                            display: 'flex',
+                                                                                            flexWrap: 'wrap',
+                                                                                        }} 
+                                                                                        >
+                                                                                            {
+                                                                                                skFile.map((lampiran,index) => {
+                                                                                                    const fileExt = getFIleExtension(lampiran.name)
+                                                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
+                                                                                        </div>
+                                                                                    :
+                                                                                    <div style={{height: "fit-content", 
+                                                                                    marginLeft: "210px", 
+                                                                                    width: "7675px",
+                                                                                    border: '1px solid #ACACAC',
+                                                                                    borderRadius: '5px',
+                                                                                    padding: '10px',
+                                                                                    display: 'flex',
+                                                                                    flexWrap: 'wrap',
+                                                                                }} 
+                                                                                >
+                                                                                    {
                                                                                         
+                                                                                                skFileUrl.map((url,index) => {
+                                                                                                    const fileExt = getFIleExtension(getFileName(url))
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                                <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {getFileName(url).length > 18 ? `${getFileName(url).substr(0, 15)}...` : getFileName(url)}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
                                                                                     </div>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-                                                        </div>
-                                                    </Fragment>
+                                                                                    }
+                                                                            </div>
+                                                         </Fragment>
+                                                         :
+                                                         <div>
+                                                             <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
+                                                             <textarea 
+                                                                 className="gnrm-nama-program" 
+                                                                 style={{height: "300px", 
+                                                                         marginLeft: "140px", 
+                                                                         width: "767px"}} 
+                                                                 type="text" 
+                                                                 name="sk_kendala"
+                                                                 value={data.sk_kendala}
+                                                                 onChange={onChangeSK}
+                                                             />
+                                                         </div>
+                                                     }
+                                                 </Fragment>
+                                             :
+                                                <Fragment>
+                                                    {
+                                                    instansiDetail.sk && instansiDetail.sk.status ? 
+                                                        <Fragment>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Input Nomor SK</label>
+                                                                <div
+                                                                    className="gnrm-sasaran" 
+                                                                    style={{height: "42px", 
+                                                                            marginLeft: '230px',
+                                                                            fontWeight:'700'
+                                                                            }}
+                                                                >{data.sk_no}</div>
+                                                            </div>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Lampiran Berkas</label>
+                                                                <div style={{width:'fit-content' , height: 'fit-content', marginLeft:'230px'}}>
+                                                                    {
+                                                                        skExtension === 'pdf' ? 
+                                                                            ('')
+                                                                        :
+                                                                            <Fragment>
+                                                                                <img src={skGambar} alt={getFileName(instansiDetail.sk && instansiDetail.sk.foto)} style={{ width: '500px', height: 'auto' }} /><br />
+                                                                            </Fragment>
+                                                                    }
+                                                                    <div
+                                                                        className="gnrm-sasaran" 
+                                                                        style={{height: "42px", 
+                                                                                width: "767px",
+                                                                                fontWeight:'700'
+                                                                                }}
+                                                                    >{getFileName(instansiDetail.sk&&instansiDetail.sk.foto)}</div>
+                                                                </div>
+                                                            </div>
+                                                        </Fragment>
                                                     :
-                                                    <div>
-                                                        <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
-                                                        <textarea 
-                                                            className="gnrm-nama-program" 
-                                                            style={{height: "300px", 
-                                                                    marginLeft: "140px", 
-                                                                    width: "767px"}} 
-                                                            type="text" 
-                                                            name="sk_kendala"
-                                                            value={data.sk_kendala}
-                                                            onChange={onChangeSK}
-                                                        />
-                                                    </div>
-                                                }
-                                            </Fragment>
-                                        }
+                                                        <Fragment>
+                                                            <div>
+                                                                <label style={{textAlign:'left', clear:'both' , float:'left'}}>Sudah Terbentuk <br/> Gugus Tugas?</label>
+                                                                <div style={{marginLeft:'210px'}}>
+                                                                    {
+                                                                        data.sk_status ?
+                                                                        <Fragment>
+                                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} checked={true} onChange={onChangeButton} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                            <label htmlFor="belum" className='label-radio'>Belum
+                                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio' value={data.sk_status} onChange={onChangeButtonFalse} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                        </Fragment>
+                                                                        :
+                                                                        <Fragment>
+                                                                            <label htmlFor="sudah" className='label-radio' style={{ marginRight: '65px' }}>Sudah
+                                                                                <input type="radio" id="sudah" name="sk_status" className='input-radio' value={data.sk_status} onChange={onChangeButton} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                            <label htmlFor="belum" className='label-radio' >Belum
+                                                                                <input type="radio" id="belum" name="sk_status"  className='input-radio'value={data.sk_status} checked={true} onChange={onChangeButtonFalse} />
+                                                                                <span className='checked-radio'></span>
+                                                                            </label>
+                                                                        </Fragment>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                                {
+                                                                    data.sk_status ?
+                                                                    <Fragment>
+                                                                        <div>
+                                                                            <label>Input Nomor SK</label>
+                                                                            <input
+                                                                                className="gnrm-sasaran" 
+                                                                                style={{height: "42px", 
+                                                                                        marginLeft: '84px',
+                                                                                        width: "767px",
+                                                                                        fontWeight:'700'
+                                                                                        }}
+                                                                                type="text" 
+                                                                                name="sk_no"
+                                                                                value={data.sk_no}
+                                                                                onChange={onChangeSK}
+                                                                                required
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <label>Lampiran SK</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <input 
+                                                                                id="testing10"
+                                                                                className="gnrm-penjelasan" 
+                                                                                style={{height: "42px", 
+                                                                                        marginLeft: "30px", 
+                                                                                        width: "955px"}} 
+                                                                                onChange={onChangeSKFile}
+                                                                                type="file"
+                                                                                accept="image/* , application/pdf"
+                                                                                name="media"
+                                                                            />
+                                                                            </div>
+
+                                                                            <div>
+                                                                                        <div style={{height: "fit-content", 
+                                                                                            marginLeft: "210px", 
+                                                                                            width: "767px",
+                                                                                            border: '1px solid #ACACAC',
+                                                                                            borderRadius: '5px',
+                                                                                            padding: '10px',
+                                                                                            display: 'flex',
+                                                                                            flexWrap: 'wrap',
+                                                                                        }} 
+                                                                                        >
+                                                                                            {
+                                                                                                skFile.map((lampiran,index) => {
+                                                                                                    const fileExt = getFIleExtension(lampiran.name)
+                                                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                                                    // cekEkstension(fileExt)
+                                                                                                    return(
+                                                                                                        <div key={index}>
+                                                                                                                <div style={{width:'150px', 
+                                                                                                                            height:'150px', 
+                                                                                                                            marginRight:'35px', 
+                                                                                                                            position:'relative'
+                                                                                                                            }}
+                                                                                                                    className="d-flex align-items-center justify-content-center"
+                                                                                                                >
+                                                                                                                    <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
+                                                                                                                        {
+                                                                                                                            fileExt === 'pdf'.toLowerCase() ? 
+                                                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                                            :
+                                                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div style={{marginTop:'10px' , 
+                                                                                                                            width:'150px' , 
+                                                                                                                            height:'20px', 
+                                                                                                                            wordWrap: 'break-word',
+                                                                                                                            lineHeight:'20px',}}
+                                                                                                                >
+                                                                                                                    <p className="gnrm-media--name">
+                                                                                                                        {lampiran.name.length > 18 ? `${lampiran.name.substr(0, 15)}...` : lampiran.name}
+                                                                                                                    </p>
+                                                                                                                </div>
+                                                                                                            
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })
+                                                                                            }
+                                                                                        </div>
+                                                                        </div>
+                                                                    </Fragment>
+                                                                    :
+                                                                    <div>
+                                                                        <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
+                                                                        <textarea 
+                                                                            className="gnrm-nama-program" 
+                                                                            style={{height: "300px", 
+                                                                                    marginLeft: "140px", 
+                                                                                    width: "767px"}} 
+                                                                            type="text" 
+                                                                            name="sk_kendala"
+                                                                            value={data.sk_kendala}
+                                                                            onChange={onChangeSK}
+                                                                        />
+                                                                    </div>
+                                                                }
+                                                            </Fragment>
+                                                        }
+                                                </Fragment>
+                                             }
                                 </div>
                             
                                 <div className="gnrm-navigation-button">

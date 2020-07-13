@@ -7,12 +7,14 @@ export default function StatistikGNRM(props) {
   const [statistik, setStatistik] = useState(null)
   const [tahun, setTahun] = useState(null)
   const [periode, setPeriode] = useState(null)
+  const [instansi, setInstansi] = useState(null)
   const [waktu, setWaktu] = useState(null)
 
   useEffect(() => {
     setTahun(props.tahun)
       setPeriode(props.periode)
       setWaktu(props.waktu)
+      setInstansi(props.instansi)
     return () => {
       setStatistik(null)
       setData(null)
@@ -24,22 +26,28 @@ export default function StatistikGNRM(props) {
   
   useEffect(() => {
     setTahun(props.tahun)
+    setInstansi(props.instansi)
     if (props.periode && props.waktu) {
       setPeriode(props.periode)
       setWaktu(props.waktu)
     }
   }, [props])
 
+  console.log(instansi)
+  console.log(props.instansi)
+
   useEffect(() => {
     setData(null)
     setStatistik(null)
-    const endpoint =  `https://api.simonev.revolusimental.go.id/api/v1/statistik/gnrm?tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`
+    const endpoint =  `https://api.simonev.revolusimental.go.id/api/v1/statistik/gnrm?instansi=${instansi}&tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`
+
+    console.log(endpoint)
     fetch(endpoint)
       .then(res => res.json())
       .then(data => {
         setStatistik(data.statistik)
       })
-  }, [tahun, periode && waktu])
+  }, [instansi , tahun , periode && waktu])
 
 
   useEffect(() => {

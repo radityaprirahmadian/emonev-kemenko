@@ -154,6 +154,7 @@ const Dashboard = (props) => {
   const [periode, setPeriode] = useState('tahun')
   const [waktu, setWaktu] = useState('2020')
   const [tahun, setTahun] = useState(todaysYear)
+  const [instansi , setInstansi] = useState('')
   const [instansiData, setInstansiData] = useState([])
   const [selectedinstansi, setSelectedinstansi] = useState(null)
   
@@ -177,6 +178,14 @@ const Dashboard = (props) => {
     setDocumentLengthArr(arr)
 
   }, [documentCardLength])
+
+  useEffect(() => {
+    if(userDetail && userDetail.role !== 'owner') {
+      setInstansi(userDetail&&userDetail.instansi.nama_pendek)
+    }
+  },[userDetail])
+
+  console.log(instansi)
 
   console.log(documentCardLength)
 
@@ -216,13 +225,14 @@ const Dashboard = (props) => {
                                 tahun={tahun}
                                 periode={periode}
                                 waktu={waktu}
+                                instansi={instansi}
                             />
                             <div className="keterangan">
                               <p className="">
                                 Keterangan : 
                               </p>
                               <p className="">
-                                Sumbu vertikal merupakan jumlah gerakan
+                                Sumbu vertikal merupakan jumlah kegiatan prioritas
                               </p>
                             </div>
                           </div>
@@ -387,7 +397,8 @@ const Dashboard = (props) => {
                                         doc={doc}
                                         bgcolor={'white'}
                                         color={'black'}
-                                        btimage={'none'}/>
+                                        btimage={'none'}
+                                        logged_in={true}/>
                                         );
                                     })
                             }

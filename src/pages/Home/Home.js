@@ -183,11 +183,21 @@ const Home = () => {
     
     const [instansi, setInstansi] = useState([])
     const [instansiDaerah, setInstansiDaerah] = useState([])
+    const [instansiLembaga, setLembaga] = useState([])
+    const [instansiLembagaKementerian, setLembagaKementerian] = useState([])
 
     useEffect(() => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Kementerian')
         .then(res => {
             setInstansi(res.data.instansi)
+        })
+        .catch(err => {
+            console.log('wow', +err)
+        })
+
+        axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Lembaga')
+        .then(res => {
+            setLembaga(res.data.instansi)
         })
         .catch(err => {
             console.log('wow', +err)
@@ -202,6 +212,11 @@ const Home = () => {
         })
         getAllDocument()
     }, [])
+
+    useEffect (() => {
+        let lembaga  = instansi.concat(instansiLembaga)
+        setLembagaKementerian(lembaga)
+    } , [instansiLembaga , instansi])
 
     const [hidden, setHidden] = useState([]);
 
@@ -523,31 +538,39 @@ const Home = () => {
                                         </div>
 
                                         <div className="section-4-filter">
-                                            <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,1)}>
-                                                <option value="" disabled selected={selected1} hidden>Pilih Kementerian/Lembaga</option>
-                                            {
-                                                instansi ? 
-                                                    instansi.map((instansi,index) => {
-                                                        return (
+                                            <div className='filter-categories'>
+                                                <div calssName='filter-select'>
+                                                    <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,1)}>
+                                                        <option value="" disabled selected={selected1} hidden>Pilih Kementerian/Lembaga</option>
+                                                    {
+                                                        instansiLembagaKementerian ? 
+                                                        instansiLembagaKementerian.map((instansi,index) => {
+                                                            return (
                                                                 <option value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
-                                                            )
-                                                    })
-                                                : ''
-                                            }    
-                                            </select>
+                                                                )
+                                                            })
+                                                            : ''
+                                                        }    
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <br/>
-                                            <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,2)}>
-                                                <option value="" disabled selected={selected2} hidden>Pilih Pemerintah Daerah</option>
-                                                {
-                                                instansiDaerah ? 
-                                                    instansiDaerah.map((instansi,index) => {
-                                                        return (
-                                                                <option value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
-                                                            )
-                                                    })
-                                                : ''
-                                            }  
-                                            </select>
+                                            <div className='filter-categories'>
+                                                <div calssName='filter-select'>
+                                                    <select className="filter-a" name="nama_instansi" onChange={(e) => onChange(e,2)}>
+                                                        <option value="" disabled selected={selected2} hidden>Pilih Pemerintah Daerah</option>
+                                                        {
+                                                        instansiDaerah ? 
+                                                            instansiDaerah.map((instansi,index) => {
+                                                                return (
+                                                                        <option value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
+                                                                    )
+                                                            })
+                                                        : ''
+                                                    }  
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -569,7 +592,8 @@ const Home = () => {
                                                                 doc={doc}
                                                                 bgcolor={'none'}
                                                                 bgimage={'linear-gradient(to bottom , #59CBA6 , #FDE47F)'}
-                                                                color={`black`}/>
+                                                                color={`black`}
+                                                                logged_id={false}/>
                                                                 );
                                                             })
                                                     }
@@ -658,7 +682,7 @@ const Home = () => {
                                             Keterangan : 
                                         </p>
                                         <p className="">
-                                            Sumbu vertikal merupakan jumlah gerakan
+                                            Sumbu vertikal merupakan jumlah kegiatan prioritas
                                         </p>
                                     </div>
                                 </div>

@@ -12,6 +12,7 @@
     height: 574px;
     color: white;
     margin-right:20px;
+    padding: 10px;
 }
 
 .card-container-dashboard {
@@ -77,6 +78,8 @@
 .card-background {
     width: 420px;
     box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .card-background-dashboard {
@@ -93,9 +96,7 @@
     width: 396px;
     box-sizing: border-box;
     height: 404px;
-    overflow: hidden;
-    margin: 10px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .card-container-dashboard .card-background-dashboard img {
@@ -121,13 +122,13 @@
     border: 0.5px solid white;
     border-radius: 1vh;
     margin-right:3vh;
+    padding: 1vh;
 }
 
 .card-background img {
     width: 100%;
     height: 48vh;
     border-radius: 1vh;
-    margin: 1vh;
 }
 
 .card-container-dashboard {

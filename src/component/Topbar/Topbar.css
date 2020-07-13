@@ -89,6 +89,16 @@
     margin-top: 56px;
 }
 
+.sub-menu-hover.active {
+    display: inline-block;
+    width: 1170px;
+    height: 600px;
+    border-radius: 10px;
+    left: -500px;
+    position: absolute;
+    background-color: #59CBA6;
+}
+
 .top-bar-menu-container:hover .jarak {
     display: inline-block;
     position: absolute;
@@ -132,8 +142,8 @@
 
 .logo-in-megamenu{
     margin-top: 7px;
-    margin-left: 5px;
-    line-height: 75px;
+    max-width: 100%;
+    object-fit: contain;
     height: 75px;
     /* width: auto;
     float: left;
@@ -333,6 +343,7 @@
 
 .logo-megamenu {
     width: 75px;
+    text-align:center;
     display: inline-block;
 }
 
@@ -603,8 +614,8 @@
     
     .logo-in-megamenu{
         margin-top: 1vh;
-        margin-left: 1vh;
-        line-height: 12vh;
+        max-width: 100%;
+        object-fit: contain;
         height: 12vh;
         /* width: auto;
         float: left;

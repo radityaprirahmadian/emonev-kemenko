@@ -41,6 +41,7 @@ const FormInstansi = (props) => {
             user_username: '',
             user_password: '',
             user_kontak: '',
+            user_email: '',
             deleted_logo: []    
         })
 
@@ -121,7 +122,7 @@ const FormInstansi = (props) => {
             }
 
             catch(err) {
-                alert(err.message)
+                alert(err.response.data.message)
                 setLoading(false)
             }
             
@@ -157,7 +158,7 @@ const FormInstansi = (props) => {
             }
             catch(err) {
                 console.log(err)
-                alert(err.message)
+                alert(err.response.data.message)
                 setLoading(false)
             }
         }
@@ -169,13 +170,14 @@ const FormInstansi = (props) => {
 
         const onSubmit = (e) => {
             e.preventDefault()
+            console.log('a')
             addNewInstansi(newInstansi)
         }
 
         const onEdit = (e) => {
             e.preventDefault()
-            console.log('a')
-            // editInstansi(newInstansi)
+            console.log('b')
+            editInstansi(newInstansi)
         }
 
         const handlePassword = (e) => {
@@ -208,7 +210,8 @@ const FormInstansi = (props) => {
                     kontak: instansiDetail.kontak,
                     alamat: instansiDetail.alamat,
                     fax: instansiDetail.fax,
-                    email: instansiDetail.email
+                    email: instansiDetail.email,
+                    website: instansiDetail.website
                 })
 
             if(instansiDetail.logo) {
@@ -231,6 +234,83 @@ const FormInstansi = (props) => {
         useEffect(() => {
             setNewInstansi({ ...newInstansi, deleted_logo: deletedMedia})
         }, [deletedMedia])
+
+        const onKeyPress = (e) => {
+            if(e.key === 'Enter') {
+                e.preventDefault();
+                if(isEditing) {
+                    const editInstansi = async (data) => {
+                        setLoading(true)
+                        console.log(data)
+                        const formData = objectToFormData(data)
+            
+                        if (media.length > 0) {
+                            for (let i = 0; i < media.length; i++) {
+                                formData.append(`logo`, media[i])
+                            }
+                        }  else {formData.append('logo', new File([null], 'blob'))}
+            
+                        for (let pair of formData.entries()) {
+                            console.log(pair[0] + ', ' + pair[1])
+                        }
+            
+                        const config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                'X-Auth-Token': `aweuaweu ${token}`,
+                            },
+                        }
+                        try {
+                            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,formData,config,)
+                            alert(res.data.message)
+                            setLoading(false)
+                            history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
+                        }
+                        catch(err) {
+                            console.log(err)
+                            alert(err.response.data.message)
+                            setLoading(false)
+                        }
+                    }
+                } else {
+                    const addNewInstansi = async (data) => {
+                        setLoading(true)
+                        console.log(data)
+                        const formData = objectToFormData(data)
+            
+                        for (let i = 0; i < media.length; i++) {
+                            formData.append(`logo`, media[i])
+                        }
+            
+                        for (let pair of formData.entries()) {
+                            console.log(pair[0] + ', ' + pair[1])
+                        }
+            
+                        const config = {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                                'X-Auth-Token': `aweuaweu ${token}`,
+                            },
+                        }
+            
+                        try {
+                            const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/instansi',formData,config,)
+                            alert(res.data.message)                
+                            setLoading(false)
+                            history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
+                        }
+            
+                        catch(err) {
+                            alert(err.response.data.message)
+                            setLoading(false)
+                        }
+                        
+                        
+                    }
+                }
+            }
+          }
+
 
         return(
             <Fragment>
@@ -265,9 +345,11 @@ const FormInstansi = (props) => {
                                                 <input 
                                                     className="admin-nama" 
                                                     type="text" 
+                                                    tabIndex='1'
                                                     name="nama" 
                                                     value={newInstansi.nama} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     required={true}
                                                     style={{width:'955px', marginLeft:'97px'}}
                                                 />
@@ -278,8 +360,10 @@ const FormInstansi = (props) => {
                                                     className="admin-nama" 
                                                     type="text" 
                                                     name="nama_pendek" 
+                                                    tabIndex='2'
                                                     value={newInstansi.nama_pendek} 
                                                     onChange={onChangeInstansi}  
+                                                    onKeyPress={onKeyPress}
                                                     required={true}
                                                     style={{width:'366px', marginLeft:'101px'}}
                                                 />
@@ -288,14 +372,14 @@ const FormInstansi = (props) => {
                                                 <label>Jenis</label>
                                                 {
                                                     instansiDetail && instansiDetail.jenis ?
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi}  onKeyPress={onKeyPress} required={true}>
                                                             <option value="" defaultValue="" hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                             }
                                                         </select>
                                                         :
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi} onKeyPress={onKeyPress}  required={true}>
                                                             <option selected={true} hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
@@ -309,15 +393,17 @@ const FormInstansi = (props) => {
                                                     className="admin-username" 
                                                     type="text" 
                                                     name="kontak" 
+                                                    tabIndex='4'
                                                     value={newInstansi.kontak} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     required={true} 
                                                     style={{marginLeft:'87px', width:'366px'}}
                                                 />
                                             </div>
                                             <div>
                                                 <label>Logo Instansi</label>
-                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' required={true} tabIndex='5' className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -325,6 +411,7 @@ const FormInstansi = (props) => {
                                                             marginLeft: "108px", 
                                                             width: "178px"}} 
                                                     onChange={onChangeFiles}
+                                                    onKeyPress={onKeyPress}
                                                     type="file"
                                                     accept="image/*"
                                                     name="logo"
@@ -354,7 +441,7 @@ const FormInstansi = (props) => {
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
-                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image"/>
+                                                                                        <img src={objectURL} alt={media.name} className="gnrm-media--image" style={{maxWidth:'100%' , maxHeight: '120px'  , objectFit:'contain'}}/>
                                                                                     </div>
                                                                                     <div style={{position:'absolute', 
                                                                                                 backgroundColor:'#C04B3E' , 
@@ -406,7 +493,7 @@ const FormInstansi = (props) => {
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{width:'120px', height:'120px', overflow:'hidden', position:'absolute'}}>
-                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image" style={{maxWidth:'100%' , maxHeight: '120px'  , objectFit:'contain'}}/>
                                                                                     </div>
                                                                                     <div style={{position:'absolute', 
                                                                                                 backgroundColor:'#C04B3E' , 
@@ -428,7 +515,7 @@ const FormInstansi = (props) => {
                                                                                             lineHeight:'20px'}}
                                                                                 >
                                                                                     <p className="gnrm-media--name">
-                                                                                        {getFileName(url)}
+                                                                                        {getFileName(url).length > 18 ? `${getFileName(url).substr(0, 15)}...` : getFileName(url) }
                                                                                     </p>
                                                                                 </div>
                                                                             
@@ -448,6 +535,7 @@ const FormInstansi = (props) => {
                                                     type="text" 
                                                     name="alamat" 
                                                     value={newInstansi.alamat} 
+                                                    tabIndex='6'
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'156px', width:'955px' , height: '84px'}}
                                                 />
@@ -458,6 +546,8 @@ const FormInstansi = (props) => {
                                                     className="admin-username" 
                                                     type="text" 
                                                     name="fax" 
+                                                    onKeyPress={onKeyPress}
+                                                    tabIndex='7'
                                                     value={newInstansi.fax} 
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'186px', width:'366px'}}
@@ -468,7 +558,9 @@ const FormInstansi = (props) => {
                                                 <input 
                                                     className="admin-username" 
                                                     type="text" 
+                                                    onKeyPress={onKeyPress}
                                                     name="website" 
+                                                    tabIndex='8'
                                                     value={newInstansi.website} 
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'150px', width:'366px'}}
@@ -479,8 +571,10 @@ const FormInstansi = (props) => {
                                                 <input 
                                                     className="admin-username" 
                                                     type="email" 
+                                                    onKeyPress={onKeyPress}
                                                     name="email" 
                                                     value={newInstansi.email} 
+                                                    tabIndex='9'
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'102px', width:'366px'}}
                                                 />
@@ -488,8 +582,8 @@ const FormInstansi = (props) => {
             
                                             {
                                                 isEditing ?
-                                                    <div className="admin-navigation-button">
-                                                            <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
+                                                    <div className="admin-navigation-button" style={{textAlign:'right'}}> 
+                                                            <input className="button-daftar" form='form-admin' type='submit' value='SIMPAN PERUBAHAN'></input>
                                                     </div>
                                                 :
                                                 <div className="gnrm-navigation-button" style={{textAlign:'right'}}>
@@ -521,8 +615,10 @@ const FormInstansi = (props) => {
                                                         type="text" 
                                                         name="user_nama" 
                                                         value={newInstansi.user_nama} 
+                                                        tabIndex='10'
                                                         onChange={onChangeInstansi} 
                                                         required={true}
+                                                        onKeyPress={onKeyPress}
                                                     />
                                                 </div>
                                                 <div>
@@ -537,6 +633,8 @@ const FormInstansi = (props) => {
                                                         className="admin-username" 
                                                         type="text" 
                                                         name="user_username" 
+                                                        tabIndex='11'
+                                                        onKeyPress={onKeyPress}
                                                         value={newInstansi.user_username} 
                                                         onChange={onChangeInstansi}
                                                         required={true} 
@@ -548,11 +646,13 @@ const FormInstansi = (props) => {
                                                         className="admin-password" 
                                                         type={seen ? "text" : "password"} 
                                                         name="user_password" 
+                                                        tabIndex='12'
                                                         value={newInstansi.user_password} 
                                                         onChange={onChangeInstansi}
+                                                        onKeyPress={onKeyPress}
                                                         required={true} 
                                                     />
-                                                    <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
+                                                    <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onKeyPress={onKeyPress} onClick={handlePassword}>
                                                     {
                                                             seen ?
                                                                 <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
@@ -567,10 +667,26 @@ const FormInstansi = (props) => {
                                                         className="admin-username" 
                                                         type="text" 
                                                         name="user_kontak" 
+                                                        tabIndex='13'
+                                                        onKeyPress={onKeyPress}
                                                         value={newInstansi.user_kontak} 
                                                         onChange={onChangeInstansi}
                                                         required={true}
                                                         style={{marginLeft:'95px'}} 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Email</label>
+                                                    <input 
+                                                        className="admin-role" 
+                                                        type="email" 
+                                                        name="user_email" 
+                                                        tabIndex='14'
+                                                        value={newInstansi.user_email} 
+                                                        onChange={onChangeInstansi}
+                                                        onKeyPress={onKeyPress}
+                                                        required 
+                                                        // onKeyPress={onKeyPress}
                                                     />
                                                 </div>
             
@@ -701,7 +817,8 @@ const FormInstansi = (props) => {
                                                                                             width:'150px' , 
                                                                                             height:'20px', 
                                                                                             wordWrap: 'break-word',
-                                                                                            lineHeight:'20px',}}
+                                                                                            lineHeight:'20px',
+                                                                                            textAlign:'center'}}
                                                                                 >
                                                                                     <p className="gnrm-media--name">
                                                                                         {media.name.length > 18 ? `${media.name.substr(0, 15)}...` : media.name}
@@ -753,10 +870,12 @@ const FormInstansi = (props) => {
                                                                                             width:'150px' , 
                                                                                             height:'20px', 
                                                                                             wordWrap: 'break-word',
-                                                                                            lineHeight:'20px'}}
+                                                                                            lineHeight:'20px',
+                                                                                            textAlign:'center'
+                                                                                        }}
                                                                                 >
-                                                                                    <p className="gnrm-media--name">
-                                                                                        {getFileName(url)}
+                                                                                    <p className="gnrm-media--name" >
+                                                                                        {getFileName(url).length > 18 ? `${getFileName(url).substr(0, 15)}...` : getFileName(url) }
                                                                                     </p>
                                                                                 </div>
                                                                             
@@ -817,7 +936,7 @@ const FormInstansi = (props) => {
                                             {
                                                 isEditing ?
                                                     <div className="admin-navigation-button" style={{textAlign:'right'}}>
-                                                            <input className="button-daftar" form='form-admin' type='submit' value='EDIT'></input>
+                                                        <input className="button-daftar" form='form-admin' type='submit' value='SIMPAN PERUBAHAN'></input>
                                                     </div>
                                                 :
                                                 <div className="gnrm-navigation-button" style={{textAlign:'right'}}>
@@ -899,6 +1018,18 @@ const FormInstansi = (props) => {
                                                         onChange={onChangeInstansi}
                                                         required={true}
                                                         style={{marginLeft:'95px'}} 
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Email</label>
+                                                    <input 
+                                                        className="admin-role" 
+                                                        type="email" 
+                                                        name="user_email" 
+                                                        value={newInstansi.user_email} 
+                                                        onChange={onChangeInstansi}
+                                                        required 
+                                                        // onKeyPress={onKeyPress}
                                                     />
                                                 </div>
             

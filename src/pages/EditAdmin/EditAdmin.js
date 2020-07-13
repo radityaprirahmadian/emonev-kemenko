@@ -12,6 +12,7 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import Spinner from '../../component/Spinner/Spinner'
 import bg_4 from '../../assets/decoration/bg_4.png'
+import placeholder from '../../assets/Profil.png'
 
 const EditAdmin = (props) => {
     const { user, token, getUserDetail, userDetail } = useContext(AuthContext);
@@ -41,7 +42,7 @@ const EditAdmin = (props) => {
     const onChangeFiles = (event) => {
         setFoto([...event.target.files])
         if(event.target.files && event.target.files[0]){
-            setFotos(URL.createObjectURL(event.target.files[0]))
+            setAvatar(URL.createObjectURL(event.target.files[0]))
         }
     }
 
@@ -76,8 +77,11 @@ const EditAdmin = (props) => {
                     role: res.data.user.role,
                     username: res.data.user.username
                 })
-                const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
-                setAvatar(wow)
+                
+                if(res.data.user.foto) {
+                    const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`
+                    setAvatar(wow)
+                }
             }
             catch (err) {
                 console.log(err)
@@ -266,9 +270,17 @@ const EditAdmin = (props) => {
                                 <div className="photo-profile-page">
                                     <label>Foto Profil</label><br/>
                                         <div className="photo-profile-container">
-                                            <div className="photo-profile">
-                                                <img src={avatar} alt="user-avatar"></img>
-                                            </div>
+                                            {
+                                                avatar ?
+                                                    <div className="photo-profile">
+                                                        <img src={avatar} alt="user-avatar"></img>
+                                                    </div>
+                                                :
+                                                    <div className="photo-profile">
+                                                        <img src={placeholder} alt="user-avatar"></img>
+                                                    </div>
+
+                                            }
                                             {/* <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
                                             <input 
                                                 id="testing"

@@ -38,6 +38,14 @@
     color:#C04B3E;
 }
 
+.footer-gnrm {
+    cursor: pointer;
+}
+
+.footer-gnrm:hover {
+    color:#C04B3E; 
+}
+
 .footer-left-social {
     z-index: 999;
     margin-top: 20px;

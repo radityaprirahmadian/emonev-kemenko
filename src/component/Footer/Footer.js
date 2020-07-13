@@ -1,9 +1,10 @@
 import React,{Component,Fragment,useContext} from 'react';
 import {AuthContext} from '../../context/Auth/AuthContext';
+import {LayoutContext} from '../../context/Layout/LayoutContext';
 import './Footer.css';
 import line from '../../assets/line.png';
 import logo_gabungan from '../../assets/logo_gabungan.png';
-import logo_gnrm_1 from '../../assets/logo_gnrm_1.png';
+import logo_gnrm_1 from '../../assets/logo_footer_read.png';
 import { BrowserRouter , Route, Link, Switch, NavLink } from "react-router-dom";
 import logo_kemenko2 from '../../assets/logo_kemenko2.png';
 import home from '../../assets/home.png';
@@ -19,9 +20,14 @@ import logo_2 from '../../assets/logo2.png';
 
 const Footer = () => {
     const { isAuthenticated, token, loadUser,userDetail} = useContext(AuthContext);
+    const { megamenu,setMegamenuShow} = useContext(LayoutContext);
 
     const onTop = (e) => {
         window.scrollTo(0, 0);
+    }
+
+    const onClick = () => {
+        setMegamenuShow()
     }
 
         return(
@@ -73,10 +79,8 @@ const Footer = () => {
                                                 </li>
                                             </div>
                                             <div className="col-8" style={{width:'400px'}}>
-                                                <li>
-                                                    <NavLink exact to="/" activeClassName="active">
+                                                <li onClick={onClick} className='footer-gnrm'>
                                                         <p>Pelaksanaan GNRM</p>
-                                                    </NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/galeri" activeClassName="active">

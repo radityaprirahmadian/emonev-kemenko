@@ -83,6 +83,8 @@ const FormReminder = (props) => {
         })
     }, [])
 
+    console.log(allInstansi)
+
     useEffect(() => {
         if(userDetail && userDetail.role === 'super_admin') {
             setInstansi({
@@ -115,7 +117,11 @@ const FormReminder = (props) => {
         })
     }
 
-    const onChangeDropDown = (e , pengguna, tujuan) => {
+    const [selectedInstansi , setSelectedInstansi] = useState({})
+
+    const onChangeDropDown = (e , pengguna, tujuan , instansi) => {
+        setSelectedInstansi({...selectedInstansi , [instansi]:e.target.value})
+
         const getAllUser = async () => {
             const config= {
                 headers: {
@@ -135,7 +141,8 @@ const FormReminder = (props) => {
     }
 
     const [selectedUser, setSelectedUser] = useState({})
-    console.log(selectedUser)
+    console.log('selected user' , selectedUser)
+    console.log('selected instansi ' ,selectedInstansi)
 
     const [ alreadySelectedUser , setAlreadySelectedUser] = useState([])
 
@@ -159,6 +166,57 @@ const FormReminder = (props) => {
     // useEffect(() => {
     //     setReminder({...reminder , kepada : selectedUser})
     // }, [selectedUser])
+
+    const [testing , setTesting] = useState(true)
+    const onDeleteTujuan = (deleted) => {
+        setTesting(true)
+        const deletedTujuan = alreadySelectedUser.filter((user,index) => {
+            if(index == deleted) return user
+        })
+
+        const deletedInstansi = Object.values(selectedInstansi).filter((instansi,index) => {
+            if(index != deleted) return instansi
+        })
+
+        const deleteduser = Object.values(userNew).filter((instansi,index) => {
+            if(index != deleted) return instansi
+        })
+
+        console.log('deleted tujuan ', deletedTujuan)
+        console.log('deleted instansi ', deletedInstansi)
+        console.log('deleted user' ,deleteduser)
+
+
+        const deletedKepada = kepada.filter(kepada => kepada !== deletedTujuan[0])
+        console.log(selectedUser)
+
+        const kepadaObj = {}
+        deletedKepada.forEach((kepada, i) => {
+            kepadaObj[`tujuan${i}`] = kepada
+        })
+
+        const userObj = {}
+        deleteduser.forEach((kepada, i) => {
+            userObj[`pengguna${i}`] = kepada
+        })
+
+        const instansiObj = {}
+        deletedInstansi.forEach((instansi, i) => {
+            instansiObj[`instansi${i}`] = instansi
+        })
+
+        setSelectedUser(kepadaObj)
+        setSelectedInstansi(instansiObj)
+        setUserNew(userObj)
+
+        let forms = form
+        forms.pop()
+        setForm(forms)
+        setReminder({...reminder, kepada:deletedKepada})
+        setAllInstansi([...allInstansi , 'test'])
+    }
+
+    console.log('already selected user' , alreadySelectedUser)
 
     useEffect(() => {
         return () => {
@@ -217,6 +275,7 @@ const FormReminder = (props) => {
     const [form , setForm] = useState([])
     const addForm = (e) => {
         e.preventDefault()
+        setTesting(false)
         let forms = form.concat([''])
         setForm(
             forms
@@ -299,7 +358,7 @@ const FormReminder = (props) => {
                                                 <div style={{marginBottom: '16px'}}>
                                                     {
                                                         userDetail && userDetail.role === 'owner' ? 
-                                                            <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,'pengguna0' , 'tujuan0')}>
+                                                            <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,'pengguna0' , 'tujuan0' , 'instansi0')}>
                                                                 <option defaultValue='' hidden></option>
                                                                 {
                                                                     allInstansi.map((instansi,index) => {
@@ -338,20 +397,31 @@ const FormReminder = (props) => {
                                                 form.map((form , index) => {
                                                     return(
                                                         <div style={{marginBottom: '16px'}} key={index}>
-                                                            <div style={{marginBottom: '16px'}}>
+                                                            <div style={{marginBottom: '16px' , position:'relative'}}>
                                                                 {
                                                                     userDetail && userDetail.role === 'owner' ? 
-                                                                        <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}`)}>
-                                                                            <option defaultValue='' hidden></option>
+                                                                        <Fragment>
+                                                                        <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}` , `instansi${index+1}`)}>
+                                                                            <option defaultValue='' selected={true} hidden></option>
                                                                             {
-                                                                                allInstansi.map((instansi,index) => {
-                                                                                    return(
-                                                                                        <option key={index} value={instansi}>{instansi}</option>
-                                                                                    )
-                                                                                })
 
+                                                                                    allInstansi && allInstansi.map((instansi,i) => {
+                                                                                        let selected = false
+                                                                                        for(let i = 0 ; i < allInstansi.length ; i++){
+                                                                                            selected = instansi === Object.values(selectedInstansi)[index+1]
+                                                                                        }
+                                                                                        console.log(selected)
+                                                                                            return(
+    
+                                                                                                    <option key={i} selected={selected} value={instansi}>{instansi}</option>
+                                                                                            )
+                                                                                    })
                                                                             }
                                                                         </select>
+                                                                        <span className="remove-form" style={{position:'absolute' , right: '-5px' , top: '10px'}}>
+                                                                            <i className="" onClick={() => onDeleteTujuan(index+1)} > x </i>
+                                                                        </span>
+                                                                        </Fragment>
                                                                 :
                                                                     ''
                                                                 }
@@ -366,7 +436,7 @@ const FormReminder = (props) => {
                                                                                 if (user._id === user1) alreadySelected = true
                                                                             });
                                                                             return (
-                                                                                <option key={user._id} name="kepada" hidden={alreadySelected} value={user._id}>{user.nama}</option>
+                                                                                <option key={user._id} name="kepada" selected={user._id === selectedUser[`tujuan${index+1}`] ? true : false} hidden={alreadySelected} value={user._id}>{user.nama}</option>
                                                                             )
                                                                         })
                                                                     }
@@ -517,20 +587,45 @@ const FormReminder = (props) => {
                                                 form.map((form , index) => {
                                                     return(
                                                         <div style={{marginBottom: '16px'}} key={index}>
-                                                            <div style={{marginBottom: '16px'}}>
+                                                            <div style={{marginBottom: '16px' , position:'relative'}}>
                                                                 {
                                                                     userDetail && userDetail.role === 'owner' ? 
-                                                                        <select className="reminder-tujuan-test" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}`)}>
-                                                                            <option defaultValue='' hidden></option>
+                                                                        <Fragment>
+                                                                        <select className="reminder-tujuan-test" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}` , `instansi${index+1}`)}>
+                                                                            <option defaultValue='' selected={true} hidden></option>
                                                                             {
-                                                                                allInstansi.map((instansi,index) => {
-                                                                                    return(
-                                                                                        <option key={index} value={instansi}>{instansi}</option>
-                                                                                    )
-                                                                                })
+                                                                                // !testing ?
+                                                                                
+                                                                                    allInstansi.map((instansi,index) => {
+                                                                                        // let alreadySelected = false
+                                                                                        // Object.values(selectedInstansi).forEach(user1 => {
+                                                                                        //     if (user._id === user1) alreadySelected = true
+                                                                                        // });
+                                                                                            return(
+    
+                                                                                                    <option key={index} selected={instansi === (selectedInstansi[`instansi${index+1}`]) ? true : false} value={instansi}>{instansi}</option>
+                                                                                            )
+                                                                                    })
+    
+                                                                                // :
+                                                                                // allInstansi.map((instansi,index) => {
+                                                                                //     // let alreadySelected = false
+                                                                                //     // Object.values(selectedInstansi).forEach(user1 => {
+                                                                                //     //     if (user._id === user1) alreadySelected = true
+                                                                                //     // });
+                                                                                //         return(
+
+                                                                                //                 <option key={index} value={instansi}>{instansi}</option>
+                                                                                //         )
+                                                                                // })
+
 
                                                                             }
                                                                         </select>
+                                                                        <span className="remove-form" style={{position:'absolute' , right: '-5px' , top: '10px'}}>
+                                                                            <i className="" onClick={() => onDeleteTujuan(index+1)} > x </i>
+                                                                        </span>
+                                                                        </Fragment>
                                                                 :
                                                                     ''
                                                                 }
@@ -545,7 +640,7 @@ const FormReminder = (props) => {
                                                                                 if (user._id === user1) alreadySelected = true
                                                                             });
                                                                             return (
-                                                                                <option key={user._id} name="kepada" hidden={alreadySelected} value={user._id}>{user.nama}</option>
+                                                                                <option key={user._id} name="kepada" selected={user._id === selectedUser[`tujuan${index+1}`] ? true : false} hidden={alreadySelected} value={user._id}>{user.nama}</option>
                                                                             )
                                                                         })
                                                                     }
