@@ -449,37 +449,7 @@ const FormReminder = (props) => {
                                             }
                                         </div>
                                     </div>
-                                    {/* <label>Instansi Tujuan</label>
-                                    {
-                                        userDetail && userDetail.role === 'owner' ? 
-                                            <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={onChangeDropDown}>
-                                                <option defaultValue='' hidden></option>
-                                                {
-                                                    allInstansi.map((instansi,index) => {
-                                                        return(
-                                                            <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
-                                                        )
-                                                    })
-
-                                                }
-                                            </select>
-                                    :
-                                        ''
-                                    } */}
                                 </div>
-                                {/* <div className="div-reminder">
-                                    <label>Akun Tujuan</label>
-                                    <select className="reminder-akun" type="text" required onChange={(e) => onChange(e,true)}>
-                                        <option defaultValue='' hidden></option>
-                                        {
-                                            users.map(user => {
-                                                return(
-                                                    <option key={user._id} name="kepada" value={user._id}>{user.nama}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div> */}
                             </div>
 
                             {
@@ -544,11 +514,11 @@ const FormReminder = (props) => {
                                         </div>
 
                                         <div className='col-md-10' style={{display: 'flex' , justifyContent:'flex-start', flexWrap:'wrap' , width:'800px' , height: 'fit-content'}}>
-                                            <div style={{marginBottom: '16px'}}>
+                                        <div style={{marginBottom: '16px'}}>
                                                 <div style={{marginBottom: '16px'}}>
                                                     {
                                                         userDetail && userDetail.role === 'owner' ? 
-                                                            <select className="reminder-tujuan-test" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,'pengguna0' , 'tujuan0')}>
+                                                            <select className="reminder-tujuan-test" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,'pengguna0' , 'tujuan0' , 'instansi0')}>
                                                                 <option defaultValue='' hidden></option>
                                                                 {
                                                                     allInstansi.map((instansi,index) => {
@@ -594,32 +564,18 @@ const FormReminder = (props) => {
                                                                         <select className="reminder-tujuan-test" type="text" required name="nama_pendek" onChange={(e) => onChangeDropDown(e,`pengguna${index+1}`,`tujuan${index+1}` , `instansi${index+1}`)}>
                                                                             <option defaultValue='' selected={true} hidden></option>
                                                                             {
-                                                                                // !testing ?
-                                                                                
-                                                                                    allInstansi.map((instansi,index) => {
-                                                                                        // let alreadySelected = false
-                                                                                        // Object.values(selectedInstansi).forEach(user1 => {
-                                                                                        //     if (user._id === user1) alreadySelected = true
-                                                                                        // });
+
+                                                                                    allInstansi && allInstansi.map((instansi,i) => {
+                                                                                        let selected = false
+                                                                                        for(let i = 0 ; i < allInstansi.length ; i++){
+                                                                                            selected = instansi === Object.values(selectedInstansi)[index+1]
+                                                                                        }
+                                                                                        console.log(selected)
                                                                                             return(
     
-                                                                                                    <option key={index} selected={instansi === (selectedInstansi[`instansi${index+1}`]) ? true : false} value={instansi}>{instansi}</option>
+                                                                                                    <option key={i} selected={selected} value={instansi}>{instansi}</option>
                                                                                             )
                                                                                     })
-    
-                                                                                // :
-                                                                                // allInstansi.map((instansi,index) => {
-                                                                                //     // let alreadySelected = false
-                                                                                //     // Object.values(selectedInstansi).forEach(user1 => {
-                                                                                //     //     if (user._id === user1) alreadySelected = true
-                                                                                //     // });
-                                                                                //         return(
-
-                                                                                //                 <option key={index} value={instansi}>{instansi}</option>
-                                                                                //         )
-                                                                                // })
-
-
                                                                             }
                                                                         </select>
                                                                         <span className="remove-form" style={{position:'absolute' , right: '-5px' , top: '10px'}}>
@@ -653,37 +609,7 @@ const FormReminder = (props) => {
                                             }
                                         </div>
                                     </div>
-                                    {/* <label>Instansi Tujuan</label>
-                                    {
-                                        userDetail && userDetail.role === 'owner' ? 
-                                            <select className="reminder-tujuan" type="text" required name="nama_pendek" onChange={onChangeDropDown}>
-                                                <option defaultValue='' hidden></option>
-                                                {
-                                                    allInstansi.map((instansi,index) => {
-                                                        return(
-                                                            <option key={index} value={instansi.nama_pendek}>{instansi.nama_pendek}</option>
-                                                        )
-                                                    })
-
-                                                }
-                                            </select>
-                                    :
-                                        ''
-                                    } */}
                                 </div>
-                                {/* <div className="div-reminder">
-                                    <label>Akun Tujuan</label>
-                                    <select className="reminder-akun" type="text" required onChange={(e) => onChange(e,true)}>
-                                        <option defaultValue='' hidden></option>
-                                        {
-                                            users.map(user => {
-                                                return(
-                                                    <option key={user._id} name="kepada" value={user._id}>{user.nama}</option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                </div> */}
                             </div>
 
                             {

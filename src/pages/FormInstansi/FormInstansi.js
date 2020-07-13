@@ -239,74 +239,9 @@ const FormInstansi = (props) => {
             if(e.key === 'Enter') {
                 e.preventDefault();
                 if(isEditing) {
-                    const editInstansi = async (data) => {
-                        setLoading(true)
-                        console.log(data)
-                        const formData = objectToFormData(data)
-            
-                        if (media.length > 0) {
-                            for (let i = 0; i < media.length; i++) {
-                                formData.append(`logo`, media[i])
-                            }
-                        }  else {formData.append('logo', new File([null], 'blob'))}
-            
-                        for (let pair of formData.entries()) {
-                            console.log(pair[0] + ', ' + pair[1])
-                        }
-            
-                        const config = {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                'X-Auth-Token': `aweuaweu ${token}`,
-                            },
-                        }
-                        try {
-                            const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,formData,config,)
-                            alert(res.data.message)
-                            setLoading(false)
-                            history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
-                        }
-                        catch(err) {
-                            console.log(err)
-                            alert(err.response.data.message)
-                            setLoading(false)
-                        }
-                    }
+                    editInstansi(newInstansi)
                 } else {
-                    const addNewInstansi = async (data) => {
-                        setLoading(true)
-                        console.log(data)
-                        const formData = objectToFormData(data)
-            
-                        for (let i = 0; i < media.length; i++) {
-                            formData.append(`logo`, media[i])
-                        }
-            
-                        for (let pair of formData.entries()) {
-                            console.log(pair[0] + ', ' + pair[1])
-                        }
-            
-                        const config = {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                'X-Auth-Token': `aweuaweu ${token}`,
-                            },
-                        }
-            
-                        try {
-                            const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/instansi',formData,config,)
-                            alert(res.data.message)                
-                            setLoading(false)
-                            history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
-                        }
-            
-                        catch(err) {
-                            alert(err.response.data.message)
-                            setLoading(false)
-                        }
-                        
-                        
-                    }
+                    addNewInstansi(newInstansi)
                 }
             }
           }
