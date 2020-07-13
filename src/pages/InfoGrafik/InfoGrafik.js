@@ -220,13 +220,23 @@ const Dashboard = (props) => {
                             <div className="button-home-next2" onClick={onNextStatistik}>
                                 <i className="material-icons">arrow_forward</i>
                             </div>
-                            <StatistikGNRM 
-                                color='#8380EA'
-                                tahun={tahun}
-                                periode={periode}
-                                waktu={waktu}
-                                instansi={instansi}
-                            />
+                            {
+                              userDetail && userDetail.role === 'owner' ?
+                                <StatistikGNRM 
+                                    color='#8380EA'
+                                    tahun={tahun}
+                                    periode={periode}
+                                    waktu={waktu}
+                                />
+                                :
+                                <StatistikGNRM 
+                                    color='#8380EA'
+                                    tahun={tahun}
+                                    periode={periode}
+                                    waktu={waktu}
+                                    instansi={instansi}
+                                />
+                            }
                             <div className="keterangan">
                               <p className="">
                                 Keterangan : 

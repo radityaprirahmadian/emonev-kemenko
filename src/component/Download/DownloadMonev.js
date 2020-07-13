@@ -30,6 +30,11 @@ const style = StyleSheet.create({
         fontFamily: 'Open Sans',
     },
 
+    headerBoldBotFlex: {
+        fontFamily: 'Open Sans',
+        marginTop: 20
+    },
+
     isi: {
         marginLeft: 20,
         marginTop: 10,
@@ -94,8 +99,10 @@ const style = StyleSheet.create({
         marginLeft: 20,
         marginTop: 10,
         marginBottom: 30,
+        width: 500,
         display: 'flex',
-        flexDirection: "row"
+        flexDirection: "row",
+        flexWrap: 'wrap'
     },
 
     isiimage: {
@@ -170,6 +177,7 @@ const style = StyleSheet.create({
     image: {
         height: 53,
         width: 53,
+        objectFit:'contain',
         position: 'absolute',
         top: -3,
         left: 5
@@ -328,7 +336,7 @@ const DownloadMonev = (props) => {
                                 })
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        <Text style={style.headerBoldBotFlex}>
                             4.       Hasil Monitoring dan Kendala Program ( Pelaporan Kinerja )
                         </Text>
                         <View style={style.isi}>
@@ -353,7 +361,7 @@ const DownloadMonev = (props) => {
                                 })
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        <Text style={style.headerBoldBotFlex}>
                             5.        Ketercapaian Indikator dan Target ( Pengukuran Kerja )
                         </Text>
                         <Text style={style.isi}>
@@ -373,7 +381,7 @@ const DownloadMonev = (props) => {
                                 })
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        <Text style={style.headerBoldBotFlex}>
                             6.        Tindak Lanjut Hasil Monitoring dan Evaluasi
                         </Text>
                         <Text style={style.isi}>

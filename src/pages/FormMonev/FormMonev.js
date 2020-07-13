@@ -424,7 +424,9 @@ const FormMonev =  (props) => {
             setGerakanOptions(gerakan)
             setKpOptions((proyek.map(proyek => proyek.kp)))
         })()
+    },[])
 
+    useEffect(() => {
         if(props.match.params.id) {
             resetDocument()
             editDocument()
@@ -436,7 +438,7 @@ const FormMonev =  (props) => {
         else {
             editDocumentFalse()
         }
-    },[])
+    }, [props.match.params.id])
 
     useEffect(() => {
         const getInstansiDetail = async () => {
@@ -4023,34 +4025,34 @@ const FormMonev =  (props) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        instansiDocumentDetail ?
-                                            <tr style={{fontSize:"12px"}} >
-                                                <td style={{position:'relative'}}>
-                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
-                                                </td>
-                                                <td>
-                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
-                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
-                                                    <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDocumentDetail&&instansiDocumentDetail.alamat}<br />
-                                                            Telp {instansiDocumentDetail&&instansiDocumentDetail.kontak}; Fax {instansiDocumentDetail&&instansiDocumentDetail.fax}; <br />
-                                                            website : {instansiDocumentDetail&&instansiDocumentDetail.website}, email: {instansiDocumentDetail&&instansiDocumentDetail.email}</h1>
-                                                </td>
-                                            </tr>
-                                        :
-                                            <tr style={{fontSize:"12px"}} >
-                                                <td style={{position:'relative'}}>
-                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ width: "100px", position: 'absolute' , top: '0' }} />
-                                                </td>
-                                                <td>
-                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
-                                                    <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
-                                                    <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDetail&&instansiDetail.alamat}<br />
-                                                            Telp {instansiDetail&&instansiDetail.kontak}; Fax {instansiDetail&&instansiDetail.fax}; <br />
-                                                            website : {instansiDetail&&instansiDetail.website}, email: {instansiDetail&&instansiDetail.email}</h1>
-                                                </td>
-                                            </tr>
-                                    }
+                                {
+                                    instansiDocumentDetail ?
+                                        <tr style={{fontSize:"12px" , height: 'fit-content'}} >
+                                            <td style={{position:'relative' , width:'105px' , textAlign:'center'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ maxWidth: "93%", height:'100%', position: 'absolute' , left: '0' , objectFit:'contain' }} />
+                                            </td>
+                                            <td>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDocumentDetail&&instansiDocumentDetail.alamat}<br />
+                                                        Telp {instansiDocumentDetail&&instansiDocumentDetail.kontak}; Fax {instansiDocumentDetail&&instansiDocumentDetail.fax}; <br />
+                                                        website : {instansiDocumentDetail&&instansiDocumentDetail.website}, email: {instansiDocumentDetail&&instansiDocumentDetail.email}</h1>
+                                            </td>
+                                        </tr>
+                                    :
+                                        <tr style={{fontSize:"12px" , height: 'fit-content'}} >
+                                            <td style={{position:'relative' , width:'105px' , textAlign:'center'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ maxWidth: "93%", height:'100%', position: 'absolute' , objectFit:'contain' , left: '0' }} />
+                                            </td>
+                                            <td>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
+                                                <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Sekretariat</h1>
+                                                <h1 style={{ lineHeight: '16px' , width: '750px'}}>{instansiDetail&&instansiDetail.alamat}<br />
+                                                        Telp {instansiDetail&&instansiDetail.kontak}; Fax {instansiDetail&&instansiDetail.fax}; <br />
+                                                        website : {instansiDetail&&instansiDetail.website}, email: {instansiDetail&&instansiDetail.email}</h1>
+                                            </td>
+                                        </tr>
+                                }
                                 </tbody>
                             </table>
 

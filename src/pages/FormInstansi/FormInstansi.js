@@ -621,6 +621,7 @@ const FormInstansi = (props) => {
                                                         onChange={onChangeInstansi}
                                                         onKeyPress={onKeyPress}
                                                         required 
+                                                        style={{marginLeft:'165px'}}
                                                         // onKeyPress={onKeyPress}
                                                     />
                                                 </div>
@@ -647,6 +648,7 @@ const FormInstansi = (props) => {
                                                     name="nama" 
                                                     value={newInstansi.nama} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     required={true}
                                                     style={{width:'767px', marginLeft:'97px'}}
                                                 />
@@ -657,7 +659,8 @@ const FormInstansi = (props) => {
                                                     className="admin-nama" 
                                                     type="text" 
                                                     name="nama_pendek" 
-                                                    value={newInstansi.nama_pendek} 
+                                                    value={newInstansi.nama_pendek}
+                                                    onKeyPress={onKeyPress} 
                                                     onChange={onChangeInstansi}  
                                                     required={true}
                                                     style={{width:'366px', marginLeft:'101px'}}
@@ -667,14 +670,14 @@ const FormInstansi = (props) => {
                                                 <label>Jenis</label>
                                                 {
                                                     instansiDetail && instansiDetail.jenis ?
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress} onChange={onChangeInstansi}  required={true}>
                                                             <option value="" defaultValue="" hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                             }
                                                         </select>
                                                         :
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress}  onChange={onChangeInstansi}  required={true}>
                                                             <option selected={true} hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
@@ -690,6 +693,7 @@ const FormInstansi = (props) => {
                                                     name="kontak" 
                                                     value={newInstansi.kontak} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     required={true} 
                                                     style={{marginLeft:'87px', width:'366px'}}
                                                 />
@@ -704,6 +708,7 @@ const FormInstansi = (props) => {
                                                             marginLeft: "108px", 
                                                             width: "178px"}} 
                                                     onChange={onChangeFiles}
+                                                    onKeyPress={onKeyPress}
                                                     type="file"
                                                     accept="image/*"
                                                     name="logo"
@@ -831,6 +836,7 @@ const FormInstansi = (props) => {
                                                     name="alamat" 
                                                     value={newInstansi.alamat} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     style={{marginLeft:'156px', width:'767px' , height: '84px'}}
                                                 />
                                             </div>
@@ -841,6 +847,7 @@ const FormInstansi = (props) => {
                                                     type="text" 
                                                     name="fax" 
                                                     value={newInstansi.fax} 
+                                                    onKeyPress={onKeyPress}
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'186px', width:'366px'}}
                                                 />
@@ -853,6 +860,7 @@ const FormInstansi = (props) => {
                                                     name="website" 
                                                     value={newInstansi.website} 
                                                     onChange={onChangeInstansi} 
+                                                    onKeyPress={onKeyPress}
                                                     style={{marginLeft:'150px', width:'366px'}}
                                                 />
                                             </div>
@@ -863,6 +871,7 @@ const FormInstansi = (props) => {
                                                     type="email" 
                                                     name="email" 
                                                     value={newInstansi.email} 
+                                                    onKeyPress={onKeyPress}
                                                     onChange={onChangeInstansi} 
                                                     style={{marginLeft:'102px', width:'366px'}}
                                                 />
@@ -904,6 +913,7 @@ const FormInstansi = (props) => {
                                                         name="user_nama" 
                                                         value={newInstansi.user_nama} 
                                                         onChange={onChangeInstansi} 
+                                                        onKeyPress={onKeyPress}
                                                         required={true}
                                                     />
                                                 </div>
@@ -921,6 +931,7 @@ const FormInstansi = (props) => {
                                                         name="user_username" 
                                                         value={newInstansi.user_username} 
                                                         onChange={onChangeInstansi}
+                                                        onKeyPress={onKeyPress}
                                                         required={true} 
                                                     />
                                                 </div>
@@ -932,6 +943,7 @@ const FormInstansi = (props) => {
                                                         name="user_password" 
                                                         value={newInstansi.user_password} 
                                                         onChange={onChangeInstansi}
+                                                        onKeyPress={onKeyPress}
                                                         required={true} 
                                                     />
                                                     <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , background:'#C4C4C4'}} onClick={handlePassword}>
@@ -950,6 +962,7 @@ const FormInstansi = (props) => {
                                                         type="text" 
                                                         name="user_kontak" 
                                                         value={newInstansi.user_kontak} 
+                                                        onKeyPress={onKeyPress}
                                                         onChange={onChangeInstansi}
                                                         required={true}
                                                         style={{marginLeft:'95px'}} 
@@ -964,7 +977,8 @@ const FormInstansi = (props) => {
                                                         value={newInstansi.user_email} 
                                                         onChange={onChangeInstansi}
                                                         required 
-                                                        // onKeyPress={onKeyPress}
+                                                        onKeyPress={onKeyPress}
+                                                        style={{marginLeft:'165px'}} 
                                                     />
                                                 </div>
             

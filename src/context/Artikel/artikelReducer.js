@@ -13,6 +13,7 @@ export default (state, action) => {
             return {
                 ...state,
                 documentDetail: null,
+                instansiDocumentDetail: null,
                 loading: false,
                 isEditing: false
             }

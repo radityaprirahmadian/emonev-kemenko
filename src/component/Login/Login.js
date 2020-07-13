@@ -181,7 +181,7 @@ const Login = (props) => {
                                         <button className="button-login" id='button-login' type="submit">MASUK</button>
                                     </form>
                                     <Link to='/lupa-password'>
-                                        <div style={{marginLeft:'224px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Kata Sandi?</div>
+                                        <div style={{marginLeft:'237px' , fontSize:'18px' , marginTop:'10px', cursor:'pointer'}}>Lupa Kata Sandi?</div>
                                     </Link>
 
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>

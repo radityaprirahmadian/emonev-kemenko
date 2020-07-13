@@ -389,7 +389,10 @@ const FormGNRM = (props) => {
             setGerakanOptions(gerakan)
             setKpOptions((proyek && proyek.map(proyek => proyek.kp)))
         })()
+    }, [])
+    
 
+    useEffect(() =>{
         if (props.match.params.id) {
             resetDocument()
             editDocument()
@@ -401,8 +404,7 @@ const FormGNRM = (props) => {
         else {
             editDocumentFalse()
         }
-    }, [])
-    
+    }, [props.match.params.id])
 
     useEffect(() => {
         const getInstansiDetail = async () => {
@@ -2783,8 +2785,6 @@ const FormGNRM = (props) => {
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
                                                 </div>
-                                                {
-                                                    instansiDetail && instansiDetail.jenis === 'Kementerian' ?
                                                         <Fragment>
                                                             <div>
                                                                 <label>Kegiatan Prioritas</label>
@@ -2958,86 +2958,6 @@ const FormGNRM = (props) => {
                                                                 </Fragment>
                                                             }
                                                         </Fragment>
-                                                        :
-                                                        <Fragment>
-                                                            <div>
-                                                                <label>Gerakan</label>
-                                                                {
-                                                                    documentDetail && documentDetail.form.gerakan ?
-                                                                        <select
-                                                                            onChange={onChange}
-                                                                            class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{ marginLeft: '145px' }}
-                                                                        >
-                                                                            {
-                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} selected={documentDetail.form.gerakan === gerakan && true} value={gerakan}>{gerakan}</option>)
-                                                                            }
-                                                                        </select> :
-                                                                        <select
-                                                                            onChange={onChange}
-                                                                            class="gnrm-select"
-                                                                            name="gerakan"
-                                                                            style={{ marginLeft: '145px' }}
-                                                                        >
-                                                                            <option selected={true} hidden></option>
-                                                                            {
-                                                                                gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                            }
-                                                                        </select>
-                                                                }
-                                                            </div>
-                                                            {
-                                                                formGerakan.map((form, index) => {
-                                                                    return (
-                                                                        <div key={index}>
-                                                                            <label>Gerakan</label>
-                                                                            {
-                                                                                documentDetail ?
-                                                                                    <select
-                                                                                        // onChange={onChangeGerakan} 
-                                                                                        class="gnrm-select"
-                                                                                        name="gerakan"
-                                                                                        style={{ marginLeft: '145px' }}
-                                                                                    >
-                                                                                        {
-                                                                                            gerakanOptions && gerakanOptions.map((gerakan, i) => {
-                                                                                                let alreadySelected = false
-                                                                                                Object.values(selectedGerakan).forEach(selected => {
-                                                                                                    if (gerakan === selected) alreadySelected = true
-                                                                                                });
-                                                                                                return <option key={i} value={gerakan} hidden={alreadySelected}>{gerakan}</option>
-                                                                                            })
-                                                                                        }
-                                                                                    </select> :
-                                                                                    <select
-                                                                                        // onChange={onChangeGerakan} 
-                                                                                        class="gnrm-select"
-                                                                                        name="gerakan"
-                                                                                        style={{ marginLeft: '145px' }}
-                                                                                    >
-                                                                                        <option selected={true} hidden></option>
-                                                                                        {
-                                                                                            gerakanOptions && gerakanOptions.map((gerakan, i) => <option key={i} value={gerakan}>{gerakan}</option>)
-                                                                                        }
-                                                                                    </select>
-                                                                            }
-                                                                        </div>
-                                                                    )
-                                                                })
-                                                            }
-                                                            {
-                                                                formGerakan.length < 4 ?
-                                                                    <div>
-                                                                        <label className="tambah-lembaga" >
-                                                                            Tambah Gerakan
-                                                            </label>
-                                                                        <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addFormGerakan} />
-                                                                    </div>
-                                                                    : ''
-                                                            }
-                                                        </Fragment>
-                                                }
                                                 <div>
                                                     <label style={{ textAlign: 'right', clear: 'both', float: 'left' }}>Penjelasan</label>
                                                     <textarea
@@ -4080,8 +4000,8 @@ const FormGNRM = (props) => {
                                 {
                                     instansiDocumentDetail ?
                                         <tr style={{fontSize:"12px" , height: 'fit-content'}} >
-                                            <td style={{position:'relative' , width:'105px' , display:'inline-block' , textAlign:'center'}}>
-                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ maxWidth: "93%", position: 'absolute' , left: '0' , objectFit:'contain' , height: '80px' }} />
+                                            <td style={{position:'relative' , width:'105px' , textAlign:'center'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDocumentDetail&&instansiDocumentDetail.logo}`} style={{ maxWidth: "93%", height:'100%', position: 'absolute' , left: '0' , objectFit:'contain' }} />
                                             </td>
                                             <td>
                                                 <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
@@ -4093,8 +4013,8 @@ const FormGNRM = (props) => {
                                         </tr>
                                     :
                                         <tr style={{fontSize:"12px" , height: 'fit-content'}} >
-                                            <td style={{position:'relative' , width:'105px' , display:'inline-block' , textAlign:'center'}}>
-                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ maxWidth: "93%", position: 'absolute' , objectFit:'contain' , left: '0' , height: '80px' }} />
+                                            <td style={{position:'relative' , width:'105px' , textAlign:'center'}}>
+                                                    <img src={`https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`} style={{ maxWidth: "93%", height:'100%', position: 'absolute' , objectFit:'contain' , left: '0' }} />
                                             </td>
                                             <td>
                                                 <h1 style={{ lineHeight: '16px', fontWeight: 'bold' }}>Gerakan Nasional Revolusi Mental</h1>
@@ -4168,20 +4088,13 @@ const FormGNRM = (props) => {
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    {
-                                        instansiDocumentDetail && instansiDocumentDetail.jenis === 'Pemerintah Daerah' ?
-                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
-                                                Nama Program : {data.kegiatan.nama_program}<br />
-                                                {data.kegiatan.penjelasan_kegiatan}
-                                            </td>
-                                        :    
                                             <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
                                                 Nama Program : {data.kegiatan.nama_program}<br />
                                                         Kegiatan Prioritas : {data.kp}<br />
                                                         Program Prioritas: {data.prop}<br />
-                                                {data.kegiatan.penjelasan_kegiatan}
+                                                Penjelasan : {data.kegiatan.penjelasan_kegiatan}
                                             </td>
-                                    }
+
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
                                     <td>3.</td>

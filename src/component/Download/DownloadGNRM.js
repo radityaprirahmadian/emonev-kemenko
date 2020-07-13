@@ -34,6 +34,11 @@ const style = StyleSheet.create({
         fontFamily: 'Open Sans',
     },
 
+    headerBoldBotFlex: {
+        fontFamily: 'Open Sans',
+        marginTop: 20
+    },
+
     isi: {
         marginLeft: 20,
         marginTop: 10,
@@ -95,8 +100,10 @@ const style = StyleSheet.create({
         marginLeft: 20,
         marginTop: 10,
         marginBottom: 30,
+        width: 500,
         display: 'flex',
-        flexDirection: "row"
+        flexDirection: "row",
+        flexWrap: 'wrap'
     },
 
     isiimage: {
@@ -150,6 +157,7 @@ const style = StyleSheet.create({
     image: {
         height: 53,
         width: 53,
+        objectFit:'contain',
         position: 'absolute',
         top: -3,
         left: 5
@@ -304,7 +312,7 @@ const DownloadGNRM = (props) => {
                                 })
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        <Text style={style.headerBoldBotFlex}>
                             5.        Anggaran
                         </Text>
                         <View style={style.isi}>
@@ -335,7 +343,7 @@ const DownloadGNRM = (props) => {
                                 })
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        <Text style={style.headerBoldBotFlex}>
                             7.        Pihak Terkait
                         </Text>
                         <View style={style.isi} >
