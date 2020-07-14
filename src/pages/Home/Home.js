@@ -366,7 +366,7 @@ const Home = () => {
             <Fragment>
                 <Topbar kunci={true}/>
                     <div className="home" style={{margin:'0'}}>
-                        <div className="home-section-1">
+                        <div className="home-section-1" style={documents && documents.length === 0 ? {height:'8vh'} : {}}>
                             {
                                 documents && documents.length > 6 ?
                                     documents.slice(0,7).map((document, index) => {
