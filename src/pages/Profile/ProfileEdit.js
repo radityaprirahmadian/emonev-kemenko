@@ -1,4 +1,4 @@
-import React,{Component,Fragment, useContext, useState, useEffect} from 'react';
+import React,{Component,Fragment, useContext, useState, useEffect, useRef} from 'react';
 import './ProfileEdit.css';
 import axios from 'axios';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
@@ -12,6 +12,7 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import Spinner from '../../component/Spinner/Spinner'
+import AvatarEditor from 'react-avatar-editor'
 import Notification from '../../component/Notification/Notification';
 
 const ProfileEdit = (props) => {
@@ -21,7 +22,7 @@ const ProfileEdit = (props) => {
     const history = useHistory();
     const [ loading , setLoading ] = useState(true)
     const [seen, setSeen] = useState(false)
-    const [foto, setFoto] = useState([])
+    const [foto, setFoto] = useState('')
 
     // const [user, setUser] = useState ({
     //     name: name,
@@ -64,7 +65,7 @@ const ProfileEdit = (props) => {
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
         setIsFoto(true)
-        setFoto([...event.target.files])
+        setFoto(event.target.files[0])
         if(event.target.files && event.target.files[0]){
             setFotos(URL.createObjectURL(event.target.files[0]))
         }
@@ -116,7 +117,7 @@ const ProfileEdit = (props) => {
         try {
             const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,formData,config)
             if(isFoto) {
-                updateUserPhoto()
+                onClickSave()
             } else {
                 alert(res.data.message)
                 history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
@@ -128,6 +129,11 @@ const ProfileEdit = (props) => {
         }
         setLoading(true)
     }
+
+    const [scale, setScale] = useState(1)
+    const slideChange = e => {
+		setScale(e.target.value)
+	}
 
     const updateUserPhoto = async () => {
 		const formData = new FormData()
@@ -168,6 +174,44 @@ const ProfileEdit = (props) => {
         e.preventDefault()
         setSeen(!seen)
     }
+
+	const [editor, setEditor] = useState(null)
+	const setEditorRef = editor => setEditor(editor)
+
+	function blobToFile(theBlob, fileName = 'avatar') {
+		theBlob.lastModifiedDate = new Date()
+		theBlob.name = fileName
+		return theBlob
+    }
+    
+
+    const onClickSave = (e) => {
+        if (editor) {
+            const canvasScaled = editor.getImageScaledToCanvas()
+            canvasScaled.toBlob(async blob => {
+				// const image = URL.createObjectURL(blob)
+				const formData = new FormData()
+				const file = blobToFile(blob)
+				formData.append('foto', file)
+
+				const config = {
+                    headers: {
+                        'X-Auth-Token': `aweuaweu ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+                try {
+                    const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,formData,config)
+                    alert(res.data.message)
+                    history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
+                    window.location.reload()
+                }
+                catch (err) {
+                    alert(err.message)
+                }
+			}, 'image/png')
+        }
+      }
 
         return(
             <Fragment>
@@ -314,8 +358,43 @@ const ProfileEdit = (props) => {
                                         <label>Foto Profil</label><br/>
                                             <div className="photo-profile-container">
                                                 <div className="photo-profile">
-                                                    <img src={fotos}></img>
+                                                    {
+                                                        foto !== '' ? 
+                                                        <Fragment>
+                                                            <AvatarEditor
+                                                                ref={setEditorRef}
+                                                                image={foto && URL.createObjectURL(foto)}
+                                                                width={180}
+                                                                height={180}
+                                                                border={0}
+                                                                borderRadius={200}
+                                                                color={[0, 0, 0, 0.6]} // RGBA
+                                                                rotate={0}
+                                                                scale={scale}
+                                                            />
+                                                        </Fragment>
+                                                        :
+                                                            <img src={fotos}></img>
+                                                    }
                                                 </div>
+
+                                                {
+                                                    foto !== '' ? 
+                                                        <div className='range-container' style={{textAlign:'center' , marginBottom:'10px'}}>
+                                                            <p>Perbesar gambar</p>
+                                                            <input
+                                                                className="scale"
+                                                                type="range"
+                                                                name="scale"
+                                                                id="scale"
+                                                                min={1}
+                                                                max={10}
+                                                                value={scale}
+                                                                onChange={slideChange}
+                                                            />
+                                                        </div>
+                                                    : ''
+                                                }
                                                 <u><h1><label htmlFor='testing' className='upload_foto'>Ganti Foto</label></h1></u>
                                                 <input 
                                                     id="testing"
