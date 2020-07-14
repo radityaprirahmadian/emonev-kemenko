@@ -71,7 +71,8 @@ const Admin = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,config)
+            alert(res.data.message)
             getAllUser()
         }
         catch (err) {

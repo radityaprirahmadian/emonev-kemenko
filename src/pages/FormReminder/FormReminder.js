@@ -6,7 +6,6 @@ import io from "socket.io-client";
 import { useHistory } from 'react-router-dom'
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import {LayoutContext} from '../../context/Layout/LayoutContext'
-import Form1Reminder from '../../component/Reminder/Form1';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Popup from '../../component/Popup/Popup';

@@ -15,7 +15,6 @@ import FormMonev from './pages/FormMonev/FormMonev';
 import Admin from './pages/Admin/Admin';
 import Reminder from './pages/Reminder/Reminder';
 import ReminderOwner from './pages/Reminder/ReminderOwner';
-import Form1Admin from './component/Admin/Form1';
 import FormAdmin from './pages/FormAdmin/FormAdmin';
 import FormReminder from './pages/FormReminder/FormReminder';
 import Profile from './pages/Profile/Profile';
@@ -23,8 +22,6 @@ import ProfileEdit from './pages/Profile/ProfileEdit';
 import GalleryPage from './pages/Gallery/Gallery';
 import Home from './pages/Home/Home';
 import Notifikasi from './pages/Notifikasi/Notifikasi';
-import PreviewGNRM from './pages/PreviewGNRM/PreviewGNRM';
-import PreviewMonev from './pages/PreviewMonev/PreviewMonev';
 import Artikel from './pages/Artikel/Artikel';
 import AuthState , {AuthContext} from './context/Auth/AuthContext';
 import PrivateRoute from './route/PrivateRoute';
@@ -312,15 +309,6 @@ const App = () => {
                         notif={notifs}
                       />
                     </Route>
-                    {/* {/* <Route path="/preview-gnrm/:id">
-                      <PrivateRoute
-                        exact
-                        path="/preview-gnrm/:id"
-                        component={PreviewGNRM}
-                        setId = {setId}
-                        notif={notifs}
-                      />
-                    </Route>  */}
                     <Route path="/:role/kelola-instansi">
                       <PrivateRoute
                         exact

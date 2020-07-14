@@ -96,7 +96,8 @@ const Infografis = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/kabar/${id}`, config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/kabar/${id}`, config)
+            alert(res.data.message)
             getAllDocument()
         }
         catch (err) {
