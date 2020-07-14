@@ -19,7 +19,6 @@ const ProfileInstansi = (props) => {
     const [ foto, setFoto ] = useState();
     const [ loading, setLoading] = useState(false)
     const [ instansiDetail , setInstansiDetail] = useState({})
-    console.log(instansiDetail)
 
     const getInstansiDetail = async () => {
         setLoading(true)
@@ -62,8 +61,6 @@ const ProfileInstansi = (props) => {
         const wow = `https://api.simonev.revolusimental.go.id${instansiDetail&&instansiDetail.logo}`
         setFoto(wow)
     },[instansiDetail])
-
-    console.log(foto)
 
         return(
             <Fragment>

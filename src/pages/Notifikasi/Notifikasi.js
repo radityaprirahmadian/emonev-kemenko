@@ -33,7 +33,6 @@ const Notifikasi = (props) => {
         setReminderRev(allReminder)
     },[allReminder])
 
-    console.log(allReminder)
     return(
         <Fragment>
                 <SideBarOff setId={props.setId}/>

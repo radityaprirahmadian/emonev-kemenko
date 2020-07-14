@@ -192,7 +192,7 @@ const Home = () => {
             setInstansi(res.data.instansi)
         })
         .catch(err => {
-            console.log('wow', +err)
+            console.log(err)
         })
 
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Lembaga')
@@ -200,7 +200,7 @@ const Home = () => {
             setLembaga(res.data.instansi)
         })
         .catch(err => {
-            console.log('wow', +err)
+            console.log(err)
         })
 
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Pemerintah Daerah')
@@ -208,7 +208,7 @@ const Home = () => {
             setInstansiDaerah(res.data.instansi)
         })
         .catch(err => {
-            console.log('wow', +err)
+            console.log(err)
         })
         getAllDocument()
     }, [])
@@ -240,8 +240,6 @@ const Home = () => {
               ])
         }
     }, [documents])
-
-    console.log(hidden)
 
       useEffect(() => {
         let cleanup = false;
@@ -313,7 +311,6 @@ const Home = () => {
         setHidden([...change]);
       };
 
-      console.log(documentCardLenght && documentCardLenght.length)
       const onNextFilter = (e) => {
         if(page < (documentCardLenght && documentCardLenght / 2)) {
             e.preventDefault()
@@ -322,7 +319,6 @@ const Home = () => {
                 ...filterCard,
                 page: JSON.stringify(a + 1)
             })
-            console.log('tes')
         } else { 
             e.preventDefault()
             return filterCard;
@@ -345,15 +341,6 @@ const Home = () => {
       
     let tanggal = new Date(Date.now())
     let bulans = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][tanggal.getMonth()];
-    //const [ bulan , setBulan ] = useState('')
-
-    // useEffect(() => {
-    //     setBulan(bulans)
-    // }, [])
-    // const onChangeBulan = (e) => {
-    //     return setBulan(e.target.value)
-    // }
-
     const yearsData = [];
     const todaysYear = new Date().getFullYear();
     for (let year = todaysYear; year >= 2020; year--) {
@@ -384,7 +371,6 @@ const Home = () => {
                                 documents && documents.length > 6 ?
                                     documents.slice(0,7).map((document, index) => {
                                         const i = document.gambar.map(infografis => `https://api.simonev.revolusimental.go.id${infografis.path}`)
-                                        console.log(i)
                                         return (
                                             <Fragment>
                                                 <div key={index} className={hidden[index] ? "home-pic" : "d-none"}>

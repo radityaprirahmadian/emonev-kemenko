@@ -13,14 +13,12 @@ const SocketState = (props) => {
     const getNotif = (id) => {
         let cleanup = false;
         if (!cleanup) {
-          console.log("test");
     
           socket.on("connect", () => {
             socket.emit("notif_subscribe", { user: id });
           });
     
           socket.on("notif_receive", payload => {
-            console.log(payload);
             setNotifs([...notifs, payload].reverse());
           });
         }

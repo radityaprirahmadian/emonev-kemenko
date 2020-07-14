@@ -32,8 +32,6 @@ const Dashboard = (props) => {
     const history = useHistory()
     const [ statistikActive , setStatistikActive] = useState(true)
 
-    console.log(userDetail)
-
     const [filterCard,setFilterCard] = useState({
         page:'1',
     })
@@ -57,15 +55,11 @@ const Dashboard = (props) => {
       
   }
     const [documentCard,setDocumentCard] = useState([])
-    console.log(documentCard)
     const [documentCardLength,setDocumentCardLength] = useState([])
     
     const {
         page,
     } = filterCard
-
-    console.log(page)
-    console.log(documentCard)
 
     // const getDocumentCardLength = async () => {
     //     try {
@@ -113,9 +107,6 @@ const Dashboard = (props) => {
   useEffect(() =>{
     getDocumentCard()
   },[userDetail])
-
-  console.log(documentLengthArr)
-
 
       const onNextFilter = (e)  => {
         if(page < (documentCardLength && Math.ceil(documentCardLength / 3))) {
@@ -174,7 +165,6 @@ const Dashboard = (props) => {
     for (let i = 0 ; i < documentCardLength ; i++) {
       arr.push(i)
     }
-    console.log(arr)
     setDocumentLengthArr(arr)
 
   }, [documentCardLength])
@@ -184,10 +174,6 @@ const Dashboard = (props) => {
       setInstansi(userDetail&&userDetail.instansi.nama_pendek)
     }
   },[userDetail])
-
-  console.log(instansi)
-
-  console.log(documentCardLength)
 
   return (
       <Fragment>

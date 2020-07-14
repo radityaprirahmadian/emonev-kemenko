@@ -13,11 +13,8 @@ const NotifState = (props) => {
     };
     
     const [state,dispatch] = useReducer(NotifReducer,initialState)
-    console.log(state)
-    console.log(state.notifNew)
 
     const setAllReminder = (data) => {
-        console.log(data)
         dispatch({
             type: 'GET_ALL_REMINDER_TOTAL',
             payload: data
@@ -25,7 +22,6 @@ const NotifState = (props) => {
     }
 
     const setNotifNew = (data) => {
-        console.log(data)
         dispatch({
             type: 'SET_NOTIF',
             payload: data

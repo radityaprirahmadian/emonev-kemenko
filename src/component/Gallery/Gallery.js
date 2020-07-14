@@ -1,4 +1,4 @@
-import React,{Fragment, Component, useEffect, useState, useContext} from 'react';
+import React,{Fragment, useEffect, useState, useContext} from 'react';
 import './Gallery.css';
 import axios from 'axios'
 import triangle from '../../assets/Vector.png';
@@ -9,7 +9,6 @@ import Pagination from "react-js-pagination";
 import { AuthContext } from '../../context/Auth/AuthContext';
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
-// import ".../bootstrap/less/bootstrap.less";
 import Spinner from '../../component/Spinner/Spinner'
 
 const Gallery = (props) => {
@@ -22,7 +21,7 @@ const Gallery = (props) => {
     const [open, setOpen] = useState(false)
     const [galleriIndex , setGalleriIndex] = useState(0)
     const [loading,setLoading] = useState(false)
-    console.log(userDetail)
+
 
     const [filter,setFilter] = useState({
         pages: '1',
@@ -34,7 +33,6 @@ const Gallery = (props) => {
         limit
     } = filter
 
-    console.log(gallery)
 
     const getAllGallery = async () => {
         setLoading(true)
@@ -44,7 +42,6 @@ const Gallery = (props) => {
                     const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?instansi=${userDetail&&userDetail.instansi.nama_pendek}&page=${pages}&limit=${limit}`)
                     setTotal(res.data.total_gnrm)
                     setPage(Math.ceil(res.data.total / 9))
-                    console.log(res)
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
                     setGallery(res.data.galeri)
                 } else {
@@ -53,15 +50,12 @@ const Gallery = (props) => {
                     setPage(Math.ceil(res.data.total / 9))
                     const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
                     setGallery(res.data.galeri)
-                    console.log(res)
-
                 }
             }
             else {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/galeri?page=${pages}&limit=${limit}`)
                 setTotal(res.data.total_gnrm)
                 setPage(Math.ceil(res.data.total / 9))
-                console.log(res)
                 const wowo = res.data.galeri.map(galeri => galeri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` ))
                 setGallery(res.data.galeri)
             }
@@ -120,55 +114,7 @@ const Gallery = (props) => {
 
     const handleChange = (pageNumber) => {
         setFilter({...filter , pages: JSON.stringify(pageNumber)})
-        console.log(pageNumber)
     }
-
-    // const arrayTest = ['1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1']
-
-    // const [awal,setAwal] = useState(0)
-    // const [batas,setBatas] = useState(9)
-    // const [activePage,setActivePage] = useState(1)
-    // const [totalPage,setTotalPage] = useState(1)
-    // const [paging,setPaging] = useState([])
-
-    // useEffect(() => {
-    //     if(arrayTest.length % 9 === 0 ) {
-    //         setTotalPage(parseInt(arrayTest.length / 9))
-    //     } else setTotalPage(parseInt(arrayTest.length / 9 + 1))
-    // },[])
-
-    // useEffect(() => {
-    //     for(let i = 1 ; i <= totalPage ; i++){
-    //         setPaging([paging + i])
-    //         console.log('paging' , paging)
-    //     }
-    // },[totalPage])
-
-    // const handleGallery = (e) => {
-    //     e.preventDefault()
-    //     if(batas + 1 <= arrayTest.length ) {
-    //         setAwal(awal + 9)
-    //         setBatas(batas + 9)
-    //         setActivePage(activePage+1)
-    //     }
-    // }
-
-    // const handleChange = (pageNumber) => {
-    //     setFilter({...filter,pages: pageNumber})
-    // }
-    // const handleGalleryPrev = (e) => {
-    //     e.preventDefault()
-    //     if(awal >= 9) {
-    //         setAwal(awal - 9)
-    //         setBatas(batas - 9)
-    //         setActivePage(activePage-1)
-    //     }
-    // }
-
-    // console.log(arrayTest.length)
-    // console.log(awal)
-    // console.log(batas)
-    // console.log(paging)
 
         return(
             <Fragment>

@@ -28,7 +28,6 @@ const Monev =  (props) =>{
     const { sidebar } = useContext(LayoutContext)
     const [ documents , setDocuments] = useState([])
     const [ filterValue , setFilterValue ] = useState({})
-    console.log(documents)
 
     const [ filter, setFilter ] = useState({
         limit: '10',
@@ -47,8 +46,6 @@ const Monev =  (props) =>{
         periode,
         totalDoc,
     } = filter
-
-    console.log(filter)
 
     // const getDocumentLength = async () => {
     //     const config= {
@@ -92,7 +89,8 @@ const Monev =  (props) =>{
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=monev`,config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=monev`,config)
+            alert(res.data.message)
             getAllDocument()
         }
         catch (err) {
@@ -105,11 +103,6 @@ const Monev =  (props) =>{
         editDocumentFalse()
         resetDocument()
     }
-
-    // useEffect(() => {
-    //     getDocumentLength()
-    // },[])
-
     useEffect(() => {
         getAllDocument()
     }, [limit,page])

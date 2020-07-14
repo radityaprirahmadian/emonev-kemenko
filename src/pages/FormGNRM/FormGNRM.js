@@ -25,15 +25,12 @@ const FormGNRM = (props) => {
     const { userDetail, token } = useContext(AuthContext)
     const { sidebar } = useContext(LayoutContext)
     const Link = Scroll.Link;
-    console.log(documentDetail)
     const history = useHistory()
     const [panjang, setPanjang] = useState('0')
     const id = props.match.params.id
     const type = 'gnrm'
 
     const [instansiDetail, setInstansiDetail] = useState({})
-    console.log(instansiDocumentDetail)
-    console.log(instansiDetail)
 
     const [data, setData] = useState({
         tahun: '',
@@ -211,7 +208,6 @@ const FormGNRM = (props) => {
     }
 
     const [skFile, setSKFile] = useState([])
-    console.log(skFile)
     const [skGambar, setSkGambar] = useState();
     const [skGambars, setSkGambars] = useState();
 
@@ -270,9 +266,9 @@ const FormGNRM = (props) => {
             }
         } else { formData.append('sk', new File([null], 'blob')) }
 
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
-        }
+        // for (let pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1])
+        // }
 
         const config = {
             headers: {
@@ -303,9 +299,9 @@ const FormGNRM = (props) => {
             formData.append(`sk`, skFile[i])
         }
 
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
-        }
+        // for (let pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1])
+        // }
 
         const config = {
             headers: {
@@ -354,9 +350,9 @@ const FormGNRM = (props) => {
                 formData.append(`sk`, skFile[0])
             }
 
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
-        }
+        // for (let pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1])
+        // }
 
         const config = {
             headers: {
@@ -433,7 +429,6 @@ const FormGNRM = (props) => {
 
     const [ skExtension , setSkExtension] = useState('')
     const [ skFileUrl , setSkFileUrl] = useState([])
-    console.log(skExtension)
 
     useEffect(() => {
         if (instansiDetail) {

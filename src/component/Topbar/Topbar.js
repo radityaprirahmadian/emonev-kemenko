@@ -29,12 +29,6 @@ const Topbar = (props) => {
 
     const [instansi, setInstansi] = useState([])
     const [ documents , setDocuments] = useState([])
-
-    console.log(isAuthenticated)
-    console.log(token)
-
-    console.log(instansi)
-
     const getAllDocument = async () => {
         try {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`)
@@ -55,10 +49,9 @@ const Topbar = (props) => {
         axios.get('https://api.simonev.revolusimental.go.id/api/v1/pelaksanaan')
         .then(res => {
             setInstansi(res.data.instansi)
-            console.log('wow')
         })
         .catch(err => {
-            console.log('wow', +err)
+            console.log(err)
         })
     }, [])
 

@@ -23,7 +23,6 @@ const Infografis = (props) => {
     const [ filterValue , setFilterValue ] = useState({})
     const [loading, setLoading] = useState(false)
 
-    console.log(documents)
     const [ filter, setFilter ] = useState({
         limit: '10',
         page: '1',

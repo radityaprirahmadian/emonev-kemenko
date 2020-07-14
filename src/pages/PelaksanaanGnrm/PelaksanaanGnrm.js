@@ -74,7 +74,8 @@ const GNRM  = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=gnrm`,config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=gnrm`,config)
+            alert(res.data.message)
             getAllDocument()
         }
         catch (err) {

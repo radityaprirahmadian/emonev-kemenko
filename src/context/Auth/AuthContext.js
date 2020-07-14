@@ -29,8 +29,6 @@ const AuthState = (props) => {
         ingat = 'yes'
     }
 
-    console.log(ingat)
-
     const loadUser = async () => {
         setLoadingTrue()
         const config= {

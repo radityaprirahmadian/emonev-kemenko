@@ -25,7 +25,6 @@ const Reminder = (props) => {
     const { sidebar } = useContext(LayoutContext)
 
     const [ allReminder, setAllReminder ] = useState([])
-    console.log(allReminder)
 
     const [ filter, setFilter ] = useState({
         limit: '10',
@@ -65,11 +64,12 @@ const Reminder = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`, config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`, config)
+            alert(res.data.message)
             getAllReminder()
         }
         catch (err) {
-            console.log(err.message)  
+            console.log(err)  
         }
         setLoading(false)
     }

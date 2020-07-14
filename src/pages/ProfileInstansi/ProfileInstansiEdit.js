@@ -21,7 +21,6 @@ const ProfileInstansiEdit = (props) => {
     const [ foto, setFoto ] = useState([])
     const [loading , setLoading ] = useState(false)
     const [ instansiDetail , setInstansiDetail] = useState({})
-    console.log(instansiDetail)
     const jenis = ['Kementerian' , 'Pemerintah Daerah']
 
     const [newInstansi,setNewInstansi] = useState({
@@ -35,10 +34,7 @@ const ProfileInstansiEdit = (props) => {
         website: '',  
     })
 
-    console.log(newInstansi)
-
     const [mediaUrl, setMediaUrl] = useState([])
-
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
         setFoto([...event.target.files])
@@ -66,16 +62,15 @@ const ProfileInstansiEdit = (props) => {
 
     const editInstansi = async (data) => {
         setLoading(true)
-        console.log(data)
         const formData = objectToFormData(data)
 
         for (let i = 0; i < foto.length; i++) {
             formData.append(`logo`, foto[i])
         }
 
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1])
-        }
+        // for (let pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1])
+        // }
 
         const config = {
             headers: {
@@ -132,8 +127,6 @@ const ProfileInstansiEdit = (props) => {
             setFotos(wow)
         }
     },[instansiDetail])
-
-    console.log(foto)
 
         return(
             <Fragment>

@@ -33,7 +33,6 @@ const Artikel = (props) => {
         try {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${infografisDetail&&infografisDetail.instansi.nama_pendek}`)
                 setInfografisRelated(res.data.kabar.filter(info => info._id !== props.match.params.id))
-                console.log(res.data.kabar)
         }
         catch (err) {
             console.log(err)  
@@ -53,7 +52,6 @@ const Artikel = (props) => {
         setLoadingTrue()
         if(gambarIndex < (gambar && gambar.length - 1)){
             setGambarIndex(gambarIndex+1)
-            console.log(gambarIndex)
             setLoadingFalse()
         }
     }
@@ -63,7 +61,6 @@ const Artikel = (props) => {
         setLoadingTrue()
         if(gambarIndex > 0){
             setGambarIndex(gambarIndex-1)
-            console.log(gambarIndex)
             setLoadingFalse()
         }
     }
@@ -86,7 +83,6 @@ const Artikel = (props) => {
         getAllDocument()
     },[infografisDetail])
 
-    console.log(gambar)
 
         return(
             <Fragment>
@@ -184,36 +180,36 @@ const Artikel = (props) => {
                             <div className="spacer"></div>
 
                             <div className="artikel-social">
-                            <ul>
-                                            <li>
-                                                <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
-                                                    <div className="artikel-social-media-logo">
-                                                        <img src={facebook} alt='logo-facebook'></img>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://twitter.com/revmen_id" target="_blank">
-                                                    <div className="artikel-social-media-logo">
-                                                        <img src={twitter} alt='logo-twitter'></img>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://instagram.com/revolusimental_id" target="_blank">
-                                                    <div className="artikel-social-media-logo">
-                                                        <img src={instagram} alt='logo-instagram'></img> 
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
-                                                    <div className="artikel-social-media-logo">
-                                                        <img src={youtube} alt='logo-youtube'></img>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <ul>
+                                    <li>
+                                        <a href="https://www.facebook.com/revolusimental.id/" target="_blank">
+                                            <div className="artikel-social-media-logo">
+                                                <img src={facebook} alt='logo-facebook'></img>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/revmen_id" target="_blank">
+                                            <div className="artikel-social-media-logo">
+                                                <img src={twitter} alt='logo-twitter'></img>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://instagram.com/revolusimental_id" target="_blank">
+                                            <div className="artikel-social-media-logo">
+                                                <img src={instagram} alt='logo-instagram'></img> 
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.youtube.com/channel/UCzpr28gI11BMvaZVCcPx2jw" target="_blank">
+                                            <div className="artikel-social-media-logo">
+                                                <img src={youtube} alt='logo-youtube'></img>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

@@ -47,9 +47,6 @@ const FormReminder = (props) => {
         isi
     } = reminder
 
-    console.log(reminder)
-    console.log(instansi)
-
     const {
         nama_pendek
     } = instansi
@@ -79,11 +76,10 @@ const FormReminder = (props) => {
             setAllInstansi(res.data.filter.reminder)
         })
         .catch(err => {
-            console.log('wow', +err)
+            console.log(err)
         })
     }, [])
 
-    console.log(allInstansi)
 
     useEffect(() => {
         if(userDetail && userDetail.role === 'super_admin') {
@@ -98,7 +94,6 @@ const FormReminder = (props) => {
     },[instansi])
 
     const [userNew , setUserNew] = useState({})
-    console.log(userNew && userNew.pengguna0)
 
     const onChange = (e, array = false ) => {
         array ? 
@@ -141,16 +136,12 @@ const FormReminder = (props) => {
     }
 
     const [selectedUser, setSelectedUser] = useState({})
-    console.log('selected user' , selectedUser)
-    console.log('selected instansi ' ,selectedInstansi)
-
     const [ alreadySelectedUser , setAlreadySelectedUser] = useState([])
 
     useEffect(() => {
         const arrayyy = []
         for(let i = 0 ; i < form.length + 1 ; i++ ) {
             const test = selectedUser && selectedUser[`tujuan${i}`]
-            console.log(test)
             arrayyy.push(test)
         }
 
@@ -162,10 +153,6 @@ const FormReminder = (props) => {
     const onChangeTujuan = (e,tujuan) => {
         setSelectedUser({...selectedUser , [tujuan]:e.target.value})
     }
-
-    // useEffect(() => {
-    //     setReminder({...reminder , kepada : selectedUser})
-    // }, [selectedUser])
 
     const [testing , setTesting] = useState(true)
     const onDeleteTujuan = (deleted) => {
@@ -182,13 +169,7 @@ const FormReminder = (props) => {
             if(index != deleted) return instansi
         })
 
-        console.log('deleted tujuan ', deletedTujuan)
-        console.log('deleted instansi ', deletedInstansi)
-        console.log('deleted user' ,deleteduser)
-
-
         const deletedKepada = kepada.filter(kepada => kepada !== deletedTujuan[0])
-        console.log(selectedUser)
 
         const kepadaObj = {}
         deletedKepada.forEach((kepada, i) => {
@@ -216,8 +197,6 @@ const FormReminder = (props) => {
         setAllInstansi([...allInstansi , 'test'])
     }
 
-    console.log('already selected user' , alreadySelectedUser)
-
     useEffect(() => {
         return () => {
           const socket = io("https://api.simonev.revolusimental.go.id");
@@ -227,7 +206,6 @@ const FormReminder = (props) => {
 
     const addNewNotification = async (formData) => {
         setLoading(true)
-        console.log(formData)
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`,
@@ -240,7 +218,6 @@ const FormReminder = (props) => {
             if(res.data.success) {
                 const socket = io("https://api.simonev.revolusimental.go.id");
                 socket.on("connect", () => {
-                  console.log("id:", socket.id);
                   socket.emit("notif_send", formData);
             })
             }
@@ -264,13 +241,6 @@ const FormReminder = (props) => {
         
     }
 
-
-
-
-    // useEffect(() => {
-    //     const filterUser = users.filter(user => !kepada.includes(user._id))
-    //     setUserNotSelected(filterUser)
-    // },[users,kepada])
 
     const [form , setForm] = useState([])
     const addForm = (e) => {
@@ -410,7 +380,6 @@ const FormReminder = (props) => {
                                                                                         for(let i = 0 ; i < allInstansi.length ; i++){
                                                                                             selected = instansi === Object.values(selectedInstansi)[index+1]
                                                                                         }
-                                                                                        console.log(selected)
                                                                                             return(
     
                                                                                                     <option key={i} selected={selected} value={instansi}>{instansi}</option>
@@ -570,7 +539,6 @@ const FormReminder = (props) => {
                                                                                         for(let i = 0 ; i < allInstansi.length ; i++){
                                                                                             selected = instansi === Object.values(selectedInstansi)[index+1]
                                                                                         }
-                                                                                        console.log(selected)
                                                                                             return(
     
                                                                                                     <option key={i} selected={selected} value={instansi}>{instansi}</option>

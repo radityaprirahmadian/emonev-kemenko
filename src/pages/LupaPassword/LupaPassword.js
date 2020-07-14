@@ -30,7 +30,6 @@ const LupaPassword = (props) => {
 
     const postEmail = async (data) => {
         setLoading(true)
-        console.log(data)
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -85,9 +84,6 @@ const LupaPassword = (props) => {
         disable,
     } = pass
 
-    console.log(password)
-    console.log(confirm)
-
     const onChange = (e) => {
         return(
             setPassword({
@@ -123,8 +119,6 @@ const LupaPassword = (props) => {
 
     const changePassword = async (formData) => {
         setLoading(true)
-        console.log(formData)
-        console.log(user)
         const config={
             headers: {
                 'X-Auth-Token' : `aweuaweu ${token}`,

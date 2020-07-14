@@ -1,4 +1,4 @@
-import React,{Component,Fragment,useState,useEffect} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import './FilterAdmin.css';
 import axios from 'axios';
 
@@ -15,10 +15,9 @@ const FilterAdmin = (props) => {
             axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
-                console.log('wow')
             })
             .catch(err => {
-                console.log('wow', +err)
+                console.log(err)
             })
         }, [])
         
@@ -26,8 +25,6 @@ const FilterAdmin = (props) => {
             e.preventDefault()
             props.getUser()
         }
-
-        console.log(props.filterUser)
 
         return(
             <Fragment>

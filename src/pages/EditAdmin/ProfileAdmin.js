@@ -12,17 +12,14 @@ import bg_2 from '../../assets/decoration/bg_2.png'
 import bg_3 from '../../assets/decoration/bg_3.png'
 import bg_4 from '../../assets/decoration/bg_4.png'
 import Spinner from '../../component/Spinner/Spinner'
-import placeholder from '../../assets/Profil.png'
+import placeholder from '../../assets/Profil1.png'
 
 const ProfileAdmin = (props) => {
     const { token } = useContext(AuthContext);
     const [ userDetail, setUserDetail ] = useState();
     const [loading , setLoading] = useState(false)
     const { sidebar } = useContext(LayoutContext)
-    console.log(userDetail)
     const [ avatar, setAvatar ] = useState();
-    console.log(avatar)
-    console.log(userDetail)
 
     useEffect (() => {
         const getUserToShow = async () => {
@@ -34,7 +31,6 @@ const ProfileAdmin = (props) => {
             }
             try {
                 const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
-                console.log(res.data)
                 setUserDetail(res.data.user)
                 
                 if(res.data.user.foto) {
@@ -49,9 +45,6 @@ const ProfileAdmin = (props) => {
         }
         getUserToShow()
     }, [])
-
-
-
 
         return(
             <Fragment>
@@ -79,73 +72,73 @@ const ProfileAdmin = (props) => {
                             :
                         <div className="row">
                             <form id="form-profile">
-                            <div className="col"> 
+                                <div className="col"> 
                             
-                                <div className="form-profile-page" style={sidebar? {marginLeft:'188px'} : {marginLeft:'0'}}>
-                                {
-                                        !sidebar ?
-                                        <Fragment>
-                                            <div className="data">
-                                                <label>Nama</label><br/>
-                                                <div className="show-profile" type="text">{userDetail && userDetail.nama}</div>
-                                            </div>
+                                    <div className="form-profile-page" style={sidebar? {marginLeft:'188px'} : {marginLeft:'0'}}>
+                                    {
+                                            !sidebar ?
+                                            <Fragment>
+                                                <div className="data">
+                                                    <label>Nama</label><br/>
+                                                    <div className="show-profile" type="text">{userDetail && userDetail.nama}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Instansi</label><br/>
-                                                <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
-                                            </div>
+                                                <div className="data">
+                                                    <label>Instansi</label><br/>
+                                                    <div className="show-profile" type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Role</label><br/>
-                                                <div className="show-profile" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
-                                            </div>
+                                                <div className="data">
+                                                    <label>Role</label><br/>
+                                                    <div className="show-profile" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Username</label><br/>
-                                                <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
-                                            </div>
-                                            <div className="data">
-                                                <label>Email</label><br/>
-                                                <div className="show-profile" type="email">{userDetail && userDetail.email}</div>
-                                            </div>
-                                            <div className="data">
-                                                <label>Nomor Telepon</label><br/>
-                                                <div className="show-profile" type="text">{userDetail && userDetail.kontak}</div>
-                                            </div>
-                                            </Fragment>
-                                        :
-                                        <Fragment>
-                                            <div className="data">
-                                                <label>Nama</label><br/>
-                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.nama}</div>
-                                            </div>
+                                                <div className="data">
+                                                    <label>Username</label><br/>
+                                                    <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label>Email</label><br/>
+                                                    <div className="show-profile" type="email">{userDetail && userDetail.email}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label>Nomor Telepon</label><br/>
+                                                    <div className="show-profile" type="text">{userDetail && userDetail.kontak}</div>
+                                                </div>
+                                                </Fragment>
+                                            :
+                                            <Fragment>
+                                                <div className="data">
+                                                    <label>Nama</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.nama}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Instansi</label><br/>
-                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
-                                            </div>
+                                                <div className="data">
+                                                    <label>Instansi</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.instansi.nama_pendek}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Role</label><br/>
-                                                <div className="show-profile" style={{width:'466px'}} type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
-                                            </div>
+                                                <div className="data">
+                                                    <label>Role</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
+                                                </div>
 
-                                            <div className="data">
-                                                <label>Username</label><br/>
-                                                <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.username}</div>
-                                            </div>
-                                            <div className="data">
-                                                <label>Email</label><br/>
-                                                <div className="show-profile" style={{width:'466px'}} type="email">{userDetail && userDetail.email}</div>
-                                            </div>
-                                            <div className="data">
-                                                <label>Nomor Telepon</label><br/>
-                                                <div className="show-profile"  style={{width:'466px'}} type="text">{userDetail && userDetail.kontak}</div>
-                                            </div>
-                                            </Fragment>
-                                    }
+                                                <div className="data">
+                                                    <label>Username</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.username}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label>Email</label><br/>
+                                                    <div className="show-profile" style={{width:'466px'}} type="email">{userDetail && userDetail.email}</div>
+                                                </div>
+                                                <div className="data">
+                                                    <label>Nomor Telepon</label><br/>
+                                                    <div className="show-profile"  style={{width:'466px'}} type="text">{userDetail && userDetail.kontak}</div>
+                                                </div>
+                                                </Fragment>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
                             </form>
 
                             <div className="col">
@@ -164,23 +157,22 @@ const ProfileAdmin = (props) => {
                                         }
                                     </div>
                                     <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/edit-admin/${userDetail && userDetail._id}`}>
-                                    <input 
-                                        form="form-profile"
-                                        type="submit"
-                                        className="button-submit-profile"
-                                        value="UBAH PROFIL"
-                                        style={{backgroundColor: '#E76975'}}
-                                    > 
-                                    </input>
+                                        <input 
+                                            form="form-profile"
+                                            type="submit"
+                                            className="button-submit-profile"
+                                            value="UBAH PROFIL"
+                                            style={{backgroundColor: '#E76975'}}
+                                        > 
+                                        </input>
                                     </Link>
                                 </div>
-
                             </div>
-                            </div>
-                            }
+                        </div>
+                        }
                         </div>
                     </div>
-                    </div>
+                </div>
             </Fragment>
         );
     }

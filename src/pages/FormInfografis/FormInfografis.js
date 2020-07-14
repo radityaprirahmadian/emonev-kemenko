@@ -35,8 +35,6 @@ const FormInfografis = (props) => {
         deskripsi
     } = kabarGnrm
 
-    console.log(infografisDetail)
-
     const [media, setMedia] = useState([])
     const [mediaUrl, setMediaUrl] = useState([])
     const [deletedMedia, setDeletedMedia] = useState([])
@@ -61,9 +59,9 @@ const FormInfografis = (props) => {
 			formData.append(`gambar`, media[i])
         }
 
-        for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-        }
+        // for (let pair of formData.entries()) {
+		// 	console.log(pair[0] + ', ' + pair[1])
+        // }
 
 		const config = {
 			headers: {
@@ -96,9 +94,9 @@ const FormInfografis = (props) => {
             }
         }  else {formData.append('gambar', new File([null], 'blob'))}
 
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-		}
+		// for (let pair of formData.entries()) {
+		// 	console.log(pair[0] + ', ' + pair[1])
+		// }
 
 		const config = {
 			headers: {
@@ -182,9 +180,6 @@ const FormInfografis = (props) => {
     useEffect(() => {
         setKabarGnrm({ ...kabarGnrm, deleted_gambar: deletedMedia})
     }, [deletedMedia])
-
-    console.log(infografisDetail)
-    console.log('delete' , deletedMedia)
 
     return(
         <Fragment>

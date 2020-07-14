@@ -31,7 +31,6 @@ const FormAdmin = (props) => {
         const [seen, setSeen] = useState(false)
 
         const { nama, instansi, role, username, password, email } = admin
-        console.log(admin)
 
         const onChange = (e) =>{
             return setAdmin({
@@ -41,7 +40,6 @@ const FormAdmin = (props) => {
         }
 
         const onLoad = (e) =>{
-            console.log(e)
             return setAdmin({
                 ...admin,
                 [e.target.name] : e.target.value
@@ -62,10 +60,9 @@ const FormAdmin = (props) => {
             axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
-                console.log(res.data)
             })
             .catch(err => {
-                console.log('wow', +err)
+                console.log(err)
             })
         }, [])
 

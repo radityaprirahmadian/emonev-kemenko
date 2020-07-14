@@ -24,7 +24,6 @@ const Instansi = (props) => {
     const [instansiRev,setInstansiRev] = useState([])
     const { sidebar } = useContext(LayoutContext)
     const [loading, setLoading] = useState(false)
-    console.log(instansi)
     const [filter,setFilter] = useState({
         limit:'10',
         page:'1',
@@ -81,7 +80,8 @@ const Instansi = (props) => {
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${id}`,config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${id}`,config)
+            alert(res.data.message)
             getAllInstansi()
         }
         catch (err) {
@@ -90,17 +90,9 @@ const Instansi = (props) => {
         setLoading(false)
     }
 
-    // const handleReset = () => {
-    //     editDocumentFalse()
-    //     resetDocument()
-    // }
-
     useEffect(() => {
         getAllInstansi()
     }, [limit,page])
-
-
-
 
     return(
         <Fragment>

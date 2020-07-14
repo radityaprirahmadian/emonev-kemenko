@@ -26,7 +26,6 @@ const InfografisState = (props) => {
                 type: 'SET_INFOGRAFIS',
                 payload: res.data.kabar
             })
-            console.log(res.data.kabar)
             setLoadingFalse()
         }
         catch (err) {

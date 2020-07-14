@@ -60,10 +60,6 @@ const ProfileEdit = (props) => {
     const [ isFoto , setIsFoto ] = useState(false)
 
     const { nama, email, kontak } = userData;
-    console.log(userData)
-    console.log(nama)
-    console.log(email)
-    console.log(kontak)
 
     const [ fotos, setFotos] = useState();
     const onChangeFiles = (event) => {
@@ -83,7 +79,6 @@ const ProfileEdit = (props) => {
         }
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,config)
-            console.log(res.data)
             setUserData({nama: res.data.user.nama , email:res.data.user.email , kontak: res.data.user.kontak})
         }
         catch (err) {
@@ -112,7 +107,6 @@ const ProfileEdit = (props) => {
 
     const updateUserData = async (formData) => {
         setLoading(true)
-        console.log(formData)
         const config = {
             headers: {
                 'X-Auth-Token': `aweuaweu ${token}`,
@@ -128,10 +122,8 @@ const ProfileEdit = (props) => {
                 history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/profile/${props.match.params.id}`)
                 window.location.reload()
             }
-            console.log(res)
         }
         catch (err) {
-            alert(err.message)
             console.log(err)
         }
         setLoading(true)
@@ -146,9 +138,9 @@ const ProfileEdit = (props) => {
             }
         }  else {formData.append('foto', new File([null], 'blob'))}
 
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-        }
+		// for (let pair of formData.entries()) {
+		// 	console.log(pair[0] + ', ' + pair[1])
+        // }
         
         const config = {
             headers: {
@@ -177,7 +169,6 @@ const ProfileEdit = (props) => {
         setSeen(!seen)
     }
 
-    console.log(foto)
         return(
             <Fragment>
                 <SideBarOff setId={props.setId}/>

@@ -1,27 +1,9 @@
-import React,{Component,Fragment,useState,useEffect,useContext} from 'react';
+import React,{Fragment,useContext} from 'react';
 import './Filter.css';
-import axios from 'axios'
 import {AuthContext} from '../../context/Auth/AuthContext.js'
 
 const Filter = (props) => {
     const { token, user } = useContext(AuthContext)
-
-    // const getDocumentLength = async () => {
-    //     const config= {
-    //         headers: {
-    //             'X-Auth-Token': `aweuaweu ${token}`
-    //         }
-    //     }
-    //     try {
-    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm`, config)
-    //         setFilterTahun(res.data.filter.tahun)
-    //         setFilterKp(res.data.filter.kp)
-    //         setFilterInstansi(res.data.filter.instansi)
-    //     }
-    //     catch (err) {
-    //         console.log(err)  
-    //     }  
-    // }
 
     const onChange = (e) => {
         return props.setFilterDoc({

@@ -1,11 +1,10 @@
-import React, { Fragment, useState, Component, useContext, useEffect } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import './Notification.css';
 import lonceng from '../../assets/lonceng.png';
 import { Link, useHistory , useLocation} from 'react-router-dom'
 import { NotifContext } from '../../context/Notifikasi/NotifContext';
 import axios from 'axios'
 import { AuthContext } from '../../context/Auth/AuthContext';
-import avatar from '../../assets/avatar.png';
 import CardPopup from '../CardPopup/CardPopup';
 import polygon from '../../assets/Polygon_1.png';
 
@@ -36,8 +35,6 @@ const Notification = () => {
         setReminderRev(arr)
     },[reminder])
 
-    console.log(allReminder)
-    console.log(reminderRev)
 
     const updateDibaca = async (id) => {
         setLoading(true)
@@ -65,16 +62,13 @@ const Notification = () => {
     }
 
 
-    // console.log(reminder)
         return(
             <Fragment>
                 <div className="notification">
-                    {/* <Link to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/notifikasi`}> */}
-                        <button style={{backgroundColor:'rgba(0,0,0,0)'}} onClick={onClick}>
-                            <img src={lonceng} />
-                            <div className="notification-counter">{reminder}</div>
-                        </button>
-                    {/* </Link> */}
+                    <button style={{backgroundColor:'rgba(0,0,0,0)'}} onClick={onClick}>
+                        <img src={lonceng} />
+                        <div className="notification-counter">{reminder}</div>
+                    </button>
                     {
                         hide ?
                         ''
@@ -89,8 +83,7 @@ const Notification = () => {
                             <div>
                                 {
                                     reminderRev.slice(0,3).map((reminder,index) => {
-                                        return(
-                                            
+                                        return(  
                                             <CardPopup
                                             key={index}
                                                 jadwal={reminder.jadwal}

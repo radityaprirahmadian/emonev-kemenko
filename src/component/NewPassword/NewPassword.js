@@ -14,7 +14,6 @@ import aset_7 from '../../assets/decoration/aset_7.png'
 
 const NewPassword = () => {
     const { token, userDetail } = useContext(AuthContext)
-    console.log(userDetail)
     const history = useHistory()
     const [seen1, setSeen1] = useState(false)
     const [seen2, setSeen2] = useState(false)
@@ -33,9 +32,6 @@ const NewPassword = () => {
         disable,
         login_awal
     } = pass
-
-    console.log(password)
-    console.log(confirm)
 
     const onChange = (e) => {
         return(
@@ -72,9 +68,6 @@ const NewPassword = () => {
     },[confirm,password])
 
     const changePassword = async (formData) => {
-        console.log(formData)
-        console.log(userDetail && userDetail._id)
-        console.log(login_awal)
         const config={
             headers: {
                 'X-Auth-Token' : `aweuaweu ${token}`,
@@ -148,28 +141,25 @@ const NewPassword = () => {
                                             <div>
                                                 <input className="input-ubah"  type={seen1 ? "text" : "password"}  required name='password' value={password} tabIndex='1' onChange={onChange} onKeyPress={!disable && onKeyPress} placeholder="Kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)'}} onClick={handlePassword}>
-                                                        {
-                                                            seen1 ?
-                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
-                                                            :
-                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
-                                                        }
+                                                    {
+                                                        seen1 ?
+                                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                        :
+                                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                    }
                                                 </button>
                                             </div>
                                             <div>
                                                 <input className="input-ubah"  type={seen2 ? "text" : "password"}  required name='confirm' value={confirm} tabIndex='2' onChange={onChange} onKeyPress={!disable && onKeyPress} placeholder="Konfirmasi kata sandi baru"/>
                                                 <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px',backgroundColor:'rgba(0,0,0,0)'}} onClick={confirmPassword}>
-                                                        {
-                                                            seen2 ?
-                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>
-                                                            :
-                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
-                                                        }
+                                                    {
+                                                        seen2 ?
+                                                            <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                        :
+                                                            <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                                    }
                                                 </button>
                                             </div>
-
-                                            
-
                                             {
                                                 disable ?
                                                     <Fragment>
@@ -183,16 +173,12 @@ const NewPassword = () => {
                                                     </Fragment>
                                             }
                                         </form>
-
-
                                     </div>
-
                                     <img src={aset_4} alt='decoration 4' style={{bottom:'0' , left: '39px'}}/>
                                     <img src={aset_5} alt='decoration 5' style={{bottom:'-27px' , right: '-16px'}}/>
                                     <img src={aset_6} alt='decoration 6' style={{top:'0' , right: '32px'}}/>
                                     <img src={aset_7} alt='decoration 7' style={{top:'8px' , left: '12.53px'}}/> 
                                 </div>
-                            
                             </div>
                         </div>
         </Fragment>

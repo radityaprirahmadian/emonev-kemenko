@@ -15,7 +15,6 @@ const ArtikelState = props => {
     }
 
     const [state , dispatch] = useReducer(artikelReducer,intialState)
-    console.log(state.isPreviewing)
 
     const setLoadingTrue = () => {
         dispatch({
@@ -42,7 +41,6 @@ const ArtikelState = props => {
                 type: 'GET_DOCUMENT_DETAIL',
                 payload: res.data
             })
-            console.log(res.data.document)
         }
         catch (err) {
             console.log(err)

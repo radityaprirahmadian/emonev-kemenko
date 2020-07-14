@@ -38,7 +38,6 @@ const FormMonev =  (props) => {
     const pilihanPeriode = ['Tahunan', 'Caturwulanan']
 
     const [ instansiDetail , setInstansiDetail] = useState({})
-    console.log(instansiDetail)
 
     const nol = (i) => {
         if (i < 10) {
@@ -264,9 +263,9 @@ const FormMonev =  (props) => {
             formData.append(`sk`, skFile[i])
         }
 
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-		}
+		// for (let pair of formData.entries()) {
+		// 	console.log(pair[0] + ', ' + pair[1])
+		// }
 
 		const config = {
 			headers: {
@@ -293,7 +292,6 @@ const FormMonev =  (props) => {
     }
 
     const onEdit = async (event) => {
-        console.log('a')
         setLoadingTrue()
 		event.preventDefault()
 
@@ -333,9 +331,9 @@ const FormMonev =  (props) => {
                 formData.append(`sk`, skFile[0])
             }
 
-		for (let pair of formData.entries()) {
-			console.log(pair[0] + ', ' + pair[1])
-		}
+		// for (let pair of formData.entries()) {
+		// 	console.log(pair[0] + ', ' + pair[1])
+		// }
 
 		const config = {
 			headers: {
@@ -352,7 +350,7 @@ const FormMonev =  (props) => {
         editDocumentFalse()
         }
         catch(err) {
-            console.log(err.response)
+            alert(err.response.data.message)
         }
         setLoadingFalse()
     }
@@ -364,7 +362,6 @@ const FormMonev =  (props) => {
 
     const [ skExtension , setSkExtension] = useState('')
     const [ skFileUrl , setSkFileUrl] = useState([])
-    console.log(skExtension)
 
     useEffect(() => {
         if(instansiDetail){
@@ -412,7 +409,6 @@ const FormMonev =  (props) => {
     //     setSkFileUrl(mediaFileUrl)
     // }, [data.sk_status])
 
-    console.log(skGambar)
 
     useEffect(() => {
         (async () => {

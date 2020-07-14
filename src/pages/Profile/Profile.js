@@ -19,8 +19,6 @@ const Profile = (props) => {
     const [ foto, setFoto ] = useState();
     const { sidebar } = useContext(LayoutContext)
 
-    console.log(userDetail)
-
     useEffect(()=> {
         if(props.match.params.id) {
             getUserDetail()
@@ -31,8 +29,6 @@ const Profile = (props) => {
         const wow = `https://api.simonev.revolusimental.go.id${userDetail&&userDetail.foto}`
         setFoto(wow)
     },[userDetail])
-
-    console.log(foto)
 
         return(
             <Fragment>

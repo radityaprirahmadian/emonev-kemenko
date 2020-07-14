@@ -22,15 +22,13 @@ const Login = (props) => {
     const { isAuthenticated, login, fail, token, loadUser, user, remember, rememberToken, userDetail, loading } = useContext(AuthContext);
     const { sidebar, setSidebar } = useContext(LayoutContext);
     const history = useHistory();
+    const [seen, setSeen] = useState(false)
+    const [lupaPassword , setLupaPassword ] = useState(false)
 
     const [users, setUser] = useState ({
         username: '',
         password: ''
     })
-
-    const [seen, setSeen] = useState(false)
-
-    const [lupaPassword , setLupaPassword ] = useState(false)
 
     const { username, password } = users;
 
@@ -61,26 +59,15 @@ const Login = (props) => {
 		if (isAuthenticated || token) {
             loadUser()
         }
-		//eslint-disable-next-line
     }, [isAuthenticated])
     
     useEffect(() => {
-        console.log(userDetail)
         if(userDetail && !userDetail.login_awal) {
             props.setId(userDetail._id)
             setSidebar();
             props.history.push(`/${userDetail.role === 'owner' ? 'super-admin' : 'admin'}/dashboard`)
         }
     })
-
-    // const input = document.getElementById("form-login");
-    // input.addEventListener("keyup", function(event) {
-    //     if (event.keyCode === 13) {
-    //     event.preventDefault();
-    //     document.getElementById("button-login").click();
-    //     }
-    // });
-
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -163,12 +150,12 @@ const Login = (props) => {
                                             onKeyPress={onKeyPress}
                                         />
                                         <button className="button-password" style={{border:'none',  padding:'0' , height:'30px', width:'30px' , borderRadius:'3px' , backgroundColor:'rgba(0,0,0,0)' }} onKeyPress={onKeyPress} onClick={handlePassword}>
-                                                        {
-                                                            seen ?
-                                                                <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
-                                                            :
-                                                                <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
-                                                        }
+                                            {
+                                                seen ?
+                                                    <i class='fa fa-eye-slash' style={{fontSize:'20px' , textAlign:'center'}}></i>                                        
+                                                :
+                                                    <i class='fas fa-eye' style={{fontSize:'20px' , textAlign:'center'}}></i>
+                                            }
                                         </button>
                                         <br/>
                                         <div >
@@ -194,10 +181,7 @@ const Login = (props) => {
                             }
                         </div>
                         </Fragment>
-
                 }
-
-                
             </Fragment>
         );
 

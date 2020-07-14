@@ -45,10 +45,7 @@ const FormInstansi = (props) => {
             deleted_logo: []    
         })
 
-        console.log(newInstansi)
-
         const [seen, setSeen] = useState(false)
-      
         const [media, setMedia] = useState([])
         const [mediaUrl, setMediaUrl] = useState([])
         const [deletedMedia, setDeletedMedia] = useState([])
@@ -61,7 +58,7 @@ const FormInstansi = (props) => {
         }
 
         const onChangeFiles = (event) => {
-            setMedia([...media , ...event.target.files])
+            setMedia([...event.target.files])
             event.target.value = null
         }
 
@@ -69,10 +66,9 @@ const FormInstansi = (props) => {
             axios.get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
             .then(res => {
                 setAllInstansi(res.data.instansi)
-                console.log('wow')
             })
             .catch(err => {
-                console.log('wow', +err)
+                console.log(err)
             })
         }, [])
 
@@ -96,16 +92,15 @@ const FormInstansi = (props) => {
 
         const addNewInstansi = async (data) => {
             setLoading(true)
-            console.log(data)
             const formData = objectToFormData(data)
 
             for (let i = 0; i < media.length; i++) {
                 formData.append(`logo`, media[i])
             }
 
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1])
-            }
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1])
+            // }
 
             const config = {
                 headers: {
@@ -131,7 +126,6 @@ const FormInstansi = (props) => {
 
         const editInstansi = async (data) => {
             setLoading(true)
-            console.log(data)
             const formData = objectToFormData(data)
 
             if (media.length > 0) {
@@ -140,9 +134,9 @@ const FormInstansi = (props) => {
                 }
             }  else {formData.append('logo', new File([null], 'blob'))}
 
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1])
-            }
+            // for (let pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1])
+            // }
 
             const config = {
                 headers: {
@@ -170,13 +164,11 @@ const FormInstansi = (props) => {
 
         const onSubmit = (e) => {
             e.preventDefault()
-            console.log('a')
             addNewInstansi(newInstansi)
         }
 
         const onEdit = (e) => {
             e.preventDefault()
-            console.log('b')
             editInstansi(newInstansi)
         }
 

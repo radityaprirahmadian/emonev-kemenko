@@ -15,7 +15,7 @@ const TabelReminder = (props) => {
         }
         return i;
     }
-    console.log(props.tanggal)
+    
     const mydate = new Date(props.tanggal);
     const hour = nol(mydate.getHours());
     const minute = nol(mydate.getMinutes());

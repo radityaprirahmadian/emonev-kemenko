@@ -51,13 +51,9 @@ const App = () => {
   const [ id , setId ] = useState('')
   const [ notifs, setNotifs] = useState([])
 
-  console.log(id)
-  console.log('test')
-
   useEffect(() => {
     let cleanup = false;
     if (!cleanup) {
-      console.log("test");
       
       const socket = io('https://api.simonev.revolusimental.go.id')
       socket.on("connect", () => {
@@ -65,8 +61,6 @@ const App = () => {
       });
 
       socket.on("notif_receive", payload => {
-        console.log('wowowow')
-        console.log(payload);
         setNotifs([...notifs, payload].reverse());
       });
     }
@@ -76,7 +70,6 @@ const App = () => {
       };
   },[id,notifs])
 
-  console.log(notifs)
 
   return (
     <div className="App">

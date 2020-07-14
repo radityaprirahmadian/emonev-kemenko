@@ -27,19 +27,11 @@ const SideBarOff = (props) => {
         
     },[token])
     
-    console.log(allReminder)
-    console.log(reminder)
-    
     const handleClickToggle = () => {
         setSidebar();
     }
     
     const [hide, setHide] = useState(true)
-
-    // const onClickToProfileInstansi = (e) => {
-    //     e.preventDefault()
-    //     history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/profile-instansi/` + (userDetail && userDetail.instansi._id))
-    // }
 
     useEffect(() => {
         props.setId(userDetail&&userDetail._id)

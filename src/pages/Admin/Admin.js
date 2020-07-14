@@ -44,7 +44,6 @@ const Admin = (props) => {
         totalUser,
     } = filter
 
-    console.log(filter)
 
     const getAllUser = async () => {
         setLoading(true)
@@ -55,7 +54,6 @@ const Admin = (props) => {
         }
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`, config)
-            console.log(res)
             setUsers(res.data.users)
             setFilter({...filter, totalUser: res.data.total})
             setLoading(false)
@@ -86,9 +84,6 @@ const Admin = (props) => {
         getAllUser()
     }, [limit,page])
 
-    console.log(users)
-    console.log(users.length)
-
         return(
             <Fragment>
                 <SideBarOff setId={props.setId}/>
@@ -100,93 +95,90 @@ const Admin = (props) => {
                         <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                     </div>
                     <div style={{marginRight:'20px' , marginTop:'23px'}}>
-                            <div className="tajuk-page-2">
-                                <div>KELOLA ADMIN</div>
-                                {
-                                    user && user.role === 'owner' ?
-                                        ''
-                                    :
-                                        <Notification/>
-                                }
-                            </div>
-                    <div style={sidebar ? {marginLeft:'188px' , marginRight: '20px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
-                            <div className="input-dan-tajuk">
-                                <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-tambah-admin`}>
-                                    <button className="tambah-program">
-                                        <img src={plus}></img>
-                                        <div className="spacer"></div>
-                                        <p className="text-input-program">
-                                            Input Admin
-                                        </p>
-                                    </button>
-                                </Link>
-                            </div>
-
+                        <div className="tajuk-page-2">
+                            <div>KELOLA ADMIN</div>
                             {
-                                user && user.role === 'owner' ? 
-                                    <FilterAdmin 
-                                        getUser={getAllUser}
-                                        setFilter={setFilter} 
-                                        filterUser={filter} 
-                                        nama={nama} 
-                                        instansi={instansi}
-                                    /> 
-                                : 
-                                ''
+                                user && user.role === 'owner' ?
+                                    ''
+                                :
+                                    <Notification/>
                             }
-
-                            <div className="table-container">
-                                <table className="table-admin" style={{marginRight:'20px', backgroundColor:'white'}}>
-                                    <thead className="table-head-admin">
-                                        <tr>
-                                            <th width={sidebar ? '195px' :'258px'}>Nama</th>
-                                            <th width={sidebar ? '195px' : '258px'} className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi</th>
-                                            <th width={sidebar ? '196px' : '258px'}>Username</th>
-                                            <th width='133px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Level</th>
-                                            <th width='42px'></th>
-                                            <th width='42px'></th>
-                                        </tr>
-                                    </thead>
-                                    {
-                                        !loading && (
-                                            <tbody className="table-body-admin">
-                                                {
-                                                    users.map(user => {
-                                                        return(
-                                                            <TabelAdmin 
-                                                                key={user._id}
-                                                                id={user._id} 
-                                                                nama={user.nama} 
-                                                                instansi={user.instansi.nama_pendek} 
-                                                                username={user.username} 
-                                                                role={user.role}
-                                                                delete={deleteUser}
-                                                            />
-                                                        )
-                                                    })
-                                                }
-                                            </tbody>
-                                        )
-                                    }
-                                </table>
+                        </div>
+                    <div style={sidebar ? {marginLeft:'188px' , marginRight: '20px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
+                        <div className="input-dan-tajuk">
+                            <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-tambah-admin`}>
+                                <button className="tambah-program">
+                                    <img src={plus}></img>
+                                    <div className="spacer"></div>
+                                    <p className="text-input-program">
+                                        Input Admin
+                                    </p>
+                                </button>
+                            </Link>
+                        </div>
+                        {
+                            user && user.role === 'owner' ? 
+                                <FilterAdmin 
+                                    getUser={getAllUser}
+                                    setFilter={setFilter} 
+                                    filterUser={filter} 
+                                    nama={nama} 
+                                    instansi={instansi}
+                                /> 
+                            : 
+                            ''
+                        }
+                        <div className="table-container">
+                            <table className="table-admin" style={{marginRight:'20px', backgroundColor:'white'}}>
+                                <thead className="table-head-admin">
+                                    <tr>
+                                        <th width={sidebar ? '195px' :'258px'}>Nama</th>
+                                        <th width={sidebar ? '195px' : '258px'} className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi</th>
+                                        <th width={sidebar ? '196px' : '258px'}>Username</th>
+                                        <th width='133px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Level</th>
+                                        <th width='42px'></th>
+                                        <th width='42px'></th>
+                                    </tr>
+                                </thead>
                                 {
-                                    loading && 
-                                    <div style={{ marginLeft: '68px' }}>
-                                        <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
-                                            <Spinner />
-                                        </div> 
-                                    </div>
+                                    !loading && (
+                                        <tbody className="table-body-admin">
+                                            {
+                                                users.map(user => {
+                                                    return(
+                                                        <TabelAdmin 
+                                                            key={user._id}
+                                                            id={user._id} 
+                                                            nama={user.nama} 
+                                                            instansi={user.instansi.nama_pendek} 
+                                                            username={user.username} 
+                                                            role={user.role}
+                                                            delete={deleteUser}
+                                                        />
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    )
                                 }
-                            </div>
-
-                            <Pagination
-                                setFilter={setFilter}
-                                filter={filter}
-                                total={totalUser}
-                                limit={limit}
-                                page={page}
-                            />
-                </div>
+                            </table>
+                            {
+                                loading && 
+                                <div style={{ marginLeft: '68px' }}>
+                                    <div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '60vh', overflow: 'hidden' }}>
+                                        <Spinner />
+                                    </div> 
+                                </div>
+                            }
+                        </div>
+                        <Pagination
+                            setFilter={setFilter}
+                            filter={filter}
+                            total={totalUser}
+                            limit={limit}
+                            page={page}
+                        />
+                    </div>
                 </div>
             </Fragment>
         )
