@@ -53,6 +53,9 @@
     line-height: 30px;
 }
 
+.bottom-card {
+    margin-top: 1.6vh;
+}
 .spacer{
     flex:1;
 }
@@ -71,7 +74,6 @@
     margin-left: 0px;
     border:none;
     margin-top: 0px;
-    margin-right: 9px;
     /* margin */
 }
 
@@ -89,7 +91,7 @@
 
 .card-title-bottom-inf {
     font-weight: normal;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 0;
 }
 
 .card-background img{
@@ -109,11 +111,11 @@
 .card-title-bottom{
     font-size: 16px;
     font-weight: bold;
-    margin: 11px 0 0 10px;
+    margin: 11px 0 0 0;
 }
 
 .card-date {
-    margin: 0 0 0 10px
+    margin: 0 0 0 0;
 }
 
 .card-container {
@@ -167,7 +169,6 @@
 .card-date{
     line-height: 4.2vh;
     font-size: 2.3vh;
-    margin-left:2vh;
 }
 
 .spacer{
@@ -188,7 +189,6 @@
     margin-left: 0px;
     border:none;
     margin-top: 0px;
-    margin-right: 1vh;
     /* margin */
 }
 
@@ -205,7 +205,7 @@
 .card-title-bottom-inf {
     font-size: 2vh;
     font-weight: normal;
-    margin: 0 0 0 2vh;
+    margin: 0 0 0 0;
 }
 
 .card-container-dashboard .card-background-dashboard img {
@@ -218,7 +218,7 @@
 .card-title-bottom{
     font-size: 2vh;
     font-weight: bold;
-    margin: 1vh 0 0 2vh;
+    margin: 1vh 0 0 0;
 }
 
 .card-container-dashboard {
