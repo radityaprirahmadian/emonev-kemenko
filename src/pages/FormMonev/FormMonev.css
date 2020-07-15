@@ -196,3 +196,39 @@
     right: -880px;
     border-radius: 0 5px 5px 0;
 }
+
+.preview-picture{
+    margin-left: 100px;
+    margin-top: 16px;
+}
+
+.button-action{
+    position: relative;
+    bottom: 87px;
+}
+
+.button-edit-kembali,
+.button-unggah{
+    width: 225px;
+    height: 46px;
+    padding: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: white;
+    border:none;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.021em;
+}
+
+.button-edit-kembali{
+    background-color: #848988;
+    margin-left: 807px;
+}
+.button-unggah{
+    background-color: #FF3D37;
+    margin-left: 8px;
+}
