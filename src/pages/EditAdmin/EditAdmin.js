@@ -83,6 +83,7 @@ const EditAdmin = (props) => {
             setLoading(false)
         }
         getUserToUpdate()
+        window.scrollTo(0, 0);
     }, [])
 
 
@@ -108,7 +109,7 @@ const EditAdmin = (props) => {
             window.location.reload()
         }
         catch (err) {
-            console.log(err)
+            alert(err.response.data.message)
         }
     }
 

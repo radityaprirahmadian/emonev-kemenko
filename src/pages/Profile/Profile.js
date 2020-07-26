@@ -22,6 +22,7 @@ const Profile = (props) => {
     useEffect(()=> {
         if(props.match.params.id) {
             getUserDetail()
+            window.scrollTo(0, 0);
         }
     },[props.match.params.id])
 

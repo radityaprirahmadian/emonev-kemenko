@@ -14,7 +14,6 @@ import FormGNRM from './pages/FormGNRM/FormGNRM';
 import FormMonev from './pages/FormMonev/FormMonev';
 import Admin from './pages/Admin/Admin';
 import Reminder from './pages/Reminder/Reminder';
-import ReminderOwner from './pages/Reminder/ReminderOwner';
 import FormAdmin from './pages/FormAdmin/FormAdmin';
 import FormReminder from './pages/FormReminder/FormReminder';
 import Profile from './pages/Profile/Profile';

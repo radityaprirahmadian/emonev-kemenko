@@ -113,7 +113,8 @@ const FormAdmin = (props) => {
                 instansi,
                 role,
                 username,
-                password
+                password,
+                email
             })
         }
       }

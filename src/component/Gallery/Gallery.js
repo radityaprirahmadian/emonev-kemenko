@@ -70,17 +70,18 @@ const Gallery = (props) => {
         getAllGallery();
     },[filter , userDetail])
 
-    const deleteGallery = async (e) => {
+    const deleteGallery = async ( e , galler) => {
         const config={
             headers: {
                 'X-Auth-Token' : `aweuaweu ${token}`
             }
         }
         try {
-            await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/galeri/${identifier}`,config)
+            const res = await axios.delete(`https://api.simonev.revolusimental.go.id/api/v1/galeri/${identifier}`,config)
+            setGambar(gambar.filter(gambar => gambar !== `https://api.simonev.revolusimental.go.id/public/uploads/gnrm/${identifier}`))
+            setGalleriIndex(0)
             setIdentifier(null)
-            getAllGallery()
-            setGalleriIndex(galleriIndex+1)
+            alert(res.data.message)
         }
         catch (err) {
             console.log(err)
@@ -105,11 +106,13 @@ const Gallery = (props) => {
 
     const onHapus = (e) => {
         deleteGallery()
+        getAllGallery()
     }
 
     const onTidakHapus = (e) => {
         e.preventDefault()
         setIdentifier('')
+
     }
 
     const handleChange = (pageNumber) => {
@@ -128,62 +131,64 @@ const Gallery = (props) => {
                         :
                         <Fragment>
                             <div className="gallery-container">
-                                {
-                                    gallery.map((galleri,index) => {
-                                        const wowo = galleri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` )
-                                        return(
-                                            <Fragment>
+                                <div style={{display: 'flex', justifyContent: 'flex-start' , flexWrap: 'wrap'}}>
+                                    {
+                                        gallery.map((galleri,index) => {
+                                            const wowo = galleri.media.map(galeri =>`https://api.simonev.revolusimental.go.id${galeri}` )
+                                            return(
+                                                <Fragment>
 
-                                                <div className="gallery-item" onClick={(e) => onOpen(e,index,wowo)}>
-                                                    <img src={`https://api.simonev.revolusimental.go.id${galleri.media[0]}`} alt={`gallery-${index}`} style={{cursor:'pointer' }} className="test_gambar_gallery"></img>
-                                                    <div className='test_gallery'></div>
-                                                    <div className='hover-nama'>
-                                                        {galleri.instansi.toUpperCase()}
-                                                        {/* <img src={triangle} className='triangle' alt=''/> */}
-                                                    </div> 
-                                                </div>
-                                                    {
-                                                        open ? 
-                                                            <Fragment>
-                                                                <Lightbox
-                                                                    mainSrc={gambar[galleriIndex]}
-                                                                    nextSrc={gambar[(galleriIndex + 1) % gambar.length]}
-                                                                    prevSrc={gambar[(galleriIndex + gambar.length - 1) % gambar.length]}
-                                                                    onCloseRequest={() => setOpen(false)}
-                                                                    onMovePrevRequest={() =>
-                                                                    setGalleriIndex((galleriIndex + gambar.length - 1) % gambar.length)}
-                                                                    onMoveNextRequest={() =>
-                                                                    setGalleriIndex((galleriIndex + 1) % gambar.length)}
-                                                                />
-                                                                {
-                                                                    user && user.role === 'owner' ?
-                                                                            <img src={hapuss} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999' , cursor:'pointer'}}/>
-                                                                    : 
-                                                                    ''
-                                                                }
-                                                                {
-                                                                    identifier ? 
-                                                                        <div style={{position: 'fixed' ,top:'16px' , right:'600px', zIndex: '9999' ,backgroundColor: 'rgba(0,0,0,0.4)'}}>
-                                                                            <div className="popup_delete" style={{width:'400px',height:'300px', borderRadius:'10px', padding:'28px', zIndex:'9998', backgroundColor:'white', position:'fixed',top:'20%',left:'40%'}}>
-                                                                                <h1 style={{textAlign:'center', fontWeight:'700' , marginBottom:'32px' , fontSize:'18px'}}>Konfirmasi</h1><br/>
-                                                                                <h1 style={{fontSize:'18px', textAlign:'center' , fontWeight:'normal', lineHeight:'20px'}}>Apakah anda yakin akan menghapus <br/> gambar ini?</h1>
-                                                                                <div style={{marginTop:'30px', textAlign:'center'}}>
-                                                                                    <button onClick={onHapus}  className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor:'#D4362E', color: 'white' , marginBottom:'16px' , boxShadow:'none'}}>Ya</button><br/>
-                                                                                    <button onClick={onTidakHapus} className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor: '#E9E9E9' , color :'#656A6A' , boxShadow:'none'}}>Tidak</button>
+                                                    <div className="gallery-item" onClick={(e) => onOpen(e,index,wowo)}>
+                                                        <img src={`https://api.simonev.revolusimental.go.id${galleri.media[0]}`} alt={`gallery-${index}`} style={{cursor:'pointer' }} className="test_gambar_gallery"></img>
+                                                        <div className='test_gallery'></div>
+                                                        <div className='hover-nama'>
+                                                            {galleri.instansi.toUpperCase()}
+                                                            {/* <img src={triangle} className='triangle' alt=''/> */}
+                                                        </div> 
+                                                    </div>
+                                                        {
+                                                            open ? 
+                                                                <Fragment>
+                                                                    <Lightbox
+                                                                        mainSrc={gambar[galleriIndex]}
+                                                                        nextSrc={gambar[(galleriIndex + 1) % gambar.length]}
+                                                                        prevSrc={gambar[(galleriIndex + gambar.length - 1) % gambar.length]}
+                                                                        onCloseRequest={() => setOpen(false)}
+                                                                        onMovePrevRequest={() =>
+                                                                        setGalleriIndex((galleriIndex + gambar.length - 1) % gambar.length)}
+                                                                        onMoveNextRequest={() =>
+                                                                        setGalleriIndex((galleriIndex + 1) % gambar.length)}
+                                                                    />
+                                                                    {
+                                                                        props.logged_in && user && user.role === 'owner'  ?
+                                                                                <img src={hapuss} onClick={onClickGambar} style={{position:'fixed', top:'16px' , right:'150px' , zIndex:'9999' , cursor:'pointer'}}/>
+                                                                        : 
+                                                                        ''
+                                                                    }
+                                                                    {
+                                                                        identifier ? 
+                                                                            <div style={{position: 'fixed' ,top:'16px' , right:'600px', zIndex: '9999' ,backgroundColor: 'rgba(0,0,0,0.4)'}}>
+                                                                                <div className="popup_delete" style={{width:'400px',height:'300px', borderRadius:'10px', padding:'28px', zIndex:'9998', backgroundColor:'white', position:'fixed',top:'20%',left:'40%'}}>
+                                                                                    <h1 style={{textAlign:'center', fontWeight:'700' , marginBottom:'32px' , fontSize:'18px'}}>Konfirmasi</h1><br/>
+                                                                                    <h1 style={{fontSize:'18px', textAlign:'center' , fontWeight:'normal', lineHeight:'20px'}}>Apakah anda yakin akan menghapus <br/> gambar ini?</h1>
+                                                                                    <div style={{marginTop:'30px', textAlign:'center'}}>
+                                                                                        <button onClick={onHapus}  className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor:'#D4362E', color: 'white' , marginBottom:'16px' , boxShadow:'none'}}>Ya</button><br/>
+                                                                                        <button onClick={onTidakHapus} className="preview-gnrm" style={{width:'294px' , fontSize:'24px', height: '50px', borderRadius:'20px', backgroundColor: '#E9E9E9' , color :'#656A6A' , boxShadow:'none'}}>Tidak</button>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                    : 
-                                                                    ''
-                                                                }
-                                                            </Fragment>
-                                                            
-                                                        : ''
-                                                    }
-                                            </Fragment> 
-                                        )
-                                    })
-                                }
+                                                                        : 
+                                                                        ''
+                                                                    }
+                                                                </Fragment>
+                                                                
+                                                            : ''
+                                                        }
+                                                </Fragment> 
+                                            )
+                                        })
+                                    }
+                                </div>
                             
                             {
                                 !props.pagination ?

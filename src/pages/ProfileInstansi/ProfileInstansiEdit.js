@@ -21,7 +21,7 @@ const ProfileInstansiEdit = (props) => {
     const [ foto, setFoto ] = useState([])
     const [loading , setLoading ] = useState(false)
     const [ instansiDetail , setInstansiDetail] = useState({})
-    const jenis = ['Kementerian' , 'Pemerintah Daerah']
+    const jenis = ['Kementerian' , 'Lembaga' , 'Pemerintah Daerah']
 
     const [newInstansi,setNewInstansi] = useState({
         nama: '',
@@ -102,6 +102,7 @@ const ProfileInstansiEdit = (props) => {
     useEffect(()=> {
         if(props.match.params.id) {
             getInstansiDetail()
+            window.scrollTo(0, 0);
         }
     },[props.match.params.id])
 
@@ -176,7 +177,7 @@ const ProfileInstansiEdit = (props) => {
                                                         </div>
 
                                                         <div className="data">
-                                                            <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                            <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                             <select className="show-profile" type="text" name="jenis" onChange={onChangeInstansi}>
                                                                 {  
                                                                     jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
@@ -221,7 +222,7 @@ const ProfileInstansiEdit = (props) => {
                                                         </div>
 
                                                         <div className="data">
-                                                            <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                            <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                             <select className="show-profile" style={{ width:'466px'}}type="text" name="jenis" onChange={onChangeInstansi}>
                                                                 {  
                                                                     jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)

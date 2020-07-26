@@ -143,18 +143,6 @@ const SideBarOff = (props) => {
                                                 </div>
                                             </li>
                                         </NavLink>        
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`} activeClassName="active">
-                                        <li className="side-bar-item">
-                                                <div className="row">
-                                                    <div className="col-md-2">
-                                                        <div className="gnrm_icon"></div>
-                                                    </div>
-                                                    <div className="col-md-10">
-                                                        <div className="label-menu">Rencana Pelaksanaan Program</div>
-                                                    </div>
-                                                </div>
-                                        </li>
-                                        </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`} activeClassName="active">
                                         <li className="side-bar-item">
                                                 <div className="row">
@@ -163,6 +151,18 @@ const SideBarOff = (props) => {
                                                     </div>
                                                     <div className="col-md-10">
                                                         <div className="label-menu">Kabar GNRM</div>
+                                                    </div>
+                                                </div>
+                                        </li>
+                                        </NavLink>
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`} activeClassName="active">
+                                        <li className="side-bar-item">
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="gnrm_icon"></div>
+                                                    </div>
+                                                    <div className="col-md-10">
+                                                        <div className="label-menu">Rencana Pelaksanaan Program</div>
                                                     </div>
                                                 </div>
                                         </li>
@@ -306,23 +306,23 @@ const SideBarOff = (props) => {
                                                 </div>
                                             </li>
                                         </NavLink>        
-                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`} activeClassName="active">
-                                            <li className="side-bar-item">
-                                                <div className="row">
-                                                    <div className="col-md-2">
-                                                        <div className="gnrm_icon">
-                                                            <span className="tooltiptext">Rencana Pelaksanaan Program</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </NavLink>
                                         <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`} activeClassName="active">
                                             <li className="side-bar-item">
                                                 <div className="row">
                                                     <div className="col-md-2">
                                                         <div className="kabar_gnrm_icon">
                                                             <span className="tooltiptext">Kabar GNRM</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </NavLink>
+                                        <NavLink to={`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`} activeClassName="active">
+                                            <li className="side-bar-item">
+                                                <div className="row">
+                                                    <div className="col-md-2">
+                                                        <div className="gnrm_icon">
+                                                            <span className="tooltiptext">Rencana Pelaksanaan Program</span>
                                                         </div>
                                                     </div>
                                                 </div>

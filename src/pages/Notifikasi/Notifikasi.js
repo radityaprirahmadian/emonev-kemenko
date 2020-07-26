@@ -27,6 +27,7 @@ const Notifikasi = (props) => {
     
     useEffect(() => {
         getReminder(token)
+        window.scrollTo(0, 0);
     },[])
 
     useEffect(() => {

@@ -141,16 +141,30 @@ const style = StyleSheet.create({
     },
 
     signature: {
-        width: 80,
         position: 'relative',
-        right: -395,
+        textAlign: 'right',
         marginTop: 3
     },
 
-    ttd: {
-        marginTop: 30
+
+    testStyle: {
+        right:-395,
+        textAlign:'left',
+        position: 'relative'
     },
     
+    ttd: {
+        marginTop: 15,
+        marginBottom: 15,
+        right:-395,
+        textAlign: 'left',
+        position: 'relative'
+    },
+
+    testStyle2: {
+        textAlign:'right'
+    },
+
     red: {
         color: 'black'
     },
@@ -192,13 +206,17 @@ const DownloadGNRM = (props) => {
         }
         return i;
     }
-    
+    const isFileImage = (file) => {
+        return file && file['mimetype'].split('/')[0] === 'image';
+    }
+
     const mydate = new Date(props.data.document1&&props.data.document1.tanggal_diperbarui);
     const hour = nol(mydate.getHours());
     const minute = nol(mydate.getMinutes());
     const date = mydate.getDate();
     let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
     let str =  hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
+    let str2 = date + ' ' + month + ' ' + mydate.getFullYear();
 
     return(
             <Document size='A4'>
@@ -243,10 +261,10 @@ const DownloadGNRM = (props) => {
                             PROGRAM PELAKSANAAN GNRM <Text style={style.red}>{props.data.document1.form && props.data.document1.form.tahun}</Text>
                         </Text>
                         <Text>
-                            ID PROGRAM : <Text style={style.red}>{props.data.document1.form && props.data.document1.form.id_program}</Text>
+                           Periode Perencanaan Program : <Text style={style.red}>{props.data.document1.form && props.data.document1.form.id_program}</Text>
                         </Text>
                         <Text style={style.headerMargTop}>
-                            Program <Text style={style.red}>{props.data.document1.instansi}</Text> GNRM TAHUN <Text style={style.red}>{props.data.document1.form && props.data.document1.form.tahun}</Text>
+                            Program <Text style={style.red}>{props.data.document1.instansi}</Text> GNRM Tahun <Text style={style.red}>{props.data.document1.form && props.data.document1.form.tahun}</Text>
                         </Text>
                     </View>
 
@@ -300,7 +318,7 @@ const DownloadGNRM = (props) => {
                         </Text>
                         <View style={style.isiFlex}>
                             {
-                                props.data.document1.form && props.data.document1.form.lampiran.kondisi_awal.map((media,index) => {
+                                props.data.document1.form && props.data.document1.form.lampiran.kondisi_awal.filter(media => isFileImage(media) === true).map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
                                             <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
@@ -308,6 +326,17 @@ const DownloadGNRM = (props) => {
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
                                         </View>
+                                    )   
+                                })
+                            }
+                        </View>
+                        <View style={style.isi}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.kondisi_awal.filter(media => isFileImage(media) === false).map((media,index) => {
+                                    return(
+                                        <Text style={style.text}>
+                                                {media.filename}
+                                        </Text>
                                     )   
                                 })
                             }
@@ -331,7 +360,7 @@ const DownloadGNRM = (props) => {
                         </Text>
                         <View style={style.isiFlex}>
                             {
-                                props.data.document1.form && props.data.document1.form.lampiran.proses.map((media,index) => {
+                                props.data.document1.form && props.data.document1.form.lampiran.proses.filter(media => isFileImage(media) === true).map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
                                             <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
@@ -339,6 +368,17 @@ const DownloadGNRM = (props) => {
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
                                         </View>
+                                    )   
+                                })
+                            }
+                        </View>
+                        <View style={style.isi}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.proses.filter(media => isFileImage(media) === false).map((media,index) => {
+                                    return(
+                                        <Text style={style.text}>
+                                                {media.filename}
+                                        </Text>
                                     )   
                                 })
                             }
@@ -365,7 +405,7 @@ const DownloadGNRM = (props) => {
                                 })  
                             }
                         </View>
-                        <Text style={style.headerBold}>
+                        {/* <Text style={style.headerBold}>
                             8.        Lampiran Media
                         </Text>
                         <View style={style.isiFlex}>
@@ -381,32 +421,44 @@ const DownloadGNRM = (props) => {
                                     )   
                                 })
                             }
-                        </View>
-                        
+                        </View> */}
                     </View>
 
                     {/*Footer*/}
                     <View wrap={false}>
                         <View style={style.footer}>
                             <Text>
-                                Demikian program ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya
+                                Demikian program ini disampaikan dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya,
                             </Text>
                             <Text>
-                                Atas perhatiannya diucapkan terimakasih
+                                atas perhatian dan kerja samanya diucapkan terimakasih
                             </Text>
                         </View>
 
                         <View style={style.signature} wrap={false}>
-                            <Text>
-                                ....................,....................
+                            <Text style={style.testStyle}>
+                                Pengesahan
                             </Text>
-                            <Text>
-                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}
+                            {
+                                props.data.document1.form && props.data.document1.form.lokasi.length > 10 ?
+                                    <Text style={style.testStyle2}>
+                                        {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                    </Text>
+                                :
+                                    <Text style={style.testStyle}>
+                                        {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                    </Text>
+                            }
+                            <Text style={style.testStyle}>
+                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}
                             </Text>
                             <Text style={style.ttd}>
                                 TTD
                             </Text>
-                            <Text>
+                            <Text style={style.testStyle}>
+                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}
+                            </Text>
+                            <Text style={style.testStyle}>
                                 NIP. {props.data.document1.form && props.data.document1.form.penanggung_jawab.nip}
                             </Text>
                         </View>

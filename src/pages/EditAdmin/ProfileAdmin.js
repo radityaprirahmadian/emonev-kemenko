@@ -44,6 +44,7 @@ const ProfileAdmin = (props) => {
             setLoading(false)
         }
         getUserToShow()
+        window.scrollTo(0, 0);
     }, [])
 
         return(

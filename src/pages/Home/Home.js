@@ -683,7 +683,10 @@ const Home = () => {
                                     Galeri
                                 </div>
                                 
-                                <Gallery pagination={false}/>
+                                <Gallery 
+                                    pagination={false}
+                                    logged_in={false}
+                                />
                 
                             </div>
                         </div>

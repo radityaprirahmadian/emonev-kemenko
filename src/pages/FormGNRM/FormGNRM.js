@@ -70,6 +70,7 @@ const FormGNRM = (props) => {
             jabatan: '',
             nip: '',
         },
+        lokasi: '',
         deleted_media: [],
         deleted_proses: [],
         deleted_kondisi: []
@@ -104,6 +105,7 @@ const FormGNRM = (props) => {
         proses,
         penanggung_jawab,
         nama,
+        lokasi,
         jabatan,
         nip
     } = data
@@ -142,9 +144,11 @@ const FormGNRM = (props) => {
     const date = mydate.getDate();
     let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
     let str = hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
+    let str2 = date + ' ' + month + ' ' + mydate.getFullYear();
 
     const setPreview = (e) => {
         e.preventDefault()
+        window.scrollTo(0, 0);
         preview()
     }
     const addForm = (e) => {
@@ -279,6 +283,20 @@ const FormGNRM = (props) => {
         const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/instansi/${userDetail.instansi&&userDetail.instansi._id}`,formData,config,)
         history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
         setLoadingFalse()
+    }
+
+    const isFileImage = (file) => {
+        return file && file['type'].split('/')[0] === 'image';
+    }
+    
+    const isFileImageUrl = (url) => {
+        url = url.split('?')[0];
+        const parts = url.split('.');
+        const extension = parts[parts.length-1];
+        const imageTypes = ['jpg','jpeg','tiff','png','gif','bmp', 'JPG' , 'PNG' , 'JPEG']
+        if(imageTypes.indexOf(extension) !== -1) {
+            return true;   
+        } else return false;
     }
 
     const onSubmit = async (event) => {
@@ -633,14 +651,14 @@ const FormGNRM = (props) => {
                                                     }
                                                 </div>
                                                 <div>
-                                                    <label>ID Program</label>
+                                                    <label>Periode</label>
                                                     {
                                                         documentDetail && documentDetail.form.id_program ?
                                                             <select
                                                                 onChange={(event) => onChange(event)}
                                                                 className="monev-id-program"
                                                                 name="id_program"
-                                                                style={{ marginLeft: '124px' }}
+                                                                style={{ marginLeft: '150px' }}
                                                             >
 
                                                                 {
@@ -652,7 +670,7 @@ const FormGNRM = (props) => {
                                                                 onChange={(event) => onChange(event)}
                                                                 className="monev-id-laporan"
                                                                 name="id_program"
-                                                                style={{ marginLeft: '124px' }}
+                                                                style={{ marginLeft: '150px' }}
                                                             >
                                                                 <option selected={true} hidden></option>
                                                                 {
@@ -746,7 +764,7 @@ const FormGNRM = (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -968,7 +986,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -1411,8 +1429,8 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lampiran Media</label>
-                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label>Data Dukung</label>
+                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing2"
                                                         className="gnrm-penjelasan"
@@ -1422,8 +1440,8 @@ const FormGNRM = (props) => {
                                                             width: "955px"
                                                         }}
                                                         onChange={onChangeFilesKondisi}
-                                                        type="file"
-                                                        accept="image/*"
+                                                        type="file" 
+                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -1433,7 +1451,7 @@ const FormGNRM = (props) => {
                                                         lampiranKondisi && lampiranKondisi.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "955px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -1445,20 +1463,25 @@ const FormGNRM = (props) => {
                                                             >
                                                                 {
                                                                     lampiranKondisi && lampiranKondisi.map((lampiran, index) => {
+                                                                        const fileType = isFileImage(lampiran)
                                                                         const objectURL = URL.createObjectURL(lampiran)
                                                                         return (
                                                                             <div key={index}>
                                                                                 <div style={{
                                                                                     width: '150px',
                                                                                     height: '150px',
-                                                                                    backgroundColor: 'pink',
                                                                                     marginRight: '35px',
                                                                                     position: 'relative'
                                                                                 }}
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        {
+                                                                                            !fileType ? 
+                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                            :
+                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        }
                                                                                     </div>
                                                                                     <div style={{
                                                                                         position: 'absolute',
@@ -1495,7 +1518,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "955px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -1507,6 +1530,7 @@ const FormGNRM = (props) => {
                                                                 >
                                                                     {
                                                                         lampiranKondisiUrl && lampiranKondisiUrl.map((url, index) => {
+                                                                            const fileType = isFileImageUrl(url)
                                                                             return (
                                                                                 <div key={index}>
                                                                                     <div style={{
@@ -1519,7 +1543,13 @@ const FormGNRM = (props) => {
                                                                                         className="d-flex align-items-center justify-content-center"
                                                                                     >
                                                                                         <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                            {
+                                                                                                !fileType ? 
+                                                                                                    <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                :
+                                                                                                    <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                            }
+                                                                                            {/* <img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
                                                                                         </div>
                                                                                         <div style={{
                                                                                             position: 'absolute',
@@ -1531,7 +1561,8 @@ const FormGNRM = (props) => {
                                                                                             right: '-7px',
                                                                                             lineHeight: '25px',
                                                                                             textAlign: 'center',
-                                                                                            cursor: 'pointer'
+                                                                                            cursor: 'pointer',
+                                                                                            color:'white'
                                                                                         }}
                                                                                             onClick={(e) => onDeleteKondisi(false, getFileName(url))}> X </div>
                                                                                     </div>
@@ -1666,8 +1697,8 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lampiran Media</label>
-                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label>Data Dukung</label>
+                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing3"
                                                         className="gnrm-penjelasan"
@@ -1678,7 +1709,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesProses}
                                                         type="file"
-                                                        accept="image/*"
+                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -1688,7 +1719,7 @@ const FormGNRM = (props) => {
                                                         lampiranProses && lampiranProses.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "955px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -1700,6 +1731,7 @@ const FormGNRM = (props) => {
                                                             >
                                                                 {
                                                                     lampiranProses && lampiranProses.map((lampiran, index) => {
+                                                                        const fileType = isFileImage(lampiran)
                                                                         const objectURL = URL.createObjectURL(lampiran)
                                                                         return (
                                                                             <div key={index}>
@@ -1713,7 +1745,13 @@ const FormGNRM = (props) => {
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        {
+                                                                                            !fileType ? 
+                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                            :
+                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        }
+                                                                                        {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
                                                                                     </div>
                                                                                     <div style={{
                                                                                         position: 'absolute',
@@ -1751,7 +1789,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "955px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -1763,19 +1801,25 @@ const FormGNRM = (props) => {
                                                                 >
                                                                     {
                                                                         lampiranProsesUrl && lampiranProsesUrl.map((url, index) => {
+                                                                            const fileType = isFileImageUrl(url)
                                                                             return (
                                                                                 <div key={index}>
                                                                                     <div style={{
                                                                                         width: '150px',
                                                                                         height: '150px',
-                                                                                        backgroundColor: 'pink',
                                                                                         marginRight: '35px',
                                                                                         position: 'relative'
                                                                                     }}
                                                                                         className="d-flex align-items-center justify-content-center"
                                                                                     >
                                                                                         <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                            {
+                                                                                                !fileType ? 
+                                                                                                    <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                :
+                                                                                                    <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                            }
+                                                                                            {/* <img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
                                                                                         </div>
                                                                                         <div style={{
                                                                                             position: 'absolute',
@@ -1787,7 +1831,8 @@ const FormGNRM = (props) => {
                                                                                             right: '-7px',
                                                                                             lineHeight: '25px',
                                                                                             textAlign: 'center',
-                                                                                            cursor: 'pointer'
+                                                                                            cursor: 'pointer',
+                                                                                            color:'white'
                                                                                         }}
                                                                                             onClick={(e) => onDeleteProses(false, getFileName(url))}> X </div>
                                                                                     </div>
@@ -2002,7 +2047,7 @@ const FormGNRM = (props) => {
                                             <div>
                                                 <label className="tambah-lembaga" >
                                                     Tambah Lembaga
-                                        </label>
+                                                </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
 
@@ -2030,16 +2075,16 @@ const FormGNRM = (props) => {
                                             </div>
                                         </div>
                                     </Element>
-
+{/* 
                                     <Element id='lampiran' name='lampiran'>
                                         <div className="gnrm-container">
                                             <div className="gnrm-title">
                                                 LAMPIRAN MEDIA
-                                    </div>
+                                        </div>
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Lampiran Media</label>
-                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing"
                                                         className="gnrm-penjelasan"
@@ -2060,7 +2105,7 @@ const FormGNRM = (props) => {
                                                         media && media.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "955px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -2123,7 +2168,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "955px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -2207,10 +2252,13 @@ const FormGNRM = (props) => {
                                                 </Link>
                                             </div>
                                         </div>
-                                    </Element>
+                                    </Element> */}
 
                                     <Element id='penanggung_jawab' name='penanggung_jawab'>
                                         <div className="gnrm-container" style={{ marginBottom: "130px" }}>
+                                            <div className="monev-title">
+                                                PENANGGUNG JAWAB
+                                            </div>
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Nama</label>
@@ -2258,6 +2306,20 @@ const FormGNRM = (props) => {
                                                         name="nip"
                                                         value={penanggung_jawab.nip}
                                                         onChange={(event) => onChange(event, 'penanggung_jawab')}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Lokasi</label>
+                                                    <input 
+                                                        className="monev-nip" 
+                                                        style={{height:"42px",
+                                                                width: "955px",
+                                                                marginLeft: "160px" 
+                                                        }}
+                                                        type="text" 
+                                                        name="lokasi"
+                                                        value={lokasi}
+                                                        onChange={(event) => onChange(event)} 
                                                     />
                                                 </div>
                                             </div>
@@ -2314,14 +2376,14 @@ const FormGNRM = (props) => {
                                                     }
                                                 </div>
                                                 <div>
-                                                    <label>ID Program</label>
+                                                    <label>Periode</label>
                                                     {
                                                         documentDetail && documentDetail.form.id_program ?
                                                             <select
                                                                 onChange={(event) => onChange(event)}
                                                                 className="monev-id-program"
                                                                 name="id_program"
-                                                                style={{ marginLeft: '124px' }}
+                                                                style={{ marginLeft: '150px' }}
                                                             >
 
                                                                 {
@@ -2333,7 +2395,7 @@ const FormGNRM = (props) => {
                                                                 onChange={(event) => onChange(event)}
                                                                 className="monev-id-laporan"
                                                                 name="id_program"
-                                                                style={{ marginLeft: '124px' }}
+                                                                style={{ marginLeft: '150px' }}
                                                             >
                                                                 <option selected={true} hidden></option>
                                                                 {
@@ -2427,7 +2489,7 @@ const FormGNRM = (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -2649,7 +2711,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -3092,8 +3154,8 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lampiran Media</label>
-                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label>Data Dukung</label>
+                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing2"
                                                         className="gnrm-penjelasan"
@@ -3104,7 +3166,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesKondisi}
                                                         type="file"
-                                                        accept="image/*"
+                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -3114,7 +3176,7 @@ const FormGNRM = (props) => {
                                                         lampiranKondisi && lampiranKondisi.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "767px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -3126,20 +3188,26 @@ const FormGNRM = (props) => {
                                                             >
                                                                 {
                                                                     lampiranKondisi && lampiranKondisi.map((lampiran, index) => {
+                                                                        const fileType = isFileImage(lampiran)
                                                                         const objectURL = URL.createObjectURL(lampiran)
                                                                         return (
                                                                             <div key={index}>
                                                                                 <div style={{
                                                                                     width: '150px',
                                                                                     height: '150px',
-                                                                                    backgroundColor: 'pink',
                                                                                     marginRight: '35px',
                                                                                     position: 'relative'
                                                                                 }}
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        {
+                                                                                            !fileType ? 
+                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                            :
+                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        }
+                                                                                        {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
                                                                                     </div>
                                                                                     <div style={{
                                                                                         position: 'absolute',
@@ -3176,7 +3244,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "767px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -3188,19 +3256,25 @@ const FormGNRM = (props) => {
                                                                 >
                                                                     {
                                                                         lampiranKondisiUrl && lampiranKondisiUrl.map((url, index) => {
+                                                                            const fileType = isFileImageUrl(url)
                                                                             return (
                                                                                 <div key={index}>
                                                                                     <div style={{
                                                                                         width: '150px',
                                                                                         height: '150px',
-                                                                                        backgroundColor: 'pink',
                                                                                         marginRight: '35px',
                                                                                         position: 'relative'
                                                                                     }}
                                                                                         className="d-flex align-items-center justify-content-center"
                                                                                     >
                                                                                         <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                            {
+                                                                                                !fileType ? 
+                                                                                                    <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                :
+                                                                                                    <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                            }
+                                                                                            {/* <img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
                                                                                         </div>
                                                                                         <div style={{
                                                                                             position: 'absolute',
@@ -3212,7 +3286,8 @@ const FormGNRM = (props) => {
                                                                                             right: '-7px',
                                                                                             lineHeight: '25px',
                                                                                             textAlign: 'center',
-                                                                                            cursor: 'pointer'
+                                                                                            cursor: 'pointer',
+                                                                                            color:'white'
                                                                                         }}
                                                                                             onClick={(e) => onDeleteKondisi(false, getFileName(url))}> X </div>
                                                                                     </div>
@@ -3347,8 +3422,8 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lampiran Media</label>
-                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label>Data Dukung</label>
+                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing3"
                                                         className="gnrm-penjelasan"
@@ -3359,7 +3434,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesProses}
                                                         type="file"
-                                                        accept="image/*"
+                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -3369,7 +3444,7 @@ const FormGNRM = (props) => {
                                                         lampiranProses && lampiranProses.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "767px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -3381,20 +3456,26 @@ const FormGNRM = (props) => {
                                                             >
                                                                 {
                                                                     lampiranProses && lampiranProses.map((lampiran, index) => {
+                                                                        const fileType = isFileImage(lampiran)
                                                                         const objectURL = URL.createObjectURL(lampiran)
                                                                         return (
                                                                             <div key={index}>
                                                                                 <div style={{
                                                                                     width: '150px',
                                                                                     height: '150px',
-                                                                                    backgroundColor: 'pink',
                                                                                     marginRight: '35px',
                                                                                     position: 'relative'
                                                                                 }}
                                                                                     className="d-flex align-items-center justify-content-center"
                                                                                 >
                                                                                     <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        {
+                                                                                            !fileType ? 
+                                                                                                <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                            :
+                                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                        }
+                                                                                        {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
                                                                                     </div>
                                                                                     <div style={{
                                                                                         position: 'absolute',
@@ -3432,7 +3513,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "767px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -3444,19 +3525,25 @@ const FormGNRM = (props) => {
                                                                 >
                                                                     {
                                                                         lampiranProsesUrl && lampiranProsesUrl.map((url, index) => {
+                                                                            const fileType = isFileImageUrl(url)
                                                                             return (
                                                                                 <div key={index}>
                                                                                     <div style={{
                                                                                         width: '150px',
                                                                                         height: '150px',
-                                                                                        backgroundColor: 'pink',
                                                                                         marginRight: '35px',
                                                                                         position: 'relative'
                                                                                     }}
                                                                                         className="d-flex align-items-center justify-content-center"
                                                                                     >
                                                                                         <div style={{ width: '150px', height: '150px', overflow: 'hidden', position: 'absolute' }}>
-                                                                                            <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
+                                                                                            {
+                                                                                                !fileType ? 
+                                                                                                    <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                                :
+                                                                                                    <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                            }
+                                                                                            {/* img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
                                                                                         </div>
                                                                                         <div style={{
                                                                                             position: 'absolute',
@@ -3468,7 +3555,8 @@ const FormGNRM = (props) => {
                                                                                             right: '-7px',
                                                                                             lineHeight: '25px',
                                                                                             textAlign: 'center',
-                                                                                            cursor: 'pointer'
+                                                                                            cursor: 'pointer',
+                                                                                            color:'white'
                                                                                         }}
                                                                                             onClick={(e) => onDeleteProses(false, getFileName(url))}> X </div>
                                                                                     </div>
@@ -3683,7 +3771,7 @@ const FormGNRM = (props) => {
                                             <div>
                                                 <label className="tambah-lembaga" >
                                                     Tambah Lembaga
-                                        </label>
+                                                </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
 
@@ -3711,16 +3799,16 @@ const FormGNRM = (props) => {
                                             </div>
                                         </div>
                                     </Element>
-
+{/* 
                                     <Element id='lampiran' name='lampiran'>
                                         <div className="gnrm-container-off">
                                             <div className="gnrm-title">
                                                 LAMPIRAN MEDIA
-                                    </div>
+                                        </div>
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Lampiran Media</label>
-                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH BERKAS</label>
+                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing"
                                                         className="gnrm-penjelasan"
@@ -3741,7 +3829,7 @@ const FormGNRM = (props) => {
                                                         media && media.length > 0 ? (
                                                             <div style={{
                                                                 height: "fit-content",
-                                                                marginLeft: "208px",
+                                                                marginLeft: "213px",
                                                                 width: "767px",
                                                                 border: '1px solid #ACACAC',
                                                                 borderRadius: '5px',
@@ -3804,7 +3892,7 @@ const FormGNRM = (props) => {
                                                         ) : (
                                                                 <div style={{
                                                                     height: "fit-content",
-                                                                    marginLeft: "208px",
+                                                                    marginLeft: "213px",
                                                                     width: "767px",
                                                                     border: '1px solid #ACACAC',
                                                                     borderRadius: '5px',
@@ -3888,10 +3976,13 @@ const FormGNRM = (props) => {
                                                 </Link>
                                             </div>
                                         </div>
-                                    </Element>
+                                    </Element> */}
 
                                     <Element id='penanggung_jawab' name='penanggung_jawab'>
                                         <div className="gnrm-container-off" style={{ marginBottom: "130px" }}>
+                                        <div className="monev-title">
+                                            PENANGGUNG JAWAB
+                                        </div>
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Nama</label>
@@ -3939,6 +4030,20 @@ const FormGNRM = (props) => {
                                                         name="nip"
                                                         value={penanggung_jawab.nip}
                                                         onChange={(event) => onChange(event, 'penanggung_jawab')}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label>Lokasi</label>
+                                                    <input 
+                                                        className="monev-nip" 
+                                                        style={{height:"42px",
+                                                                width: "767px",
+                                                                marginLeft: "160px" 
+                                                        }}
+                                                        type="text" 
+                                                        name="lokasi"
+                                                        value={lokasi}
+                                                        onChange={(event) => onChange(event)} 
                                                     />
                                                 </div>
                                             </div>
@@ -4038,7 +4143,7 @@ const FormGNRM = (props) => {
                             </h1>
 
                             <h1 style={{ lineHeight: '15px' }}>
-                                ID Laporan :
+                                Periode Perancanaan Program:
                                     <span > {data.id_program}</span>
                             </h1>
 
@@ -4128,7 +4233,7 @@ const FormGNRM = (props) => {
                                         }}
                                         >
                                             {
-                                                lampiranKondisi && lampiranKondisi.map((lampiran,index) => {
+                                                lampiranKondisi && lampiranKondisi.filter(lampiran => isFileImage(lampiran) === true).map((lampiran,index) => {
                                                 const objectURL = URL.createObjectURL(lampiran)
                                                 return(
                                                     <div key={index}>
@@ -4141,7 +4246,7 @@ const FormGNRM = (props) => {
                                                             className="d-flex align-items-center justify-content-center"
                                                         >
                                                             <div style={{ width: '420px', height: '420px', overflow: 'hidden', position: 'relative' }}>
-                                                                <img src={objectURL} alt={lampiran.name} style={{ width: '420px', height: '420px' , objectFit:'contain'}} />
+                                                                <img src={objectURL} alt={lampiran.name} style={{ width: '420px' , height: '420px' , objectFit:'contain'}} />
                                                             </div>
                                                         </div>
                                                         <div style={{
@@ -4161,6 +4266,21 @@ const FormGNRM = (props) => {
                                                 })
                                             }
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        {
+                                            lampiranKondisi && lampiranKondisi.filter(lampiran => isFileImage(lampiran) === false).map((lampiran,index) => {
+                                            const objectURL = URL.createObjectURL(lampiran)
+                                            return(
+                                                <p className="gnrm-media--name" style={{textAlign:'left'}}>
+                                                    {lampiran.name}
+                                                </p>
+                                            )  
+                                            })
+                                        }
                                     </td>
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
@@ -4197,8 +4317,8 @@ const FormGNRM = (props) => {
                                         }}
                                         >
                                             {
-                                                lampiranProses && lampiranProses.map((lampiran,index) => {
-                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                lampiranProses && lampiranProses.filter(lampiran => isFileImage(lampiran) === true).map((lampiran,index) => {
+                                                const objectURL = URL.createObjectURL(lampiran)
                                                 return(
                                                     <div key={index}>
                                                         <div style={{
@@ -4210,7 +4330,7 @@ const FormGNRM = (props) => {
                                                             className="d-flex align-items-center justify-content-center"
                                                         >
                                                             <div style={{ width: '420px', height: '420px', overflow: 'hidden', position: 'relative' }}>
-                                                                <img src={objectURL} alt={lampiran.name} style={{ width: '420px', height: '420px' , objectFit:'contain'}} />
+                                                                <img src={objectURL} alt={lampiran.name} style={{ width: '420px' , height: '420px' , objectFit:'contain'}} />
                                                             </div>
                                                         </div>
                                                         <div style={{
@@ -4232,6 +4352,21 @@ const FormGNRM = (props) => {
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        {
+                                            lampiranProses && lampiranProses.filter(lampiran => isFileImage(lampiran) === false).map((lampiran,index) => {
+                                            const objectURL = URL.createObjectURL(lampiran)
+                                            return(
+                                                <p className="gnrm-media--name" style={{textAlign:'left'}}>
+                                                    {lampiran.name}
+                                                </p>
+                                            )  
+                                            })
+                                        }
+                                    </td>
+                                </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
                                     <td>7.</td>
                                     <td>Pihak Terkait</td>
@@ -4251,7 +4386,7 @@ const FormGNRM = (props) => {
                                         :
                                         ''
                                 }
-                                <tr style={{ fontWeight: 'bold' }}>
+                                {/* <tr style={{ fontWeight: 'bold' }}>
                                     <td>8.</td>
                                     <td>Lampiran Media</td>
                                 </tr>
@@ -4303,25 +4438,34 @@ const FormGNRM = (props) => {
                                             }
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> */}
                                 <tr>
                                     <td></td>
                                     <td style={{ paddingTop: '154px' }}>
-                                        Demikian program ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya. <br />
-                                            Atas perhatiannya diucapkan terimakasih.</td>
+                                        Demikian program ini disampaikan dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya, <br />
+                                        atas perhatian dan kerja samanya diucapkan terimakasih.</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div className="preview-ttd" style={{ marginTop: '10px', fontSize: '12px' }}>
-                        <div style={{ textAlign: 'left', marginLeft: '893px' }}>
-                            <h1>..................., ...................</h1><br />
-                            <h1>{data.penanggung_jawab.nama}</h1>
+                    <div className="preview-ttd" style={{ marginTop: '10px', fontSize: '12px', textAlign:'right' }}>
+                        <div style={{ textAlign: 'left'}}>
+                        <h1 style={{marginLeft: '893px' }}>Pengesahan</h1>
+                        {data.lokasi.length > 10 ?
+                            <h1 style={{textAlign:'right'}}>{data.lokasi}, {str2}</h1>
+                            :
+                            <h1 style={{marginLeft: '893px'}}>{data.lokasi}, {str2}</h1>
+                        }
+                            <h1 style={{marginLeft: '893px' }}>{data.penanggung_jawab.jabatan}</h1>
                             <br />
                             <br />
                             <br />
-                            <h1>TTD</h1>
-                            <h1>NIP. {data.penanggung_jawab.nip}</h1>
+                            <h1 style={{marginLeft: '893px' }}>TTD</h1>
+                            <br />
+                            <br />
+                            <br />
+                            <h1 style={{marginLeft: '893px' }}>{data.penanggung_jawab.nama}</h1>
+                            <h1 style={{marginLeft: '893px' }}>NIP. {data.penanggung_jawab.nip}</h1>
                         </div>
                     </div>
                     <hr style={{ backgroundColor: 'black', marginTop: '64px' }} />
@@ -4344,7 +4488,7 @@ const FormGNRM = (props) => {
                         </div>
                     }
             </div>
-            {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
+            {/* -------------------------- PREVIEW SECTION END HERE ---------------------------------*/}
         </Fragment >
     );
 }

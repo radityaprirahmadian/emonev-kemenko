@@ -98,7 +98,7 @@ const Dashboard = (props) => {
     const [documentLengthArr , setDocumentLengthArr] = useState([])
 
     useEffect(() => {
-
+      window.scrollTo(0, 0);
       fetch("https://api.simonev.revolusimental.go.id/api/v1/instansi")
       .then(res => res.json())
       .then(data => setInstansiData(data.instansi));
@@ -447,7 +447,9 @@ const Dashboard = (props) => {
                     <div className="tajuk-page3">
                         <p>GALERI</p>
                     </div>
-                    <Gallery pagination={true}/>
+                    <Gallery 
+                      pagination={true}
+                      logged_in={true}/>
                 </div>
                   </div>
               </div>

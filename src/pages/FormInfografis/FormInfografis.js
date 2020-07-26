@@ -236,8 +236,8 @@ const FormInfografis = (props) => {
                                                 </textarea>
                                             </div>
                                             <div>
-                                                <label>Lampiran Infografis</label>
-                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label>Lampiran Kabar</label>
+                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'87px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -254,7 +254,8 @@ const FormInfografis = (props) => {
                                                         <div style={{height: "fit-content", 
                                                             marginLeft: "217px", 
                                                             width: "955px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
@@ -310,7 +311,8 @@ const FormInfografis = (props) => {
                                                         <div style={{height: "fit-content", 
                                                             marginLeft: "217px", 
                                                             width: "955px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
@@ -403,7 +405,7 @@ const FormInfografis = (props) => {
                                             </div>
                                             <div>
                                                 <label>Lampiran Infografis</label>
-                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -420,7 +422,8 @@ const FormInfografis = (props) => {
                                                         <div style={{height: "fit-content", 
                                                             marginLeft: "217px", 
                                                             width: "767px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
@@ -476,7 +479,8 @@ const FormInfografis = (props) => {
                                                         <div style={{height: "fit-content", 
                                                             marginLeft: "217px", 
                                                             width: "767px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',

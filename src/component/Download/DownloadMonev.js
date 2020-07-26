@@ -161,14 +161,28 @@ const style = StyleSheet.create({
     },
 
     signature: {
-        width: 80,
         position: 'relative',
-        right: -395,
+        textAlign: 'right',
         marginTop: 3
     },
 
+
+    testStyle: {
+        right:-395,
+        textAlign:'left',
+        position: 'relative'
+    },
+    
     ttd: {
-        marginTop: 30
+        marginTop: 15,
+        marginBottom: 15,
+        right:-395,
+        textAlign: 'left',
+        position: 'relative'
+    },
+
+    testStyle2: {
+        textAlign:'right'
     },
     
     red: {
@@ -213,6 +227,11 @@ const DownloadMonev = (props) => {
         }
         return i;
     }
+
+    const isFileImage = (file) => {
+        return file && file['mimetype'].split('/')[0] === 'image';
+    }
+
     
     const mydate = new Date(props.data.document1&&props.data.document1.tanggal_diperbarui);
     const hour = nol(mydate.getHours());
@@ -220,7 +239,7 @@ const DownloadMonev = (props) => {
     const date = mydate.getDate();
     let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
     let str =  hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
-
+    let str2 = date + ' ' + month + ' ' + mydate.getFullYear();
     return(
             <Document size='A4'>
                 <Page style={style.body}>
@@ -270,13 +289,10 @@ const DownloadMonev = (props) => {
                            GNRM {props.data.document1.form && props.data.document1.form.tahun}
                         </Text>
                         <Text>
-                            ID Laporan : <Text style={style.red}>{props.data.document1.form && props.data.document1.form.id_laporan}</Text>
+                            Periode Laporan Program/Kegiatan
                         </Text>
                         <Text style={style.headerMargTop}>
-                            Laporan {props.data.document1.form && props.data.document1.form.id_laporan} GNRM Tahun 2020 
-                        </Text>
-                        <Text style={style.red}>
-                            {props.data.instansi.nama}
+                            Laporan {props.data.document1.form && props.data.document1.form.id_laporan} GNRM Tahun {props.data.document1.form && props.data.document1.form.tahun} 
                         </Text>
                     </View>
 
@@ -292,7 +308,7 @@ const DownloadMonev = (props) => {
                             {props.data.instansi.nama}
                         </Text>
                         <Text style={style.headerBold}>
-                            2.        Tujuan Pelaporan
+                            2.        Tujuan Program/Kegiatan
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
@@ -324,7 +340,7 @@ const DownloadMonev = (props) => {
                         </View>
                         <View style={style.isiFlex}>
                             {
-                                props.data.document1.form && props.data.document1.form.lampiran.tempat.map((media,index) => {
+                                props.data.document1.form && props.data.document1.form.lampiran.tempat.filter(media => isFileImage(media) === true).map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
                                             <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
@@ -336,8 +352,19 @@ const DownloadMonev = (props) => {
                                 })
                             }
                         </View>
+                        <View style={style.isi}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.tempat.filter(media => isFileImage(media) === false).map((media,index) => {
+                                    return(
+                                        <Text style={style.text}>
+                                                {media.filename}
+                                        </Text>
+                                    )   
+                                })
+                            }
+                        </View>
                         <Text style={style.headerBoldBotFlex}>
-                            4.       Hasil Monitoring dan Kendala Program ( Pelaporan Kinerja )
+                            4.       Hasil Monitoring dan Kendala Program (Pelaporan Kinerja)
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
@@ -349,7 +376,7 @@ const DownloadMonev = (props) => {
                         </View>
                         <View style={style.isiFlex}>
                             {
-                                props.data.document1.form && props.data.document1.form.lampiran.hasil.map((media,index) => {
+                                props.data.document1.form && props.data.document1.form.lampiran.hasil.filter(media => isFileImage(media) === true).map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
                                             <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
@@ -361,15 +388,26 @@ const DownloadMonev = (props) => {
                                 })
                             }
                         </View>
+                        <View style={style.isi}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.hasil.filter(media => isFileImage(media) === false).map((media,index) => {
+                                    return(
+                                        <Text style={style.text}>
+                                                {media.filename}
+                                        </Text>
+                                    )   
+                                })
+                            }
+                        </View>
                         <Text style={style.headerBoldBotFlex}>
-                            5.        Ketercapaian Indikator dan Target ( Pengukuran Kerja )
+                            5.        Ketercapaian Indikator dan Target (Pengukuran Kerja)
                         </Text>
                         <Text style={style.isi}>
                             {props.data.document1.form && props.data.document1.form.ketercapaian}
                         </Text>
                         <View style={style.isiFlex}>
                             {
-                                props.data.document1.form && props.data.document1.form.lampiran.ketercapaian.map((media,index) => {
+                                props.data.document1.form && props.data.document1.form.lampiran.ketercapaian.filter(media => isFileImage(media) === true).map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
                                             <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
@@ -377,6 +415,17 @@ const DownloadMonev = (props) => {
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>
                                         </View>
+                                    )   
+                                })
+                            }
+                        </View>
+                        <View style={style.isi}>
+                            {
+                                props.data.document1.form && props.data.document1.form.lampiran.ketercapaian.filter(media => isFileImage(media) === false).map((media,index) => {
+                                    return(
+                                        <Text style={style.text}>
+                                                {media.filename}
+                                        </Text>
                                     )   
                                 })
                             }
@@ -387,7 +436,7 @@ const DownloadMonev = (props) => {
                         <Text style={style.isi}>
                             {props.data.document1.form && props.data.document1.form.tindak_lanjut}
                         </Text>
-                        <Text style={style.headerBold}>
+                        {/* <Text style={style.headerBold}>
                             7.        Lampiran Media dan Berkas
                         </Text>
                         <View style={style.isiFlex}>
@@ -417,7 +466,7 @@ const DownloadMonev = (props) => {
                                     )   
                                 })
                             }
-                        </View>
+                        </View> */}
                         
                     </View>
 
@@ -425,24 +474,37 @@ const DownloadMonev = (props) => {
                     <View wrap={false}>
                         <View style={style.footer}>
                             <Text>
-                                Demikian hasil laporan monitoring dan evaluasi {props.data.document1.form && props.data.document1.form.id_laporan} ke 1 tahun 2020 ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya
+                                Demikian laporan monitoring dan evaluasi {props.data.document1.form && props.data.document1.form.id_laporan} GNRM ini disampaikan,
                             </Text>
                             <Text>
-                                Atas perhatiannya diucapkan terimakasih
+                                atas perhatian dan kerja samanya diucapkan terimakasih
                             </Text>
                         </View>
 
                         <View style={style.signature} wrap={false}>
-                            <Text>
-                                ....................,....................
+                            <Text style={style.testStyle}>
+                                Pengesahan Laporan
                             </Text>
-                            <Text>
-                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}
+                            {
+                                props.data.document1.form && props.data.document1.form.lokasi.length > 10 ?
+                                    <Text style={style.testStyle2}>
+                                        {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                    </Text>
+                                :
+                                    <Text style={style.testStyle}>
+                                        {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                    </Text>
+                            }
+                            <Text style={style.testStyle}>
+                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}
                             </Text>
                             <Text style={style.ttd}>
                                 TTD
                             </Text>
-                            <Text>
+                            <Text style={style.testStyle}>
+                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}
+                            </Text>
+                            <Text style={style.testStyle}>
                                 NIP. {props.data.document1.form && props.data.document1.form.penanggung_jawab.nip}
                             </Text>
                         </View>

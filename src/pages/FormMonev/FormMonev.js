@@ -52,6 +52,7 @@ const FormMonev =  (props) => {
     const date = mydate.getDate();
     let month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][mydate.getMonth()];
     let str = hour + ':' + minute + ' WIB, ' + date + ' ' + month + ' ' + mydate.getFullYear();
+    let str2 = date + ' ' + month + ' ' + mydate.getFullYear();
 
     const [data, setData] = useState({
         tahun: '',
@@ -78,6 +79,7 @@ const FormMonev =  (props) => {
 			jabatan: '',
 			nip: '',
         },
+        lokasi: '',
         deleted_media: [],
         deleted_berkas: [],
         deleted_tempat: [],
@@ -103,6 +105,7 @@ const FormMonev =  (props) => {
         tindak_lanjut,
         penanggung_jawab,
         nama,
+        lokasi,
         jabatan,
         nip
     }  = data
@@ -233,6 +236,20 @@ const FormMonev =  (props) => {
     //     }
     // }
 
+    const isFileImage = (file) => {
+        return file && file['type'].split('/')[0] === 'image';
+    }
+    
+    const isFileImageUrl = (url) => {
+        url = url.split('?')[0];
+        const parts = url.split('.');
+        const extension = parts[parts.length-1];
+        const imageTypes = ['jpg','jpeg','tiff','png','gif','bmp', 'JPG' , 'PNG' , 'JPEG']
+        if(imageTypes.indexOf(extension) !== -1) {
+            return true;   
+        } else return false;
+    }
+
     const onSubmit = async (event) => {
         setLoadingTrue()
 		event.preventDefault()
@@ -350,6 +367,7 @@ const FormMonev =  (props) => {
         editDocumentFalse()
         }
         catch(err) {
+            console.log(err)
             alert(err.response.data.message)
         }
         setLoadingFalse()
@@ -357,6 +375,7 @@ const FormMonev =  (props) => {
 
     const setPreview = (e) => {
         e.preventDefault()
+        window.scrollTo(0, 0);
         preview()
     }
 
@@ -411,6 +430,7 @@ const FormMonev =  (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         (async () => {
             const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek')
 
@@ -675,14 +695,14 @@ const FormMonev =  (props) => {
                                         }
                                 </div>
                                 <div>
-                                    <label>ID Laporan</label>
+                                    <label>Periode</label>
                                         {
                                             documentDetail && documentDetail.form.id_laporan ?
                                             <select 
                                                 onChange={(event) => onChange(event)}  
                                                 className="monev-id-program"
                                                 name="id_laporan"
-                                                style={{marginLeft:'127px'}}
+                                                style={{marginLeft:'150px'}}
                                             >
                                                 
                                                 {
@@ -694,7 +714,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)} 
                                                 className="monev-id-laporan"
                                                 name="id_laporan"
-                                                style={{marginLeft:'127px'}}
+                                                style={{marginLeft:'150px'}}
                                             >
                                                 <option selected={true} hidden></option>
                                                 {
@@ -968,7 +988,7 @@ const FormMonev =  (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -1190,7 +1210,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -1303,7 +1323,7 @@ const FormMonev =  (props) => {
                     <Element id='tujuan_pelaporan' name='tujuan_pelaporan'>
                         <div className="monev-container">
                             <div className="monev-title">
-                                TUJUAN PELAPORAN
+                                TUJUAN PROGRAM / KEGIATAN
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -1394,8 +1414,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Berkas</label>
-                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing"
                                             className="gnrm-penjelasan" 
@@ -1404,7 +1424,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesTempat}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -1413,7 +1433,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranTempat && lampiranTempat.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "955px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -1425,6 +1445,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranTempat.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -1436,7 +1457,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1469,7 +1495,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "955px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -1481,6 +1507,8 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranTempatUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
+                                                            // console.log(fileType)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -1490,7 +1518,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1501,7 +1534,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteTempat(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -1582,8 +1616,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Media</label>
-                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing2"
                                             className="gnrm-penjelasan" 
@@ -1592,7 +1626,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesHasil}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -1601,7 +1635,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranHasil && lampiranHasil.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "955px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -1613,6 +1647,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranHasil.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -1624,7 +1659,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1657,7 +1697,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
                                                     width: "955px",
@@ -1669,6 +1709,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranHasiliUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -1678,7 +1719,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    fileType ? 
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    :
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1689,7 +1735,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteHasil(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -1757,8 +1804,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Media</label>
-                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing3"
                                             className="gnrm-penjelasan" 
@@ -1767,7 +1814,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesKetercapaian}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -1776,7 +1823,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranKetercapaian && lampiranKetercapaian.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
                                                     width: "955px",
@@ -1789,6 +1836,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranKetercapaian.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -1800,7 +1848,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1833,7 +1886,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "955px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -1845,6 +1898,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranKetercapaianUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -1854,7 +1908,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    fileType ? 
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    :
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -1865,7 +1924,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteKetercapaian(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -1956,7 +2016,7 @@ const FormMonev =  (props) => {
                             </div>
                         </div>
                     </Element>
-
+{/* 
                     <Element id='lampiran' name='lampiran'>
                         <div className="monev-container">
                             <div className="monev-title">
@@ -2246,7 +2306,7 @@ const FormMonev =  (props) => {
                                 </Link>
                             </div>
                         </div>
-                    </Element>
+                    </Element> */}
 
                     <Element id='penanggung_jawab' name='penanggung_jawab'>
                         <div className="monev-container" style={{marginBottom:"296px"}}>
@@ -2294,6 +2354,20 @@ const FormMonev =  (props) => {
                                         name="nip"
                                         value={penanggung_jawab.nip}
                                         onChange={(event) => onChange(event,'penanggung_jawab')} 
+                                    />
+                                </div>
+                                <div>
+                                    <label>Lokasi</label>
+                                    <input 
+                                        className="monev-nip" 
+                                        style={{height:"42px",
+                                                width: "955px",
+                                                marginLeft: "160px" 
+                                        }}
+                                        type="text" 
+                                        name="lokasi"
+                                        value={lokasi}
+                                        onChange={(event) => onChange(event)} 
                                     />
                                 </div>
                             </div>
@@ -2349,14 +2423,14 @@ const FormMonev =  (props) => {
                                         }
                                 </div>
                                 <div>
-                                    <label>ID Laporan</label>
+                                    <label>Periode</label>
                                         {
                                             documentDetail && documentDetail.form.id_laporan ?
                                             <select 
                                                 onChange={(event) => onChange(event)}  
                                                 className="monev-id-program"
                                                 name="id_laporan"
-                                                style={{marginLeft:'127px'}}
+                                                style={{marginLeft:'150px'}}
                                             >
                                                 
                                                 {
@@ -2368,7 +2442,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)} 
                                                 className="monev-id-laporan"
                                                 name="id_laporan"
-                                                style={{marginLeft:'127px'}}
+                                                style={{marginLeft:'150px'}}
                                             >
                                                 <option selected={true} hidden></option>
                                                 {
@@ -2643,7 +2717,7 @@ const FormMonev =  (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -2711,7 +2785,7 @@ const FormMonev =  (props) => {
                                                                                     :
                                                                                     <div style={{height: "fit-content", 
                                                                                     marginLeft: "210px", 
-                                                                                    width: "7675px",
+                                                                                    width: "767px",
                                                                                     border: '1px solid #ACACAC',
                                                                                     borderRadius: '5px',
                                                                                     padding: '10px',
@@ -2735,7 +2809,7 @@ const FormMonev =  (props) => {
                                                                                                                 >
                                                                                                                     <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
                                                                                                                         {
-                                                                                                                            fileExt === 'pdf' ? 
+                                                                                                                            fileExt.toLowerCase() === 'pdf' ? 
                                                                                                                                 <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
                                                                                                                             :
                                                                                                                                 <img src={url} alt={getFileName(url)} className="gnrm-media--image" />
@@ -2865,7 +2939,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -2906,7 +2980,7 @@ const FormMonev =  (props) => {
                                                                                                                 >
                                                                                                                     <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
                                                                                                                         {
-                                                                                                                            fileExt === 'pdf'.toLowerCase() ? 
+                                                                                                                            fileExt.toLowerCase() === 'pdf' ? 
                                                                                                                                 <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
                                                                                                                             :
                                                                                                                                 <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
@@ -2978,7 +3052,7 @@ const FormMonev =  (props) => {
                     <Element id='tujuan_pelaporan' name='tujuan_pelaporan'>
                         <div className="monev-container-off">
                             <div className="monev-title">
-                                TUJUAN PELAPORAN
+                                TUJUAN PROGRAM / KEGIATAN
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -3069,8 +3143,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Berkas</label>
-                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing"
                                             className="gnrm-penjelasan" 
@@ -3079,7 +3153,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesTempat}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3088,7 +3162,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranTempat && lampiranTempat.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "767px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -3100,6 +3174,8 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranTempat.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
+                                                            const fileExt = getFIleExtension(lampiran.name)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -3111,7 +3187,13 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                            {
+                                                                                !fileType ? 
+                                                                                    <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                :
+                                                                                    <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                            }
+                                                                                {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/> */}
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3144,7 +3226,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "767px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -3156,6 +3238,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranTempatUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -3165,7 +3248,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    fileType ? 
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    :
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3176,7 +3264,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteTempat(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -3257,8 +3346,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Media</label>
-                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing2"
                                             className="gnrm-penjelasan" 
@@ -3267,7 +3356,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesHasil}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3276,7 +3365,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranHasil && lampiranHasil.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "767px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -3288,6 +3377,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranHasil.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -3299,7 +3389,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3332,7 +3427,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
                                                     width: "767px",
@@ -3344,6 +3439,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranHasiliUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -3353,7 +3449,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    fileType ? 
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    :
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3364,7 +3465,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteHasil(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -3432,8 +3534,8 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                        <label>Lampiran Media</label>
-                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label>Data Dukung</label>
+                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing3"
                                             className="gnrm-penjelasan" 
@@ -3442,7 +3544,7 @@ const FormMonev =  (props) => {
                                                     width: "767px"}} 
                                             onChange={onChangeFilesKetercapaian}
                                             type="file"
-                                            accept="image/*"
+                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3451,7 +3553,7 @@ const FormMonev =  (props) => {
                                         {
                                             lampiranKetercapaian && lampiranKetercapaian.length > 0 ? (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
                                                     width: "767px",
@@ -3464,6 +3566,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranKetercapaian.map((lampiran,index) => {
+                                                            const fileType = isFileImage(lampiran)
                                                             const objectURL = URL.createObjectURL(lampiran)
                                                             return(
                                                                 <div key={index}>
@@ -3475,7 +3578,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={objectURL} alt={lampiran.name} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    !fileType ? 
+                                                                                        <img src={imgFile} alt={lampiran.name} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                    :
+                                                                                        <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3508,7 +3616,7 @@ const FormMonev =  (props) => {
                                                 </div>
                                             ) : (
                                                 <div style={{height: "fit-content", 
-                                                    marginLeft: "208px", 
+                                                    marginLeft: "213px", 
                                                     width: "767px",
                                                     border: '1px solid #ACACAC',
                                                     borderRadius: '5px',
@@ -3520,6 +3628,7 @@ const FormMonev =  (props) => {
                                                 >
                                                     {
                                                         lampiranKetercapaianUrl.map((url,index) => {
+                                                            const fileType = isFileImageUrl(url)
                                                             return(
                                                                 <div key={index}>
                                                                         <div style={{width:'150px', 
@@ -3529,7 +3638,12 @@ const FormMonev =  (props) => {
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
                                                                             <div style={{width:'150px', height:'150px', overflow:'hidden', position:'absolute'}}>
-                                                                                <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                {
+                                                                                    fileType ? 
+                                                                                        <img src={url} alt={getFileName(url)} className="gnrm-media--image"/>
+                                                                                    :
+                                                                                        <img src={imgFile} alt={getFileName(url)} style={{width:'150px' , height:'150px'}}className="gnrm-media--image" />
+                                                                                }
                                                                             </div>
                                                                             <div style={{position:'absolute', 
                                                                                         backgroundColor:'#C04B3E' , 
@@ -3540,7 +3654,8 @@ const FormMonev =  (props) => {
                                                                                         right:'-7px', 
                                                                                         lineHeight:'25px', 
                                                                                         textAlign:'center',
-                                                                                        cursor:'pointer'}}
+                                                                                        cursor:'pointer',
+                                                                                        color:'white'}}
                                                                             onClick={(e) => onDeleteKetercapaian(false, getFileName(url))}> X </div>
                                                                         </div>
                                                                         <div style={{marginTop:'10px' , 
@@ -3552,8 +3667,7 @@ const FormMonev =  (props) => {
                                                                             <p className="gnrm-media--name">
                                                                                 {getFileName(url)}
                                                                             </p>
-                                                                        </div>
-                                                                    
+                                                                        </div> 
                                                                 </div>
                                                             )
                                                         })
@@ -3631,7 +3745,7 @@ const FormMonev =  (props) => {
                             </div>
                         </div>
                     </Element>
-
+{/* 
                     <Element id='lampiran' name='lampiran'>
                         <div className="monev-container-off">
                             <div className="monev-title">
@@ -3921,7 +4035,7 @@ const FormMonev =  (props) => {
                                 </Link>
                             </div>
                         </div>
-                    </Element>
+                    </Element> */}
 
                     <Element id='penanggung_jawab' name='penanggung_jawab'>
                         <div className="monev-container-off" style={{marginBottom:"296px"}}>
@@ -3969,6 +4083,20 @@ const FormMonev =  (props) => {
                                         name="nip"
                                         value={penanggung_jawab.nip}
                                         onChange={(event) => onChange(event,'penanggung_jawab')} 
+                                    />
+                                </div>
+                                <div>
+                                    <label>Lokasi</label>
+                                    <input 
+                                        className="monev-nip" 
+                                        style={{height:"42px",
+                                                width: "767px",
+                                                marginLeft: "160px" 
+                                        }}
+                                        type="text" 
+                                        name="lokasi"
+                                        value={lokasi}
+                                        onChange={(event) => onChange(event)} 
                                     />
                                 </div>
                             </div>
@@ -4063,7 +4191,7 @@ const FormMonev =  (props) => {
                                     GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun {data.tahun}
                                 </h1><br/>
                                 
-                                <h1 style={{lineHeight:'15px'}}>Dilarang menyalin, menyimpan, memperbanyakan sebagian atau seluruh isi laporan ini dalam bentuk <br/> apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sekretariat Revolusi Mental</h1><br/>
+                                <h1 style={{lineHeight:'15px'}}>Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh isi laporan ini dalam bentuk <br/> apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sekretariat Revolusi Mental</h1><br/>
 
                                 <h1 style={{lineHeight:'35px', fontWeight:'bold'}}>
                                     LAPORAN MONITORING DAN EVALUASI<br/>
@@ -4071,7 +4199,7 @@ const FormMonev =  (props) => {
                                 </h1><br/>
                                 
                                 <h1 style={{lineHeight:'15px'}}> 
-                                    ID Laporan : {data.id_laporan}
+                                    Periode Laporan Program/Kegiatan
                                 </h1>
 
                                 <h1 style={{lineHeight:'15px'}}> 
@@ -4100,15 +4228,23 @@ const FormMonev =  (props) => {
                                        </tr>
                                        <tr>
                                             <td></td>
-                                            <td style={{paddingTop:'12px', paddingBottom:'32px'}}>{instansiDocumentDetail && instansiDocumentDetail.nama}</td> 
+                                            {
+                                                instansiDocumentDetail ?
+                                                <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>{instansiDocumentDetail && instansiDocumentDetail.nama}</td>
+                                                :
+                                                <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>{instansiDetail && instansiDetail.nama}</td>
+                                            }
                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>2.</td>
-                                            <td>Tujuan Pelaporan</td> 
+                                            <td>Tujuan Program/Kegiatan</td> 
                                        </tr>
                                        <tr>
                                             <td></td>
                                             <td style={{paddingTop:'12px', paddingBottom:'32px'}}>
+                                                Nama Program : {data.kegiatan.nama_program}<br />
+                                                Kegiatan Prioritas : {data.kp}<br />
+                                                Program Prioritas: {data.prop}<br />
                                                 {data.tujuan_pelaporan}
                                             </td> 
                                        </tr>
@@ -4138,7 +4274,7 @@ const FormMonev =  (props) => {
                                                 }}
                                                 >
                                                     {
-                                                        lampiranTempat && lampiranTempat.map((lampiran,index) => {
+                                                        lampiranTempat && lampiranTempat.filter(lampiran => isFileImage(lampiran) === true).map((lampiran,index) => {
                                                         const objectURL = URL.createObjectURL(lampiran)
                                                         return(
                                                             <div key={index}>
@@ -4173,6 +4309,21 @@ const FormMonev =  (props) => {
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                {
+                                                    lampiranTempat && lampiranTempat.filter(lampiran => isFileImage(lampiran) === false).map((lampiran,index) => {
+                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                    return(
+                                                        <p className="gnrm-media--name" style={{textAlign:'left'}}>
+                                                            {lampiran.name}
+                                                        </p>
+                                                    )  
+                                                    })
+                                                }
+                                            </td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>4.</td>
                                             <td>Hasil Monitoring dan Evaluasi Program (Pelaporan Kinerja)</td> 
@@ -4198,7 +4349,7 @@ const FormMonev =  (props) => {
                                                 }}
                                                 >
                                                     {
-                                                        lampiranHasil && lampiranHasil.map((lampiran,index) => {
+                                                        lampiranHasil && lampiranHasil.filter(lampiran => isFileImage(lampiran) === true).map((lampiran,index) => {
                                                         const objectURL = URL.createObjectURL(lampiran)
                                                         return(
                                                             <div key={index}>
@@ -4210,8 +4361,8 @@ const FormMonev =  (props) => {
                                                                 }}
                                                                     className="d-flex align-items-center justify-content-center"
                                                                 >
-                                                                    <div style={{ width: '420px', height: '420px',overflow: 'hidden' }}>
-                                                                        <img src={objectURL} alt={lampiran.name} style={{ width: '420px', height: '420px', objectFit:'contain'}} />
+                                                                    <div style={{ width: '420px', height: '420px', overflow: 'hidden', position: 'relative' }}>
+                                                                        <img src={objectURL} alt={lampiran.name} style={{ width: '420px' , height: '420px' , objectFit:'contain'}} />
                                                                     </div>
                                                                 </div>
                                                                 <div style={{
@@ -4231,6 +4382,21 @@ const FormMonev =  (props) => {
                                                         })
                                                     }
                                                 </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                {
+                                                    lampiranHasil && lampiranHasil.filter(lampiran => isFileImage(lampiran) === false).map((lampiran,index) => {
+                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                    return(
+                                                        <p className="gnrm-media--name" style={{textAlign:'left'}}>
+                                                            {lampiran.name}
+                                                        </p>
+                                                    )  
+                                                    })
+                                                }
                                             </td>
                                         </tr>
                                        <tr style={{fontWeight:'bold'}}>
@@ -4258,7 +4424,7 @@ const FormMonev =  (props) => {
                                                 }}
                                                 >
                                                     {
-                                                        lampiranKetercapaian && lampiranKetercapaian.map((lampiran,index) => {
+                                                        lampiranKetercapaian && lampiranKetercapaian.filter(lampiran => isFileImage(lampiran) === true).map((lampiran,index) => {
                                                         const objectURL = URL.createObjectURL(lampiran)
                                                         return(
                                                             <div key={index}>
@@ -4270,8 +4436,8 @@ const FormMonev =  (props) => {
                                                                 }}
                                                                     className="d-flex align-items-center justify-content-center"
                                                                 >
-                                                                    <div style={{ width: '420px', height: '420px' , overflow: 'hidden', position: 'relative' }}>
-                                                                        <img src={objectURL} alt={lampiran.name} style={{ width: '420px', height: '420px', objectFit:'contain'}}/>
+                                                                    <div style={{ width: '420px', height: '420px', overflow: 'hidden', position: 'relative' }}>
+                                                                        <img src={objectURL} alt={lampiran.name} style={{ width: '420px' , height: '420px' , objectFit:'contain'}} />
                                                                     </div>
                                                                 </div>
                                                                 <div style={{
@@ -4293,6 +4459,21 @@ const FormMonev =  (props) => {
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                                {
+                                                    lampiranKetercapaian && lampiranKetercapaian.filter(lampiran => isFileImage(lampiran) === false).map((lampiran,index) => {
+                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                    return(
+                                                        <p className="gnrm-media--name" style={{textAlign:'left'}}>
+                                                            {lampiran.name}
+                                                        </p>
+                                                    )  
+                                                    })
+                                                }
+                                            </td>
+                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>6.</td>
                                             <td>Tindak Lanjut Hasil Monitoring dan Evaluasi</td> 
@@ -4303,7 +4484,7 @@ const FormMonev =  (props) => {
                                             {data.tindak_lanjut} <br/>
                                             </td> 
                                        </tr>
-                                       <tr style={{fontWeight:'bold'}}>
+                                       {/* <tr style={{fontWeight:'bold'}}>
                                             <td>7.</td>
                                             <td>Lampiran Media dan Berkas</td> 
                                        </tr>
@@ -4355,8 +4536,8 @@ const FormMonev =  (props) => {
                                                     }
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <td></td>
                                             <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
                                                 <div style={{
@@ -4403,27 +4584,34 @@ const FormMonev =  (props) => {
                                                     }
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> */}
                                        <tr>
                                             <td></td>
                                             <td style={{paddingTop:'154px'}}>
-                                            Demikian hasil laporan monitoring dan evaluasi {data.id_laporan} tahun 
-                                            {data.tahun} 
-                                            ini dibuat dan dapat dikoordinasikan untuk dilaksanakan sebagaimana mestinya. <br/>
-                                            Atas perhatiannya diucapkan terimakasih.</td> 
+                                            Demikian  laporan monitoring dan evaluasi {data.id_laporan} GNRM ini disampaikan, <br/> 
+                                            atas perhatian dan kerja samanya diucapkan terimakasih.</td> 
                                        </tr>
                                     </tbody> 
                                 </table>
                             </div>
-                            <div className="preview-ttd" style={{ marginTop: '10px', fontSize: '12px' }}>
-                                <div style={{ textAlign: 'left', marginLeft: '893px' }}>
-                                    <h1>..................., ...................</h1><br />
-                                    <h1>{data.penanggung_jawab.nama}</h1>
+                            <div className="preview-ttd" style={{ marginTop: '10px', fontSize: '12px', textAlign:'right' }}>
+                                <div style={{ textAlign: 'left'}}>
+                                <h1 style={{marginLeft: '893px' }}>Pengesahan Laporan</h1>
+                                {data.lokasi.length > 10 ?
+                                    <h1 style={{textAlign:'right'}}>{data.lokasi}, {str2}</h1>
+                                    :
+                                    <h1 style={{marginLeft: '893px'}}>{data.lokasi}, {str2}</h1>
+                                }
+                                    <h1 style={{marginLeft: '893px' }}>{data.penanggung_jawab.jabatan}</h1>
                                     <br />
                                     <br />
                                     <br />
-                                    <h1>TTD</h1>
-                                    <h1>NIP. {data.penanggung_jawab.nip}</h1>
+                                    <h1 style={{marginLeft: '893px' }}>TTD</h1>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <h1 style={{marginLeft: '893px' }}>{data.penanggung_jawab.nama}</h1>
+                                    <h1 style={{marginLeft: '893px' }}>NIP. {data.penanggung_jawab.nip}</h1>
                                 </div>
                             </div>
                             <hr style={{ backgroundColor: 'black', marginTop: '64px' }} />

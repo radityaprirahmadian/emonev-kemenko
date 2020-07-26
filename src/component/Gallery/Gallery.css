@@ -2,9 +2,6 @@
     width: 1100px;
     height: fit-content;
     margin: auto;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
     box-sizing: border-box;
 }
 
@@ -165,9 +162,6 @@
         width: 140vh;
         height: fit-content;
         margin: auto;
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
         box-sizing: border-box;
     }
     

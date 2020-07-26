@@ -27,7 +27,10 @@ const GalleryPage = () => {
                     <div className="gallery-title">
                         GALERI
                     </div>
-                    <Gallery pagination={true}/>
+                    <Gallery 
+                        pagination={true}
+                        logged_in={false}
+                    />
                     {/* <div className="gallery-pagination">
                         <i class="material-icons">chevron_left</i>
                         <ul> 

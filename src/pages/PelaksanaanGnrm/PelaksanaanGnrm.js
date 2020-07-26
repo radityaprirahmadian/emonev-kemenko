@@ -92,6 +92,9 @@ const GNRM  = (props) => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    },[])
+    useEffect(() => {
         getAllDocument()
     }, [limit,page])
 

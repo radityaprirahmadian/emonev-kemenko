@@ -90,6 +90,7 @@ const ProfileEdit = (props) => {
 
     useEffect (() => {
         getUserToUpdate()
+        window.scrollTo(0, 0);
     }, [props.match.params.id])
 
 

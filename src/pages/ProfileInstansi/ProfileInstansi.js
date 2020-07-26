@@ -40,6 +40,7 @@ const ProfileInstansi = (props) => {
     useEffect(()=> {
         if(props.match.params.id) {
             getInstansiDetail()
+            window.scrollTo(0, 0);
         }
     },[props.match.params.id])
 
@@ -111,7 +112,7 @@ const ProfileInstansi = (props) => {
                                                 </div>
 
                                                 <div className="data">
-                                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                    <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                     <div className="show-profile" type="text">{instansiDetail && instansiDetail.jenis}</div>
                                                 </div>
 
@@ -152,7 +153,7 @@ const ProfileInstansi = (props) => {
                                                 </div>
 
                                                 <div className="data">
-                                                    <label style={{marginTop:'32px'}}>Jenis</label><br/>
+                                                    <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                     <div className="show-profile" style={{width:'466px'}}type="text">{instansiDetail && instansiDetail.jenis}</div>
                                                 </div>
 

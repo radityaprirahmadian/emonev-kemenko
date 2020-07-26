@@ -10,8 +10,6 @@ import plus from '../../assets/plus.png';
 import Pagination from '../../component/Pagination/Pagination';
 import TabelReminder from '../../component/TabelReminder/TabelRemider';
 import Notification from '../../component/Notification/Notification';
-import TabelAdminOwner from '../../component/TabelAdmin/TabelAdminOwner';
-import TabelReminderOwner from '../../component/TabelReminder/TabelReminderOwner';
 import Popup from '../../component/Popup/Popup';
 import bg_1 from '../../assets/decoration/bg_1.png'
 import bg_2 from '../../assets/decoration/bg_2.png'
@@ -74,7 +72,9 @@ const Reminder = (props) => {
         setLoading(false)
     }
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    } , [])
     useEffect(() => {
         getAllReminder()
     },[limit,page])

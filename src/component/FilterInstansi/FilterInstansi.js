@@ -22,12 +22,13 @@ const FilterInstansi = (props) => {
                             <input className="input-filter-nama" type="text" name="nama" value={props.nama} onChange={onChange}></input> 
                         </div>
                         <div className="filter-nama-instansi">
-                            <h6 className="nama-filter">Jenis</h6>
+                            <h6 className="nama-filter">Kementerian/Lembaga/Pemerintah Daerah</h6>
                             <select className="input-filter-nama-instansi" name="jenis" onChange={onChange} >
                                 <option value="" defaultValue="" hidden></option>
                                 <option value="" defaultValue="">Semua</option>
-                                <option value="Kementerian">Kementerian/Lembaga</option>
-                                <option value="Pemerintah">Pemerintah Daerah</option>
+                                <option value="Kementerian">Kementerian</option>
+                                <option value="Lembaga">Lembaga</option>
+                                <option value="Pemerintah Daerah">Pemerintah Daerah</option>
                             </select>
                         </div>
     

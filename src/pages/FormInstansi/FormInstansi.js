@@ -22,7 +22,7 @@ const FormInstansi = (props) => {
         const history = useHistory();
         const [allInstansi, setAllInstansi] = useState([])
         const [isEditing , setIsEditing] = useState(false)
-        const jenis = ['Kementerian' , 'Pemerintah Daerah']
+        const jenis = ['Kementerian' , 'Lembaga' ,'Pemerintah Daerah']
         const [loading,setLoading] = useState(false)
         
         const [instansiDetail, setInstansiDetail] = useState(null)
@@ -70,6 +70,7 @@ const FormInstansi = (props) => {
             .catch(err => {
                 console.log(err)
             })
+            window.scrollTo(0, 0);
         }, [])
 
 
@@ -296,17 +297,17 @@ const FormInstansi = (props) => {
                                                 />
                                             </div>
                                             <div>
-                                                <label>Jenis</label>
+                                                <label  style={{textAlign:'left', clear:'both' , float:'left' , lineHeight:'20px'}}>Kementerian/Lembaga/<br/>Pemerintah Daerah</label>
                                                 {
                                                     instansiDetail && instansiDetail.jenis ?
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi}  onKeyPress={onKeyPress} required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'24px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi}  onKeyPress={onKeyPress} required={true}>
                                                             <option value="" defaultValue="" hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                             }
                                                         </select>
                                                         :
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi} onKeyPress={onKeyPress}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'24px' , border: '1px solid #ACACAC'}}name="jenis" tabIndex='3' onChange={onChangeInstansi} onKeyPress={onKeyPress}  required={true}>
                                                             <option selected={true} hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
@@ -330,7 +331,7 @@ const FormInstansi = (props) => {
                                             </div>
                                             <div>
                                                 <label>Logo Instansi</label>
-                                                <label htmlFor='testing' required={true} tabIndex='5' className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' required={true} tabIndex='5' className='label_lampiran' style={{marginLeft:'108px' , width:'135px' }}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -659,17 +660,17 @@ const FormInstansi = (props) => {
                                                 />
                                             </div>
                                             <div>
-                                                <label>Jenis</label>
+                                                <label style={{textAlign:'left', clear:'both' , float:'left' , lineHeight:'20px'}}>Kementerian/Lembaga/<br/>Pemerintah Daerah</label>
                                                 {
                                                     instansiDetail && instansiDetail.jenis ?
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress} onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'24px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress} onChange={onChangeInstansi}  required={true}>
                                                             <option value="" defaultValue="" hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                             }
                                                         </select>
                                                         :
-                                                        <select className="admin-instansi" style={{marginLeft:'174px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress}  onChange={onChangeInstansi}  required={true}>
+                                                        <select className="admin-instansi" style={{marginLeft:'24px' , border: '1px solid #ACACAC'}}name="jenis" onKeyPress={onKeyPress}  onChange={onChangeInstansi}  required={true}>
                                                             <option selected={true} hidden></option>
                                                             {
                                                             jenis.map((jenis, i) => <option key={i} title={jenis} value={jenis}>{jenis}</option>)
@@ -692,7 +693,7 @@ const FormInstansi = (props) => {
                                             </div>
                                             <div>
                                                 <label>Logo Instansi</label>
-                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px' , width:'135px' }}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 

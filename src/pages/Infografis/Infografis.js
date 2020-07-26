@@ -107,6 +107,9 @@ const Infografis = (props) => {
     }
     
     useEffect(() => {
+        window.scrollTo(0, 0);
+    },[])
+    useEffect(() => {
         getAllDocument()
     },[user])
 

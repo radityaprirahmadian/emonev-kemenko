@@ -7,6 +7,15 @@
     box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
 }
 
+.table-reminder-owner {
+    margin-left: 84px;
+    margin-top: 18px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+}
+
 .table-head-reminder th{
     padding-left: 15px;
     padding-top: 22px;
