@@ -152,7 +152,6 @@ const FormInstansi = (props) => {
                 history.push(`/${user&&user.role === 'owner' ? 'super-admin' : 'admin'}/kelola-instansi`)
             }
             catch(err) {
-                console.log(err)
                 alert(err.response.data.message)
                 setLoading(false)
             }
@@ -331,7 +330,7 @@ const FormInstansi = (props) => {
                                             </div>
                                             <div>
                                                 <label>Logo Instansi</label>
-                                                <label htmlFor='testing' required={true} tabIndex='5' className='label_lampiran' style={{marginLeft:'108px' , width:'135px' }}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' required={true} tabIndex='5' className='label_lampiran' style={{marginLeft:'108px' , width:'170px' }}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -351,7 +350,8 @@ const FormInstansi = (props) => {
                                                             marginTop:'5px',
                                                             marginLeft: "214px", 
                                                             width: "178px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             overflow: 'hidden'
                                                         }} 
@@ -405,7 +405,8 @@ const FormInstansi = (props) => {
                                                             marginTop:'5px',
                                                             marginLeft: "214px", 
                                                             width: "178px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             overflow: 'hidden'
                                                             }} 
@@ -459,7 +460,7 @@ const FormInstansi = (props) => {
                                             <div>
                                                 <label  style={{textAlign:'right', clear:'both' , float:'left'}}>Alamat</label>
                                                 <textarea 
-                                                    className="admin-username" 
+                                                    className="form-instansi-alamat" 
                                                     type="text" 
                                                     name="alamat" 
                                                     value={newInstansi.alamat} 
@@ -693,7 +694,7 @@ const FormInstansi = (props) => {
                                             </div>
                                             <div>
                                                 <label>Logo Instansi</label>
-                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px'}}><span style={{marginRight:'15px' , width:'135px' }}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' required={true} className='label_lampiran' style={{marginLeft:'108px', width:'170px'}}><span style={{marginRight:'15px'  }}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -713,7 +714,8 @@ const FormInstansi = (props) => {
                                                             marginTop:'5px',
                                                             marginLeft: "214px", 
                                                             width: "178px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             overflow: 'hidden'
                                                         }} 
@@ -768,7 +770,8 @@ const FormInstansi = (props) => {
                                                             marginTop:'5px',
                                                             marginLeft: "214px", 
                                                             width: "178px",
-                                                            border: '1px solid black',
+                                                            border: '1px solid #ACACAC',
+                                                            borderRadius: '5px',
                                                             padding: '10px',
                                                             overflow: 'hidden'
                                                             }} 
@@ -824,7 +827,7 @@ const FormInstansi = (props) => {
                                             <div>
                                                 <label  style={{textAlign:'right', clear:'both' , float:'left'}}>Alamat</label>
                                                 <textarea 
-                                                    className="admin-username" 
+                                                    className="form-instansi-alamat" 
                                                     type="text" 
                                                     name="alamat" 
                                                     value={newInstansi.alamat} 

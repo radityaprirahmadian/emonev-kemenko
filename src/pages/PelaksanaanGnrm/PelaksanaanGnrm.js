@@ -79,7 +79,7 @@ const GNRM  = (props) => {
             getAllDocument()
         }
         catch (err) {
-            console.log(err)
+            alert(err.response.data.message)
         }
         setLoadingFalse()
     }

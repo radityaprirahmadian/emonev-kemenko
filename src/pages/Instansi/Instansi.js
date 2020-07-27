@@ -85,7 +85,7 @@ const Instansi = (props) => {
             getAllInstansi()
         }
         catch (err) {
-            console.log(err)
+            alert(err.response.data.message)
         }
         setLoading(false)
     }

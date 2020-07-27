@@ -126,9 +126,9 @@ const ProfileEdit = (props) => {
             }
         }
         catch (err) {
-            console.log(err)
+            alert(err.response.data.message)
         }
-        setLoading(true)
+        setLoading(false)
     }
 
     const [scale, setScale] = useState(1)
