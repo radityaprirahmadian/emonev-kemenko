@@ -59,16 +59,24 @@ const Notifikasi = (props) => {
                             allReminder ? (
                                 reminderRev.map((reminder,index) => {
                                     return(
-                                        <CardNotif 
-                                            key={index}
-                                            jadwal={reminder.jadwal}
-                                            judul={reminder.judul}
-                                            nama={reminder.dari.nama}
-                                            dari={reminder.dari.instansi}
-                                            logo={reminder.dari.logo}
-                                            foto={reminder.dari.foto}
-                                            isi={reminder.isi}
-                                        />
+                                        reminder.dari ?
+                                            <CardNotif 
+                                                key={index}
+                                                jadwal={reminder.jadwal}
+                                                judul={reminder.judul}
+                                                nama={reminder.dari.nama}
+                                                dari={reminder.dari.instansi}
+                                                logo={reminder.dari.logo}
+                                                foto={reminder.dari.foto}
+                                                isi={reminder.isi}
+                                            />
+                                        :
+                                            <CardNotif 
+                                                key={index}
+                                                jadwal={reminder.jadwal}
+                                                judul={reminder.judul}
+                                                isi={reminder.isi}
+                                            />
                                     )
                                 })
                             )

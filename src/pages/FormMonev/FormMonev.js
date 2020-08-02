@@ -736,6 +736,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             type="text" 
                                             name="nama_program"
+                                            placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                             value={kegiatan.nama_program}
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
@@ -762,7 +763,7 @@ const FormMonev =  (props) => {
                                                             name="kp"
                                                             style={{marginLeft: '69px', width:'955px' , height: '42px' }}
                                                         >
-                                                            <option selected={true} hidden></option>
+                                                            <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024. </option>
                                                             {
                                                                 kpOptions&&kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                             }
@@ -790,7 +791,7 @@ const FormMonev =  (props) => {
                                                             name="prop"
                                                             style={{marginLeft: '83px', width:'955px'}}
                                                         >
-                                                            <option selected={true} hidden></option>
+                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai dengan RPJMN 2020-2024.</option>
                                                             {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                             }
@@ -981,6 +982,7 @@ const FormMonev =  (props) => {
                                                                              }}
                                                                      type="text" 
                                                                      name="sk_no"
+                                                                     placeholder="Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)"
                                                                      value={data.sk_no}
                                                                      onChange={onChangeSK}
                                                                      required
@@ -1203,6 +1205,7 @@ const FormMonev =  (props) => {
                                                                                         }}
                                                                                 type="text" 
                                                                                 name="sk_no"
+                                                                                placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                                 value={data.sk_no}
                                                                                 onChange={onChangeSK}
                                                                                 required
@@ -1335,6 +1338,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/LD. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/LD penanggungjawab program/kegiatan'
                                         name="tujuan_pelaporan"
                                         value={tujuan_pelaporan}
                                         onChange={(event) => onChange(event)} 
@@ -1380,6 +1384,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "160px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan informasi mengenai waktu pelaksanaan monitoring yang dilakukan oleh K/L/D '
                                         name="waktu"
                                         value={waktu}
                                         onChange={(event) => onChange(event)}
@@ -1394,6 +1399,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "151px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan informasi tempat pelaksanaan monitoring yang dilakukan oleh K/L/D beserta gambaran umum tentang lokasi pelaksanaan monitoring.'
                                         name="tempat"
                                         value={tempat}
                                         onChange={(event) => onChange(event)} 
@@ -1408,6 +1414,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "32px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan jenis metode atau pendekatan yang digunakan untuk melakukan monitoring di lapangan yang bertujuan untuk meningkatkan eksplorasi dan akurasi data terkait penilaian pelaksanaan kebijakan atau hasil pencapaian pelaksanaan program/kegiatan dari masing-masing K/L/D. Metode monitoring dan evaluasi ini bisa berupa wawancara, Focus Grup Discussion, pengamatan lapapangan dan pengisian kuisioner.'
                                         name="metode"
                                         value={metode}
                                         onChange={(event) => onChange(event)} 
@@ -1597,6 +1604,7 @@ const FormMonev =  (props) => {
                                         }}
                                         type="text" 
                                         name="hasil"
+                                        placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi pelaksanaan program di lapangan dari masing-masing K/L/D. Hasil monitoring menggambarkan tentang pemantauan yang dilakukan terhadap berbagai kegiatan yang memuat tentang ketaatan pelaksanaan standar dan prosedur yang telat dibuat, proses koordinasi dan mekanisme yang dijalankan oleh seluruh pelaksana program/kegiatan serta perubahan positif yang diterima oleh masyarakat akibat adanya program GNRM. Jabarkan juga mengenai hambatan atau kesulitan selama pelaksanaan program GNRM di lapangan. '
                                         value={hasil}
                                         onChange={(event) => onChange(event)}
                                     />
@@ -1610,6 +1618,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "76px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
                                         name="evaluasi"
                                         value={evaluasi}
                                         onChange={(event) => onChange(event)} 
@@ -1799,6 +1808,7 @@ const FormMonev =  (props) => {
                                         }}
                                         type="text" 
                                         name="ketercapaian"
+                                        placeholder='Tuliskan hasil pencapaian pelaksanaan program dari masing-masing K/L/D berdasarkan target dan sasaran yang telah ditentukan saat awal perencanaan kegiatan/program. Ketercapaian target sasaran dan indikator bisa digambarkan dengan grafik, chart dan lain-lain secara kuantitatif, sehingga dapat diidentifikasi capaian outcome secara nyata terhadap program yang sudah dilaksanakan oleh K/L/D. Dituliskan juga faktor penentu keberhasilan ketercapaian indikator/program. Ketercapaian program yang dikaitkan dengan lima dimensi GNRM.  '
                                         value={ketercapaian}
                                         onChange={(event) => onChange(event)} 
                                     />
@@ -1987,6 +1997,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan tindak lanjut mengenai hasil monitoring dan evaluasi. Tindak lanjut capaian program dalam hal ini terdiri atas dua bagian yaitu pertama upaya-upaya untuk  memperluas cakupan pelaksanaan program GNRM pada periode selanjutnya apabila sejak awal telah mencapai target.  Kedua upaya strategis untuk membenahi seluruh bagian dari kelemahan organisasi apabila belum mencapai sasaran terutama dengan pembenahan arah kebijakan dan strategi pelaksanaan program'
                                         name="tindak_lanjut"
                                         value={tindak_lanjut}
                                         onChange={(event) => onChange(event)} 
@@ -2005,7 +2016,7 @@ const FormMonev =  (props) => {
                                     <button className="previous"><i className="material-icons" style={{fontSize:'36px'}}>expand_less</i></button>
                                 </Link>
                                 <Link 
-                                    to="lampiran"
+                                    to="penanggung_jawab"
                                     spy={true}
                                     smooth={true}
                                     duration={500}
@@ -2373,7 +2384,7 @@ const FormMonev =  (props) => {
                             </div>
                             <div className="monev-navigation-button" style={{marginTop:"162px"}}>
                                 <Link 
-                                    to="lampiran"
+                                    to="tindak_lanjut"
                                     spy={true}
                                     smooth={true}
                                     duration={500}
@@ -2464,6 +2475,7 @@ const FormMonev =  (props) => {
                                                     width: "767px"}} 
                                             type="text" 
                                             name="nama_program"
+                                            placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                             value={kegiatan.nama_program}
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
@@ -2490,7 +2502,7 @@ const FormMonev =  (props) => {
                                                             name="kp"
                                                             style={{marginLeft: '69px', width:'767px' , height: '42px' }}
                                                         >
-                                                            <option selected={true} hidden></option>
+                                                            <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024. </option>
                                                             {
                                                                 kpOptions&&kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}</option>)
                                                             }
@@ -2518,7 +2530,7 @@ const FormMonev =  (props) => {
                                                             name="prop"
                                                             style={{marginLeft: '83px', width:'767px'}}
                                                         >
-                                                            <option selected={true} hidden></option>
+                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai dengan RPJMN 2020-2024</option>
                                                             {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
                                                             }
@@ -2710,6 +2722,7 @@ const FormMonev =  (props) => {
                                                                              }}
                                                                      type="text" 
                                                                      name="sk_no"
+                                                                     placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                      value={data.sk_no}
                                                                      onChange={onChangeSK}
                                                                      required
@@ -2932,6 +2945,7 @@ const FormMonev =  (props) => {
                                                                                         }}
                                                                                 type="text" 
                                                                                 name="sk_no"
+                                                                                placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                                 value={data.sk_no}
                                                                                 onChange={onChangeSK}
                                                                                 required
@@ -3064,6 +3078,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/LD. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/LD penanggungjawab program/kegiatan'
                                         name="tujuan_pelaporan"
                                         value={tujuan_pelaporan}
                                         onChange={(event) => onChange(event)} 
@@ -3109,6 +3124,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "160px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan informasi mengenai waktu pelaksanaan monitoring yang dilakukan oleh K/L/D'
                                         name="waktu"
                                         value={waktu}
                                         onChange={(event) => onChange(event)}
@@ -3124,6 +3140,7 @@ const FormMonev =  (props) => {
                                         }}
                                         type="text" 
                                         name="tempat"
+                                        placeholder='Tuliskan informasi tempat pelaksanaan monitoring yang dilakukan oleh K/L/D beserta gambaran umum tentang lokasi pelaksanaan monitoring.'
                                         value={tempat}
                                         onChange={(event) => onChange(event)} 
                                     />
@@ -3138,6 +3155,7 @@ const FormMonev =  (props) => {
                                         }}
                                         type="text" 
                                         name="metode"
+                                        placeholder='Tuliskan jenis metode atau pendekatan yang digunakan untuk melakukan monitoring di lapangan yang bertujuan untuk meningkatkan eksplorasi dan akurasi data terkait penilaian pelaksanaan kebijakan atau hasil pencapaian pelaksanaan program/kegiatan dari masing-masing K/L/D. Metode monitoring dan evaluasi ini bisa berupa wawancara, Focus Grup Discussion, pengamatan lapapangan dan pengisian kuisioner.'
                                         value={metode}
                                         onChange={(event) => onChange(event)} 
                                     />
@@ -3326,6 +3344,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "83px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi pelaksanaan program di lapangan dari masing-masing K/L/D. Hasil monitoring menggambarkan tentang pemantauan yang dilakukan terhadap berbagai kegiatan yang memuat tentang ketaatan pelaksanaan standar dan prosedur yang telat dibuat, proses koordinasi dan mekanisme yang dijalankan oleh seluruh pelaksana program/kegiatan serta perubahan positif yang diterima oleh masyarakat akibat adanya program GNRM. Jabarkan juga mengenai hambatan atau kesulitan selama pelaksanaan program GNRM di lapangan. '
                                         name="hasil"
                                         value={hasil}
                                         onChange={(event) => onChange(event)}
@@ -3340,6 +3359,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "76px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
                                         name="evaluasi"
                                         value={evaluasi}
                                         onChange={(event) => onChange(event)} 
@@ -3529,6 +3549,7 @@ const FormMonev =  (props) => {
                                         }}
                                         type="text" 
                                         name="ketercapaian"
+                                        placeholder='Tuliskan hasil pencapaian pelaksanaan program dari masing-masing K/L/D berdasarkan target dan sasaran yang telah ditentukan saat awal perencanaan kegiatan/program. Ketercapaian target sasaran dan indikator bisa digambarkan dengan grafik, chart dan lain-lain secara kuantitatif, sehingga dapat diidentifikasi capaian outcome secara nyata terhadap program yang sudah dilaksanakan oleh K/L/D. Dituliskan juga faktor penentu keberhasilan ketercapaian indikator/program. Ketercapaian program yang dikaitkan dengan lima dimensi GNRM.  '
                                         value={ketercapaian}
                                         onChange={(event) => onChange(event)} 
                                     />
@@ -3716,6 +3737,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
+                                        placeholder='Tuliskan tindak lanjut mengenai hasil monitoring dan evaluasi. Tindak lanjut capaian program dalam hal ini terdiri atas dua bagian yaitu pertama upaya-upaya untuk  memperluas cakupan pelaksanaan program GNRM pada periode selanjutnya apabila sejak awal telah mencapai target.  Kedua upaya strategis untuk membenahi seluruh bagian dari kelemahan organisasi apabila belum mencapai sasaran terutama dengan pembenahan arah kebijakan dan strategi pelaksanaan program'
                                         name="tindak_lanjut"
                                         value={tindak_lanjut}
                                         onChange={(event) => onChange(event)} 
@@ -3734,7 +3756,7 @@ const FormMonev =  (props) => {
                                     <button className="previous1"><i className="material-icons" style={{fontSize:'36px'}}>expand_less</i></button>
                                 </Link>
                                 <Link 
-                                    to="lampiran"
+                                    to="penanggung_jawab"
                                     spy={true}
                                     smooth={true}
                                     duration={500}
@@ -4102,7 +4124,7 @@ const FormMonev =  (props) => {
                             </div>
                             <div className="monev-navigation-button" style={{marginTop:"162px"}}>
                                 <Link 
-                                    to="lampiran"
+                                    to="tindak_lanjut"
                                     spy={true}
                                     smooth={true}
                                     duration={500}

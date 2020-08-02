@@ -48,9 +48,16 @@ class Pagination extends Component{
                     </div>
                     <div className="spacer"></div>
                     <div className="pagination-total-page">
-                        <div className="item">
-                            {1 + ((this.props.limit * this.props.page) - (this.props.limit*1))} - {this.props.limit * this.props.page > this.props.total ? this.props.total : this.props.limit * this.props.page} dari {this.props.total} data
-                        </div>
+                        {
+                            this.props.total === 0 ?
+                                <div className="item">
+                                    0 - 0 dari {this.props.total} data
+                                </div>
+                            :
+                                <div className="item">
+                                    {1 + ((this.props.limit * this.props.page) - (this.props.limit*1))} - {this.props.limit * this.props.page > this.props.total ? this.props.total : this.props.limit * this.props.page} dari {this.props.total} data
+                                </div>
+                        }
                         <div className="item2"><i className="fa fa-chevron-left" style={{cursor:'pointer'}} onClick={onPrev}></i><i className="fa fa-chevron-right" style={{marginLeft:'20px', cursor:'pointer'}} onClick={onNext}></i></div>
                     </div>
                 </div>

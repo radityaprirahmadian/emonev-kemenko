@@ -308,7 +308,7 @@ const FormReminder = (props) => {
                     <div className="asal-reminder" style={{lineHeight:'20px'}}>
                         Dari <br/>
                         <span className="nama-pengirim-reminder">{userDetail && userDetail.nama}</span><br/>
-                        <span className="kementrian-asal-reminder">{userDetail && userDetail.role === 'owner' ? 'Owner' : 'Super Admin'} </span> 
+                        <span className="kementrian-asal-reminder">Super Admin </span> 
                         {userDetail && userDetail.instansi.nama_pendek}
                     </div>
                     

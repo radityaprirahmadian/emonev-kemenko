@@ -60,18 +60,21 @@
     margin-left: 10px;
     margin-right: 50px;
     height: 42px;
+    border: 1px solid #ACACAC;
     width: 366px;
 }
 
 .form-reminder-1 .reminder-akun{
     margin-left: 10px;
     margin-right: 50px;
+    border: 1px solid #ACACAC;
     height: 42px;
     width: 366px; 
 }
 
 .form-reminder-1 .reminder-tujuan-test{
     margin-left: 35px;
+    border: 1px solid #ACACAC;
     margin-right: 50px;
     height: 42px;
     width: 272px;
@@ -79,6 +82,7 @@
 
 .form-reminder-1 .reminder-akun-test{
     margin-left: 35px;
+    border: 1px solid #ACACAC;
     margin-right: 50px;
     height: 42px;
     width: 272px; 
@@ -94,6 +98,10 @@
     margin-left: 106px;
     width: 955px;
     height: 155px; 
+    padding: 10px;
+    text-align: justify;
+    border: 1px solid #ACACAC;
+    line-height: 21px;
 }
 
 .form-reminder-1 .reminder-tanggal{

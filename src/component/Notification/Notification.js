@@ -17,6 +17,7 @@ const Notification = () => {
     const [ reminderRev,setReminderRev ] = useState([])
     const history = useHistory()
 
+    console.log(allReminder)
     const onClick = (e) => {
         getReminder(token)
         e.preventDefault()
@@ -84,14 +85,21 @@ const Notification = () => {
                                 {
                                     reminderRev.slice(0,3).map((reminder,index) => {
                                         return(  
-                                            <CardPopup
-                                            key={index}
-                                                jadwal={reminder.jadwal}
-                                                nama={reminder.dari.nama}
-                                                dari={reminder.dari.instansi}
-                                                logo={reminder.dari.logo}
-                                                foto={reminder.dari.foto}
-                                            />
+                                            reminder.dari ?
+                                                <CardPopup
+                                                    key={index}
+                                                    jadwal={reminder.jadwal}
+                                                    nama={reminder.dari.nama}
+                                                    dari={reminder.dari.instansi}
+                                                    logo={reminder.dari.logo}
+                                                    foto={reminder.dari.foto}
+                                                />
+                                            :
+                                                <CardPopup
+                                                    key={index}
+                                                    jadwal={reminder.jadwal}
+                                                />
+                                            
                                         )
                                     })
                                 }

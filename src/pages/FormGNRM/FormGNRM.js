@@ -368,7 +368,7 @@ const FormGNRM = (props) => {
                 formData.append(`sk`, skFile[0])
             }
 
-        // for (let pair of formData.entries()) {
+        // for (letaa pair of formData.entries()) {
         //     console.log(pair[0] + ', ' + pair[1])
         // }
 
@@ -757,6 +757,7 @@ const FormGNRM = (props) => {
                                                                              }}
                                                                      type="text" 
                                                                      name="sk_no"
+                                                                     placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                      value={data.sk_no}
                                                                      onChange={onChangeSK}
                                                                      required
@@ -979,6 +980,7 @@ const FormGNRM = (props) => {
                                                                                         }}
                                                                                 type="text" 
                                                                                 name="sk_no"
+                                                                                placeholder="Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)"
                                                                                 value={data.sk_no}
                                                                                 onChange={onChangeSK}
                                                                                 required
@@ -1113,6 +1115,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="nama_program"
+                                                        placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                         value={kegiatan.nama_program}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
@@ -1138,7 +1141,7 @@ const FormGNRM = (props) => {
                                                                             name="kp"
                                                                             style={{ marginLeft: '71px', width: '955px', height: '42px' }}
                                                                         >
-                                                                            <option selected={true} hidden></option>
+                                                                            <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
                                                                                 kpOptions && kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
                                                                             }
@@ -1153,7 +1156,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select selectpicker"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '84px' }}
+                                                                            style={{ marginLeft: '84px' , width: '955px'}}
                                                                         >
                                                                             {
                                                                                 propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
@@ -1162,11 +1165,11 @@ const FormGNRM = (props) => {
                                                                         </select> :
                                                                         <select
                                                                             onChange={onChange}
-                                                                            class="gnrm-select selectpicker"
+                                                                            class="gnrm-select"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '83px' }}
+                                                                            style={{ marginLeft: '83px' , width: '955px' }}
                                                                         >
-                                                                            <option selected={true} hidden></option>
+                                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
                                                                                 propOptions && propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
                                                                             }
@@ -1301,6 +1304,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="penjelasan_kegiatan"
+                                                        placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                                                         value={kegiatan.penjelasan_kegiatan}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
@@ -1347,6 +1351,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="indikator_capaian"
+                                                        placeholder="Tuliskan indikator capaian yang menggambarkan output dan outcome dalam program/kegiatan K/L/D terkait dengan GNRM. Capaian outcome juga harus berkolerasi terhadap lima dimensi GNRM yang sifatnya terukur dan berkontribusi pada peningkatan hasil Indeks Capaian Revolusi Mental (ICRM)"
                                                         value={output.indikator_capaian}
                                                         onChange={(event) => onChange(event, 'output')}
                                                     />
@@ -1361,6 +1366,7 @@ const FormGNRM = (props) => {
                                                             width: "955px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan sasaran yang akan dicapai dalam setiap pelaksanaan program/kegiatan dari masing-masing K/L/D."
                                                         name="sasaran"
                                                         value={output.sasaran}
                                                         onChange={(event) => onChange(event, 'output')}
@@ -1376,6 +1382,7 @@ const FormGNRM = (props) => {
                                                             marginLeft: "161px",
                                                             width: "955px"
                                                         }}
+                                                        placeholder="Tuliskan target yang akan dicapai dalam setiap program/kegiatan dari masing-masing K/L/D"
                                                         type="text"
                                                         name="target"
                                                         value={output.target}
@@ -1423,6 +1430,7 @@ const FormGNRM = (props) => {
                                                             width: "955px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan informasi dasar yang dihimpun sebelum suatu program dari masing-masing K/L/D dilaksanaan bisa berupa data baseline jika program tersebut berupa program lanjutan dan komplementer atau penggambaran kondisi eksisting apabila program/kegiatan K/LD merupakan program/kegiatan baru dan belum pernah di intervensi. Data ini dapat digunakan sebagai acuan untuk meningkatan capaian target program/kegiatan K/L/D secara maksimal"
                                                         name="kondisi_awal"
                                                         value={kondisi_awal}
                                                         onChange={(event) => onChange(event)}
@@ -1629,21 +1637,22 @@ const FormGNRM = (props) => {
                                                             width: "955px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan rencana pendanaan periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                         name="sumber_dana"
                                                         value={anggaran.sumber_dana}
                                                         onChange={(event) => onChange(event, 'anggaran')}
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Besaran Anggaran</label>
+                                                    <label>Besaran Anggaran <span style={{marginLeft:'36px'}}>Rp.</span></label>
                                                     <input
                                                         className="gnrm-anggaran"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "69px",
+                                                            marginLeft: "4px",
                                                             width: "955px"
                                                         }}
-                                                        placeholder="Rp..."
+                                                        placeholder="Rencana anggaran ini harus memuat sumber pendanaan, besaran anggaran dan peruntukan anggaran"
                                                         type="text"
                                                         name="besar_anggaran"
                                                         value={anggaran.besar_anggaran}
@@ -1691,6 +1700,7 @@ const FormGNRM = (props) => {
                                                             width: "955px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan seluruh proses dan mekanisme pelaksanaan program/kegiatan K/L/D yang meliputi tahap perencanaan, pelaksanaan sampai dengan monitoring dan evaluasi berserta kebutuhan dan sumberdaya yang diperlukan, proses koordinasi, serta prihal lain yang mendukung pelaksanaan program/kegiatan K/L/D yang terkait dengan pelaksanaan GNRM. Proses pelaksanaan kegiatan ini juga harus memuat rangkaian kegiatan tindak lanjut perencanaan program atau langkah yang strategis maupun operasional atau kebijakan sebagai bentuk penguatan pencapaian target dan sasaran berbasis outcome. "
                                                         name="proses"
                                                         value={proses}
                                                         onChange={(event) => onChange(event)}
@@ -1891,7 +1901,7 @@ const FormGNRM = (props) => {
                                                 {
                                                     !documentDetail ?
                                                         <Fragment>
-                                                            <div>
+                                                            {/* <div>
                                                                 <label>Peran Pihak Terkait</label>
                                                                 <input
                                                                     className="gnrm-terkait"
@@ -1905,7 +1915,7 @@ const FormGNRM = (props) => {
                                                                     value={data.pihak_terkait.peran}
                                                                     onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
                                                                 />
-                                                            </div>
+                                                            </div> */}
                                                             <div>
                                                                 <label>Lembaga Terkait</label>
                                                                 <input
@@ -1915,6 +1925,7 @@ const FormGNRM = (props) => {
                                                                         marginLeft: "80px",
                                                                         width: "955px"
                                                                     }}
+                                                                    placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                     type="text"
                                                                     name="lembaga"
                                                                     value={data.pihak_terkait.lembaga}
@@ -1930,6 +1941,7 @@ const FormGNRM = (props) => {
                                                                         marginLeft: "127px",
                                                                         width: "955px"
                                                                     }}
+                                                                    placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                     type="text"
                                                                     name="penjelasan_pihak_terkait"
                                                                     value={data.pihak_terkait.penjelasan_pihak_terkait}
@@ -1941,7 +1953,7 @@ const FormGNRM = (props) => {
                                                         documentDetail&&documentDetail.form.pihak_terkait.map((pihak, index) => {
                                                             return (
                                                                 <Fragment key={index}>
-                                                                    <div>
+                                                                    {/* <div>
                                                                         <label>Peran Pihak Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
@@ -1955,7 +1967,7 @@ const FormGNRM = (props) => {
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].peran}
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
                                                                         />
-                                                                    </div>
+                                                                    </div> */}
                                                                     <div>
                                                                         <label>Lembaga Terkait</label>
                                                                         <input
@@ -1966,6 +1978,7 @@ const FormGNRM = (props) => {
                                                                                 width: "955px"
                                                                             }}
                                                                             type="text"
+                                                                            placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                             name="lembaga"
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].lembaga}
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
@@ -1980,6 +1993,7 @@ const FormGNRM = (props) => {
                                                                                 marginLeft: "127px",
                                                                                 width: "955px"
                                                                             }}
+                                                                            placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                             type="text"
                                                                             name="penjelasan_pihak_terkait"
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].penjelasan_pihak_terkait}
@@ -1994,7 +2008,7 @@ const FormGNRM = (props) => {
                                                     form.map((form, index) => {
                                                         return (
                                                             <Fragment key={index + panjang}>
-                                                                <div>
+                                                                {/* <div>
                                                                     <label>Peran Pihak Terkait</label>
                                                                     <input
                                                                         className="gnrm-terkait"
@@ -2008,7 +2022,7 @@ const FormGNRM = (props) => {
                                                                         value={data.pihak_terkait.peran}
                                                                         onChange={(event) => onChange(event, 'pihak_terkait', true, index + panjang)}
                                                                     />
-                                                                </div>
+                                                                </div> */}
                                                                 <div>
                                                                     <label>Lembaga Terkait</label>
                                                                     <input
@@ -2018,6 +2032,7 @@ const FormGNRM = (props) => {
                                                                             marginLeft: "80px",
                                                                             width: "955px"
                                                                         }}
+                                                                        placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                         type="text"
                                                                         name="lembaga"
                                                                         value={data.pihak_terkait.lembaga}
@@ -2034,6 +2049,7 @@ const FormGNRM = (props) => {
                                                                             width: "955px"
                                                                         }}
                                                                         type="text"
+                                                                        placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                         name="penjelasan_pihak_terkait"
                                                                         value={data.pihak_terkait.penjelasan_pihak_terkait}
                                                                         onChange={(event) => onChange(event, 'pihak_terkait', true, index + panjang)}
@@ -2064,7 +2080,7 @@ const FormGNRM = (props) => {
                                                 </Link>
 
                                                 <Link
-                                                    to="lampiran"
+                                                    to="penanggung_jawab"
                                                     spy={true}
                                                     smooth={true}
                                                     duration={500}
@@ -2326,7 +2342,7 @@ const FormGNRM = (props) => {
 
                                             <div className="gnrm-navigation-button">
                                                 <Link
-                                                    to="lampiran"
+                                                    to="pihak_terkait"
                                                     spy={true}
                                                     smooth={true}
                                                     duration={500}
@@ -2481,6 +2497,7 @@ const FormGNRM = (props) => {
                                                                              fontWeight:'700'
                                                                              }}
                                                                      type="text" 
+                                                                     placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                      name="sk_no"
                                                                      value={data.sk_no}
                                                                      onChange={onChangeSK}
@@ -2703,6 +2720,7 @@ const FormGNRM = (props) => {
                                                                                         fontWeight:'700'
                                                                                         }}
                                                                                 type="text" 
+                                                                                placeholder='Tuliskan Nomor Surat Keterangan  (SK) pembentukan Gerakan Nasional Revolusi Mental (GNRM)'
                                                                                 name="sk_no"
                                                                                 value={data.sk_no}
                                                                                 onChange={onChangeSK}
@@ -2838,6 +2856,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="nama_program"
+                                                        placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                         value={kegiatan.nama_program}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
@@ -2863,7 +2882,7 @@ const FormGNRM = (props) => {
                                                                             name="kp"
                                                                             style={{ marginLeft: '71px', width: '767px', height: '42px' }}
                                                                         >
-                                                                            <option selected={true} hidden></option>
+                                                                            <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
                                                                                 kpOptions && kpOptions.map((kp, i) => <option key={i} title={kp} value={kp}>{kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}</option>)
                                                                             }
@@ -2878,22 +2897,22 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select selectpicker"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '84px' }}
+                                                                            style={{ marginLeft: '84px' , width: '767px'}}
                                                                         >
                                                                             {
-                                                                                propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 73 ? `${prop.substr(0, 70)}...` : prop}</option>)
+                                                                                propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
                                                                             }
                                                                             {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                                         </select> :
                                                                         <select
                                                                             onChange={onChange}
-                                                                            class="gnrm-select selectpicker"
+                                                                            class="gnrm-select "
                                                                             name="prop"
-                                                                            style={{ marginLeft: '83px' }}
+                                                                            style={{ marginLeft: '83px' , width: '767px' }}
                                                                         >
-                                                                            <option selected={true} hidden></option>
+                                                                            <option className='test-red' selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
-                                                                                propOptions && propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 73 ? `${prop.substr(0, 70)}...` : prop}</option>)
+                                                                                propOptions && propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
                                                                             }
                                                                             {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                                         </select>
@@ -3025,6 +3044,7 @@ const FormGNRM = (props) => {
                                                             width: "767px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                                                         name="penjelasan_kegiatan"
                                                         value={kegiatan.penjelasan_kegiatan}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
@@ -3072,6 +3092,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="indikator_capaian"
+                                                        placeholder="Tuliskan indikator capaian yang menggambarkan output dan outcome dalam program/kegiatan K/L/D terkait dengan GNRM. Capaian outcome juga harus berkolerasi terhadap lima dimensi GNRM yang sifatnya terukur dan berkontribusi pada peningkatan hasil Indeks Capaian Revolusi Mental (ICRM)"
                                                         value={output.indikator_capaian}
                                                         onChange={(event) => onChange(event, 'output')}
                                                     />
@@ -3087,6 +3108,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="sasaran"
+                                                        placeholder="Tuliskan sasaran yang akan dicapai dalam setiap pelaksanaan program/kegiatan dari masing-masing K/L/D."
                                                         value={output.sasaran}
                                                         onChange={(event) => onChange(event, 'output')}
 
@@ -3101,6 +3123,7 @@ const FormGNRM = (props) => {
                                                             marginLeft: "161px",
                                                             width: "767px"
                                                         }}
+                                                        placeholder="Tuliskan target yang akan dicapai dalam setiap program/kegiatan dari masing-masing K/L/D"
                                                         type="text"
                                                         name="target"
                                                         value={output.target}
@@ -3149,6 +3172,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         type="text"
                                                         name="kondisi_awal"
+                                                        placeholder="Tuliskan informasi dasar yang dihimpun sebelum suatu program dari masing-masing K/L/D dilaksanaan bisa berupa data baseline jika program tersebut berupa program lanjutan dan komplementer atau penggambaran kondisi eksisting apabila program/kegiatan K/LD merupakan program/kegiatan baru dan belum pernah di intervensi. Data ini dapat digunakan sebagai acuan untuk meningkatan capaian target program/kegiatan K/L/D secara maksimal"
                                                         value={kondisi_awal}
                                                         onChange={(event) => onChange(event)}
                                                     />
@@ -3347,28 +3371,29 @@ const FormGNRM = (props) => {
                                                 <div>
                                                     <label>Sumber Pendanaan</label>
                                                     <input
-                                                        className="gnrm-pendanaan"
+                                                        className="gnrm-pendanaan off"
                                                         style={{
                                                             height: "42px",
                                                             marginLeft: "59px",
                                                             width: "767px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan rencana pendanaan periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                         name="sumber_dana"
                                                         value={anggaran.sumber_dana}
                                                         onChange={(event) => onChange(event, 'anggaran')}
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Besaran Anggaran</label>
+                                                    <label>Besaran Anggaran <span style={{marginLeft:'36px'}}>Rp.</span></label>
                                                     <input
-                                                        className="gnrm-anggaran"
+                                                        className="gnrm-anggaran off"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "69px",
+                                                            marginLeft: "4px",
                                                             width: "767px"
                                                         }}
-                                                        placeholder="Rp..."
+                                                        placeholder="Rencana anggaran ini harus memuat sumber pendanaan, besaran anggaran dan peruntukan anggaran"
                                                         type="text"
                                                         name="besar_anggaran"
                                                         value={anggaran.besar_anggaran}
@@ -3416,6 +3441,7 @@ const FormGNRM = (props) => {
                                                             width: "767px"
                                                         }}
                                                         type="text"
+                                                        placeholder="Tuliskan seluruh proses dan mekanisme pelaksanaan program/kegiatan K/L/D yang meliputi tahap perencanaan, pelaksanaan sampai dengan monitoring dan evaluasi berserta kebutuhan dan sumberdaya yang diperlukan, proses koordinasi, serta prihal lain yang mendukung pelaksanaan program/kegiatan K/L/D yang terkait dengan pelaksanaan GNRM. Proses pelaksanaan kegiatan ini juga harus memuat rangkaian kegiatan tindak lanjut perencanaan program atau langkah yang strategis maupun operasional atau kebijakan sebagai bentuk penguatan pencapaian target dan sasaran berbasis outcome. "
                                                         name="proses"
                                                         value={proses}
                                                         onChange={(event) => onChange(event)}
@@ -3615,7 +3641,7 @@ const FormGNRM = (props) => {
                                                 {
                                                     !documentDetail ?
                                                         <Fragment>
-                                                            <div>
+                                                            {/* <div>
                                                                 <label>Peran Pihak Terkait</label>
                                                                 <input
                                                                     className="gnrm-terkait"
@@ -3629,7 +3655,7 @@ const FormGNRM = (props) => {
                                                                     value={data.pihak_terkait.peran}
                                                                     onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
                                                                 />
-                                                            </div>
+                                                            </div> */}
                                                             <div>
                                                                 <label>Lembaga Terkait</label>
                                                                 <input
@@ -3640,6 +3666,7 @@ const FormGNRM = (props) => {
                                                                         width: "767px"
                                                                     }}
                                                                     type="text"
+                                                                    placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                     name="lembaga"
                                                                     value={data.pihak_terkait.lembaga}
                                                                     onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
@@ -3655,6 +3682,7 @@ const FormGNRM = (props) => {
                                                                         width: "767px"
                                                                     }}
                                                                     type="text"
+                                                                    placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                     name="penjelasan_pihak_terkait"
                                                                     value={data.pihak_terkait.penjelasan_pihak_terkait}
                                                                     onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
@@ -3665,7 +3693,7 @@ const FormGNRM = (props) => {
                                                         documentDetail&&documentDetail.form.pihak_terkait.map((pihak, index) => {
                                                             return (
                                                                 <Fragment key={index}>
-                                                                    <div>
+                                                                    {/* <div>
                                                                         <label>Peran Pihak Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
@@ -3679,7 +3707,7 @@ const FormGNRM = (props) => {
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].peran}
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
                                                                         />
-                                                                    </div>
+                                                                    </div> */}
                                                                     <div>
                                                                         <label>Lembaga Terkait</label>
                                                                         <input
@@ -3690,6 +3718,7 @@ const FormGNRM = (props) => {
                                                                                 width: "767px"
                                                                             }}
                                                                             type="text"
+                                                                            placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                             name="lembaga"
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].lembaga}
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
@@ -3704,6 +3733,7 @@ const FormGNRM = (props) => {
                                                                                 marginLeft: "127px",
                                                                                 width: "767px"
                                                                             }}
+                                                                            placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                             type="text"
                                                                             name="penjelasan_pihak_terkait"
                                                                             value={data.pihak_terkait[index] && data.pihak_terkait[index].penjelasan_pihak_terkait}
@@ -3718,7 +3748,7 @@ const FormGNRM = (props) => {
                                                     form.map((form, index) => {
                                                         return (
                                                             <Fragment key={index + panjang}>
-                                                                <div>
+                                                                {/* <div>
                                                                     <label>Peran Pihak Terkait</label>
                                                                     <input
                                                                         className="gnrm-terkait"
@@ -3732,7 +3762,7 @@ const FormGNRM = (props) => {
                                                                         value={data.pihak_terkait.peran}
                                                                         onChange={(event) => onChange(event, 'pihak_terkait', true, index + panjang)}
                                                                     />
-                                                                </div>
+                                                                </div> */}
                                                                 <div>
                                                                     <label>Lembaga Terkait</label>
                                                                     <input
@@ -3742,6 +3772,7 @@ const FormGNRM = (props) => {
                                                                             marginLeft: "80px",
                                                                             width: "767px"
                                                                         }}
+                                                                        placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
                                                                         type="text"
                                                                         name="lembaga"
                                                                         value={data.pihak_terkait.lembaga}
@@ -3757,6 +3788,7 @@ const FormGNRM = (props) => {
                                                                             marginLeft: "127px",
                                                                             width: "767px"
                                                                         }}
+                                                                        placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                         type="text"
                                                                         name="penjelasan_pihak_terkait"
                                                                         value={data.pihak_terkait.penjelasan_pihak_terkait}
@@ -3788,7 +3820,7 @@ const FormGNRM = (props) => {
                                                 </Link>
 
                                                 <Link
-                                                    to="lampiran"
+                                                    to="penanggung_jawab"
                                                     spy={true}
                                                     smooth={true}
                                                     duration={500}
@@ -4050,7 +4082,7 @@ const FormGNRM = (props) => {
 
                                             <div className="gnrm-navigation-button">
                                                 <Link
-                                                    to="lampiran"
+                                                    to="pihak_terkait"
                                                     spy={true}
                                                     smooth={true}
                                                     duration={500}

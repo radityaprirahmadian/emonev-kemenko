@@ -45,6 +45,7 @@ const Reminder = (props) => {
         }
         try {
             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,config)
+            console.log(res)
             setAllReminder(res.data.notifikasi)
             setFilter({...filter, total: res.data.total})
             setLoading(false)
