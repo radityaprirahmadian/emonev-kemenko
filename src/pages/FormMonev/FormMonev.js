@@ -702,7 +702,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)}  
                                                 className="monev-id-program"
                                                 name="id_laporan"
-                                                style={{marginLeft:'150px'}}
+                                                style={{marginLeft:'151px'}}
                                             >
                                                 
                                                 {
@@ -714,7 +714,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)} 
                                                 className="monev-id-laporan"
                                                 name="id_laporan"
-                                                style={{marginLeft:'150px'}}
+                                                style={{marginLeft:'151px'}}
                                             >
                                                 <option selected={true} hidden></option>
                                                 {
@@ -751,7 +751,7 @@ const FormMonev =  (props) => {
                                                             onChange={onChange} 
                                                             class="gnrm-select"
                                                             name="kp"
-                                                            style={{marginLeft: '69px', width:'955px' , height: '42px'}}
+                                                            style={{marginLeft: '68px', width:'955px' , height: '42px'}}
                                                         >
                                                             {
                                                                 kpOptions&&kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
@@ -761,7 +761,7 @@ const FormMonev =  (props) => {
                                                             onChange={onChange} 
                                                             class="gnrm-select"
                                                             name="kp"
-                                                            style={{marginLeft: '69px', width:'955px' , height: '42px' }}
+                                                            style={{marginLeft: '68px', width:'955px' , height: '42px' }}
                                                         >
                                                             <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024. </option>
                                                             {
@@ -778,7 +778,7 @@ const FormMonev =  (props) => {
                                                             onChange={onChange} 
                                                             class="gnrm-select selectpicker"
                                                             name="prop"
-                                                            style={{marginLeft: '84px' , width:'955px'}}
+                                                            style={{marginLeft: '83px' , width:'955px'}}
                                                         >
                                                             {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
@@ -811,7 +811,7 @@ const FormMonev =  (props) => {
                                                                         onChange={onChange}
                                                                         class="gnrm-select"
                                                                         name="gerakan-0"
-                                                                        style={{ marginLeft: '145px' }}
+                                                                        style={{ marginLeft: '144px' }}
                                                                     >
                                                                         <option value={selectedGerakan['gerakan-0']} defaultValue>{selectedGerakan['gerakan-0']}</option>
                                                                         {
@@ -828,7 +828,7 @@ const FormMonev =  (props) => {
                                                                         onChange={onChangeGerakan}
                                                                         class="gnrm-select"
                                                                         name="gerakan-0"
-                                                                        style={{ marginLeft: '145px' }}
+                                                                        style={{ marginLeft: '144px' }}
                                                                     >
                                                                         <option selected={true} hidden></option>
                                                                         {
@@ -855,7 +855,7 @@ const FormMonev =  (props) => {
                                                                                     onChange={onChangeGerakan}
                                                                                     class="gnrm-select"
                                                                                     name={`gerakan-${index + 1}`}
-                                                                                    style={{ marginLeft: '145px' }}
+                                                                                    style={{ marginLeft: '144px' }}
                                                                                 >
                                                                                     <option value={_} defaultValue hidden={_ === '' ? true : false}>{_}</option>
                                                                                     {
@@ -882,7 +882,7 @@ const FormMonev =  (props) => {
                                                                                 onChange={onChangeGerakan}
                                                                                 class="gnrm-select"
                                                                                 name={`gerakan-${index + 1}`}
-                                                                                style={{ marginLeft: '145px' }}
+                                                                                style={{ marginLeft: '144px' }}
                                                                             >
                                                                                 <option selected={true} hidden></option>
                                                                                 {
@@ -1381,7 +1381,7 @@ const FormMonev =  (props) => {
                                         className="monev-waktu" 
                                         style={{height:"42px",
                                                 width: "955px",
-                                                marginLeft: "160px" 
+                                                marginLeft: "162px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan informasi mengenai waktu pelaksanaan monitoring yang dilakukan oleh K/L/D '
@@ -1396,7 +1396,7 @@ const FormMonev =  (props) => {
                                         className="monev-tempat" 
                                         style={{height:"42px",
                                                 width: "955px",
-                                                marginLeft: "151px" 
+                                                marginLeft: "153px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan informasi tempat pelaksanaan monitoring yang dilakukan oleh K/L/D beserta gambaran umum tentang lokasi pelaksanaan monitoring.'
@@ -1615,7 +1615,7 @@ const FormMonev =  (props) => {
                                         className="monev-evaluasi-program" 
                                         style={{height:"400px",
                                                 width: "955px",
-                                                marginLeft: "76px" 
+                                                marginLeft: "78px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
@@ -2345,7 +2345,7 @@ const FormMonev =  (props) => {
                                         className="monev-jabatan" 
                                         style={{height:"42px",
                                                 width: "403px",
-                                                marginLeft: "151px" 
+                                                marginLeft: "150px" 
                                         }}
                                         type="text" 
                                         name="jabatan"
@@ -2359,7 +2359,7 @@ const FormMonev =  (props) => {
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "403px",
-                                                marginLeft: "183px" 
+                                                marginLeft: "184px" 
                                         }}
                                         type="text" 
                                         name="nip"
@@ -2373,7 +2373,7 @@ const FormMonev =  (props) => {
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "955px",
-                                                marginLeft: "160px" 
+                                                marginLeft: "161px" 
                                         }}
                                         type="text" 
                                         name="lokasi"
@@ -2441,7 +2441,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)}  
                                                 className="monev-id-program"
                                                 name="id_laporan"
-                                                style={{marginLeft:'150px'}}
+                                                style={{marginLeft:'151px'}}
                                             >
                                                 
                                                 {
@@ -2453,7 +2453,7 @@ const FormMonev =  (props) => {
                                                 onChange={(event) => onChange(event)} 
                                                 className="monev-id-laporan"
                                                 name="id_laporan"
-                                                style={{marginLeft:'150px'}}
+                                                style={{marginLeft:'151px'}}
                                             >
                                                 <option selected={true} hidden></option>
                                                 {
@@ -2471,7 +2471,7 @@ const FormMonev =  (props) => {
                                         <input 
                                             className="gnrm-nama-program" 
                                             style={{height: "42px", 
-                                                    marginLeft: "91px", 
+                                                    marginLeft: "91.5px", 
                                                     width: "767px"}} 
                                             type="text" 
                                             name="nama_program"
@@ -2528,7 +2528,7 @@ const FormMonev =  (props) => {
                                                             onChange={onChange} 
                                                             class="gnrm-select selectpicker"
                                                             name="prop"
-                                                            style={{marginLeft: '83px', width:'767px'}}
+                                                            style={{marginLeft: '84px', width:'767px'}}
                                                         >
                                                             <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai dengan RPJMN 2020-2024</option>
                                                             {
@@ -2550,7 +2550,7 @@ const FormMonev =  (props) => {
                                                                         onChange={onChange}
                                                                         class="gnrm-select"
                                                                         name="gerakan-0"
-                                                                        style={{ marginLeft: '145px' }}
+                                                                        style={{ marginLeft: '144.5px' }}
                                                                     >
                                                                         <option value={selectedGerakan['gerakan-0']} defaultValue>{selectedGerakan['gerakan-0']}</option>
                                                                         {
@@ -2567,7 +2567,7 @@ const FormMonev =  (props) => {
                                                                         onChange={onChangeGerakan}
                                                                         class="gnrm-select"
                                                                         name="gerakan-0"
-                                                                        style={{ marginLeft: '145px' }}
+                                                                        style={{ marginLeft: '144.5px' }}
                                                                     >
                                                                         <option selected={true} hidden></option>
                                                                         {
@@ -2594,7 +2594,7 @@ const FormMonev =  (props) => {
                                                                                     onChange={onChangeGerakan}
                                                                                     class="gnrm-select"
                                                                                     name={`gerakan-${index + 1}`}
-                                                                                    style={{ marginLeft: '145px' }}
+                                                                                    style={{ marginLeft: '144.5px' }}
                                                                                 >
                                                                                     <option value={_} defaultValue hidden={_ === '' ? true : false}>{_}</option>
                                                                                     {
@@ -2621,7 +2621,7 @@ const FormMonev =  (props) => {
                                                                                 onChange={onChangeGerakan}
                                                                                 class="gnrm-select"
                                                                                 name={`gerakan-${index + 1}`}
-                                                                                style={{ marginLeft: '145px' }}
+                                                                                style={{ marginLeft: '144.5px' }}
                                                                             >
                                                                                 <option selected={true} hidden></option>
                                                                                 {
@@ -3121,7 +3121,7 @@ const FormMonev =  (props) => {
                                         className="monev-waktu" 
                                         style={{height:"42px",
                                                 width: "767px",
-                                                marginLeft: "160px" 
+                                                marginLeft: "162px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan informasi mengenai waktu pelaksanaan monitoring yang dilakukan oleh K/L/D'
@@ -3136,7 +3136,7 @@ const FormMonev =  (props) => {
                                         className="monev-tempat" 
                                         style={{height:"42px",
                                                 width: "767px",
-                                                marginLeft: "151px" 
+                                                marginLeft: "153px" 
                                         }}
                                         type="text" 
                                         name="tempat"
@@ -3356,7 +3356,7 @@ const FormMonev =  (props) => {
                                         className="monev-evaluasi-program" 
                                         style={{height:"400px",
                                                 width: "767px",
-                                                marginLeft: "76px" 
+                                                marginLeft: "78px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
@@ -4085,7 +4085,7 @@ const FormMonev =  (props) => {
                                         className="monev-jabatan" 
                                         style={{height:"42px",
                                                 width: "403px",
-                                                marginLeft: "151px" 
+                                                marginLeft: "150px" 
                                         }}
                                         type="text" 
                                         name="jabatan"
@@ -4099,7 +4099,7 @@ const FormMonev =  (props) => {
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "403px",
-                                                marginLeft: "183px" 
+                                                marginLeft: "184px" 
                                         }}
                                         type="text" 
                                         name="nip"
@@ -4113,7 +4113,7 @@ const FormMonev =  (props) => {
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "767px",
-                                                marginLeft: "160px" 
+                                                marginLeft: "161px" 
                                         }}
                                         type="text" 
                                         name="lokasi"

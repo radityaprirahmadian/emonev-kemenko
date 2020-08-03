@@ -1129,7 +1129,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
                                                                             name="kp"
-                                                                            style={{ marginLeft: '71px', width: '955px', height: '42px' }}
+                                                                            style={{ marginLeft: '70px', width: '955px', height: '42px' }}
                                                                         >
                                                                             {
                                                                                 kpOptions && kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
@@ -1139,7 +1139,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
                                                                             name="kp"
-                                                                            style={{ marginLeft: '71px', width: '955px', height: '42px' }}
+                                                                            style={{ marginLeft: '70px', width: '955px', height: '42px' }}
                                                                         >
                                                                             <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
@@ -1156,7 +1156,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select selectpicker"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '84px' , width: '955px'}}
+                                                                            style={{ marginLeft: '85px' , width: '955px'}}
                                                                         >
                                                                             {
                                                                                 propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
@@ -1167,7 +1167,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '83px' , width: '955px' }}
+                                                                            style={{ marginLeft: '85px' , width: '955px' }}
                                                                         >
                                                                             <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
@@ -2298,7 +2298,7 @@ const FormGNRM = (props) => {
                                                         className="gnrm-nip"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "151px",
+                                                            marginLeft: "150px",
                                                             width: "403px"
                                                         }}
                                                         type="text"
@@ -2314,7 +2314,7 @@ const FormGNRM = (props) => {
                                                         className="gnrm-lampiran"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "183px",
+                                                            marginLeft: "184px",
                                                             width: "403px"
                                                         }}
 
@@ -2330,7 +2330,7 @@ const FormGNRM = (props) => {
                                                         className="monev-nip" 
                                                         style={{height:"42px",
                                                                 width: "955px",
-                                                                marginLeft: "160px" 
+                                                                marginLeft: "161px" 
                                                         }}
                                                         type="text" 
                                                         name="lokasi"
@@ -2870,7 +2870,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
                                                                             name="kp"
-                                                                            style={{ marginLeft: '71px', width: '767px', height: '42px' }}
+                                                                            style={{ marginLeft: '70px', width: '767px', height: '42px' }}
                                                                         >
                                                                             {
                                                                                 kpOptions && kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}</option>)
@@ -2880,7 +2880,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select"
                                                                             name="kp"
-                                                                            style={{ marginLeft: '71px', width: '767px', height: '42px' }}
+                                                                            style={{ marginLeft: '70px', width: '767px', height: '42px' }}
                                                                         >
                                                                             <option selected={true} hidden>Tuliskan Kegiatan Prioritas (KP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
@@ -2897,7 +2897,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select selectpicker"
                                                                             name="prop"
-                                                                            style={{ marginLeft: '84px' , width: '767px'}}
+                                                                            style={{ marginLeft: '85px' , width: '767px'}}
                                                                         >
                                                                             {
                                                                                 propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
@@ -2908,7 +2908,7 @@ const FormGNRM = (props) => {
                                                                             onChange={onChange}
                                                                             class="gnrm-select "
                                                                             name="prop"
-                                                                            style={{ marginLeft: '83px' , width: '767px' }}
+                                                                            style={{ marginLeft: '85px' , width: '767px' }}
                                                                         >
                                                                             <option className='test-red' selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
@@ -4038,7 +4038,7 @@ const FormGNRM = (props) => {
                                                         className="gnrm-nip"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "151px",
+                                                            marginLeft: "150px",
                                                             width: "403px"
                                                         }}
                                                         type="text"
@@ -4054,7 +4054,7 @@ const FormGNRM = (props) => {
                                                         className="gnrm-lampiran"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "183px",
+                                                            marginLeft: "184px",
                                                             width: "403px"
                                                         }}
 
@@ -4070,7 +4070,7 @@ const FormGNRM = (props) => {
                                                         className="monev-nip" 
                                                         style={{height:"42px",
                                                                 width: "767px",
-                                                                marginLeft: "160px" 
+                                                                marginLeft: "161px" 
                                                         }}
                                                         type="text" 
                                                         name="lokasi"
