@@ -267,7 +267,7 @@ const ProfileEdit = (props) => {
                                             </div>
 
                                             <div className="data">
-                                                <label>Role</label><br/>
+                                                <label>Peran</label><br/>
                                                 <div className="persist" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
                                                 <div className="button-lock" >
                                                     <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -275,7 +275,7 @@ const ProfileEdit = (props) => {
                                             </div>
 
                                             <div className="data">
-                                                <label>Username</label><br/>
+                                                <label>Nama Pengguna</label><br/>
                                                 <div className="persist" type="text">{userDetail && userDetail.username}</div>
                                                 <div className="button-lock" >
                                                     <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -317,7 +317,7 @@ const ProfileEdit = (props) => {
                                         </div>
 
                                         <div className="data" style={{width:'466px'}}>
-                                            <label>Role</label><br/>
+                                            <label>Peran</label><br/>
                                             <div className="persist" style={{width:'466px'}} type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
                                             <div className="button-lock" >
                                                 <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -325,7 +325,7 @@ const ProfileEdit = (props) => {
                                         </div>
 
                                         <div className="data" style={{width:'466px'}}>
-                                            <label>Username</label><br/>
+                                            <label>Nama Pengguna</label><br/>
                                             <div className="persist" style={{width:'466px'}} type="text">{userDetail && userDetail.username}</div>
                                             <div className="button-lock" >
                                                 <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>

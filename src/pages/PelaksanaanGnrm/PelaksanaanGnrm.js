@@ -93,7 +93,8 @@ const GNRM  = (props) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    },[])
+    }, [])
+
     useEffect(() => {
         getAllDocument()
     }, [limit,page])
@@ -143,10 +144,10 @@ const GNRM  = (props) => {
                                 <thead className="table-head">
                                     <tr>
                                         <th width='70px'>Tahun</th>
-                                        <th width={sidebar ? '216px' : '276px'}>Kegiatan Prioritas</th>
-                                        <th width={sidebar ? '216px' : '276px'}>Proyek Prioritas</th>
-                                        <th width={sidebar ? '160px' : '193px'} className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
-                                        <th width={sidebar ? '169px' : '204px'}>Pihak Terkait</th>
+                                        <th width={sidebar ? '216px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}>Kegiatan Prioritas</th>
+                                        <th width={sidebar ? '216px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}> Proyek Prioritas</th>
+                                        <th width={sidebar ? '160px' : '193px'} style={{transition: 'all 0.3s ease-in-out'}} className={user&&user.role === 'owner' ? ''  : 'd-none'}>Instansi</th>
+                                        <th width={sidebar ? '169px' : '204px'} style={{transition: 'all 0.3s ease-in-out'}}>Pihak Terkait</th>
                                         <th width='133px'>Pejabat Eselon</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>

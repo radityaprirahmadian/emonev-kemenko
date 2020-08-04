@@ -1,9 +1,11 @@
-import React,{Fragment,useContext} from 'react';
+import React,{Fragment,useContext, useState, useEffect} from 'react';
 import './Filter.css';
+import axios from 'axios'
 import {AuthContext} from '../../context/Auth/AuthContext.js'
 
 const Filter = (props) => {
     const { token, user } = useContext(AuthContext)
+    const [kpOptions, setKpOptions] = useState([])
 
     const onChange = (e) => {
         return props.setFilterDoc({
@@ -11,6 +13,16 @@ const Filter = (props) => {
             [e.target.name]: e.target.value
         })
     }
+
+    useEffect(() => {
+        (async () => {
+            const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek')
+
+            const { proyek} = proyekData.data
+
+            setKpOptions((proyek && proyek.map(proyek => proyek.kp)))
+        })()
+    }, [])
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -60,7 +72,7 @@ const Filter = (props) => {
                             <option defaultValue="" hidden></option>
                             <option value="">Semua</option>
                             {
-                                props.filterValue && props.filterValue.kp && props.filterValue.kp.filter(filter => filter !== '').map((kp,index) => {
+                                kpOptions && kpOptions.map((kp,index) => {
                                     return(
                                         <option key={index} value={kp}>{kp.length > 50 ? `${kp.substr(0, 47)}...` : kp}</option>
                                     )

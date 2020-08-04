@@ -106,15 +106,15 @@ const ProfileInstansi = (props) => {
                                                     <div className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px' , lineHeight:'20px' , paddingTop:'10px' , paddingBottom:'10px'}}>{instansiDetail && instansiDetail.nama}</div>
                                                 </div>
 
-                                                <div className="data">
+                                                {/* <div className="data">
                                                     <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
                                                     <div className="show-profile" type="text" style={{fontWeight:'700'}}>{instansiDetail && instansiDetail.nama_pendek}</div>
-                                                </div>
+                                                </div> */}
 
-                                                <div className="data">
+                                                {/* <div className="data">
                                                     <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                     <div className="show-profile" type="text">{instansiDetail && instansiDetail.jenis}</div>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="data">
                                                     <label style={{marginTop:'32px'}}>Kontak</label><br/>
@@ -147,7 +147,7 @@ const ProfileInstansi = (props) => {
                                                     <div className="show-profile" type="text" style={{height:'84px'  , width:'466px', marginBottom:'16px' , lineHeight:'20px' , paddingTop:'10px', paddingBottom:'10px'}}>{instansiDetail && instansiDetail.nama}</div>
                                                 </div>
 
-                                                <div className="data">
+                                                {/* <div className="data">
                                                     <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
                                                     <div className="show-profile" type="text" style={{fontWeight:'700' , width:'466px'}}>{instansiDetail && instansiDetail.nama_pendek}</div>
                                                 </div>
@@ -155,7 +155,7 @@ const ProfileInstansi = (props) => {
                                                 <div className="data">
                                                     <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                     <div className="show-profile" style={{width:'466px'}}type="text">{instansiDetail && instansiDetail.jenis}</div>
-                                                </div>
+                                                </div> */}
 
                                                 <div className="data">
                                                     <label style={{marginTop:'32px'}}>Kontak</label><br/>

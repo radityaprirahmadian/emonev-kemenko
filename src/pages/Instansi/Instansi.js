@@ -138,9 +138,9 @@ const Instansi = (props) => {
                                 <table className="table-monev" style={{marginRight:'20px'}}>
                                     <thead className="table-head-monev">
                                         <tr>
-                                            <th width={sidebar ? '384px' :'572px'}>Nama Instansi</th>
-                                            <th width='258px'>Nama Pendek</th>
-                                            <th width='258px'>Jenis</th>
+                                            <th width={sidebar ? '513px' :'701px'} style={{transition: 'all 0.3s ease-in-out'}}>Nama Instansi</th>
+                                            {/* <th width='258px'>Nama Pendek</th> */}
+                                            <th width='387px'>Kementerian/Lembaga/Pemerintah Daerah</th>
                                             <th width='42px'></th>
                                             <th width='42px'></th>
                                         </tr>

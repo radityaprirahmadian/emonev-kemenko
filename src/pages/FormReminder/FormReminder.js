@@ -441,6 +441,7 @@ const FormReminder = (props) => {
                                     required
                                     value={judul} 
                                     onChange={onChange}
+                                    style={{transition: 'all 0.3s ease-in-out'}}
                                 />
                             </div>
                             <div className="div-reminder">
@@ -452,6 +453,7 @@ const FormReminder = (props) => {
                                     required
                                     value={isi}
                                     onChange={onChange} 
+                                    style={{transition: 'all 0.3s ease-in-out'}}
                                 />
                             </div>
                             <div className="div-reminder">
@@ -600,7 +602,7 @@ const FormReminder = (props) => {
                                     required
                                     value={judul} 
                                     onChange={onChange}
-                                    style={{width:'767px'}}
+                                    style={{width:'767px',transition: 'all 0.3s ease-in-out'}}
                                 />
                             </div>
                             <div className="div-reminder">
@@ -612,7 +614,7 @@ const FormReminder = (props) => {
                                     required
                                     value={isi}
                                     onChange={onChange} 
-                                    style={{width:'767px'}}
+                                    style={{width:'767px',transition: 'all 0.3s ease-in-out'}}
                                 />
                             </div>
                             <div className="div-reminder">

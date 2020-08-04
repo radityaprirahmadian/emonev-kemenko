@@ -605,7 +605,7 @@ const FormGNRM = (props) => {
             {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
             <div className={isPreviewing ? 'd-none' : "form"}>
                 <div className="tajuk-page">
-                    <h1> FORM RENCANA PELAKSANAAN PROGRAM</h1>
+                    <h1> FORMULIR RENCANA PELAKSANAAN PROGRAM</h1>
                 </div>
 
                 {
@@ -765,7 +765,7 @@ const FormGNRM = (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -988,7 +988,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -1105,17 +1105,17 @@ const FormGNRM = (props) => {
                                     </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label>Nama Program</label>
+                                                    <label>Nama Kegiatan</label>
                                                     <input
                                                         className="gnrm-nama-program"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "93px",
+                                                            marginLeft: "91px",
                                                             width: "955px"
                                                         }}
                                                         type="text"
                                                         name="nama_program"
-                                                        placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
+                                                        // placeholder='Tuliskan nama kegiatan sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                         value={kegiatan.nama_program}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
@@ -1438,7 +1438,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     <label>Data Dukung</label>
-                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing2"
                                                         className="gnrm-penjelasan"
@@ -1628,16 +1628,16 @@ const FormGNRM = (props) => {
                                         </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label>Sumber Pendanaan</label>
+                                                    <label>Sumber Anggaran</label>
                                                     <input
                                                         className="gnrm-pendanaan"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "59px",
+                                                            marginLeft: "72px",
                                                             width: "955px"
                                                         }}
                                                         type="text"
-                                                        placeholder="Tuliskan rencana pendanaan periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
+                                                        placeholder="Tuliskan rencana anggaran periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                         name="sumber_dana"
                                                         value={anggaran.sumber_dana}
                                                         onChange={(event) => onChange(event, 'anggaran')}
@@ -1652,7 +1652,7 @@ const FormGNRM = (props) => {
                                                             marginLeft: "4px",
                                                             width: "955px"
                                                         }}
-                                                        placeholder="Rencana anggaran ini harus memuat sumber pendanaan, besaran anggaran dan peruntukan anggaran"
+                                                        placeholder="Rencana anggaran ini harus memuat sumber anggaran, besaran anggaran dan peruntukan anggaran"
                                                         type="text"
                                                         name="besar_anggaran"
                                                         value={anggaran.besar_anggaran}
@@ -1687,16 +1687,16 @@ const FormGNRM = (props) => {
                                     <Element id='proses' name='proses'>
                                         <div className="gnrm-container">
                                             <div className="gnrm-title">
-                                                PROSES PERKEMBANGAN PELAKSANAAN KEGIATAN
+                                                PERKEMBANGAN PELAKSANAAN KEGIATAN
                                     </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Mekanisme Pelaksanaan <br />Kegiatan</label>
+                                                    <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Pelaksanaan Kegiatan</label>
                                                     <textarea
                                                         className="gnrm-penjelasan"
                                                         style={{
                                                             height: "400px",
-                                                            marginLeft: "15px",
+                                                            marginLeft: "37px",
                                                             width: "955px"
                                                         }}
                                                         type="text"
@@ -1708,7 +1708,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     <label>Data Dukung</label>
-                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing3"
                                                         className="gnrm-penjelasan"
@@ -1917,12 +1917,12 @@ const FormGNRM = (props) => {
                                                                 />
                                                             </div> */}
                                                             <div>
-                                                                <label>Lembaga Terkait</label>
+                                                                <label>K/L/D Terkait</label>
                                                                 <input
                                                                     className="gnrm-terkait"
                                                                     style={{
                                                                         height: "42px",
-                                                                        marginLeft: "80px",
+                                                                        marginLeft: "107px",
                                                                         width: "955px"
                                                                     }}
                                                                     placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -1969,12 +1969,12 @@ const FormGNRM = (props) => {
                                                                         />
                                                                     </div> */}
                                                                     <div>
-                                                                        <label>Lembaga Terkait</label>
+                                                                        <label>K/L/D Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
                                                                             style={{
                                                                                 height: "42px",
-                                                                                marginLeft: "80px",
+                                                                                marginLeft: "107px",
                                                                                 width: "955px"
                                                                             }}
                                                                             type="text"
@@ -2024,12 +2024,12 @@ const FormGNRM = (props) => {
                                                                     />
                                                                 </div> */}
                                                                 <div>
-                                                                    <label>Lembaga Terkait</label>
+                                                                    <label>K/L/D Terkait</label>
                                                                     <input
                                                                         className="gnrm-terkait"
                                                                         style={{
                                                                             height: "42px",
-                                                                            marginLeft: "80px",
+                                                                            marginLeft: "107px",
                                                                             width: "955px"
                                                                         }}
                                                                         placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -2062,7 +2062,7 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label className="tambah-lembaga" >
-                                                    Tambah Lembaga
+                                                    Tambah K/L/D
                                                 </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
@@ -2100,7 +2100,7 @@ const FormGNRM = (props) => {
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Lampiran Media</label>
-                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing"
                                                         className="gnrm-penjelasan"
@@ -2325,12 +2325,12 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lokasi</label>
+                                                    <label>Kota/Kabupaten</label>
                                                     <input 
                                                         className="monev-nip" 
                                                         style={{height:"42px",
                                                                 width: "955px",
-                                                                marginLeft: "161px" 
+                                                                marginLeft: "81px" 
                                                         }}
                                                         type="text" 
                                                         name="lokasi"
@@ -2506,7 +2506,7 @@ const FormGNRM = (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -2729,7 +2729,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -2846,17 +2846,17 @@ const FormGNRM = (props) => {
                                     </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label>Nama Program</label>
+                                                    <label>Nama Kegiatan</label>
                                                     <input
                                                         className="gnrm-nama-program"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "93px",
+                                                            marginLeft: "91px",
                                                             width: "767px"
                                                         }}
                                                         type="text"
                                                         name="nama_program"
-                                                        placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
+                                                        // placeholder='Tuliskan nama kegiatan sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                         value={kegiatan.nama_program}
                                                         onChange={(event) => onChange(event, 'kegiatan')}
                                                     />
@@ -3179,7 +3179,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     <label>Data Dukung</label>
-                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing2"
                                                         className="gnrm-penjelasan"
@@ -3369,16 +3369,16 @@ const FormGNRM = (props) => {
                                         </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label>Sumber Pendanaan</label>
+                                                    <label>Sumber Anggaran</label>
                                                     <input
                                                         className="gnrm-pendanaan off"
                                                         style={{
                                                             height: "42px",
-                                                            marginLeft: "59px",
+                                                            marginLeft: "72px",
                                                             width: "767px"
                                                         }}
                                                         type="text"
-                                                        placeholder="Tuliskan rencana pendanaan periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
+                                                        placeholder="Tuliskan rencana anggaran periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                         name="sumber_dana"
                                                         value={anggaran.sumber_dana}
                                                         onChange={(event) => onChange(event, 'anggaran')}
@@ -3393,7 +3393,7 @@ const FormGNRM = (props) => {
                                                             marginLeft: "4px",
                                                             width: "767px"
                                                         }}
-                                                        placeholder="Rencana anggaran ini harus memuat sumber pendanaan, besaran anggaran dan peruntukan anggaran"
+                                                        placeholder="Rencana anggaran ini harus memuat sumber anggaran, besaran anggaran dan peruntukan anggaran"
                                                         type="text"
                                                         name="besar_anggaran"
                                                         value={anggaran.besar_anggaran}
@@ -3428,16 +3428,16 @@ const FormGNRM = (props) => {
                                     <Element id='proses' name='proses'>
                                         <div className="gnrm-container-off">
                                             <div className="gnrm-title">
-                                                PROSES PERKEMBANGAN PELAKSANAAN KEGIATAN
+                                                PERKEMBANGAN PELAKSANAAN KEGIATAN
                                     </div>
                                             <div className="form-gnrm">
                                                 <div>
-                                                    <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Mekanisme Pelaksanaan <br />Kegiatan</label>
+                                                    <label style={{ textAlign: 'left', clear: 'both', float: 'left' }}>Pelaksanaan Kegiatan</label>
                                                     <textarea
                                                         className="gnrm-penjelasan"
                                                         style={{
                                                             height: "400px",
-                                                            marginLeft: "15px",
+                                                            marginLeft: "37px",
                                                             width: "767px"
                                                         }}
                                                         type="text"
@@ -3449,7 +3449,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     <label>Data Dukung</label>
-                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing3"
                                                         className="gnrm-penjelasan"
@@ -3657,12 +3657,12 @@ const FormGNRM = (props) => {
                                                                 />
                                                             </div> */}
                                                             <div>
-                                                                <label>Lembaga Terkait</label>
+                                                                <label>K/L/D Terkait</label>
                                                                 <input
                                                                     className="gnrm-terkait"
                                                                     style={{
                                                                         height: "42px",
-                                                                        marginLeft: "80px",
+                                                                        marginLeft: "107px",
                                                                         width: "767px"
                                                                     }}
                                                                     type="text"
@@ -3709,12 +3709,12 @@ const FormGNRM = (props) => {
                                                                         />
                                                                     </div> */}
                                                                     <div>
-                                                                        <label>Lembaga Terkait</label>
+                                                                        <label>K/L/D Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
                                                                             style={{
                                                                                 height: "42px",
-                                                                                marginLeft: "80px",
+                                                                                marginLeft: "107px",
                                                                                 width: "767px"
                                                                             }}
                                                                             type="text"
@@ -3764,12 +3764,12 @@ const FormGNRM = (props) => {
                                                                     />
                                                                 </div> */}
                                                                 <div>
-                                                                    <label>Lembaga Terkait</label>
+                                                                    <label>K/L/D Terkait</label>
                                                                     <input
                                                                         className="gnrm-terkait"
                                                                         style={{
                                                                             height: "42px",
-                                                                            marginLeft: "80px",
+                                                                            marginLeft: "107px",
                                                                             width: "767px"
                                                                         }}
                                                                         placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -3802,7 +3802,7 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label className="tambah-lembaga" >
-                                                    Tambah Lembaga
+                                                    Tambah K/L/D
                                                 </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
@@ -3840,7 +3840,7 @@ const FormGNRM = (props) => {
                                             <div className="form-gnrm">
                                                 <div>
                                                     <label>Lampiran Media</label>
-                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                    <label htmlFor='testing' className='label_lampiran'><span style={{ marginRight: '15px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
                                                         id="testing"
                                                         className="gnrm-penjelasan"
@@ -4065,12 +4065,12 @@ const FormGNRM = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Lokasi</label>
+                                                    <label>Kota/Kabupaten</label>
                                                     <input 
                                                         className="monev-nip" 
                                                         style={{height:"42px",
                                                                 width: "767px",
-                                                                marginLeft: "161px" 
+                                                                marginLeft: "81px" 
                                                         }}
                                                         type="text" 
                                                         name="lokasi"
@@ -4221,7 +4221,7 @@ const FormGNRM = (props) => {
                                 <tr>
                                     <td></td>
                                             <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
-                                                Nama Program : {data.kegiatan.nama_program}<br />
+                                                Nama Kegiatan : {data.kegiatan.nama_program}<br />
                                                         Kegiatan Prioritas : {data.kp}<br />
                                                         Program Prioritas: {data.prop}<br />
                                                 Penjelasan : {data.kegiatan.penjelasan_kegiatan}
@@ -4322,12 +4322,18 @@ const FormGNRM = (props) => {
                                 <tr>
                                     <td></td>
                                     <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
+                                        {data.anggaran.sumber_dana}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
                                         {data.anggaran.besar_anggaran}
                                     </td>
                                 </tr>
                                 <tr style={{ fontWeight: 'bold' }}>
                                     <td>6.</td>
-                                    <td>Proses Perkembangan Pelaksaan Kegiatan</td>
+                                    <td>Perkembangan Pelaksanaan Kegiatan</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -4410,7 +4416,8 @@ const FormGNRM = (props) => {
                                                 <tr key={index}>
                                                     <td></td>
                                                     <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
-                                                        {data.pihak_terkait[index] && data.pihak_terkait[index].lembaga} , {data.pihak_terkait[index] && data.pihak_terkait[index].penjelasan_pihak_terkait} , {data.pihak_terkait[index] && data.pihak_terkait[index].peran}
+                                                        K/L/D Terkait : {data.pihak_terkait[index] && data.pihak_terkait[index].lembaga} <br/>
+                                                        Penjelasan : {data.pihak_terkait[index] && data.pihak_terkait[index].penjelasan_pihak_terkait}
                                                     </td>
                                                 </tr>
                                             )

@@ -266,7 +266,7 @@ const FormInstansi = (props) => {
                                 !sidebar ?
                                 <Fragment>
                                     <Element id="instansi" name="instansi">
-                                        <div className="admin-1-container">
+                                        <div className="admin-1-container" style={{transition: 'all 0.3s ease-in-out'}}>
                                             <div>
                                                 <label>Nama Instansi</label>
                                                 <input 
@@ -278,11 +278,11 @@ const FormInstansi = (props) => {
                                                     onChange={onChangeInstansi} 
                                                     onKeyPress={onKeyPress}
                                                     required={true}
-                                                    style={{width:'955px', marginLeft:'97px'}}
+                                                    style={{width:'955px', marginLeft:'97px' , transition: 'all 0.3s ease-in-out'}}
                                                 />
                                             </div>
                                             <div>
-                                                <label>Nama Pendek</label>
+                                                <label>Nama Singkat</label>
                                                 <input 
                                                     className="admin-nama" 
                                                     type="text" 
@@ -466,7 +466,7 @@ const FormInstansi = (props) => {
                                                     value={newInstansi.alamat} 
                                                     tabIndex='6'
                                                     onChange={onChangeInstansi} 
-                                                    style={{marginLeft:'156px', width:'955px' , height: '84px'}}
+                                                    style={{marginLeft:'156px', width:'955px' , height: '84px' , transition: 'all 0.3s ease-in-out'}}
                                                 />
                                             </div>
                                             <div>
@@ -523,7 +523,7 @@ const FormInstansi = (props) => {
                                                         duration={500}
                                                         offset={-30}
                                                     >
-                                                        <button className="forward" style={{right:'-1109px'}}><i className="material-icons">expand_more</i></button>
+                                                        <button className="forward" style={{right:'-1109px' , transition: 'all 0.3s ease-in-out'}}><i className="material-icons">expand_more</i></button>
                                                     </Link>
                                                 </div>
                                             }
@@ -533,7 +533,7 @@ const FormInstansi = (props) => {
                                     {
                                         !props.match.params.id ?
                                     <Element id="admin_form" name="admin_form">
-                                        <div className="admin-1-container" style={{marginBottom:'227px'}}>
+                                        <div className="admin-1-container" style={{marginBottom:'227px' , transition: 'all 0.3s ease-in-out'}}>
                                         <div className="gnrm-title">
                                             FORMULIR ADMIN
                                         </div>
@@ -551,13 +551,13 @@ const FormInstansi = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Peran</label>
                                                     <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
                                                         Admin
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label>Username</label>
+                                                    <label>Nama Pengguna</label>
                                                     <input 
                                                         className="admin-username" 
                                                         type="text" 
@@ -567,6 +567,7 @@ const FormInstansi = (props) => {
                                                         value={newInstansi.user_username} 
                                                         onChange={onChangeInstansi}
                                                         required={true} 
+                                                        style={{marginLeft:'78px'}}
                                                     />
                                                 </div>
                                                 <div>
@@ -633,7 +634,7 @@ const FormInstansi = (props) => {
 
                                 <Fragment>
                                     <Element id="instansi" name="instansi">
-                                        <div className="admin-1-container-test">
+                                        <div className="admin-1-container-test" style={{transition: 'all 0.3s ease-in-out'}}>
                                             <div>
                                                 <label>Nama Instansi</label>
                                                 <input 
@@ -644,11 +645,11 @@ const FormInstansi = (props) => {
                                                     onChange={onChangeInstansi} 
                                                     onKeyPress={onKeyPress}
                                                     required={true}
-                                                    style={{width:'767px', marginLeft:'97px'}}
+                                                    style={{width:'767px', marginLeft:'97px' , transition: 'all 0.3s ease-in-out'}}
                                                 />
                                             </div>
                                             <div>
-                                                <label>Nama Pendek</label>
+                                                <label>Nama Singkat</label>
                                                 <input 
                                                     className="admin-nama" 
                                                     type="text" 
@@ -833,7 +834,7 @@ const FormInstansi = (props) => {
                                                     value={newInstansi.alamat} 
                                                     onChange={onChangeInstansi} 
                                                     onKeyPress={onKeyPress}
-                                                    style={{marginLeft:'156px', width:'767px' , height: '84px'}}
+                                                    style={{marginLeft:'156px', width:'767px' , height: '84px' , transition: 'all 0.3s ease-in-out'}}
                                                 />
                                             </div>
                                             <div>
@@ -887,7 +888,7 @@ const FormInstansi = (props) => {
                                                         duration={500}
                                                         offset={-30}
                                                     >
-                                                        <button className="forward" style={{right:'-921px'}}><i className="material-icons">expand_more</i></button>
+                                                        <button className="forward" style={{right:'-921px', transition: 'all 0.3s ease-in-out'}}><i className="material-icons">expand_more</i></button>
                                                     </Link>
                                                 </div>
                                             }
@@ -897,7 +898,7 @@ const FormInstansi = (props) => {
                                     {
                                         !props.match.params.id ?
                                     <Element id="admin_form" name="admin_form">
-                                        <div className="admin-1-container-test" style={{marginBottom:'227px'}}>
+                                        <div className="admin-1-container-test" style={{marginBottom:'227px' , transition: 'all 0.3s ease-in-out'}}>
                                         <div className="gnrm-title">
                                             FORMULIR ADMIN
                                         </div>
@@ -914,13 +915,13 @@ const FormInstansi = (props) => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                                    <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Peran</label>
                                                     <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
                                                         Admin
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label>Username</label>
+                                                    <label>Nama Pengguna</label>
                                                     <input 
                                                         className="admin-username" 
                                                         type="text" 
@@ -929,6 +930,7 @@ const FormInstansi = (props) => {
                                                         onChange={onChangeInstansi}
                                                         onKeyPress={onKeyPress}
                                                         required={true} 
+                                                        style={{marginLeft:'78px'}}
                                                     />
                                                 </div>
                                                 <div>

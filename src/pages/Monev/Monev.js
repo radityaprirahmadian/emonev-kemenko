@@ -157,11 +157,11 @@ const Monev =  (props) =>{
                                 <thead className="table-head-monev">
                                     <tr>
                                         <th width='159px'>Tahun</th>
-                                        <th width={sidebar ? '206px' : '276px'}>Kegiatan Prioritas</th>
-                                        <th width={sidebar ? '163px' : '193px'}>Proyek Prioritas</th>
-                                        <th width={sidebar ? '163px' : '193px'} className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
-                                        <th width={sidebar ? '170px' : '204px'}>Periode Pelaporan</th>
-                                        <th width={sidebar ? '161px' : '193'}>Penanggung Jawab</th>
+                                        <th width={sidebar ? '206px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}>Kegiatan Prioritas</th>
+                                        <th width={sidebar ? '163px' : '193px'} style={{transition: 'all 0.3s ease-in-out'}}>Proyek Prioritas</th>
+                                        <th width={sidebar ? '163px' : '193px'} style={{transition: 'all 0.3s ease-in-out'}} className={user&&user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
+                                        <th width={sidebar ? '170px' : '204px'} style={{transition: 'all 0.3s ease-in-out'}}>Periode Pelaporan</th>
+                                        <th width={sidebar ? '161px' : '193px'} style={{transition: 'all 0.3s ease-in-out'}}>Penanggung Jawab</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>

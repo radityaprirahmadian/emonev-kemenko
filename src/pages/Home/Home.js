@@ -668,7 +668,7 @@ const Home = () => {
                                             Keterangan : 
                                         </p>
                                         <p className="">
-                                            Sumbu vertikal merupakan jumlah kegiatan prioritas
+                                            Sumbu vertikal merupakan jumlah kegiatan
                                         </p>
                                     </div>
                                 </div>

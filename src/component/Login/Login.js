@@ -128,7 +128,7 @@ const Login = (props) => {
                                 
                                 <div className="col-7 login" style={{width:'693px'}}>
                                     <form className="form-login" autoComplete="off" id='form-login' onSubmit={onSubmit} style={{marginLeft:'108.250px'}}> 
-                                        <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'32px', marginLeft:'15px'}}>Nama Akun</label><br/>
+                                        <label style={{fontSize:"24px" , fontWeight:'700', marginTop:'32px', marginLeft:'15px'}}>Nama Pengguna</label><br/>
                                         <input 
                                             type="text" 
                                             className="username" 

@@ -130,7 +130,7 @@ const FormAdmin = (props) => {
                     <img src={bg_4} alt='bg4' style={{position: 'fixed' , bottom:'-50px' , right: '0'}}/>
                 </div>
               <div className="tajuk-page">
-                  <h1> FORM ADMIN</h1>
+                  <h1> FORMULIR ADMIN</h1>
               </div>
               {
                     loading ?
@@ -177,13 +177,13 @@ const FormAdmin = (props) => {
                                             }
                                         </div>
                                         <div>
-                                            <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Level</label>
+                                            <label style={{textAlign:'right', clear:'both' , float:'left' , marginTop: '15px'}}>Peran</label>
                                             <div className="admin-role" name="role" value='admin' style={{border: '1px solid #ACACAC' , marginLeft:'210px' ,lineHeight:'42px' , paddingLeft: '5px' , fontWeight:'600'}}>
                                                 Admin
                                             </div>
                                         </div>
                                         <div>
-                                            <label>Username</label>
+                                            <label>Nama Pengguna</label>
                                             <input 
                                                 className="admin-username" 
                                                 type="text" 
@@ -192,6 +192,7 @@ const FormAdmin = (props) => {
                                                 onChange={onChange}
                                                 required 
                                                 onKeyPress={onKeyPress}
+                                                style={{marginLeft:'78px'}}
                                             />
                                         </div>
                                         <div>

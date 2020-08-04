@@ -25,8 +25,8 @@ const ProfileInstansiEdit = (props) => {
 
     const [newInstansi,setNewInstansi] = useState({
         nama: '',
-        nama_pendek: '',
-        jenis: '',
+        // nama_pendek: '',
+        // jenis: '',
         kontak: '',
         alamat: '',
         fax: '',
@@ -114,9 +114,9 @@ const ProfileInstansiEdit = (props) => {
     useEffect(() => {
         if (instansiDetail) {
             setNewInstansi({
-                jenis: instansiDetail.jenis,
+                // jenis: instansiDetail.jenis,
                 nama: instansiDetail.nama,
-                nama_pendek: instansiDetail.nama_pendek,
+                // nama_pendek: instansiDetail.nama_pendek,
                 kontak: instansiDetail.kontak,
                 alamat: instansiDetail.alamat,
                 fax: instansiDetail.fax,
@@ -171,19 +171,19 @@ const ProfileInstansiEdit = (props) => {
                                                             <textarea className="show-profile" type="text" style={{height:'84px' , marginBottom:'16px', lineHeight: '20px', paddingTop: '10px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
                                                         </div>
 
-                                                        <div className="data">
+                                                        {/* <div className="data">
                                                             <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
                                                             <input className="show-profile" type="text" style={{fontWeight:'700'}} name="nama_pendek" value={newInstansi.nama_pendek} onChange={onChangeInstansi}></input>
-                                                        </div>
+                                                        </div> */}
 
-                                                        <div className="data">
+                                                        {/* <div className="data">
                                                             <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                             <select className="show-profile" type="text" name="jenis" onChange={onChangeInstansi}>
                                                                 {  
                                                                     jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                                 }
                                                             </select>
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="data">
                                                             <label style={{marginTop:'32px'}}>Kontak</label><br/>
@@ -216,19 +216,19 @@ const ProfileInstansiEdit = (props) => {
                                                             <textarea className="show-profile" type="text" style={{height:'84px' ,  width:'466px', marginBottom:'16px', lineHeight: '20px', paddingTop: '10px' , paddingBottom:'10px'}} name="nama" value={newInstansi.nama} onChange={onChangeInstansi}></textarea>
                                                         </div>
 
-                                                        <div className="data">
+                                                        {/* <div className="data">
                                                             <label style={{marginTop:'32px'}}>Nama Pendek</label><br/>
                                                             <input className="show-profile" type="text" style={{fontWeight:'700' ,  width:'466px'}} name="nama_pendek" value={newInstansi.nama_pendek} onChange={onChangeInstansi}></input>
-                                                        </div>
+                                                        </div> */}
 
-                                                        <div className="data">
+                                                        {/* <div className="data">
                                                             <label style={{marginTop:'32px'}}>Kementerian/Lembaga/Pemerintah Daerah</label><br/>
                                                             <select className="show-profile" style={{ width:'466px'}}type="text" name="jenis" onChange={onChangeInstansi}>
                                                                 {  
                                                                     jenis.map((jenis, i) => <option key={i} selected={instansiDetail.jenis === jenis && true} title={jenis} value={jenis}>{jenis}</option>)
                                                                 }
                                                             </select>
-                                                        </div>
+                                                        </div> */}
 
                                                         <div className="data">
                                                             <label style={{marginTop:'32px'}}>Kontak</label><br/>

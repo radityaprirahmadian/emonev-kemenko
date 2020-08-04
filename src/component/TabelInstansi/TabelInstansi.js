@@ -47,7 +47,7 @@ const TabelInstansi = (props) => {
 
                 <tr>
                     <td>{props.nama}</td>
-                    <td>{props.nama_pendek}</td>
+                    {/* <td>{props.nama_pendek}</td> */}
                     <td>{props.jenis}</td>
                     <td className='logo' style={{paddingLeft:'16px'}}> 
                         <Link to={`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-instansi-edit/` + (props.id)}>

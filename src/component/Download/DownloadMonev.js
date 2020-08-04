@@ -308,11 +308,11 @@ const DownloadMonev = (props) => {
                             {props.data.instansi.nama}
                         </Text>
                         <Text style={style.headerBold}>
-                            2.        Tujuan Program/Kegiatan
+                            2.        Tujuan Kegiatan
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
-                                Nama Program : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
+                                Nama Kegiatan : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
                             </Text>
                             <Text style={style.text}>
                                 Kegiatan Prioritas : {props.data.document1.form && props.data.document1.form.kp}. 
@@ -325,7 +325,7 @@ const DownloadMonev = (props) => {
                             </Text>
                         </View>
                         <Text style={style.headerBold}>
-                            3.        Waktu, Tempat, dan Metodologi Monev
+                            3.        Waktu, Tempat, Monev
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>

@@ -650,7 +650,7 @@ const FormMonev =  (props) => {
         {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
         <div className={isPreviewing ? 'd-none': "form"}>
             <div className="tajuk-page">
-                <h1> FORM LAPORAN MONITORING DAN EVALUASI GNRM</h1>
+                <h1> FORMULIR LAPORAN MONITORING DAN EVALUASI GNRM</h1>
             </div>
             {
                 loading ?
@@ -728,15 +728,15 @@ const FormMonev =  (props) => {
                                     <input className="monev-instansi" type="email" name="email" />
                                 </div> */}
                                 <div>
-                                        <label>Nama Program</label>
+                                        <label>Nama Kegiatan</label>
                                         <input 
                                             className="gnrm-nama-program" 
                                             style={{height: "42px", 
-                                                    marginLeft: "91px", 
+                                                    marginLeft: "89px", 
                                                     width: "955px"}} 
                                             type="text" 
                                             name="nama_program"
-                                            placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
+                                            // placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                             value={kegiatan.nama_program}
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
@@ -990,7 +990,7 @@ const FormMonev =  (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -1213,7 +1213,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -1326,7 +1326,7 @@ const FormMonev =  (props) => {
                     <Element id='tujuan_pelaporan' name='tujuan_pelaporan'>
                         <div className="monev-container">
                             <div className="monev-title">
-                                TUJUAN PROGRAM / KEGIATAN
+                                TUJUAN KEGIATAN
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -1338,7 +1338,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
-                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/LD. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/LD penanggungjawab program/kegiatan'
+                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/L/D. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/L/D penanggungjawab program/kegiatan'
                                         name="tujuan_pelaporan"
                                         value={tujuan_pelaporan}
                                         onChange={(event) => onChange(event)} 
@@ -1372,7 +1372,7 @@ const FormMonev =  (props) => {
                     <Element id='waktu_tempat' name='waktu_tempat'>
                         <div className="monev-container">
                             <div className="monev-title">
-                                WAKTU, TEMPAT, DAN METODOLOGI MONEV
+                                WAKTU, TEMPAT, DAN MONEV
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -1406,12 +1406,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label style={{textAlign:'left', clear:'both' , float:'left'}}>Metodologi Monitoring <br/> dan Evaluasi</label>
+                                    <label style={{textAlign:'left', clear:'both' , float:'left'}}> Monitoring dan Evaluasi</label>
                                     <textarea 
                                         className="monev-gambaran" 
                                         style={{height:"220px",
                                                 width: "955px",
-                                                marginLeft: "32px" 
+                                                marginLeft: "22px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan jenis metode atau pendekatan yang digunakan untuk melakukan monitoring di lapangan yang bertujuan untuk meningkatkan eksplorasi dan akurasi data terkait penilaian pelaksanaan kebijakan atau hasil pencapaian pelaksanaan program/kegiatan dari masing-masing K/L/D. Metode monitoring dan evaluasi ini bisa berupa wawancara, Focus Grup Discussion, pengamatan lapapangan dan pengisian kuisioner.'
@@ -1422,7 +1422,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing"
                                             className="gnrm-penjelasan" 
@@ -1610,12 +1610,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala Program</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
                                     <textarea 
                                         className="monev-evaluasi-program" 
                                         style={{height:"400px",
                                                 width: "955px",
-                                                marginLeft: "78px" 
+                                                marginLeft: "150px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
@@ -1626,7 +1626,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing2"
                                             className="gnrm-penjelasan" 
@@ -1815,7 +1815,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing3"
                                             className="gnrm-penjelasan" 
@@ -2036,7 +2036,7 @@ const FormMonev =  (props) => {
                             <div className="form-monev">
                             <div>
                                 <label>Lampiran Media</label>
-                                <label htmlFor='testing4' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                <label htmlFor='testing4' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> PILIH BERKAS</label>
                                 <input 
                                     id="testing4"
                                     className="gnrm-penjelasan" 
@@ -2166,7 +2166,7 @@ const FormMonev =  (props) => {
                                     </div>
                                 <div>
                                         <label>Lampiran Berkas</label>
-                                        <label htmlFor='testing5' className='label_lampiran' style={{marginLeft:'70px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label htmlFor='testing5' className='label_lampiran' style={{marginLeft:'70px'}}><span style={{marginRight:'5px'}}>+</span> PILIH BERKAS</label>
                                         <input 
                                             id="testing5"
                                             className="gnrm-penjelasan" 
@@ -2368,12 +2368,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Lokasi</label>
+                                    <label>Kota/Kabupaten</label>
                                     <input 
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "955px",
-                                                marginLeft: "161px" 
+                                                marginLeft: "81px" 
                                         }}
                                         type="text" 
                                         name="lokasi"
@@ -2467,15 +2467,15 @@ const FormMonev =  (props) => {
                                     <input className="monev-instansi" type="email" name="email" />
                                 </div> */}
                                 <div>
-                                        <label>Nama Program</label>
+                                        <label>Nama Kegiatan</label>
                                         <input 
                                             className="gnrm-nama-program" 
                                             style={{height: "42px", 
-                                                    marginLeft: "91.5px", 
+                                                    marginLeft: "89px", 
                                                     width: "767px"}} 
                                             type="text" 
                                             name="nama_program"
-                                            placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
+                                            // placeholder='Tuliskan nama program sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                             value={kegiatan.nama_program}
                                             onChange={(event) => onChange(event,'kegiatan')}
                                         />
@@ -2730,7 +2730,7 @@ const FormMonev =  (props) => {
                                                              </div>
                                                              <div>
                                                                  <label>Lampiran SK</label>
-                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                 <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
                                                                      id="testing10"
                                                                      className="gnrm-penjelasan" 
@@ -2953,7 +2953,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             <label>Lampiran SK</label>
-                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                                                            <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
                                                                                 id="testing10"
                                                                                 className="gnrm-penjelasan" 
@@ -3066,7 +3066,7 @@ const FormMonev =  (props) => {
                     <Element id='tujuan_pelaporan' name='tujuan_pelaporan'>
                         <div className="monev-container-off">
                             <div className="monev-title">
-                                TUJUAN PROGRAM / KEGIATAN
+                                TUJUAN KEGIATAN
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -3078,7 +3078,7 @@ const FormMonev =  (props) => {
                                                 marginLeft: "127px" 
                                         }}
                                         type="text" 
-                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/LD. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/LD penanggungjawab program/kegiatan'
+                                        placeholder='Tuliskan tujuan penyusunan hasil monitoring dan evaluasi pelaksanaan program/kegiatan GNRM oleh masing-masing K/L/D. Tujuan ini harus mampu memberikan gambaran secara menyeluruh tentang ketercapaian pelaksanaan program/kegiatan dari masing-masing K/L/D penanggungjawab program/kegiatan'
                                         name="tujuan_pelaporan"
                                         value={tujuan_pelaporan}
                                         onChange={(event) => onChange(event)} 
@@ -3112,7 +3112,7 @@ const FormMonev =  (props) => {
                     <Element id='waktu_tempat' name='waktu_tempat'>
                         <div className="monev-container-off">
                             <div className="monev-title">
-                                WAKTU, TEMPAT, DAN METODOLOGI MONEV
+                                WAKTU, TEMPAT, DAN MONEV
                             </div>
                             <div className="form-monev">
                                 <div>
@@ -3146,12 +3146,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label style={{textAlign:'left', clear:'both' , float:'left'}}>Metodologi Monitoring <br/> dan Evaluasi</label>
+                                    <label style={{textAlign:'left', clear:'both' , float:'left'}}>Monitoring dan Evaluasi</label>
                                     <textarea 
                                         className="monev-gambaran" 
                                         style={{height:"220px",
                                                 width: "767px",
-                                                marginLeft: "32px" 
+                                                marginLeft: "22px" 
                                         }}
                                         type="text" 
                                         name="metode"
@@ -3162,7 +3162,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing"
                                             className="gnrm-penjelasan" 
@@ -3351,12 +3351,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala Program</label>
+                                    <label style={{textAlign:'right', clear:'both' , float:'left'}}>Kendala</label>
                                     <textarea 
                                         className="monev-evaluasi-program" 
                                         style={{height:"400px",
                                                 width: "767px",
-                                                marginLeft: "78px" 
+                                                marginLeft: "150px" 
                                         }}
                                         type="text" 
                                         placeholder='Tuliskan mengenai hasil dari kegiatan monitoring dan evaluasi yang dilihat berdasarkan hambatan atau kendala selama pelaksanaan program GNRM di lapangan. '
@@ -3367,7 +3367,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing2"
                                             className="gnrm-penjelasan" 
@@ -3556,7 +3556,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                         <label>Data Dukung</label>
-                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH DOKUMEN/FOTO</label>
+                                        <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
                                             id="testing3"
                                             className="gnrm-penjelasan" 
@@ -3776,7 +3776,7 @@ const FormMonev =  (props) => {
                             <div className="form-monev">
                             <div>
                                 <label>Lampiran Media</label>
-                                <label htmlFor='testing4' className='label_lampiran'><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                <label htmlFor='testing4' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> PILIH BERKAS</label>
                                 <input 
                                     id="testing4"
                                     className="gnrm-penjelasan" 
@@ -3906,7 +3906,7 @@ const FormMonev =  (props) => {
                                     </div>
                                 <div>
                                         <label>Lampiran Berkas</label>
-                                        <label htmlFor='testing5' className='label_lampiran' style={{marginLeft:'70px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                        <label htmlFor='testing5' className='label_lampiran' style={{marginLeft:'70px'}}><span style={{marginRight:'5px'}}>+</span> PILIH BERKAS</label>
                                         <input 
                                             id="testing5"
                                             className="gnrm-penjelasan" 
@@ -4108,12 +4108,12 @@ const FormMonev =  (props) => {
                                     />
                                 </div>
                                 <div>
-                                    <label>Lokasi</label>
+                                    <label>Kota/Kabupaten</label>
                                     <input 
                                         className="monev-nip" 
                                         style={{height:"42px",
                                                 width: "767px",
-                                                marginLeft: "161px" 
+                                                marginLeft: "81px" 
                                         }}
                                         type="text" 
                                         name="lokasi"
@@ -4259,12 +4259,12 @@ const FormMonev =  (props) => {
                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>2.</td>
-                                            <td>Tujuan Program/Kegiatan</td> 
+                                            <td>Tujuan Kegiatan</td> 
                                        </tr>
                                        <tr>
                                             <td></td>
                                             <td style={{paddingTop:'12px', paddingBottom:'32px'}}>
-                                                Nama Program : {data.kegiatan.nama_program}<br />
+                                                Nama Kegiatan : {data.kegiatan.nama_program}<br />
                                                 Kegiatan Prioritas : {data.kp}<br />
                                                 Program Prioritas: {data.prop}<br />
                                                 {data.tujuan_pelaporan}
@@ -4272,7 +4272,7 @@ const FormMonev =  (props) => {
                                        </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>3.</td>
-                                            <td>Waktu, Tempat, dan Metodologi Monev</td> 
+                                            <td>Waktu, Tempat, dan Monev</td> 
                                        </tr>
                                        <tr>
                                             <td></td>
@@ -4423,7 +4423,7 @@ const FormMonev =  (props) => {
                                         </tr>
                                        <tr style={{fontWeight:'bold'}}>
                                             <td>5.</td>
-                                            <td>ketercapaian Indikator dan Target (Pengukuran Kinerja)</td> 
+                                            <td>Ketercapaian Indikator dan Target (Pengukuran Kinerja)</td> 
                                        </tr>
                                        <tr>
                                             <td></td>

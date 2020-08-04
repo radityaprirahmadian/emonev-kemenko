@@ -106,6 +106,7 @@ i.material-icons {
     right: -1066px;
     position: relative;
     box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
     background-color: #D4362E;
@@ -116,15 +117,18 @@ i.material-icons {
 
 .forward {
     right: -1068px;
+    transition: all 0.3s ease-in-out;
     border-radius: 0 5px 5px 0;
 }
 
 .forward.tes{
     right: -1120px;
+    transition: all 0.3s ease-in-out;
 }
 
 .forward.tes1{
     right: -932px;
+    transition: all 0.3s ease-in-out;
 }
 input[type="file"] {
     opacity: 0;
@@ -161,7 +165,7 @@ input::placeholder{
 .label_lampiran{
     margin-left: 108px;
     cursor: pointer;
-    width: 236px;
+    width: 255px;
     height: 42px;
     background-color: #FDE47F;
     text-align: center;

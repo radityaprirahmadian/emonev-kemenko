@@ -120,7 +120,7 @@ const Reminder = (props) => {
                                         <th width='191px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi Tujuan</th>
                                         <th width='125px'>Akun Tujuan</th>
                                         <th width='220px'>Judul Notifikasi</th>
-                                        <th width={sidebar ? '233px' : '421px' }>Isi Notifikasi</th>
+                                        <th width={sidebar ? '233px' : '421px' } style={{transition: 'all 0.3s ease-in-out'}}>Isi Notifikasi</th>
                                         <th width='155px'>Tanggal dan Waktu</th>
                                         <th width='42px'></th>
                                     </tr>

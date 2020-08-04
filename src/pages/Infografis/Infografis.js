@@ -162,7 +162,7 @@ const Infografis = (props) => {
                                 <thead className="table-head">
                                     <tr>
                                         <th width='159px'>Tahun</th>
-                                        <th width='276px'>Judul Kabar</th>
+                                        <th width='276px'>Judul Berita</th>
                                         <th width='193px' className={user && user.role === 'owner' ? '' : 'd-none'}>Instansi</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>

@@ -90,12 +90,12 @@ const ProfileAdmin = (props) => {
                                                 </div>
 
                                                 <div className="data">
-                                                    <label>Role</label><br/>
+                                                    <label>Peran</label><br/>
                                                     <div className="show-profile" type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
                                                 </div>
 
                                                 <div className="data">
-                                                    <label>Username</label><br/>
+                                                    <label>Nama Pengguna</label><br/>
                                                     <div className="show-profile" type="text">{userDetail && userDetail.username}</div>
                                                 </div>
                                                 <div className="data">
@@ -120,12 +120,12 @@ const ProfileAdmin = (props) => {
                                                 </div>
 
                                                 <div className="data">
-                                                    <label>Role</label><br/>
+                                                    <label>Peran</label><br/>
                                                     <div className="show-profile" style={{width:'466px'}} type="text">{(userDetail && userDetail.role) === 'owner' ? 'Owner' : ((userDetail && userDetail.role) === 'super_admin' ? 'Super Admin' : 'Admin' )}</div>
                                                 </div>
 
                                                 <div className="data">
-                                                    <label>Username</label><br/>
+                                                    <label>Nama Pengguna</label><br/>
                                                     <div className="show-profile" style={{width:'466px'}} type="text">{userDetail && userDetail.username}</div>
                                                 </div>
                                                 <div className="data">

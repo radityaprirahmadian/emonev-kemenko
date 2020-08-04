@@ -190,7 +190,7 @@ const EditAdmin = (props) => {
                                                     </div>
 
                                                     <div className="data">
-                                                        <label>Level</label><br/>
+                                                        <label>Peran</label><br/>
                                                         <div className="persist">{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
                                                         <div className="button-lock" >
                                                             <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -198,7 +198,7 @@ const EditAdmin = (props) => {
                                                     </div>
 
                                                     <div className="data">
-                                                        <label>Username</label><br/>
+                                                        <label>Nama Pengguna</label><br/>
                                                         <div className="persist">{username}</div>
                                                         <div className="button-lock" >
                                                             <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'600px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -230,7 +230,7 @@ const EditAdmin = (props) => {
                                                     </div>
 
                                                     <div className="data">
-                                                        <label>Level</label><br/>
+                                                        <label>Peran</label><br/>
                                                         <div className="persist" style={{width:'466px'}}>{role === 'admin' ? 'Admin' : 'Super Admin'}</div>
                                                         <div className="button-lock" >
                                                             <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>
@@ -238,7 +238,7 @@ const EditAdmin = (props) => {
                                                     </div>
 
                                                     <div className="data">
-                                                        <label>Username</label><br/>
+                                                        <label>Nama Pengguna</label><br/>
                                                         <div className="persist" style={{width:'466px'}}>{username}</div>
                                                         <div className="button-lock" >
                                                             <img src={lock} alt="lock" style={{border:'none',  padding:'0' , top:'-40px' , left:'412px' , height:'30px', width:'30px' , backgroundColor: 'none', borderRadius:'3px' , position:'relative'}}/>

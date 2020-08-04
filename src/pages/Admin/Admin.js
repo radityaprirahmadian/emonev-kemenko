@@ -133,10 +133,10 @@ const Admin = (props) => {
                             <table className="table-admin" style={{marginRight:'20px', backgroundColor:'white'}}>
                                 <thead className="table-head-admin">
                                     <tr>
-                                        <th width={sidebar ? '195px' :'258px'}>Nama</th>
-                                        <th width={sidebar ? '195px' : '258px'} className={user && user.role === 'super_admin' ? 'd-none' : ''}>Instansi</th>
-                                        <th width={sidebar ? '196px' : '258px'}>Username</th>
-                                        <th width='133px' className={user && user.role === 'super_admin' ? 'd-none' : ''}>Level</th>
+                                        <th width={sidebar ? '195px' :'258px'} style={{transition: 'all 0.3s ease-in-out'}}>Nama</th>
+                                        <th width={sidebar ? '195px' : '258px'} className={user && user.role === 'super_admin' ? 'd-none' : ''} style={{transition: 'all 0.3s ease-in-out'}}>Instansi</th>
+                                        <th width={sidebar ? '196px' : '258px'} style={{transition: 'all 0.3s ease-in-out'}}>Nama Pengguna</th>
+                                        <th width='133px'>Peran</th>
                                         <th width='42px'></th>
                                         <th width='42px'></th>
                                     </tr>

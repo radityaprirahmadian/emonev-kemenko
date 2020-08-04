@@ -284,7 +284,7 @@ const DownloadGNRM = (props) => {
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>
-                                Nama Program : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
+                                Nama Kegiatan : {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}. 
                             </Text>
                             <Text style={style.text}>
                                 Kegiatan Prioritas : {props.data.document1.form && props.data.document1.form.kp}. 
@@ -345,15 +345,15 @@ const DownloadGNRM = (props) => {
                             5.        Anggaran
                         </Text>
                         <View style={style.isi}>
+                            <Text>
+                                Sumber Anggaran : {props.data.document1.form && props.data.document1.form.anggaran.sumber_dana}
+                            </Text>
                             <Text style={style.text}>
                                 Besar Anggaran : {props.data.document1.form && props.data.document1.form.anggaran.besar_anggaran}
                             </Text>
-                            <Text>
-                                Sasaran : {props.data.document1.form && props.data.document1.form.anggaran.sumber_dana}
-                            </Text>
                         </View>
                         <Text style={style.headerBold}>
-                            6.        Proses Perkembangan Pelaksanaan Kegiatan
+                            6.        Perkembangan Pelaksanaan Kegiatan
                         </Text>
                         <Text style={style.isiFix}>
                             {props.data.document1.form && props.data.document1.form.proses}
@@ -392,10 +392,7 @@ const DownloadGNRM = (props) => {
                                     return(
                                         <View>
                                             <Text style={style.text}>
-                                                Lembaga : {pihak.lembaga}
-                                            </Text>
-                                            <Text style={style.text}>
-                                                Peran : {pihak.peran}
+                                                K/L/D Terkait : {pihak.lembaga}
                                             </Text>
                                             <Text>
                                                 Penjelasan : {pihak.penjelasan_pihak_terkait}

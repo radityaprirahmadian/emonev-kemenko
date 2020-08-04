@@ -211,13 +211,13 @@ const FormInfografis = (props) => {
                                 !sidebar ?
                                 <Fragment>
 
-                                    <div className="form-container" style={{marginRight:'20px'}}>
+                                    <div className="form-container" style={{marginRight:'20px' , transition: 'all 0.3s ease-in-out'}}>
                                         <div className="form-infografis">
                                             <div>
-                                                <label>Judul Kabar</label>
+                                                <label>Judul Berita</label>
                                                 <input 
                                                     type="text"
-                                                    style={{width:'955px', height:'42px' , marginLeft:'123px'}} 
+                                                    style={{width:'955px', height:'42px' , marginLeft:'123px', transition: 'all 0.3s ease-in-out'}} 
                                                     name='judul'
                                                     value={judul}
                                                     onChange={onChange}
@@ -228,7 +228,7 @@ const FormInfografis = (props) => {
                                                 <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                 <textarea  
                                                     type="text"
-                                                    style={{width:'955px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    style={{width:'955px', height:'159px' , marginLeft:'130px' , transition: 'all 0.3s ease-in-out' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
                                                     name='deskripsi'
                                                     value={deskripsi}
                                                     onChange={onChange}
@@ -256,6 +256,7 @@ const FormInfografis = (props) => {
                                                             width: "955px",
                                                             border: '1px solid #ACACAC',
                                                             borderRadius: '5px',
+                                                            transition: 'all 0.3s ease-in-out',
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
@@ -316,6 +317,7 @@ const FormInfografis = (props) => {
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
+                                                            transition: 'all 0.3s ease-in-out',
                                                             overflow: 'hidden'
                                                         }} 
                                                         >
@@ -379,13 +381,13 @@ const FormInfografis = (props) => {
                                 </Fragment>
                                 :
                                 <Fragment>
-                                    <div className="form-container-test" style={{marginRight:'20px'}}>
+                                    <div className="form-container-test" style={{marginRight:'20px', transition: 'all 0.3s ease-in-out'}}>
                                         <div className="form-infografis">
                                             <div>
-                                                <label>Judul Kabar</label>
+                                                <label>Judul Berita</label>
                                                 <input 
                                                     type="text"
-                                                    style={{width:'767px', height:'42px' , marginLeft:'123px'}} 
+                                                    style={{width:'767px', height:'42px' , transition: 'all 0.3s ease-in-out' , marginLeft:'123px'}} 
                                                     name='judul'
                                                     value={judul}
                                                     onChange={onChange}
@@ -396,7 +398,7 @@ const FormInfografis = (props) => {
                                                 <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                 <textarea  
                                                     type="text"
-                                                    style={{width:'767px', height:'159px' , marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    style={{width:'767px', height:'159px' , transition: 'all 0.3s ease-in-out', marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
                                                     name='deskripsi'
                                                     value={deskripsi}
                                                     onChange={onChange}
@@ -404,7 +406,7 @@ const FormInfografis = (props) => {
                                                 </textarea>
                                             </div>
                                             <div>
-                                                <label>Lampiran Infografis</label>
+                                                <label>Lampiran Kabar</label>
                                                 <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
@@ -427,6 +429,7 @@ const FormInfografis = (props) => {
                                                             padding: '10px',
                                                             display: 'flex',
                                                             flexWrap: 'wrap',
+                                                            transition: 'all 0.3s ease-in-out',
                                                             overflow: 'hidden'
                                                         }} 
                                                         >
@@ -483,6 +486,7 @@ const FormInfografis = (props) => {
                                                             borderRadius: '5px',
                                                             padding: '10px',
                                                             display: 'flex',
+                                                            transition: 'all 0.3s ease-in-out',
                                                             flexWrap: 'wrap',
                                                             overflow: 'hidden'
                                                         }} 

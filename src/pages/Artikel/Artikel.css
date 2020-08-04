@@ -120,7 +120,7 @@
 
 .nama-artikel{
     font-family: 'Open-Sans', sans-serif;
-    font-size: 32px;
+    font-size: 25px;
     width: 600px;
     font-weight: bold;
     color: white;
@@ -131,7 +131,7 @@
 
 .tanggal-artikel{
     font-family: 'Open-Sans', sans-serif;
-    font-size: 32px;
+    font-size: 25px;
     font-weight: bold;
     color: white;
     position: absolute;
