@@ -749,7 +749,7 @@ const FormMonev =  (props) => {
                                                         documentDetail && documentDetail.form.kp ?
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select"
+                                                            className="gnrm-select"
                                                             name="kp"
                                                             style={{marginLeft: '68px', width:'955px' , height: '42px'}}
                                                         >
@@ -759,7 +759,7 @@ const FormMonev =  (props) => {
                                                         </select> :
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select"
+                                                            className={kp === '' ? "gnrm-select test-select1" : "gnrm-select test-select2"}
                                                             name="kp"
                                                             style={{marginLeft: '68px', width:'955px' , height: '42px' }}
                                                         >
@@ -776,7 +776,7 @@ const FormMonev =  (props) => {
                                                         documentDetail && selectedKp && propOptions ?
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select selectpicker"
+                                                            className="gnrm-select selectpicker"
                                                             name="prop"
                                                             style={{marginLeft: '83px' , width:'955px'}}
                                                         >
@@ -787,7 +787,7 @@ const FormMonev =  (props) => {
                                                         </select> :
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select selectpicker"
+                                                            className={prop === '' ? "gnrm-select test-select1" : "gnrm-select test-select2"}
                                                             name="prop"
                                                             style={{marginLeft: '83px', width:'955px'}}
                                                         >
@@ -809,7 +809,7 @@ const FormMonev =  (props) => {
                                                                 isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
                                                                     <select
                                                                         onChange={onChange}
-                                                                        class="gnrm-select"
+                                                                        className="gnrm-select"
                                                                         name="gerakan-0"
                                                                         style={{ marginLeft: '144px' }}
                                                                     >
@@ -826,7 +826,7 @@ const FormMonev =  (props) => {
                                                                     </select> :
                                                                     <select
                                                                         onChange={onChangeGerakan}
-                                                                        class="gnrm-select"
+                                                                        className="gnrm-select"
                                                                         name="gerakan-0"
                                                                         style={{ marginLeft: '144px' }}
                                                                     >
@@ -853,7 +853,7 @@ const FormMonev =  (props) => {
                                                                                 <label>Gerakan</label>
                                                                                 <select
                                                                                     onChange={onChangeGerakan}
-                                                                                    class="gnrm-select"
+                                                                                    className="gnrm-select"
                                                                                     name={`gerakan-${index + 1}`}
                                                                                     style={{ marginLeft: '144px' }}
                                                                                 >
@@ -880,7 +880,7 @@ const FormMonev =  (props) => {
                                                                             <label>Gerakan</label>
                                                                             <select
                                                                                 onChange={onChangeGerakan}
-                                                                                class="gnrm-select"
+                                                                                className="gnrm-select"
                                                                                 name={`gerakan-${index + 1}`}
                                                                                 style={{ marginLeft: '144px' }}
                                                                             >
@@ -2488,7 +2488,7 @@ const FormMonev =  (props) => {
                                                         documentDetail && documentDetail.form.kp ?
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select"
+                                                            className="gnrm-select"
                                                             name="kp"
                                                             style={{marginLeft: '69px', width:'767px' , height: '42px'}}
                                                         >
@@ -2498,7 +2498,7 @@ const FormMonev =  (props) => {
                                                         </select> :
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select"
+                                                            className={kp === '' ? "gnrm-select test-select1" : "gnrm-select test-select2"}
                                                             name="kp"
                                                             style={{marginLeft: '69px', width:'767px' , height: '42px' }}
                                                         >
@@ -2515,7 +2515,7 @@ const FormMonev =  (props) => {
                                                         documentDetail && selectedKp && propOptions ?
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select selectpicker"
+                                                            className="gnrm-select selectpicker"
                                                             name="prop"
                                                             style={{marginLeft: '84px' , width:'767px'}}
                                                         >
@@ -2523,10 +2523,11 @@ const FormMonev =  (props) => {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
                                                             }
                                                             {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
-                                                        </select> :
+                                                        </select> 
+                                                    :
                                                         <select 
                                                             onChange={onChange} 
-                                                            class="gnrm-select selectpicker"
+                                                            className={prop === '' ? "gnrm-select test-select1" : "gnrm-select test-select2"}
                                                             name="prop"
                                                             style={{marginLeft: '84px', width:'767px'}}
                                                         >
@@ -2548,7 +2549,7 @@ const FormMonev =  (props) => {
                                                                 isEditing && documentDetail.form.gerakan && Object.values(selectedGerakan).length > 0 ?
                                                                     <select
                                                                         onChange={onChange}
-                                                                        class="gnrm-select"
+                                                                        className="gnrm-select"
                                                                         name="gerakan-0"
                                                                         style={{ marginLeft: '144.5px' }}
                                                                     >
@@ -2565,7 +2566,7 @@ const FormMonev =  (props) => {
                                                                     </select> :
                                                                     <select
                                                                         onChange={onChangeGerakan}
-                                                                        class="gnrm-select"
+                                                                        className="gnrm-select"
                                                                         name="gerakan-0"
                                                                         style={{ marginLeft: '144.5px' }}
                                                                     >
@@ -2592,7 +2593,7 @@ const FormMonev =  (props) => {
                                                                                 <label>Gerakan</label>
                                                                                 <select
                                                                                     onChange={onChangeGerakan}
-                                                                                    class="gnrm-select"
+                                                                                    className="gnrm-select"
                                                                                     name={`gerakan-${index + 1}`}
                                                                                     style={{ marginLeft: '144.5px' }}
                                                                                 >
@@ -2619,7 +2620,7 @@ const FormMonev =  (props) => {
                                                                             <label>Gerakan</label>
                                                                             <select
                                                                                 onChange={onChangeGerakan}
-                                                                                class="gnrm-select"
+                                                                                className="gnrm-select"
                                                                                 name={`gerakan-${index + 1}`}
                                                                                 style={{ marginLeft: '144.5px' }}
                                                                             >

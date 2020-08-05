@@ -325,7 +325,7 @@ const DownloadMonev = (props) => {
                             </Text>
                         </View>
                         <Text style={style.headerBold}>
-                            3.        Waktu, Tempat, Monev
+                            3.        Waktu, Tempat, dan Monev
                         </Text>
                         <View style={style.isi}>
                             <Text style={style.text}>

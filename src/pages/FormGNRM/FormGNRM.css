@@ -136,6 +136,22 @@ input[type="file"] {
     left: -1000px;
 }
 
+.test-select1 {
+    color: grey;
+}
+
+.test-select2 {
+    color: black;
+}
+
+.test-select1 option{
+    color: black;
+}
+
+.test-select2 option{
+    color: black;
+}
+
 input::-webkit-input-placeholder,
 input::-moz-placeholder,
 input:-ms-input-placeholder,
