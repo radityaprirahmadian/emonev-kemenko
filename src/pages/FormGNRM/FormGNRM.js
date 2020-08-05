@@ -1159,7 +1159,7 @@ const FormGNRM = (props) => {
                                                                             style={{ marginLeft: '85px' , width: '955px'}}
                                                                         >
                                                                             {
-                                                                                propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
+                                                                                propOptions && propOptions.map((prop, i) => <option key={i} selected={documentDetail.form.prop === prop && true} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                                             }
                                                                             {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                                         </select> :
@@ -1171,7 +1171,7 @@ const FormGNRM = (props) => {
                                                                         >
                                                                             <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                                             {
-                                                                                propOptions && propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 100 ? `${prop.substr(0, 97)}...` : prop}</option>)
+                                                                                propOptions && propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                                             }
                                                                             {!selectedKp && <option>{'Pilih Kegiatan Prioritas\n\nterlebih dahulu'}</option>}
                                                                         </select>

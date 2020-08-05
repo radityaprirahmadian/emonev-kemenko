@@ -791,7 +791,7 @@ const FormMonev =  (props) => {
                                                             name="prop"
                                                             style={{marginLeft: '83px', width:'955px'}}
                                                         >
-                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai dengan RPJMN 2020-2024.</option>
+                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024.</option>
                                                             {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 113 ? `${prop.substr(0, 110)}...` : prop}</option>)
                                                             }
@@ -2493,7 +2493,7 @@ const FormMonev =  (props) => {
                                                             style={{marginLeft: '69px', width:'767px' , height: '42px'}}
                                                         >
                                                             {
-                                                                kpOptions&&kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 113 ? `${kp.substr(0, 110)}...` : kp}</option>)
+                                                                kpOptions&&kpOptions.map((kp, i) => <option key={i} selected={documentDetail.form.kp === kp && true} title={kp} value={kp}>{kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}</option>)
                                                             }
                                                         </select> :
                                                         <select 
@@ -2531,7 +2531,7 @@ const FormMonev =  (props) => {
                                                             name="prop"
                                                             style={{marginLeft: '84px', width:'767px'}}
                                                         >
-                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai dengan RPJMN 2020-2024</option>
+                                                            <option selected={true} hidden>Tuliskan Proyek Prioritas (PP) sesuai dengan program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN 2020-2024</option>
                                                             {
                                                                 propOptions&&propOptions.map((prop, i) => <option key={i} title={prop} value={prop}>{prop.length > 90 ? `${prop.substr(0, 87)}...` : prop}</option>)
                                                             }
