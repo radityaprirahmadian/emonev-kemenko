@@ -47,7 +47,7 @@ const KabarMegaMenu = (props) => {
                                         </div>
                                     </div>
                                 :
-                                    <div className='kabar-acordion' onClick={(event) => onClick(event,props.kabar)}>{props.kabar.judul.length > 38 ? `${props.kabar.judul.substr(0,35)}...` : props.kabar.judul}
+                                    <div className='kabar-acordion' onClick={(event) => onClick(event,props.kabar)}>{props.kabar.judul.length > 30 ? `${props.kabar.judul.substr(0,27)}...` : props.kabar.judul}
                                         <i className='fas fa-chevron-down' onClick={(event) => onClick(event,props.kabar)}></i>                                        
                                     </div>   
                             }

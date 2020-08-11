@@ -228,8 +228,9 @@ const FormInfografis = (props) => {
                                                 <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                 <textarea  
                                                     type="text"
-                                                    style={{width:'955px', height:'159px' , marginLeft:'130px' , transition: 'all 0.3s ease-in-out' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    style={{width:'955px', height:'159px' , marginLeft:'130px' , transition: 'all 0.3s ease-in-out' , borderRadius: '5px' , borderColor:'#acacac' , padding:'10px'}} 
                                                     name='deskripsi'
+                                                    className='deskripsi'
                                                     value={deskripsi}
                                                     onChange={onChange}
                                                 >
@@ -268,9 +269,10 @@ const FormInfografis = (props) => {
                                                                     const objectURL = URL.createObjectURL(media)
                                                                     return(
                                                                         <div key={index}>
-                                                                                <div style={{width:'150px', 
+                                                                                <div style={{
+                                                                                            marginTop:'10px',
+                                                                                            width:'150px', 
                                                                                             height:'150px', 
-                                                                                            backgroundColor:'pink', 
                                                                                             marginRight:'35px', 
                                                                                             position:'relative'
                                                                                             }}
@@ -327,7 +329,7 @@ const FormInfografis = (props) => {
                                                                         <div key={index}>
                                                                                 <div style={{width:'150px', 
                                                                                             height:'150px', 
-                                                                                            backgroundColor:'pink', 
+                                                                                            marginTop:'10px',
                                                                                             marginRight:'35px', 
                                                                                             position:'relative'}}
                                                                                     className="d-flex align-items-center justify-content-center"
@@ -398,7 +400,8 @@ const FormInfografis = (props) => {
                                                 <label style={{textAlign:'right', clear:'both' , float:'left'}}>Penjelasan</label>
                                                 <textarea  
                                                     type="text"
-                                                    style={{width:'767px', height:'159px' , transition: 'all 0.3s ease-in-out', marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'5px'}} 
+                                                    className='deskripsi'
+                                                    style={{width:'767px', height:'159px' , transition: 'all 0.3s ease-in-out', marginLeft:'130px' , borderRadius: '5px' , borderColor:'#acacac' , padding:'10px'}} 
                                                     name='deskripsi'
                                                     value={deskripsi}
                                                     onChange={onChange}
@@ -407,7 +410,7 @@ const FormInfografis = (props) => {
                                             </div>
                                             <div>
                                                 <label>Lampiran Kabar</label>
-                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'57px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
+                                                <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'87px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
                                                     id="testing"
                                                     className="gnrm-penjelasan" 
@@ -440,7 +443,7 @@ const FormInfografis = (props) => {
                                                                         <div key={index}>
                                                                                 <div style={{width:'150px', 
                                                                                             height:'150px', 
-                                                                                            backgroundColor:'pink', 
+                                                                                            marginTop:'10px', 
                                                                                             marginRight:'35px', 
                                                                                             position:'relative'
                                                                                             }}
@@ -497,7 +500,7 @@ const FormInfografis = (props) => {
                                                                         <div key={index}>
                                                                                 <div style={{width:'150px', 
                                                                                             height:'150px', 
-                                                                                            backgroundColor:'pink', 
+                                                                                            marginTop:'10px', 
                                                                                             marginRight:'35px', 
                                                                                             position:'relative'}}
                                                                                     className="d-flex align-items-center justify-content-center"
