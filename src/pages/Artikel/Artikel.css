@@ -150,11 +150,13 @@
 .artikel-text {
     font-family: 'Open-Sans', sans-serif;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: normal;
     line-height: 30px;
     /* background-color: blue; */
     height: fit-content;
     text-align: justify;
+    letter-spacing: 0.05em;
+    margin-bottom: 96px;
 }
 
 pre {
@@ -172,7 +174,7 @@ pre {
     align-items: center;
     width: 480px;
     margin-top: 10px;
-    margin-left: 513px;
+    margin-left: 597px;
 }
 
 .artikel-unduh {
