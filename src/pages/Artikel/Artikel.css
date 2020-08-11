@@ -140,7 +140,7 @@
 }
 
 .artikel-body {
-    width: 993px;
+    width: 1078px;
     height: fit-content;
     margin: 64px auto 79px;
     /* background-color: violet; */
@@ -148,11 +148,21 @@
 }
 
 .artikel-text {
+    font-family: 'Open-Sans', sans-serif;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 30px;
     /* background-color: blue; */
     height: fit-content;
+    text-align: justify;
+}
+
+pre {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
 }
 
 .artikel-media {

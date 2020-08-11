@@ -169,7 +169,9 @@ const Artikel = (props) => {
                             </div>
                         :
                             <div className="artikel-text">
-                                {infografisDetail && infografisDetail.deskripsi}
+                                <pre>
+                                    {infografisDetail && infografisDetail.deskripsi}
+                                </pre>
                             </div>
                     }
                         <div className="artikel-media">
@@ -232,7 +234,7 @@ const Artikel = (props) => {
                                                         <div style={{backgroundColor:'rgba(0,0,0,0.4)' , width:'300px' , height:'150px' , position:'absolute'}}></div>
                                                         <img src={wow[0]} alt='infografis-terkait' style={{width:'300px' , height:'150px'}}/>
                                                         <img src={`https://api.simonev.revolusimental.go.id${info.instansi.logo}`} alt='infografis-logo-instansi' style={{width:'75px' , height: '75px', position:'absolute' , top: '5px' , left:'5px'}}/>
-                                                        <div style={{fontSize:'14px', color:'white', fontWeight:'600' ,position:'absolute' , bottom : '5px' , left: '10px' , width:'250px' , height:'20px' , lineHeight: '20px'}} >{info.judul.length > 30 ? `${info.judul.substr(0, 27)}...` : info.judul}</div>
+                                                        <div style={{fontSize:'14px', color:'white', fontWeight:'600' ,position:'absolute' , bottom : '5px' , left: '10px' , width:'260px' , height:'20px' , lineHeight: '20px'}} >{info.judul.length > 30 ? `${info.judul.substr(0, 27)}...` : info.judul}</div>
                                                     </div>
                                                 </Link>
                                             )
