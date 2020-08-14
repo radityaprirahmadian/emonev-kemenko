@@ -774,7 +774,7 @@ const FormGNRM = (props) => {
                                                                              width: "955px"}} 
                                                                      onChange={onChangeSKFile}
                                                                      type="file"
-                                                                     accept="image/* , application/pdf"
+                                                                     accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
                                                              </div>
@@ -997,7 +997,7 @@ const FormGNRM = (props) => {
                                                                                         width: "955px"}} 
                                                                                 onChange={onChangeSKFile}
                                                                                 type="file"
-                                                                                accept="image/* , application/pdf"
+                                                                                accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
                                                                             </div>
@@ -1449,7 +1449,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesKondisi}
                                                         type="file" 
-                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                                        accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -1719,7 +1719,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesProses}
                                                         type="file"
-                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                                        accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -2111,7 +2111,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFiles}
                                                         type="file"
-                                                        accept="image/*"
+                                                        accept=".jpg,.png,.jpeg"
                                                         name="media"
                                                         multiple
                                                     />
@@ -2515,7 +2515,7 @@ const FormGNRM = (props) => {
                                                                              width: "767px"}} 
                                                                      onChange={onChangeSKFile}
                                                                      type="file"
-                                                                     accept="image/* , application/pdf"
+                                                                     accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
                                                              </div>
@@ -2738,7 +2738,7 @@ const FormGNRM = (props) => {
                                                                                         width: "767px"}} 
                                                                                 onChange={onChangeSKFile}
                                                                                 type="file"
-                                                                                accept="image/* , application/pdf"
+                                                                                accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
                                                                             </div>
@@ -3190,7 +3190,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesKondisi}
                                                         type="file"
-                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                                        accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -3460,7 +3460,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFilesProses}
                                                         type="file"
-                                                        accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                                        accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                                         name="media"
                                                         multiple
                                                     />
@@ -3851,7 +3851,7 @@ const FormGNRM = (props) => {
                                                         }}
                                                         onChange={onChangeFiles}
                                                         type="file"
-                                                        accept="image/*"
+                                                        accept=".jpg,.png,.jpeg"
                                                         name="media"
                                                         multiple
                                                     />

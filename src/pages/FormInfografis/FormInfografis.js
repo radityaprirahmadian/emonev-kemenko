@@ -244,7 +244,7 @@ const FormInfografis = (props) => {
                                                     className="gnrm-penjelasan" 
                                                     onChange={onChangeFiles}
                                                     type="file"
-                                                    accept="image/*"
+                                                    accept=".jpg,.png,.jpeg"
                                                     name="media"
                                                     multiple
                                                 />
@@ -416,7 +416,7 @@ const FormInfografis = (props) => {
                                                     className="gnrm-penjelasan" 
                                                     onChange={onChangeFiles}
                                                     type="file"
-                                                    accept="image/*"
+                                                    accept=".jpg,.png,.jpeg"
                                                     name="media"
                                                     multiple
                                                 />

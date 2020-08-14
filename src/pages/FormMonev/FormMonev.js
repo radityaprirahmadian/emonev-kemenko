@@ -999,7 +999,7 @@ const FormMonev =  (props) => {
                                                                              width: "955px"}} 
                                                                      onChange={onChangeSKFile}
                                                                      type="file"
-                                                                     accept="image/* , application/pdf"
+                                                                     accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
                                                              </div>
@@ -1222,7 +1222,7 @@ const FormMonev =  (props) => {
                                                                                         width: "955px"}} 
                                                                                 onChange={onChangeSKFile}
                                                                                 type="file"
-                                                                                accept="image/* , application/pdf"
+                                                                                accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
                                                                             </div>
@@ -1431,7 +1431,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesTempat}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -1635,7 +1635,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesHasil}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -1824,7 +1824,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesKetercapaian}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -2045,7 +2045,7 @@ const FormMonev =  (props) => {
                                             width: "955px"}} 
                                     onChange={onChangeMedia}
                                     type="file"
-                                    accept="image/*"
+                                    accept=".jpg,.png,.jpeg"
                                     name="media"
                                     multiple
                                 />
@@ -2740,7 +2740,7 @@ const FormMonev =  (props) => {
                                                                              width: "767px"}} 
                                                                      onChange={onChangeSKFile}
                                                                      type="file"
-                                                                     accept="image/* , application/pdf"
+                                                                     accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
                                                              </div>
@@ -2963,7 +2963,7 @@ const FormMonev =  (props) => {
                                                                                         width: "955px"}} 
                                                                                 onChange={onChangeSKFile}
                                                                                 type="file"
-                                                                                accept="image/* , application/pdf"
+                                                                                accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
                                                                             </div>
@@ -3172,7 +3172,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesTempat}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3377,7 +3377,7 @@ const FormMonev =  (props) => {
                                                     width: "955px"}} 
                                             onChange={onChangeFilesHasil}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3566,7 +3566,7 @@ const FormMonev =  (props) => {
                                                     width: "767px"}} 
                                             onChange={onChangeFilesKetercapaian}
                                             type="file"
-                                            accept="image/* , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
+                                            accept=".jpg,.png,.jpeg , application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow , text/plain, application/pdf"
                                             name="media"
                                             multiple
                                         />
@@ -3786,7 +3786,7 @@ const FormMonev =  (props) => {
                                             width: "767px"}} 
                                     onChange={onChangeMedia}
                                     type="file"
-                                    accept="image/*"
+                                    accept=".jpg,.png,.jpeg"
                                     name="media"
                                     multiple
                                 />
