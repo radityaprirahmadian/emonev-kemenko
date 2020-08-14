@@ -4151,7 +4151,7 @@ const FormMonev =  (props) => {
         {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}   
             <div className={isPreviewing ? "preview-page" : "d-none"}>
                     <div className="title-preview-page">
-                        PREVIEW LAPORAN
+                        PRATINJAU LAPORAN MONITORING DAN EVALUASI GNRM
                     </div>
                     {
                     loading ?
@@ -4161,6 +4161,7 @@ const FormMonev =  (props) => {
                         </div> 
                     </div>
                     :
+                    <div  style={{ width: 'fit-content', height: 'fit-content', margin: 'auto' }}>
                     <div style={sidebar ? {marginLeft:'188px' , marginRight:'20px' ,  transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                     <div className="preview-picture" style={{padding: '43px 98px' , marginLeft:'84px' , marginRight:'20px'}}>
                         <div className="preview-header">
@@ -4652,6 +4653,7 @@ const FormMonev =  (props) => {
                             <button className="button-edit-kembali" onClick={setPreview}>SUNTING KEMBALI</button>
                             
                             <button className="button-unggah" type='submit' form="form-monev">UNGGAH LAPORAN</button>
+                    </div>
                     </div>
                     </div>
                     }

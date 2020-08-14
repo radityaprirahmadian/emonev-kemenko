@@ -145,10 +145,10 @@ const GNRM  = (props) => {
                                     <tr>
                                         <th width='70px'>Tahun</th>
                                         <th width={sidebar ? '216px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}>Kegiatan Prioritas</th>
-                                        <th width={sidebar ? '216px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}> Proyek Prioritas</th>
+                                        <th width={sidebar ? '216px' : '276px'} style={{transition: 'all 0.3s ease-in-out'}}>Proyek Prioritas</th>
                                         <th width={sidebar ? '160px' : '193px'} style={{transition: 'all 0.3s ease-in-out'}} className={user&&user.role === 'owner' ? ''  : 'd-none'}>Instansi</th>
-                                        <th width={sidebar ? '169px' : '204px'} style={{transition: 'all 0.3s ease-in-out'}}>Pihak Terkait</th>
-                                        <th width='133px'>Pejabat Eselon</th>
+                                        <th width={sidebar ? '160px' : '293px'} style={{transition: 'all 0.3s ease-in-out'}}>Pihak Terkait</th>
+                                        <th width='161px'>Penanggung Jawab</th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>
                                         <th width='59px'></th>

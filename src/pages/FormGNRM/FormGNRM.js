@@ -4106,9 +4106,9 @@ const FormGNRM = (props) => {
             {/* -------------------------- FORM SECTION END HERE ---------------------------------*/}
 
             {/* -------------------------- PREVIEW SECTION START HERE ---------------------------------*/}
-            <div className={isPreviewing ? "preview-page" : "d-none"} style={{ width: 'fit-content', height: 'fit-content', margin: 'auto' }}>
+            <div className={isPreviewing ? "preview-page" : "d-none"}>
                 <div className="title-preview-page">
-                    PREVIEW RENCANA PELAKSANAAN PROGRAM
+                    PRATINJAU RENCANA PELAKSANAAN PROGRAM
                     </div>
                     {
                         loading ?
@@ -4118,6 +4118,7 @@ const FormGNRM = (props) => {
                             </div>
                         </div>
                         :
+                        <div  style={{ width: 'fit-content', height: 'fit-content', margin: 'auto' }}>
                         <div style={sidebar ? {marginLeft:'188px' , transition: 'all 0.3s ease-in-out'} : {transition: 'all 0.3s ease-in-out'}}>
                             <div className="preview-picture" style={{ padding: '43px 98px' , marginLeft:'84px' , marginRight: '20px'}}>
                     <div className="preview-header">
@@ -4524,6 +4525,7 @@ const FormGNRM = (props) => {
 
                     <button className="button-unggah" type='submit' form='form-gnrm'>UNGGAH LAPORAN</button>
                 </div>
+                        </div>
                         </div>
                     }
             </div>
