@@ -43,6 +43,7 @@
 .gnrm-media--image{
     width: 150px;
     height: 150px;
+    object-fit: contain;
 }
 
 .form-gnrm div{

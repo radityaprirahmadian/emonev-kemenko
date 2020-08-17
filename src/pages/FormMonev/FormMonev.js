@@ -149,6 +149,49 @@ const FormMonev =  (props) => {
         }
     }
 
+
+    const [skFile,setSKFile] = useState([])
+    const [skGambar , setSkGambar] = useState();
+    const [skGambars , setSkGambars] = useState();
+
+    const [tempatSize, setTempatSize] = useState()
+    const [hasilSize, setHasilSize] = useState()
+    const [ketercapaianSize, setKetercapaianSize] = useState()
+    const [SKSize, setSKSize] = useState()
+
+    useEffect(() =>  {
+        let size = 0;
+        for (let i = 0 ; i < lampiranTempat.length ; i++) {
+            size += lampiranTempat[i]&&lampiranTempat[i].size
+        }
+        setTempatSize(size)
+    },[lampiranTempat])
+
+    useEffect(() =>  {
+        let size = 0;
+        for (let i = 0 ; i < lampiranHasil.length ; i++) {
+            size += lampiranHasil[i]&&lampiranHasil[i].size
+        }
+        setHasilSize(size)
+    },[lampiranHasil])
+
+    useEffect(() =>  {
+        let size = 0;
+        for (let i = 0 ; i < lampiranKetercapaian.length ; i++) {
+            size += lampiranKetercapaian[i]&&lampiranKetercapaian[i].size
+        }
+        setKetercapaianSize(size)
+    },[lampiranKetercapaian])
+
+    useEffect(() =>  {
+        let size = 0;
+        for (let i = 0 ; i < skFile.length ; i++) {
+            size += skFile[i]&&skFile[i].size
+        }
+        setSKSize(size)
+    },[skFile])
+
+
     useEffect(() => {
         setData({ ...data, gerakan: Object.values(selectedGerakan).join(',') })
     }, [selectedGerakan])
@@ -183,10 +226,6 @@ const FormMonev =  (props) => {
     const onChangeSK = (e) => {
         return setData({...data , [e.target.name]: e.target.value})
     }
-
-    const [skFile,setSKFile] = useState([])
-    const [skGambar , setSkGambar] = useState();
-    const [skGambars , setSkGambars] = useState();
 
     const onChangeSKFile = (event) => {
         setSKFile([...event.target.files])
@@ -1107,6 +1146,13 @@ const FormMonev =  (props) => {
                                                                                     </div>
                                                                                     }
                                                                             </div>
+                                                            <div>
+                                                                {
+                                                                    SKSize > 25165824 ?
+                                                                        <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                                    : ''
+                                                                }
+                                                            </div>
                                                          </Fragment>
                                                          :
                                                          <div>
@@ -1277,6 +1323,13 @@ const FormMonev =  (props) => {
                                                                                                 })
                                                                                             }
                                                                                         </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                SKSize > 25165824 ?
+                                                                                    <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                                                : ''
+                                                                            }
                                                                         </div>
                                                                     </Fragment>
                                                                     :
@@ -1565,6 +1618,13 @@ const FormMonev =  (props) => {
                                             )
                                         }
                                 </div>
+                                <div>
+                                    {
+                                        tempatSize > 25165824 ?
+                                            <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                        : ''
+                                    }
+                                </div>
                             </div>
                             <div className="monev-navigation-button">
                                 <Link 
@@ -1769,6 +1829,13 @@ const FormMonev =  (props) => {
                                             )
                                         }
                                 </div>
+                                <div>
+                                    {
+                                        hasilSize > 25165824 ?
+                                            <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                        : ''
+                                    }
+                                </div>
                             </div>
                         
                             <div className="monev-navigation-button">
@@ -1960,6 +2027,13 @@ const FormMonev =  (props) => {
                                             )
                                         }
                                     </div>
+                                <div>
+                                    {
+                                        ketercapaianSize > 25165824 ?
+                                            <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                        : ''
+                                    }
+                                </div>
                             </div>
                             
                             <div className="monev-navigation-button">
@@ -2852,6 +2926,13 @@ const FormMonev =  (props) => {
                                                                                     </div>
                                                                                     }
                                                                             </div>
+                                                            <div>
+                                                                {
+                                                                    SKSize > 25165824 ?
+                                                                        <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                                    : ''
+                                                                }
+                                                            </div>
                                                          </Fragment>
                                                          :
                                                          <div>
@@ -3023,6 +3104,13 @@ const FormMonev =  (props) => {
                                                                                                 })
                                                                                             }
                                                                                         </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                SKSize > 25165824 ?
+                                                                                    <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                                                : ''
+                                                                            }
                                                                         </div>
                                                                     </Fragment>
                                                                     :
@@ -3312,6 +3400,13 @@ const FormMonev =  (props) => {
                                             )
                                         }
                                 </div>
+                                    <div>
+                                        {
+                                            tempatSize > 25165824 ?
+                                                <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                            : ''
+                                        }
+                                    </div>
                             </div>
                             <div className="monev-navigation-button">
                                 <Link 
@@ -3516,6 +3611,13 @@ const FormMonev =  (props) => {
                                             )
                                         }
                                 </div>
+                                <div>
+                                    {
+                                        hasilSize > 25165824 ?
+                                            <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                        : ''
+                                    }
+                                </div>
                             </div>
                         
                             <div className="monev-navigation-button">
@@ -3704,6 +3806,13 @@ const FormMonev =  (props) => {
                                                     }
                                                 </div>
                                             )
+                                        }
+                                    </div>
+                                    <div>
+                                        {
+                                            ketercapaianSize > 25165824 ?
+                                                <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                            : ''
                                         }
                                     </div>
                             </div>

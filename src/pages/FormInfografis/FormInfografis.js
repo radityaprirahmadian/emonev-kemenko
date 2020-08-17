@@ -38,6 +38,8 @@ const FormInfografis = (props) => {
     const [media, setMedia] = useState([])
     const [mediaUrl, setMediaUrl] = useState([])
     const [deletedMedia, setDeletedMedia] = useState([])
+    const [mediaSize , setMediaSize] = useState();
+    console.log(mediaSize)
 
     const onChange = (e) => {
 		setKabarGnrm({...kabarGnrm, [e.target.name]:e.target.value})
@@ -48,6 +50,13 @@ const FormInfografis = (props) => {
         event.target.value = null
     }
     
+    useEffect(() =>  {
+        let size = 0;
+        for (let i = 0 ; i < media.length ; i++) {
+            size += media[i]&&media[i].size
+        }
+        setMediaSize(size)
+    },[media])
 
     const onSubmit = async (event) => {
         setLoadingTrue()
@@ -370,6 +379,13 @@ const FormInfografis = (props) => {
                                                     )
                                                 }
                                             </div>
+                                            <div>
+                                                {
+                                                    mediaSize > 25165824 ?
+                                                        <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                    : ''
+                                                }
+                                            </div>
                                         </div>
 
                                         <div className="admin-navigation-button" style={{textAlign:'right'}}>
@@ -543,7 +559,13 @@ const FormInfografis = (props) => {
                                                 }
                                             </div>
                                         </div>
-
+                                        <div>
+                                                {
+                                                    mediaSize > 25165824 ?
+                                                        <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
+                                                    : ''
+                                                }
+                                        </div>
                                         <div className="admin-navigation-button" style={{textAlign:'right'}}>
                                             {
                                                 isEditing ? 
