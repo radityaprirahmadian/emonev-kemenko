@@ -236,7 +236,7 @@ const FormInfografis = (props) => {
                                                 >
                                                 </textarea>
                                             </div>
-                                            <div>
+                                            <div className='div_lampiran'>
                                                 <label>Lampiran Kabar</label>
                                                 <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'87px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
@@ -248,6 +248,7 @@ const FormInfografis = (props) => {
                                                     name="media"
                                                     multiple
                                                 />
+                                                <h1 className='penjelasan_lampiran'>(Ukuran maksimal berkas 25MB, Gambar Potrait dengan skala 1:1)</h1>
                                             </div>
                                             <div>
                                                 {
@@ -408,7 +409,7 @@ const FormInfografis = (props) => {
                                                 >
                                                 </textarea>
                                             </div>
-                                            <div>
+                                            <div className='div_lampiran'>
                                                 <label>Lampiran Kabar</label>
                                                 <label htmlFor='testing' className='label_lampiran' style={{marginLeft:'87px' , width:'170px'}}><span style={{marginRight:'15px'}}>+</span> PILIH BERKAS</label>
                                                 <input 
@@ -420,6 +421,7 @@ const FormInfografis = (props) => {
                                                     name="media"
                                                     multiple
                                                 />
+                                                <h1 className='penjelasan_lampiran'>(Ukuran maksimal berkas 25MB, Gambar Potrait dengan skala 1:1)</h1>
                                             </div>
                                             <div>
                                                 {

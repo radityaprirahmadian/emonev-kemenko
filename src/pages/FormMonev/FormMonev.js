@@ -988,7 +988,7 @@ const FormMonev =  (props) => {
                                                                      required
                                                                  />
                                                              </div>
-                                                             <div>
+                                                             <div className='div_lampiran'>
                                                                  <label>Lampiran SK</label>
                                                                  <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
@@ -1211,7 +1211,7 @@ const FormMonev =  (props) => {
                                                                                 required
                                                                             />
                                                                         </div>
-                                                                        <div>
+                                                                        <div className='div_lampiran'>
                                                                             <label>Lampiran SK</label>
                                                                             <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
@@ -1225,8 +1225,8 @@ const FormMonev =  (props) => {
                                                                                 accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
+                                                                            <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                                             </div>
-
                                                                             <div>
                                                                                         <div style={{height: "fit-content", 
                                                                                             marginLeft: "210px", 
@@ -1420,7 +1420,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -1435,6 +1435,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {
@@ -1624,7 +1625,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -1639,6 +1640,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {
@@ -1813,7 +1815,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -1828,6 +1830,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {
@@ -2729,7 +2732,7 @@ const FormMonev =  (props) => {
                                                                      required
                                                                  />
                                                              </div>
-                                                             <div>
+                                                             <div className='div_lampiran'>
                                                                  <label>Lampiran SK</label>
                                                                  <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
@@ -2743,6 +2746,7 @@ const FormMonev =  (props) => {
                                                                      accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
+                                                                 <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                              </div>
                                                                 <div>
                                                                  {
@@ -2952,7 +2956,7 @@ const FormMonev =  (props) => {
                                                                                 required
                                                                             />
                                                                         </div>
-                                                                        <div>
+                                                                        <div className='div_lampiran'>
                                                                             <label>Lampiran SK</label>
                                                                             <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
@@ -2966,6 +2970,7 @@ const FormMonev =  (props) => {
                                                                                 accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
+                                                                            <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                                             </div>
 
                                                                             <div>
@@ -3161,7 +3166,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -3176,6 +3181,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {
@@ -3366,7 +3372,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing2' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -3381,6 +3387,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {
@@ -3555,7 +3562,7 @@ const FormMonev =  (props) => {
                                         onChange={(event) => onChange(event)} 
                                     />
                                 </div>
-                                <div>
+                                <div className='div_lampiran'>
                                         <label>Data Dukung</label>
                                         <label htmlFor='testing3' className='label_lampiran'><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                         <input 
@@ -3570,6 +3577,7 @@ const FormMonev =  (props) => {
                                             name="media"
                                             multiple
                                         />
+                                        <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                     </div>
                                     <div>
                                         {

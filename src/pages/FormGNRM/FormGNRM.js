@@ -763,7 +763,7 @@ const FormGNRM = (props) => {
                                                                      required
                                                                  />
                                                              </div>
-                                                             <div>
+                                                             <div className='div_lampiran'>
                                                                  <label>Lampiran SK</label>
                                                                  <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
@@ -777,6 +777,7 @@ const FormGNRM = (props) => {
                                                                      accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
+                                                                 <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                              </div>
                                                                 <div>
                                                                  {
@@ -986,7 +987,7 @@ const FormGNRM = (props) => {
                                                                                 required
                                                                             />
                                                                         </div>
-                                                                        <div>
+                                                                        <div className='div_lampiran'>
                                                                             <label>Lampiran SK</label>
                                                                             <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
@@ -1000,8 +1001,8 @@ const FormGNRM = (props) => {
                                                                                 accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
+                                                                            <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                                             </div>
-
                                                                             <div>
                                                                                         <div style={{height: "fit-content", 
                                                                                             marginLeft: "210px", 
@@ -1436,7 +1437,7 @@ const FormGNRM = (props) => {
                                                         onChange={(event) => onChange(event)}
                                                     />
                                                 </div>
-                                                <div>
+                                                <div className='div_lampiran'>
                                                     <label>Data Dukung</label>
                                                     <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
@@ -1453,6 +1454,7 @@ const FormGNRM = (props) => {
                                                         name="media"
                                                         multiple
                                                     />
+                                                    <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                 </div>
                                                 <div>
                                                     {
@@ -1706,7 +1708,7 @@ const FormGNRM = (props) => {
                                                         onChange={(event) => onChange(event)}
                                                     />
                                                 </div>
-                                                <div>
+                                                <div className='div_lampiran'>
                                                     <label>Data Dukung</label>
                                                     <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
@@ -1723,6 +1725,7 @@ const FormGNRM = (props) => {
                                                         name="media"
                                                         multiple
                                                     />
+                                                    <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                 </div>
                                                 <div>
                                                     {
@@ -1917,12 +1920,12 @@ const FormGNRM = (props) => {
                                                                 />
                                                             </div> */}
                                                             <div>
-                                                                <label>K/L/D Terkait</label>
+                                                                <label>K/L/D/Pihak Lainnya</label>
                                                                 <input
                                                                     className="gnrm-terkait"
                                                                     style={{
                                                                         height: "42px",
-                                                                        marginLeft: "107px",
+                                                                        marginLeft: "49px",
                                                                         width: "955px"
                                                                     }}
                                                                     placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -1969,12 +1972,12 @@ const FormGNRM = (props) => {
                                                                         />
                                                                     </div> */}
                                                                     <div>
-                                                                        <label>K/L/D Terkait</label>
+                                                                        <label>K/L/D/Pihak Lainnya</label>
                                                                         <input
                                                                             className="gnrm-terkait"
                                                                             style={{
                                                                                 height: "42px",
-                                                                                marginLeft: "107px",
+                                                                                marginLeft: "49px",
                                                                                 width: "955px"
                                                                             }}
                                                                             type="text"
@@ -2024,12 +2027,12 @@ const FormGNRM = (props) => {
                                                                     />
                                                                 </div> */}
                                                                 <div>
-                                                                    <label>K/L/D Terkait</label>
+                                                                    <label>K/L/D/Pihak Lainnya</label>
                                                                     <input
                                                                         className="gnrm-terkait"
                                                                         style={{
                                                                             height: "42px",
-                                                                            marginLeft: "107px",
+                                                                            marginLeft: "49px",
                                                                             width: "955px"
                                                                         }}
                                                                         placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -2062,7 +2065,7 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label className="tambah-lembaga" >
-                                                    Tambah K/L/D
+                                                    Tambah K/L/D/Pihak Lainnya
                                                 </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
@@ -2504,7 +2507,7 @@ const FormGNRM = (props) => {
                                                                      required
                                                                  />
                                                              </div>
-                                                             <div>
+                                                             <div className='div_lampiran'>
                                                                  <label>Lampiran SK</label>
                                                                  <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                  <input 
@@ -2518,6 +2521,7 @@ const FormGNRM = (props) => {
                                                                      accept=".jpg,.png,.jpeg , application/pdf"
                                                                      name="media"
                                                                  />
+                                                                 <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                              </div>
                                                                 <div>
                                                                  {
@@ -2727,7 +2731,7 @@ const FormGNRM = (props) => {
                                                                                 required
                                                                             />
                                                                         </div>
-                                                                        <div>
+                                                                        <div className='div_lampiran'>
                                                                             <label>Lampiran SK</label>
                                                                             <label htmlFor='testing10' className='label_lampiran' style={{marginLeft: '110px'}}><span style={{marginRight:'5px'}}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                                             <input 
@@ -2741,8 +2745,8 @@ const FormGNRM = (props) => {
                                                                                 accept=".jpg,.png,.jpeg , application/pdf"
                                                                                 name="media"
                                                                             />
+                                                                            <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                                             </div>
-
                                                                             <div>
                                                                                         <div style={{height: "fit-content", 
                                                                                             marginLeft: "210px", 
@@ -3177,7 +3181,7 @@ const FormGNRM = (props) => {
                                                         onChange={(event) => onChange(event)}
                                                     />
                                                 </div>
-                                                <div>
+                                                <div className='div_lampiran'>
                                                     <label>Data Dukung</label>
                                                     <label htmlFor='testing2' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
@@ -3194,6 +3198,7 @@ const FormGNRM = (props) => {
                                                         name="media"
                                                         multiple
                                                     />
+                                                    <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                 </div>
                                                 <div>
                                                     {
@@ -3447,7 +3452,7 @@ const FormGNRM = (props) => {
                                                         onChange={(event) => onChange(event)}
                                                     />
                                                 </div>
-                                                <div>
+                                                <div className='div_lampiran'>
                                                     <label>Data Dukung</label>
                                                     <label htmlFor='testing3' className='label_lampiran'><span style={{ marginRight: '5px' }}>+</span> UNGGAH DOKUMEN/FOTO</label>
                                                     <input
@@ -3464,6 +3469,7 @@ const FormGNRM = (props) => {
                                                         name="media"
                                                         multiple
                                                     />
+                                                    <h1 className='penjelasan_lampiran_doc'>(Ukuran maksimal berkas 25MB)</h1>
                                                 </div>
                                                 <div>
                                                     {
@@ -3657,12 +3663,12 @@ const FormGNRM = (props) => {
                                                                 />
                                                             </div> */}
                                                             <div>
-                                                                <label>K/L/D Terkait</label>
+                                                                <label>K/L/D/Pihak Lainnya</label>
                                                                 <input
                                                                     className="gnrm-terkait"
                                                                     style={{
                                                                         height: "42px",
-                                                                        marginLeft: "107px",
+                                                                        marginLeft: "49px",
                                                                         width: "767px"
                                                                     }}
                                                                     type="text"
@@ -3709,12 +3715,12 @@ const FormGNRM = (props) => {
                                                                         />
                                                                     </div> */}
                                                                     <div>
-                                                                        <label>K/L/D Terkait</label>
+                                                                        <label>K/L/D/Pihak Lainnya</label>
                                                                         <input
                                                                             className="gnrm-terkait"
                                                                             style={{
                                                                                 height: "42px",
-                                                                                marginLeft: "107px",
+                                                                                marginLeft: "49px",
                                                                                 width: "767px"
                                                                             }}
                                                                             type="text"
@@ -3764,12 +3770,12 @@ const FormGNRM = (props) => {
                                                                     />
                                                                 </div> */}
                                                                 <div>
-                                                                    <label>K/L/D Terkait</label>
+                                                                    <label>K/L/D/Pihak Lainnya</label>
                                                                     <input
                                                                         className="gnrm-terkait"
                                                                         style={{
                                                                             height: "42px",
-                                                                            marginLeft: "107px",
+                                                                            marginLeft: "49px",
                                                                             width: "767px"
                                                                         }}
                                                                         placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
@@ -3802,7 +3808,7 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label className="tambah-lembaga" >
-                                                    Tambah K/L/D
+                                                    Tambah K/L/D/Pihak Lainnya
                                                 </label>
                                                 <img src={plus2} style={{ position: 'absolute', marginTop: '-3px', marginLeft: '20px', cursor: 'pointer' }} onClick={addForm} />
                                             </div>
@@ -4417,7 +4423,7 @@ const FormGNRM = (props) => {
                                                 <tr key={index}>
                                                     <td></td>
                                                     <td style={{ paddingTop: '12px', paddingBottom: '32px' }}>
-                                                        K/L/D Terkait : {data.pihak_terkait[index] && data.pihak_terkait[index].lembaga} <br/>
+                                                        K/L/D/Pihak Lainnya : {data.pihak_terkait[index] && data.pihak_terkait[index].lembaga} <br/>
                                                         Penjelasan : {data.pihak_terkait[index] && data.pihak_terkait[index].penjelasan_pihak_terkait}
                                                     </td>
                                                 </tr>

@@ -183,7 +183,7 @@ input::placeholder{
     cursor: pointer;
     width: 255px;
     height: 42px;
-    background-color: #FDE47F;
+    background-color: #FCCB82;
     text-align: center;
     border-radius: 5px;
     line-height: 42px;
@@ -388,4 +388,12 @@ input::placeholder{
     right: 73px;
     bottom: 41px;
     position: absolute;
+}
+
+.penjelasan_lampiran_doc {
+    position: absolute;
+    font-weight: normal;
+    font-size: 16px;
+    top: 12px;
+    left: 484px;
 }
