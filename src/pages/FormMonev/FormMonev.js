@@ -1147,7 +1147,7 @@ const FormMonev =  (props) => {
                                                                             </div>
                                                             <div>
                                                                 {
-                                                                    SKSize > 25165824 ?
+                                                                    SKSize > 26214400 ?
                                                                         <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                     : ''
                                                                 }
@@ -1325,7 +1325,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             {
-                                                                                SKSize > 25165824 ?
+                                                                                SKSize > 26214400 ?
                                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                                 : ''
                                                                             }
@@ -1619,7 +1619,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                     {
-                                        tempatSize > 25165824 ?
+                                        tempatSize > 26214400 ?
                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                         : ''
                                     }
@@ -1830,7 +1830,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                     {
-                                        hasilSize > 25165824 ?
+                                        hasilSize > 26214400 ?
                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                         : ''
                                     }
@@ -2028,7 +2028,7 @@ const FormMonev =  (props) => {
                                     </div>
                                 <div>
                                     {
-                                        ketercapaianSize > 25165824 ?
+                                        ketercapaianSize > 26214400 ?
                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                         : ''
                                     }
@@ -2927,7 +2927,7 @@ const FormMonev =  (props) => {
                                                                             </div>
                                                             <div>
                                                                 {
-                                                                    SKSize > 25165824 ?
+                                                                    SKSize > 26214400 ?
                                                                         <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                     : ''
                                                                 }
@@ -3106,7 +3106,7 @@ const FormMonev =  (props) => {
                                                                         </div>
                                                                         <div>
                                                                             {
-                                                                                SKSize > 25165824 ?
+                                                                                SKSize > 26214400 ?
                                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                                 : ''
                                                                             }
@@ -3401,7 +3401,7 @@ const FormMonev =  (props) => {
                                 </div>
                                     <div>
                                         {
-                                            tempatSize > 25165824 ?
+                                            tempatSize > 26214400 ?
                                                 <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                             : ''
                                         }
@@ -3612,7 +3612,7 @@ const FormMonev =  (props) => {
                                 </div>
                                 <div>
                                     {
-                                        hasilSize > 25165824 ?
+                                        hasilSize > 26214400 ?
                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                         : ''
                                     }
@@ -3809,7 +3809,7 @@ const FormMonev =  (props) => {
                                     </div>
                                     <div>
                                         {
-                                            ketercapaianSize > 25165824 ?
+                                            ketercapaianSize > 26214400 ?
                                                 <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                             : ''
                                         }

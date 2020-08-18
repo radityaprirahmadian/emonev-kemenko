@@ -39,7 +39,6 @@ const FormInfografis = (props) => {
     const [mediaUrl, setMediaUrl] = useState([])
     const [deletedMedia, setDeletedMedia] = useState([])
     const [mediaSize , setMediaSize] = useState();
-    console.log(mediaSize)
 
     const onChange = (e) => {
 		setKabarGnrm({...kabarGnrm, [e.target.name]:e.target.value})
@@ -381,7 +380,7 @@ const FormInfografis = (props) => {
                                             </div>
                                             <div>
                                                 {
-                                                    mediaSize > 25165824 ?
+                                                    mediaSize > 26214400 ?
                                                         <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                     : ''
                                                 }
@@ -561,7 +560,7 @@ const FormInfografis = (props) => {
                                         </div>
                                         <div>
                                                 {
-                                                    mediaSize > 25165824 ?
+                                                    mediaSize > 26214400 ?
                                                         <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                     : ''
                                                 }

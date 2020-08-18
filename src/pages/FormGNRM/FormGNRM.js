@@ -920,7 +920,7 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                         <div>
                                                             {
-                                                                SKSize > 25165824 ?
+                                                                SKSize > 26214400 ?
                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                 : ''
                                                             }
@@ -1098,7 +1098,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             {
-                                                                                SKSize > 25165824 ?
+                                                                                SKSize > 26214400 ?
                                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                                 : ''
                                                                             }
@@ -1647,7 +1647,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     {
-                                                        kondisiSize > 25165824 ?
+                                                        kondisiSize > 26214400 ?
                                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                         : ''
                                                     }
@@ -1926,7 +1926,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     {
-                                                        prosesSize > 25165824 ?
+                                                        prosesSize > 26214400 ?
                                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                         : ''
                                                     }
@@ -2690,7 +2690,7 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                         <div>
                                                             {
-                                                                SKSize > 25165824 ?
+                                                                SKSize > 26214400 ?
                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                 : ''
                                                             }
@@ -2868,7 +2868,7 @@ const FormGNRM = (props) => {
                                                                         </div>
                                                                         <div>
                                                                             {
-                                                                                SKSize > 25165824 ?
+                                                                                SKSize > 26214400 ?
                                                                                     <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                                                 : ''
                                                                             }
@@ -3418,7 +3418,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     {
-                                                        kondisiSize > 25165824 ?
+                                                        kondisiSize > 26214400 ?
                                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                         : ''
                                                     }
@@ -3697,7 +3697,7 @@ const FormGNRM = (props) => {
                                                 </div>
                                                 <div>
                                                     {
-                                                        prosesSize > 25165824 ?
+                                                        prosesSize > 26214400 ?
                                                             <div style={{marginLeft:'217px', color:'red'}}>Ukuran berkas melebihi ukuran maksimal (25MB)!</div>
                                                         : ''
                                                     }
