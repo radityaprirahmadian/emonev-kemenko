@@ -326,7 +326,7 @@ const FormMonev =  (props) => {
 		const config = {
 			headers: {
 				'Content-Type': 'multipart/form-data',
-				'X-Auth-Token': `aweuaweu ${token}`,
+				'X-Auth-Token': `aweuawe ${token}`,
 			},
 		}
 
@@ -336,7 +336,7 @@ const FormMonev =  (props) => {
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/laporan-monev`)
         }
         catch(err){
-            alert(err.data.message)
+            alert(err.response.data.message)
         }
         setLoadingFalse()
     }
@@ -394,7 +394,7 @@ const FormMonev =  (props) => {
 		const config = {
 			headers: {
 				'Content-Type': 'multipart/form-data',
-				'X-Auth-Token': `aweuaweu ${token}`,
+				'X-Auth-Token': `aweuawe ${token}`,
 			},
 		}
 
@@ -406,7 +406,6 @@ const FormMonev =  (props) => {
         editDocumentFalse()
         }
         catch(err) {
-            console.log(err)
             alert(err.response.data.message)
         }
         setLoadingFalse()

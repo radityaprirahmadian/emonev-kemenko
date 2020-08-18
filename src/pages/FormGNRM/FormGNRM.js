@@ -357,11 +357,17 @@ const FormGNRM = (props) => {
             },
         }
 
-        const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm', formData, config,)
-        history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
-        alert(res.data.message)
-        resetDocument()
-        setLoadingFalse()
+        try {
+            const res = await axios.post('https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm', formData, config,)
+            history.push(`/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/rencana-pelaksanaan-program`)
+            alert(res.data.message)
+            resetDocument()
+            setLoadingFalse()
+        }
+        catch(err){
+            alert(err.response.data.message)
+            setLoadingFalse()
+        }
     }
 
     const getFIleExtension = (filename) => {

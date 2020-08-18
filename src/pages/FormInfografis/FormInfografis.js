@@ -86,7 +86,7 @@ const FormInfografis = (props) => {
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
         }
         catch(err) {
-            alert(err.data.message)
+            alert(err.response.data.message)
             setLoadingFalse()
         }
     }
@@ -122,7 +122,7 @@ const FormInfografis = (props) => {
             history.push(`/${userDetail&&userDetail.role === 'owner' ? 'super-admin' : 'admin'}/kabar-gnrm`)
         }
         catch(err) {
-            alert(err.data.message)
+            alert(err.response.data.message)
             setLoadingFalse()
         }
     }
