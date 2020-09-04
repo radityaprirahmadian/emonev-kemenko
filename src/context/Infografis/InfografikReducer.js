@@ -1,33 +1,38 @@
 export default (state, action) => {
     switch (action.type) {
-        case 'SET_INFOGRAFIS':
+        case "SET_INFOGRAFIS":
             return {
                 ...state,
                 ...action.payload,
                 infografisDetail: action.payload,
-            }
-        case 'EDIT_DOCUMENT':
-            return{
+            };
+        case "EDIT_DOCUMENT":
+            return {
                 ...state,
-                isEditing: true
-            }
-        case 'EDIT_DOCUMENT_FALSE':
-            return{
+                isEditing: true,
+            };
+        case "EDIT_DOCUMENT":
+            return {
                 ...state,
-                isEditing: false
-            }
-        case 'SET_LOADING_TRUE':
+                infografisDetail: null,
+            };
+        case "EDIT_DOCUMENT_FALSE":
+            return {
+                ...state,
+                isEditing: false,
+            };
+        case "SET_LOADING_TRUE":
             return {
                 ...state,
                 loading: true,
-            }
-        case 'SET_LOADING_FALSE':
+            };
+        case "SET_LOADING_FALSE":
             return {
                 ...state,
                 loading: false,
-            }
+            };
 
-        default :
+        default:
             return state;
     }
-}
+};

@@ -75,7 +75,7 @@ const ProfileEdit = (props) => {
         setLoading(true)
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
+                'X-Auth-Token': `Bearer ${token}`
             }
         }
         try {
@@ -111,7 +111,7 @@ const ProfileEdit = (props) => {
         setLoading(true)
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`,
+                'X-Auth-Token': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         }
@@ -151,7 +151,7 @@ const ProfileEdit = (props) => {
         
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`,
+                'X-Auth-Token': `Bearer ${token}`,
                 'Content-Type': 'multipart/form-data'
             }
         }
@@ -197,7 +197,7 @@ const ProfileEdit = (props) => {
 
 				const config = {
                     headers: {
-                        'X-Auth-Token': `aweuaweu ${token}`,
+                        'X-Auth-Token': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
                     }
                 }

@@ -43,7 +43,7 @@ const Notification = () => {
 
         const config= {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`
+                'X-Auth-Token': `Bearer ${token}`
             }
         }
         try {

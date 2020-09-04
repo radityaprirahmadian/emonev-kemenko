@@ -55,66 +55,6 @@ const Topbar = (props) => {
         })
     }, [])
 
-    const datas = {   
-        post: [
-            {
-                id: 1,
-                date: '12 April 2020',
-                nama: 'KEMENKO PMK',
-                title: 'Peningkatan Kapasitas Sumber Daya Manusia Aparatur Sipil Negara',
-                img: 'https://img.freepik.com/free-vector/abstract-galaxy-background_1199-247.jpg?size=626&ext=jpg'
-            },
-            {
-                id: 2,
-                date: '13 April 2020',
-                nama: 'KEMENPAN',
-                title: 'Penyempurnaan Standar Pelayanan dan Sistem Pelayanan yang Inovatif',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkiNK6ZQuYpJh2RaTFcdCMw6P9YtL8n8C1hBft9NhKXLNxYHNu&s'
-            },
-            {
-                id: 3,
-                date: '14 April 2020',
-                nama: 'KEMENKO MARITIM',
-                title: 'Peningkatan Perilaku Tertib Penggunaan Ruang Publik',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrszLxVL7_mQnQG7S_hQl_vuMDlovlHu-oSjzaGCrxOw1Guqen&s'
-            },
-            {
-                id: 4,
-                date: '15 April 2020',
-                nama: 'KEMENDAGRI',
-                title: 'Peningkatan Sinergi Penyediaan Sarana dan Prasarana yang Menunjang Perilaku Hidup Bersih dan Sehat Dan Merajai Semua',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3Ax4Or8Tcf0MEGlgRzqSX3LD8Jyq7zPG4AeXJ6qE3SUToPekJIA&s'
-            },
-            {
-                id: 5,
-                date: '16 April 2020',
-                nama: 'KEMENKO KEMENPAN',
-                title: 'Peningkatan Peran Koperasi dan UMKM Terhadap Ekonomi Nasional',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrszLxVL7_mQnQG7S_hQl_vuMDlovlHu-oSjzaGCrxOw1Guqen&s'
-            },
-            {
-                id: 6,
-                date: '17 April 2020',
-                nama: 'KEMENKO PEREKONOMIAN',
-                title: 'Peningkatan Perilaku yang Mendukung Kehidupan Demokrasi Pancasila',
-                img: 'https://img.freepik.com/free-vector/abstract-galaxy-background_1199-247.jpg?size=626&ext=jpg'
-            },
-            {
-                id: 7,
-                date: '18 April 2020',
-                nama: 'KEMENKO MARITIM',
-                title: 'Peningkatan Perilaku Tertib Penggunaan Ruang Publik',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3Ax4Or8Tcf0MEGlgRzqSX3LD8Jyq7zPG4AeXJ6qE3SUToPekJIA&s'
-            },
-            {
-                id: 8,
-                date: '19 April 2020',
-                nama: 'KEMENDAGRI',
-                title: 'Peningkatan Kapasitas Sumber Daya Manusia Aparatur Sipil Negara',
-                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkiNK6ZQuYpJh2RaTFcdCMw6P9YtL8n8C1hBft9NhKXLNxYHNu&s'
-            }
-        ]
-    }
 
         $(window).on("scroll", function(){
             if($(window).scrollTop() > 50){
@@ -171,7 +111,7 @@ const Topbar = (props) => {
                                                                     return (
                                                                         <li key={instansi._id} className="menu-1-kementrian">
                                                                             {
-                                                                                instansi.nama_pendek.length > 22 ?
+                                                                                instansi.nama_pendek.length > 25 ?
                                                                                     <div className='nama-instansi-megamenu' style={{paddingTop:'10px' , top: '-10px'}}>
                                                                                         <a>{instansi.nama_pendek}</a>
                                                                                     </div>

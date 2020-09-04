@@ -33,7 +33,7 @@ const AuthState = (props) => {
         setLoadingTrue()
         const config= {
             headers: {
-                'X-Auth-Token': `aweuaweu ${state.token}`
+                'X-Auth-Token': `Bearer ${state.token}`
             }
         }
         try {
@@ -57,7 +57,7 @@ const AuthState = (props) => {
         setLoadingTrue()
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${state.token}`
+                'X-Auth-Token': `Bearer ${state.token}`
             }
         }
         try {

@@ -251,7 +251,7 @@ const DownloadMonev = (props) => {
                                 Gerakan Nasional Revolusi Mental
                             </Text>
                             <Text style={style.headerBold}>
-                                Sekretariat
+                                {props.data.instansi && props.data.instansi.nama}
                             </Text>
                             <Text style={style.alamat}>
                                 {props.data.instansi && props.data.instansi.alamat}

@@ -53,7 +53,7 @@ const FormReminder = (props) => {
     const getAllUser = async () => {
         const config= {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`,
+                'X-Auth-Token': `Bearer ${token}`,
             }
         }
         try {
@@ -120,7 +120,7 @@ const FormReminder = (props) => {
         const getAllUser = async () => {
             const config= {
                 headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`,
+                    'X-Auth-Token': `Bearer ${token}`,
                 }
             }
             try {
@@ -208,7 +208,7 @@ const FormReminder = (props) => {
         setLoading(true)
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`,
+                'X-Auth-Token': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         }

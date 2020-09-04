@@ -26,7 +26,7 @@ const ProfileAdmin = (props) => {
             setLoading(true)
             const config = {
                 headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`
+                    'X-Auth-Token': `Bearer ${token}`
                 }
             }
             try {

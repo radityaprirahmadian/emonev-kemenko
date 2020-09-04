@@ -58,7 +58,7 @@ const EditAdmin = (props) => {
             setLoading(true)
             const config = {
                 headers: {
-                    'X-Auth-Token': `aweuaweu ${token}`
+                    'X-Auth-Token': `Bearer ${token}`
                 }
             }
             try {
@@ -98,7 +98,7 @@ const EditAdmin = (props) => {
     const updateUserData = async (formData) => {
         const config = {
             headers: {
-                'X-Auth-Token': `aweuaweu ${token}`,
+                'X-Auth-Token': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         }
@@ -126,7 +126,7 @@ const EditAdmin = (props) => {
         
     //     const config = {
     //         headers: {
-    //             'X-Auth-Token': `aweuaweu ${token}`,
+    //             'X-Auth-Token': `Bearer ${token}`,
     //             'Content-Type': 'multipart/form-data'
     //         }
     //     }
