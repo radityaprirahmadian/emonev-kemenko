@@ -1,41 +1,30 @@
-import React, {
-    Component,
-    Fragment,
-    useContext,
-    useState,
-    useEffect,
-} from "react";
-import "./TabelMonev.css";
-import { ArtikelContext } from "../../context/Artikel/artikelContext";
-import { AuthContext } from "../../context/Auth/AuthContext";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import download from "../../assets/download.png";
-import DownloadMonev from "../Download/DownloadMonev";
-import edit from "../../assets/edit.png";
-import hapus from "../../assets/delete.png";
+import React, { Component, Fragment, useContext, useState, useEffect } from "react"
+import "./TabelMonev.css"
+import { ArtikelContext } from "../../context/Artikel/artikelContext"
+import { AuthContext } from "../../context/Auth/AuthContext"
+import { PDFDownloadLink } from "@react-pdf/renderer"
+import { useHistory } from "react-router-dom"
+import axios from "axios"
+import download from "../../assets/download.png"
+import DownloadMonev from "../Download/DownloadMonev"
+import edit from "../../assets/edit.png"
+import hapus from "../../assets/delete.png"
 
 const TabelMonev = (props) => {
-    const {
-        getDocumentDetail,
-        documentDetail,
-        resetDocument,
-        editDocument,
-    } = useContext(ArtikelContext);
-    const { userDetail, user } = useContext(AuthContext);
-    const history = useHistory();
-    const [hapuss, setHapus] = useState(false);
+    const { getDocumentDetail, documentDetail, resetDocument, editDocument } = useContext(ArtikelContext)
+    const { userDetail, user } = useContext(AuthContext)
+    const history = useHistory()
+    const [hapuss, setHapus] = useState(false)
 
-    const id = props.id;
-    const type = "monev";
-    const token = localStorage.getItem("token");
+    const id = props.id
+    const type = "monev"
+    const token = localStorage.getItem("token")
 
     const [document, setDocument] = useState({
         document1: "",
         instansi: "",
-    });
-    const [show, setHide] = useState(false);
+    })
+    const [show, setHide] = useState(false)
 
     useEffect(() => {
         const getDocumentDetail = async () => {
@@ -43,49 +32,45 @@ const TabelMonev = (props) => {
                 headers: {
                     "X-Auth-Token": `Bearer ${token}`,
                 },
-            };
+            }
             try {
                 const res = await axios.get(
                     `https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=${type}`,
                     config
-                );
+                )
                 setDocument({
                     document1: res.data.document,
                     instansi: res.data.instansi,
-                });
-                setHide(true);
+                })
+                setHide(true)
             } catch (err) {
-                console.log(err);
+                console.log(err)
             }
-        };
-        getDocumentDetail();
-    }, []);
+        }
+        getDocumentDetail()
+    }, [])
 
     const onClickEdit = () => {
         history.push(
-            `/${
-                userDetail && userDetail.role === "owner"
-                    ? "super-admin"
-                    : "admin"
-            }/formulir-monev-edit/${props.id}`
-        );
-    };
+            `/${userDetail && userDetail.role === "owner" ? "super-admin" : "admin"}/formulir-monev-edit/${props.id}`
+        )
+    }
 
     const onDelete = (e) => {
-        e.preventDefault();
-        setHapus(true);
-    };
+        e.preventDefault()
+        setHapus(true)
+    }
 
     const onHapus = (e) => {
-        e.preventDefault();
-        props.delete(props.id);
-        setHapus(false);
-    };
+        e.preventDefault()
+        props.delete(props.id)
+        setHapus(false)
+    }
 
     const onTidakHapus = (e) => {
-        e.preventDefault();
-        setHapus(false);
-    };
+        e.preventDefault()
+        setHapus(false)
+    }
 
     return (
         <Fragment>
@@ -177,19 +162,9 @@ const TabelMonev = (props) => {
             )}
             <tr>
                 <td>{props.tahun}</td>
-                <td>
-                    {props.kp.length > 78
-                        ? `${props.kp.substr(0, 75)}...`
-                        : props.kp}
-                </td>
-                <td>
-                    {props.prop.length > 78
-                        ? `${props.prop.substr(0, 75)}...`
-                        : props.prop}
-                </td>
-                <td className={user && user.role === "owner" ? "" : "d-none"}>
-                    {props.instansi}
-                </td>
+                <td>{props.kp.length > 78 ? `${props.kp.substr(0, 75)}...` : props.kp}</td>
+                <td>{props.prop.length > 78 ? `${props.prop.substr(0, 75)}...` : props.prop}</td>
+                <td className={user && user.role === "owner" ? "" : "d-none"}>{props.instansi}</td>
                 <td>{props.periode}</td>
                 <td>{props.penanggung_jawab}</td>
                 <td>
@@ -218,7 +193,7 @@ const TabelMonev = (props) => {
                 </td>
             </tr>
         </Fragment>
-    );
-};
+    )
+}
 
-export default TabelMonev;
+export default TabelMonev

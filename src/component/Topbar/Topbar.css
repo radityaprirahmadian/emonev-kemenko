@@ -1,22 +1,22 @@
 .top-bar {
-    background-image: linear-gradient(to right , #47807F , #005B61);
+    background-image: linear-gradient(to right, #47807f, #005b61);
     height: 101px;
     position: fixed;
     top: 0;
     width: 100%;
     transition: all 0.2s ease-in-out;
-    left: 0;     
-    z-index: 10;   
+    left: 0;
+    z-index: 10;
 }
 
 .top-bar-default {
-    background-image: linear-gradient(to right , #47807F , #005B61);
+    background-image: linear-gradient(to right, #47807f, #005b61);
     height: 101px;
     position: fixed;
     top: 0;
     width: 100%;
     transition: all 0.2s ease-in-out;
-    left: 0;     
+    left: 0;
     z-index: 10;
 }
 
@@ -24,30 +24,30 @@
     background-color: #D33732;
 } */
 
-.top-bar li>.active .top-bar-menu-container{
+.top-bar li > .active .top-bar-menu-container {
     border-bottom: 2px solid white;
 }
-.top-bar.scroll li>.active .top-bar-menu-container{
+.top-bar.scroll li > .active .top-bar-menu-container {
     border-bottom: 2px solid white;
 }
 
-.top-bar-default li>.active .top-bar-menu-container {
+.top-bar-default li > .active .top-bar-menu-container {
     border-bottom: 2px solid white;
 }
 
 .top-bar.scroll .top-bar-menu-container:hover,
-.top-bar-default .top-bar-menu-container:hover{
+.top-bar-default .top-bar-menu-container:hover {
     border-bottom: 2px solid white;
 }
 
-.top-bar-menu-container{
+.top-bar-menu-container {
     height: fit-content;
     width: fit-content;
     color: white;
     font-size: 18px;
     font-weight: bold;
     padding-bottom: 1px;
-    border-bottom: 2px solid rgba(0,0,0,0);  
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
 }
 
 .top-bar-menu-container.no-2 {
@@ -55,15 +55,14 @@
     box-sizing: border-box;
 }
 
-
 .top-bar-menu-container.no-2 .fa.fa-angle-down {
     font-size: 18px;
 }
 
 .top-bar-menu-2 .top-bar-menu-container.no-2:hover {
-    background-color: #59CBA6;
+    background-color: #59cba6;
     padding: 10px 10px 0 10px;
-    border-bottom: 2px solid rgba(0,0,0,0);
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
     border-radius: 10px 10px 0 0;
     transition: none;
 }
@@ -72,16 +71,16 @@
     width: 225px;
     height: 101px;
     display: none;
-    background-color: #59CBA6;
+    background-color: #59cba6;
 }
 
-.top-bar-menu-container:hover{
+.top-bar-menu-container:hover {
     border-bottom: 2px solid white;
     transition: all 0.2s ease-in-out;
 }
 
-.top-bar-menu-2 > .top-bar-menu-container:hover{
-    border-bottom: 2px solid rgba(0,0,0,0);
+.top-bar-menu-2 > .top-bar-menu-container:hover {
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
 }
 
 .sub-menu-hover {
@@ -96,7 +95,7 @@
     border-radius: 10px;
     left: -500px;
     position: absolute;
-    background-color: #59CBA6;
+    background-color: #59cba6;
 }
 
 .top-bar-menu-container:hover .jarak {
@@ -112,7 +111,7 @@
     border-radius: 10px;
     left: -500px;
     position: absolute;
-    background-color: #59CBA6;
+    background-color: #59cba6;
 }
 
 .top-bar-menu-container:hover .sub-menu-hover ul {
@@ -140,7 +139,7 @@
     display: inline-block;
 }
 
-.logo-in-megamenu{
+.logo-in-megamenu {
     margin-top: 7px;
     max-width: 100%;
     object-fit: contain;
@@ -150,23 +149,22 @@
     clear: both; */
 }
 
-.nama-instansi-megamenu{
+.nama-instansi-megamenu {
     display: inline-block;
     position: relative;
-    top:-30px;
+    top: -30px;
     width: 150px;
     height: 75px;
     padding-top: 30px;
 }
 
-
-.nama-instansi-megamenu a{
+.nama-instansi-megamenu a {
     margin-top: 10px;
     line-height: 20px;
 }
 
 .menu-kementrian ul li:hover {
-    background-color: #FDE47F;
+    background-color: #fde47f;
     color: black;
 }
 
@@ -176,17 +174,14 @@
     color: black;
     position: absolute;
     top: 17px;
-    background-color: #FDE47F;
+    background-color: #fde47f;
     height: 566px;
     overflow: auto;
-
 }
-
-
 
 .menu-kementrian ul li:hover .sub-menu-kementrian {
     display: inline-block;
-    width:900px;
+    width: 900px;
     left: 252px;
     border-radius: 10px;
 }
@@ -212,14 +207,14 @@
     text-align: left;
 }
 
-.topbar-program{
+.topbar-program {
     width: 450px;
     height: 566px;
-    left:0px;
+    left: 0px;
     position: absolute;
     overflow-y: auto;
     direction: ltr;
-    border-right: 2px solid rgba(0,0,0,0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 .topbar-program li:hover {
@@ -248,8 +243,8 @@
     width: 160px;
     height: 32px;
     color: white;
-    background-color: #424FC8;
-    font-family: 'Open Sans' , sans-serif;
+    background-color: #424fc8;
+    font-family: "Open Sans", sans-serif;
     font-weight: 700;
     font-size: 16px;
     line-height: 32px;
@@ -258,11 +253,11 @@
     margin-bottom: 7px;
 }
 
-.topbar-kabar{
+.topbar-kabar {
     width: 450px;
-    height: 566px;  
+    height: 566px;
     position: absolute;
-    left:450px;
+    left: 450px;
     overflow-y: auto;
     direction: ltr;
     border-radius: 10px;
@@ -273,12 +268,12 @@
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 0 10px 10px 0;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #272727; 
+    background: #272727;
     border-radius: 10px;
 }
 
@@ -286,10 +281,9 @@
     display: flex;
     align-items: center;
     height: 100%;
-
 }
 
-.top-bar-logo-title h1{
+.top-bar-logo-title h1 {
     text-align: center;
     font-size: 10px;
     color: white;
@@ -301,15 +295,13 @@
     margin-left: 10px;
 }
 
-
-
 .top-bar-navigation .logo-kemenko {
     padding-left: 11px;
     height: 80px;
     margin-left: 14px;
 }
 
-.logo-simonev{
+.logo-simonev {
     height: 58px;
 }
 
@@ -325,7 +317,7 @@
     display: inline-block;
 }
 
-.top-bar-menu ul li a{
+.top-bar-menu ul li a {
     text-decoration: none;
 }
 
@@ -343,7 +335,7 @@
 
 .logo-megamenu {
     width: 75px;
-    text-align:center;
+    text-align: center;
     display: inline-block;
 }
 
@@ -356,7 +348,7 @@
     text-align: center;
     line-height: 90px;
     font-weight: 800;
-}   
+}
 
 .kabar-mega-li {
     height: fit-content;
@@ -374,8 +366,8 @@
     position: relative;
 }
 
-.kabar-mega-div>.fas.fa-chevron-up,
-.kabar-acordion>.fas.fa-chevron-down {
+.kabar-mega-div > .fas.fa-chevron-up,
+.kabar-acordion > .fas.fa-chevron-down {
     font-size: 20px;
     text-align: center;
     border: none;
@@ -399,7 +391,7 @@
     text-align: center;
 }
 
-.kabar-mega-image>img{
+.kabar-mega-image > img {
     width: 200px;
     height: auto;
     margin: 10px auto;
@@ -413,7 +405,7 @@
     text-align: justify;
 }
 
-@media only screen and (max-width: 1266px) {
+@media only screen and (max-width: 1280px) {
     .top-bar-menu-container {
         font-size: 2.5vh;
         width: 100%;
@@ -431,14 +423,14 @@
     ::-webkit-scrollbar {
         width: 1vh;
     }
-    
+
     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey; 
+        box-shadow: inset 0 0 5px grey;
         border-radius: 0 10px 10px 0;
     }
-    
+
     ::-webkit-scrollbar-thumb {
-        background: #272727; 
+        background: #272727;
         border-radius: 10px;
     }
 
@@ -473,12 +465,12 @@
         width: 100%;
         height: 10vh;
     }
-    
+
     .topbar-head-head {
         text-align: center;
         line-height: 15vh;
         font-weight: 800;
-    }   
+    }
 
     .sub-menu-kementrian,
     .sub-menu-2-kementrian {
@@ -486,28 +478,26 @@
         color: black;
         position: absolute;
         top: 17px;
-        background-color: #FDE47F;
+        background-color: #fde47f;
         height: 93%;
         overflow: auto;
-
     }
 
-    .topbar-kabar{
+    .topbar-kabar {
         width: 60vh;
-        height: 100%;  
+        height: 100%;
         position: absolute;
-        left:60vh;
+        left: 60vh;
         overflow-y: auto;
         direction: ltr;
         border-radius: 10px;
     }
-    
 
     .menu-kementrian ul li:hover .sub-menu-kementrian {
         display: inline-block;
-        width:120vh;
+        width: 120vh;
         left: 35vh;
-        border-radius: 10px;  
+        border-radius: 10px;
     }
 
     .menu-kementrian ul li:hover .sub-menu-kementrian ul {
@@ -517,16 +507,16 @@
         padding-left: 4vh;
     }
 
-    .topbar-program{
+    .topbar-program {
         width: 60vh;
         height: 100%;
         position: absolute;
         overflow-y: auto;
         direction: ltr;
-        border-right: 2px solid rgba(0,0,0,0.2);
+        border-right: 2px solid rgba(0, 0, 0, 0.2);
     }
-    
-    .logo-simonev{
+
+    .logo-simonev {
         height: 70%;
         width: 70%;
     }
@@ -546,13 +536,13 @@
         width: 20%;
         margin-right: 0;
     }
-    
+
     .button-topbar {
         width: 22vh;
         height: 5vh;
         color: white;
-        background-color: #424FC8;
-        font-family: 'Open Sans' , sans-serif;
+        background-color: #424fc8;
+        font-family: "Open Sans", sans-serif;
         font-weight: 700;
         font-size: 2vh;
         line-height: 5vh;
@@ -564,18 +554,17 @@
     .top-bar-logo {
         width: 20%;
     }
-    
-    .nama-instansi-megamenu a{
+
+    .nama-instansi-megamenu a {
         line-height: 3vh;
     }
 
     .top-bar {
-        height: 15%;
+        height: 16%;
     }
     .top-bar-default {
-        height: 15%;
+        height: 16%;
     }
-    
 
     .jarak {
         width: 100%;
@@ -593,7 +582,7 @@
         width: 160vh;
         height: 80vh;
         overflow-y: auto;
-        top: 15%;
+        top: 30%;
         left: -60vh;
         justify-content: center;
     }
@@ -602,7 +591,7 @@
         justify-content: center;
     }
 
-    .menu-kementrian>ul>li {
+    .menu-kementrian > ul > li {
         /* background-color: #3F5064; */
         width: 100%;
         border-radius: 10px 0 0 10px;
@@ -611,8 +600,8 @@
         line-height: 2px;
         display: inline-block;
     }
-    
-    .logo-in-megamenu{
+
+    .logo-in-megamenu {
         margin-top: 1vh;
         max-width: 100%;
         object-fit: contain;
@@ -626,15 +615,15 @@
         width: 12vh;
     }
 
-    .nama-instansi-megamenu{
+    .nama-instansi-megamenu {
         display: inline-block;
         position: relative;
-        top:-5vh;
+        top: -5vh;
         width: 50%;
         height: 3vh;
         padding-top: 30px;
     }
-    
+
     .kabar-mega-div {
         height: fit-content;
         width: 50vh;
@@ -644,9 +633,9 @@
         border: 1px solid black;
         position: relative;
     }
-    
-    .kabar-mega-div>.fas.fa-chevron-up,
-    .kabar-acordion>.fas.fa-chevron-down {
+
+    .kabar-mega-div > .fas.fa-chevron-up,
+    .kabar-acordion > .fas.fa-chevron-down {
         font-size: 2vh;
         text-align: center;
         border: none;
@@ -659,23 +648,23 @@
         top: 2vh;
         left: 90%;
     }
-    
+
     .kabar-mega-judul {
         height: fit-content;
         width: 90%;
     }
-    
+
     .kabar-mega-image {
         width: 100%;
         text-align: center;
     }
-    
-    .kabar-mega-image>img{
+
+    .kabar-mega-image > img {
         width: 20vh;
         height: auto;
         margin: 10px auto;
     }
-    
+
     .sub-menu-kementrian .kabar-mega-deskripsi {
         height: fit-content;
         font-weight: 600;
@@ -683,7 +672,6 @@
         margin: 1vh 2vh;
         text-align: justify;
     }
-    
 }
 
 @media only screen and (max-width: 770px) {
