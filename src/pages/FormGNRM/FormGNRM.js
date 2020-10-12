@@ -7219,7 +7219,7 @@ const FormGNRM = (props) => {
                                             </tr>
                                             <tr style={{ fontWeight: "bold" }}>
                                                 <td>1.</td>
-                                                <td>Instansi</td>
+                                                <td>Nama Instansi</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
