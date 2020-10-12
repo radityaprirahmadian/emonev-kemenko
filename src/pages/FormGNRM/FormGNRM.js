@@ -6983,7 +6983,7 @@ const FormGNRM = (props) => {
                                     padding: "43px 98px",
                                     marginLeft: "84px",
                                     marginRight: "20px",
-                                    fontSize: "14px",
+                                    fontSize: "16px",
                                 }}
                             >
                                 <div className="preview-header">
@@ -7277,12 +7277,10 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    <pre>
-                                                        {data.output.indikator_capaian} <br />
-                                                    </pre>
-                                                    <pre>
-                                                        {data.output.sasaran} <br />
-                                                    </pre>
+                                                    <pre>{data.output.indikator_capaian}</pre>
+                                                    <br />
+                                                    <pre>{data.output.sasaran}</pre>
+                                                    <br />
                                                     <pre>{data.output.target}</pre>
                                                 </td>
                                             </tr>
@@ -7730,30 +7728,30 @@ const FormGNRM = (props) => {
                                     }}
                                 >
                                     <div style={{ textAlign: "left" }}>
-                                        <h1 style={{ marginLeft: "860px" }}>Pengesahan</h1>
+                                        <h1 style={{ marginLeft: "840px" }}>Pengesahan</h1>
                                         {data.lokasi.length > 10 ? (
                                             <h1 style={{ textAlign: "right" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         ) : (
-                                            <h1 style={{ marginLeft: "860px" }}>
+                                            <h1 style={{ marginLeft: "840px" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         )}
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             {data.penanggung_jawab.jabatan}
                                         </h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "860px" }}>TTD</h1>
+                                        <h1 style={{ marginLeft: "840px" }}>TTD</h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             {data.penanggung_jawab.nama}
                                         </h1>
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             NIP. {data.penanggung_jawab.nip}
                                         </h1>
                                     </div>

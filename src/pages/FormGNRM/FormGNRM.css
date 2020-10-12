@@ -355,6 +355,10 @@ input::placeholder {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.preview-picture pre {
+    overflow: hidden;
+}
+
 .button-action {
     position: absolute;
     bottom: 87px;

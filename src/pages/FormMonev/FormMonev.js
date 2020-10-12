@@ -7203,7 +7203,7 @@ const FormMonev = (props) => {
                                     padding: "43px 98px",
                                     marginLeft: "84px",
                                     marginRight: "20px",
-                                    fontSize: "14px",
+                                    fontSize: "16px",
                                 }}
                             >
                                 <div className="preview-header">
@@ -8107,30 +8107,30 @@ const FormMonev = (props) => {
                                     }}
                                 >
                                     <div style={{ textAlign: "left" }}>
-                                        <h1 style={{ marginLeft: "860px" }}>Pengesahan Laporan</h1>
+                                        <h1 style={{ marginLeft: "840px" }}>Pengesahan Laporan</h1>
                                         {data.lokasi.length > 10 ? (
                                             <h1 style={{ textAlign: "right" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         ) : (
-                                            <h1 style={{ marginLeft: "860px" }}>
+                                            <h1 style={{ marginLeft: "840px" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         )}
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             {data.penanggung_jawab.jabatan}
                                         </h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "860px" }}>TTD</h1>
+                                        <h1 style={{ marginLeft: "840px" }}>TTD</h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             {data.penanggung_jawab.nama}
                                         </h1>
-                                        <h1 style={{ marginLeft: "860px" }}>
+                                        <h1 style={{ marginLeft: "840px" }}>
                                             NIP. {data.penanggung_jawab.nip}
                                         </h1>
                                     </div>
