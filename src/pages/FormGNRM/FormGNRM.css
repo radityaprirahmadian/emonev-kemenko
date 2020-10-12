@@ -1,4 +1,4 @@
-.gnrm-container{
+.gnrm-container {
     width: 1238px;
     height: fit-content;
     margin-left: 100px;
@@ -8,16 +8,15 @@
     margin-bottom: 40px;
     border: 1px solid black;
     border-radius: 5px;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
-    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding-left: 34px;
     padding-top: 19px;
-    
 }
 
-.gnrm-container-off{
+.gnrm-container-off {
     width: 1050px;
     height: fit-content;
     margin-left: 100px;
@@ -27,26 +26,25 @@
     margin-bottom: 40px;
     border: 1px solid black;
     border-radius: 5px;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
-    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding-left: 34px;
     padding-top: 19px;
-    
 }
 
-.gnrm-title{
+.gnrm-title {
     margin-bottom: 25px;
 }
 
-.gnrm-media--image{
+.gnrm-media--image {
     width: 150px;
     height: 150px;
     object-fit: contain;
 }
 
-.form-gnrm div{
+.form-gnrm div {
     margin-bottom: 16px;
 }
 
@@ -55,46 +53,46 @@ i.material-icons {
     color: white;
 }
 
-.form-gnrm input{
+.form-gnrm input {
     height: 42px;
-    border: 1px solid #ACACAC;
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding-left: 10px;
 }
 
-.form-gnrm textarea{
-    border: 1px solid #ACACAC;
+.form-gnrm textarea {
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding: 10px;
     text-align: justify;
     line-height: 21px;
 }
 
-.form-gnrm .gnrm-tahun{
+.form-gnrm .gnrm-tahun {
     margin-left: 162px;
     height: 42px;
     width: 183px;
 }
 
 .form-gnrm select {
-    border: 1px solid #ACACAC;
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding: 5px;
     height: 42px;
 }
-.form-gnrm .gnrm-id-program{
+.form-gnrm .gnrm-id-program {
     margin-left: 123px;
     height: 42px;
-    width: 269px; 
+    width: 269px;
 }
 
-.form-gnrm .gnrm-instansi{
+.form-gnrm .gnrm-instansi {
     margin-left: 150px;
     height: 42px;
-    width: 366px; 
+    width: 366px;
 }
 
-.gnrm-navigation-button{
+.gnrm-navigation-button {
     display: flex;
     margin-top: 34px;
     margin-bottom: 23px;
@@ -110,10 +108,10 @@ i.material-icons {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .forward {
@@ -122,12 +120,12 @@ i.material-icons {
     border-radius: 0 5px 5px 0;
 }
 
-.forward.tes{
+.forward.tes {
     right: -1120px;
     transition: all 0.3s ease-in-out;
 }
 
-.forward.tes1{
+.forward.tes1 {
     right: -932px;
     transition: all 0.3s ease-in-out;
 }
@@ -145,11 +143,11 @@ input[type="file"] {
     color: black;
 }
 
-.test-select1 option{
+.test-select1 option {
     color: black;
 }
 
-.test-select2 option{
+.test-select2 option {
     color: black;
 }
 
@@ -157,34 +155,34 @@ input::-webkit-input-placeholder,
 input::-moz-placeholder,
 input:-ms-input-placeholder,
 input:-moz-placeholder,
-input::placeholder{
+input::placeholder {
     font-size: 16px;
 }
 
-input::placeholder{
+input::placeholder {
     font-size: 16px;
     font-weight: normal;
 }
 
-.gnrm-pendanaan::placeholder{
+.gnrm-pendanaan::placeholder {
     font-size: 12.7px;
     font-weight: normal;
 }
 
-.gnrm-pendanaan.off::placeholder{
+.gnrm-pendanaan.off::placeholder {
     font-size: 10.3px;
     font-weight: normal;
 }
 
-.gnrm-anggaran.off::placeholder{
+.gnrm-anggaran.off::placeholder {
     font-size: 15px;
 }
-.label_lampiran{
+.label_lampiran {
     margin-left: 108px;
     cursor: pointer;
     width: 255px;
     height: 42px;
-    background-color: #FCCB82;
+    background-color: #fccb82;
     text-align: center;
     border-radius: 5px;
     line-height: 42px;
@@ -204,59 +202,59 @@ input::placeholder{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-  
-  /* Hide the browser's default radio button */
-  .label-radio .input-radio {
+}
+
+/* Hide the browser's default radio button */
+.label-radio .input-radio {
     position: absolute;
     opacity: 0;
-  }
-  
-  /* Create a custom radio button */
-  .checked-radio {
+}
+
+/* Create a custom radio button */
+.checked-radio {
     position: absolute;
     top: 0;
     left: 0;
     height: 20px;
     width: 20px;
-    border: 3px solid #C04B3E;
+    border: 3px solid #c04b3e;
     border-radius: 50%;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  /* .label-radio:hover .input-radio ~ .checked-radio {
+}
+
+/* On mouse-over, add a grey background color */
+/* .label-radio:hover .input-radio ~ .checked-radio {
     background-color: #ccc;
   } */
-  
-  /* When the radio button is checked, add a blue background */
-  .label-radio .input-radio:checked ~ .checked-radio {
-    background-color: #C04B3E;
+
+/* When the radio button is checked, add a blue background */
+.label-radio .input-radio:checked ~ .checked-radio {
+    background-color: #c04b3e;
     border: none;
-  }
-  
-  /* Create the indicator (the dot/circle - hidden when not checked) */
-  .checked-radio:after {
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checked-radio:after {
     content: "";
     position: absolute;
     display: none;
-  }
-  
-  /* Show the indicator (dot/circle) when checked */
-  .label-radio .input-radio:checked ~ .checked-radio:after {
+}
+
+/* Show the indicator (dot/circle) when checked */
+.label-radio .input-radio:checked ~ .checked-radio:after {
     display: block;
-  }
-  
-  /* Style the indicator (dot/circle) */
-  .label-radio .checked-radio:after {
-       top: 3px;
-      left: 3px;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #C04B3E;
-      box-sizing: border-box;
-      border: 3px solid white;
-  }
+}
+
+/* Style the indicator (dot/circle) */
+.label-radio .checked-radio:after {
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #c04b3e;
+    box-sizing: border-box;
+    border: 3px solid white;
+}
 
 /*
 #sudah ,
@@ -271,7 +269,7 @@ input::placeholder{
 .forward:active,
 .previous:active,
 .previous-last-1:active {
-    background-color: #C04B3E;
+    background-color: #c04b3e;
 }
 
 .preview-gnrm,
@@ -282,10 +280,10 @@ input::placeholder{
     font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
     margin-left: 16px;
     border-radius: 5px;
     font-weight: bold;
@@ -294,13 +292,13 @@ input::placeholder{
 
 .simpan-gnrm {
     background-color: white;
-    color: #D4362E;
+    color: #d4362e;
     box-sizing: border-box;
     font-weight: 900;
-    border: 2px solid #D4362E;
+    border: 2px solid #d4362e;
 }
 
-.previous-last-1{
+.previous-last-1 {
     width: 50px;
     height: 46px;
     padding: 0px;
@@ -308,10 +306,10 @@ input::placeholder{
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .remove-form {
@@ -325,15 +323,15 @@ input::placeholder{
 }
 
 .remove-form:hover {
-    color: #FF3D37;
+    color: #ff3d37;
 }
 
-.remove-form i  {
+.remove-form i {
     padding: 5px;
     font-weight: bold;
 }
 
-.title-preview-page{
+.title-preview-page {
     text-align: right;
     margin-right: 28px;
     margin-top: 23px;
@@ -344,7 +342,7 @@ input::placeholder{
     font-weight: 900;
 }
 
-.preview-picture{
+.preview-picture {
     margin-left: 100px;
     margin-top: 16px;
     margin-bottom: 46px;
@@ -354,38 +352,39 @@ input::placeholder{
     position: relative;
     border: 1px solid black;
     border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.button-action{
+.button-action {
     position: absolute;
     bottom: 87px;
 }
 
 .button-edit-kembali,
-.button-unggah{
+.button-unggah {
     width: 225px;
     height: 46px;
     padding: 0px;
     box-sizing: border-box;
     cursor: pointer;
     color: white;
-    border:none;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 0.021em;
 }
 
-.button-edit-kembali{
+.button-edit-kembali {
     background-color: #848988;
     right: 313px;
     bottom: 41px;
     position: absolute;
 }
-.button-unggah{
-    background-color: #FF3D37;
+.button-unggah {
+    background-color: #ff3d37;
     right: 73px;
     bottom: 41px;
     position: absolute;

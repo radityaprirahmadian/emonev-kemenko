@@ -243,7 +243,9 @@ const FormGNRM = (props) => {
         const deletedGerakan = Object.values(selectedGerakan).filter((deletedGerakan, index) => {
             if (index === deleted + 1) return deletedGerakan
         })
-        const gerakanArray = Object.values(selectedGerakan).filter((selected) => selected !== deletedGerakan[0])
+        const gerakanArray = Object.values(selectedGerakan).filter(
+            (selected) => selected !== deletedGerakan[0]
+        )
         const gerakanObj = {}
         gerakanArray.forEach((gerakan, i) => {
             gerakanObj[`gerakan-${i}`] = gerakan
@@ -345,7 +347,9 @@ const FormGNRM = (props) => {
             config
         )
         history.push(
-            `/${userDetail && userDetail.role === "owner" ? "super-admin" : "admin"}/rencana-pelaksanaan-program`
+            `/${
+                userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
+            }/rencana-pelaksanaan-program`
         )
         setLoadingFalse()
     }
@@ -400,7 +404,9 @@ const FormGNRM = (props) => {
                 config
             )
             history.push(
-                `/${userDetail && userDetail.role === "owner" ? "super-admin" : "admin"}/rencana-pelaksanaan-program`
+                `/${
+                    userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
+                }/rencana-pelaksanaan-program`
             )
             alert(res.data.message)
             resetDocument()
@@ -468,7 +474,9 @@ const FormGNRM = (props) => {
                 config
             )
             history.push(
-                `/${userDetail && userDetail.role === "owner" ? "super-admin" : "admin"}/rencana-pelaksanaan-program`
+                `/${
+                    userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
+                }/rencana-pelaksanaan-program`
             )
             alert(res.data.message)
             resetDocument()
@@ -481,7 +489,9 @@ const FormGNRM = (props) => {
 
     useEffect(() => {
         ;(async () => {
-            const proyekData = await axios.get("https://api.simonev.revolusimental.go.id/api/v1/proyek")
+            const proyekData = await axios.get(
+                "https://api.simonev.revolusimental.go.id/api/v1/proyek"
+            )
 
             const { proyek, gerakan } = proyekData.data
 
@@ -548,7 +558,9 @@ const FormGNRM = (props) => {
                 sk_kendala: instansiDetail.sk && instansiDetail.sk.kendala,
             })
 
-            const gambar = `https://api.simonev.revolusimental.go.id${instansiDetail.sk && instansiDetail.sk.foto}`
+            const gambar = `https://api.simonev.revolusimental.go.id${
+                instansiDetail.sk && instansiDetail.sk.foto
+            }`
             const fileExt = getFIleExtension(gambar)
             setSkGambar(gambar)
             setSkExtension(fileExt)
@@ -556,7 +568,9 @@ const FormGNRM = (props) => {
 
         if (instansiDetail.sk && instansiDetail.sk.foto) {
             const mediaFileUrl = [
-                `https://api.simonev.revolusimental.go.id${instansiDetail.sk && instansiDetail.sk.foto}`,
+                `https://api.simonev.revolusimental.go.id${
+                    instansiDetail.sk && instansiDetail.sk.foto
+                }`,
             ]
             const files = []
             mediaFileUrl.forEach((url) => {
@@ -712,8 +726,16 @@ const FormGNRM = (props) => {
             <div className="background-after-login">
                 <img src={bg_1} alt="bg1" style={{ position: "fixed", top: "0", left: "0" }} />
                 <img src={bg_2} alt="bg2" style={{ position: "fixed", top: "0", right: "0" }} />
-                <img src={bg_3} alt="bg3" style={{ position: "fixed", bottom: "-200px", left: "0" }} />
-                <img src={bg_4} alt="bg4" style={{ position: "fixed", bottom: "-50px", right: "0" }} />
+                <img
+                    src={bg_3}
+                    alt="bg3"
+                    style={{ position: "fixed", bottom: "-200px", left: "0" }}
+                />
+                <img
+                    src={bg_4}
+                    alt="bg4"
+                    style={{ position: "fixed", bottom: "-50px", right: "0" }}
+                />
             </div>
             <Popup notif={props.notif} />
             {/* -------------------------- FORM SECTION START HERE ---------------------------------*/}
@@ -770,7 +792,10 @@ const FormGNRM = (props) => {
                                                         {pilihanTahun.map((tahun, i) => (
                                                             <option
                                                                 key={i}
-                                                                selected={documentDetail.form.tahun === tahun && true}
+                                                                selected={
+                                                                    documentDetail.form.tahun ===
+                                                                        tahun && true
+                                                                }
                                                                 title={tahun}
                                                                 value={tahun}
                                                             >
@@ -786,7 +811,11 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {pilihanTahun.map((tahun, i) => (
-                                                            <option key={i} title={tahun} value={tahun}>
+                                                            <option
+                                                                key={i}
+                                                                title={tahun}
+                                                                value={tahun}
+                                                            >
                                                                 {tahun}
                                                             </option>
                                                         ))}
@@ -795,7 +824,8 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label>Periode</label>
-                                                {documentDetail && documentDetail.form.id_program ? (
+                                                {documentDetail &&
+                                                documentDetail.form.id_program ? (
                                                     <select
                                                         onChange={(event) => onChange(event)}
                                                         className="monev-id-program"
@@ -808,7 +838,9 @@ const FormGNRM = (props) => {
                                                             <option
                                                                 key={i}
                                                                 selected={
-                                                                    documentDetail.form.id_program === periode && true
+                                                                    documentDetail.form
+                                                                        .id_program === periode &&
+                                                                    true
                                                                 }
                                                                 title={periode}
                                                                 value={periode}
@@ -828,7 +860,11 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {pilihanPeriode.map((periode, i) => (
-                                                            <option key={i} title={periode} value={periode}>
+                                                            <option
+                                                                key={i}
+                                                                title={periode}
+                                                                value={periode}
+                                                            >
                                                                 {periode}
                                                             </option>
                                                         ))}
@@ -848,7 +884,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="gugus_tugas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="gugus_tugas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward tes">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -895,11 +937,16 @@ const FormGNRM = (props) => {
                                                                             className="input-radio"
                                                                             value={data.sk_status}
                                                                             checked={true}
-                                                                            onChange={onChangeButton}
+                                                                            onChange={
+                                                                                onChangeButton
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
-                                                                    <label htmlFor="belum" className="label-radio">
+                                                                    <label
+                                                                        htmlFor="belum"
+                                                                        className="label-radio"
+                                                                    >
                                                                         Belum
                                                                         <input
                                                                             type="radio"
@@ -907,7 +954,9 @@ const FormGNRM = (props) => {
                                                                             name="sk_status"
                                                                             className="input-radio"
                                                                             value={data.sk_status}
-                                                                            onChange={onChangeButtonFalse}
+                                                                            onChange={
+                                                                                onChangeButtonFalse
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
@@ -928,11 +977,16 @@ const FormGNRM = (props) => {
                                                                             name="sk_status"
                                                                             className="input-radio"
                                                                             value={data.sk_status}
-                                                                            onChange={onChangeButton}
+                                                                            onChange={
+                                                                                onChangeButton
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
-                                                                    <label htmlFor="belum" className="label-radio">
+                                                                    <label
+                                                                        htmlFor="belum"
+                                                                        className="label-radio"
+                                                                    >
                                                                         Belum
                                                                         <input
                                                                             type="radio"
@@ -941,7 +995,9 @@ const FormGNRM = (props) => {
                                                                             className="input-radio"
                                                                             value={data.sk_status}
                                                                             checked={true}
-                                                                            onChange={onChangeButtonFalse}
+                                                                            onChange={
+                                                                                onChangeButtonFalse
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
@@ -1011,80 +1067,112 @@ const FormGNRM = (props) => {
                                                                             height: "fit-content",
                                                                             marginLeft: "210px",
                                                                             width: "955px",
-                                                                            border: "1px solid #ACACAC",
+                                                                            border:
+                                                                                "1px solid #ACACAC",
                                                                             borderRadius: "5px",
                                                                             padding: "10px",
                                                                             display: "flex",
                                                                             flexWrap: "wrap",
                                                                         }}
                                                                     >
-                                                                        {skFile.map((lampiran, index) => {
-                                                                            const fileExt = getFIleExtension(
-                                                                                lampiran.name
-                                                                            )
-                                                                            const objectURL = URL.createObjectURL(
-                                                                                lampiran
-                                                                            )
-                                                                            // cekEkstension(fileExt)
-                                                                            return (
-                                                                                <div key={index}>
+                                                                        {skFile.map(
+                                                                            (lampiran, index) => {
+                                                                                const fileExt = getFIleExtension(
+                                                                                    lampiran.name
+                                                                                )
+                                                                                const objectURL = URL.createObjectURL(
+                                                                                    lampiran
+                                                                                )
+                                                                                // cekEkstension(fileExt)
+                                                                                return (
                                                                                     <div
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                            marginRight: "35px",
-                                                                                            position: "relative",
-                                                                                        }}
-                                                                                        className="d-flex align-items-center justify-content-center"
+                                                                                        key={index}
                                                                                     >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                overflow: "hidden",
-                                                                                                position: "absolute",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                                marginRight:
+                                                                                                    "35px",
+                                                                                                position:
+                                                                                                    "relative",
+                                                                                            }}
+                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                        >
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    overflow:
+                                                                                                        "hidden",
+                                                                                                    position:
+                                                                                                        "absolute",
+                                                                                                }}
+                                                                                            >
+                                                                                                {fileExt ===
+                                                                                                "pdf" ? (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            imgFile
+                                                                                                        }
+                                                                                                        alt={
+                                                                                                            lampiran.name
+                                                                                                        }
+                                                                                                        style={{
+                                                                                                            width:
+                                                                                                                "150px",
+                                                                                                            height:
+                                                                                                                "150px",
+                                                                                                        }}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                ) : (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            objectURL
+                                                                                                        }
+                                                                                                        alt={
+                                                                                                            lampiran.name
+                                                                                                        }
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            style={{
+                                                                                                marginTop:
+                                                                                                    "10px",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "20px",
+                                                                                                wordWrap:
+                                                                                                    "break-word",
+                                                                                                lineHeight:
+                                                                                                    "20px",
                                                                                             }}
                                                                                         >
-                                                                                            {fileExt === "pdf" ? (
-                                                                                                <img
-                                                                                                    src={imgFile}
-                                                                                                    alt={lampiran.name}
-                                                                                                    style={{
-                                                                                                        width: "150px",
-                                                                                                        height: "150px",
-                                                                                                    }}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            ) : (
-                                                                                                <img
-                                                                                                    src={objectURL}
-                                                                                                    alt={lampiran.name}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            )}
+                                                                                            <p className="gnrm-media--name">
+                                                                                                {lampiran
+                                                                                                    .name
+                                                                                                    .length >
+                                                                                                18
+                                                                                                    ? `${lampiran.name.substr(
+                                                                                                          0,
+                                                                                                          15
+                                                                                                      )}...`
+                                                                                                    : lampiran.name}
+                                                                                            </p>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div
-                                                                                        style={{
-                                                                                            marginTop: "10px",
-                                                                                            width: "150px",
-                                                                                            height: "20px",
-                                                                                            wordWrap: "break-word",
-                                                                                            lineHeight: "20px",
-                                                                                        }}
-                                                                                    >
-                                                                                        <p className="gnrm-media--name">
-                                                                                            {lampiran.name.length > 18
-                                                                                                ? `${lampiran.name.substr(
-                                                                                                      0,
-                                                                                                      15
-                                                                                                  )}...`
-                                                                                                : lampiran.name}
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                     </div>
                                                                 ) : (
                                                                     <div
@@ -1092,82 +1180,114 @@ const FormGNRM = (props) => {
                                                                             height: "fit-content",
                                                                             marginLeft: "210px",
                                                                             width: "955px",
-                                                                            border: "1px solid #ACACAC",
+                                                                            border:
+                                                                                "1px solid #ACACAC",
                                                                             borderRadius: "5px",
                                                                             padding: "10px",
                                                                             display: "flex",
                                                                             flexWrap: "wrap",
                                                                         }}
                                                                     >
-                                                                        {skFileUrl.map((url, index) => {
-                                                                            const fileExt = getFIleExtension(
-                                                                                getFileName(url)
-                                                                            )
-                                                                            // cekEkstension(fileExt)
-                                                                            return (
-                                                                                <div key={index}>
+                                                                        {skFileUrl.map(
+                                                                            (url, index) => {
+                                                                                const fileExt = getFIleExtension(
+                                                                                    getFileName(url)
+                                                                                )
+                                                                                // cekEkstension(fileExt)
+                                                                                return (
                                                                                     <div
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                            marginRight: "35px",
-                                                                                            position: "relative",
-                                                                                        }}
-                                                                                        className="d-flex align-items-center justify-content-center"
+                                                                                        key={index}
                                                                                     >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                overflow: "hidden",
-                                                                                                position: "absolute",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                                marginRight:
+                                                                                                    "35px",
+                                                                                                position:
+                                                                                                    "relative",
+                                                                                            }}
+                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                        >
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    overflow:
+                                                                                                        "hidden",
+                                                                                                    position:
+                                                                                                        "absolute",
+                                                                                                }}
+                                                                                            >
+                                                                                                {fileExt ===
+                                                                                                "pdf".toLowerCase() ? (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            imgFile
+                                                                                                        }
+                                                                                                        alt={getFileName(
+                                                                                                            url
+                                                                                                        )}
+                                                                                                        style={{
+                                                                                                            width:
+                                                                                                                "150px",
+                                                                                                            height:
+                                                                                                                "150px",
+                                                                                                        }}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                ) : (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            url
+                                                                                                        }
+                                                                                                        alt={getFileName(
+                                                                                                            url
+                                                                                                        )}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            style={{
+                                                                                                marginTop:
+                                                                                                    "10px",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "20px",
+                                                                                                wordWrap:
+                                                                                                    "break-word",
+                                                                                                lineHeight:
+                                                                                                    "20px",
                                                                                             }}
                                                                                         >
-                                                                                            {fileExt ===
-                                                                                            "pdf".toLowerCase() ? (
-                                                                                                <img
-                                                                                                    src={imgFile}
-                                                                                                    alt={getFileName(
-                                                                                                        url
-                                                                                                    )}
-                                                                                                    style={{
-                                                                                                        width: "150px",
-                                                                                                        height: "150px",
-                                                                                                    }}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            ) : (
-                                                                                                <img
-                                                                                                    src={url}
-                                                                                                    alt={getFileName(
-                                                                                                        url
-                                                                                                    )}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            )}
+                                                                                            <p className="gnrm-media--name">
+                                                                                                {getFileName(
+                                                                                                    url
+                                                                                                )
+                                                                                                    .length >
+                                                                                                18
+                                                                                                    ? `${getFileName(
+                                                                                                          url
+                                                                                                      ).substr(
+                                                                                                          0,
+                                                                                                          15
+                                                                                                      )}...`
+                                                                                                    : getFileName(
+                                                                                                          url
+                                                                                                      )}
+                                                                                            </p>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div
-                                                                                        style={{
-                                                                                            marginTop: "10px",
-                                                                                            width: "150px",
-                                                                                            height: "20px",
-                                                                                            wordWrap: "break-word",
-                                                                                            lineHeight: "20px",
-                                                                                        }}
-                                                                                    >
-                                                                                        <p className="gnrm-media--name">
-                                                                                            {getFileName(url).length >
-                                                                                            18
-                                                                                                ? `${getFileName(
-                                                                                                      url
-                                                                                                  ).substr(0, 15)}...`
-                                                                                                : getFileName(url)}
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -1179,7 +1299,8 @@ const FormGNRM = (props) => {
                                                                             color: "red",
                                                                         }}
                                                                     >
-                                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                                        Ukuran berkas melebihi
+                                                                        ukuran maksimal (25MB)!
                                                                     </div>
                                                                 ) : (
                                                                     ""
@@ -1214,7 +1335,8 @@ const FormGNRM = (props) => {
                                                 </Fragment>
                                             ) : (
                                                 <Fragment>
-                                                    {instansiDetail.sk && instansiDetail.sk.status ? (
+                                                    {instansiDetail.sk &&
+                                                    instansiDetail.sk.status ? (
                                                         <Fragment>
                                                             <div>
                                                                 <label
@@ -1262,7 +1384,8 @@ const FormGNRM = (props) => {
                                                                                 src={skGambar}
                                                                                 alt={getFileName(
                                                                                     instansiDetail.sk &&
-                                                                                        instansiDetail.sk.foto
+                                                                                        instansiDetail
+                                                                                            .sk.foto
                                                                                 )}
                                                                                 style={{
                                                                                     width: "500px",
@@ -1281,7 +1404,9 @@ const FormGNRM = (props) => {
                                                                         }}
                                                                     >
                                                                         {getFileName(
-                                                                            instansiDetail.sk && instansiDetail.sk.foto
+                                                                            instansiDetail.sk &&
+                                                                                instansiDetail.sk
+                                                                                    .foto
                                                                         )}
                                                                     </div>
                                                                 </div>
@@ -1297,7 +1422,8 @@ const FormGNRM = (props) => {
                                                                         float: "left",
                                                                     }}
                                                                 >
-                                                                    Sudah Terbentuk <br /> Gugus Tugas?
+                                                                    Sudah Terbentuk <br /> Gugus
+                                                                    Tugas?
                                                                 </label>
                                                                 <div
                                                                     style={{
@@ -1310,7 +1436,8 @@ const FormGNRM = (props) => {
                                                                                 htmlFor="sudah"
                                                                                 className="label-radio"
                                                                                 style={{
-                                                                                    marginRight: "65px",
+                                                                                    marginRight:
+                                                                                        "65px",
                                                                                 }}
                                                                             >
                                                                                 Sudah
@@ -1319,9 +1446,13 @@ const FormGNRM = (props) => {
                                                                                     id="sudah"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
                                                                                     checked={true}
-                                                                                    onChange={onChangeButton}
+                                                                                    onChange={
+                                                                                        onChangeButton
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -1335,8 +1466,12 @@ const FormGNRM = (props) => {
                                                                                     id="belum"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
-                                                                                    onChange={onChangeButtonFalse}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
+                                                                                    onChange={
+                                                                                        onChangeButtonFalse
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -1347,7 +1482,8 @@ const FormGNRM = (props) => {
                                                                                 htmlFor="sudah"
                                                                                 className="label-radio"
                                                                                 style={{
-                                                                                    marginRight: "65px",
+                                                                                    marginRight:
+                                                                                        "65px",
                                                                                 }}
                                                                             >
                                                                                 Sudah
@@ -1356,8 +1492,12 @@ const FormGNRM = (props) => {
                                                                                     id="sudah"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
-                                                                                    onChange={onChangeButton}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
+                                                                                    onChange={
+                                                                                        onChangeButton
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -1371,9 +1511,13 @@ const FormGNRM = (props) => {
                                                                                     id="belum"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
                                                                                     checked={true}
-                                                                                    onChange={onChangeButtonFalse}
+                                                                                    onChange={
+                                                                                        onChangeButtonFalse
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -1384,7 +1528,9 @@ const FormGNRM = (props) => {
                                                             {data.sk_status ? (
                                                                 <Fragment>
                                                                     <div>
-                                                                        <label>Input Nomor SK</label>
+                                                                        <label>
+                                                                            Input Nomor SK
+                                                                        </label>
                                                                         <input
                                                                             className="gnrm-sasaran"
                                                                             style={{
@@ -1412,7 +1558,8 @@ const FormGNRM = (props) => {
                                                                         >
                                                                             <span
                                                                                 style={{
-                                                                                    marginRight: "5px",
+                                                                                    marginRight:
+                                                                                        "5px",
                                                                                 }}
                                                                             >
                                                                                 +
@@ -1427,115 +1574,150 @@ const FormGNRM = (props) => {
                                                                                 marginLeft: "30px",
                                                                                 width: "955px",
                                                                             }}
-                                                                            onChange={onChangeSKFile}
+                                                                            onChange={
+                                                                                onChangeSKFile
+                                                                            }
                                                                             type="file"
                                                                             accept=".jpg,.png,.jpeg , application/pdf"
                                                                             name="media"
                                                                         />
                                                                         <h1 className="penjelasan_lampiran_doc">
-                                                                            (Ukuran maksimal berkas 25MB)
+                                                                            (Ukuran maksimal berkas
+                                                                            25MB)
                                                                         </h1>
                                                                     </div>
                                                                     <div>
                                                                         <div
                                                                             style={{
-                                                                                height: "fit-content",
+                                                                                height:
+                                                                                    "fit-content",
                                                                                 marginLeft: "210px",
                                                                                 width: "955px",
-                                                                                border: "1px solid #ACACAC",
+                                                                                border:
+                                                                                    "1px solid #ACACAC",
                                                                                 borderRadius: "5px",
                                                                                 padding: "10px",
                                                                                 display: "flex",
                                                                                 flexWrap: "wrap",
                                                                             }}
                                                                         >
-                                                                            {skFile.map((lampiran, index) => {
-                                                                                const fileExt = getFIleExtension(
-                                                                                    lampiran.name
-                                                                                )
-                                                                                const objectURL = URL.createObjectURL(
-                                                                                    lampiran
-                                                                                )
-                                                                                // cekEkstension(fileExt)
-                                                                                return (
-                                                                                    <div key={index}>
+                                                                            {skFile.map(
+                                                                                (
+                                                                                    lampiran,
+                                                                                    index
+                                                                                ) => {
+                                                                                    const fileExt = getFIleExtension(
+                                                                                        lampiran.name
+                                                                                    )
+                                                                                    const objectURL = URL.createObjectURL(
+                                                                                        lampiran
+                                                                                    )
+                                                                                    // cekEkstension(fileExt)
+                                                                                    return (
                                                                                         <div
-                                                                                            style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                marginRight: "35px",
-                                                                                                position: "relative",
-                                                                                            }}
-                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                            key={
+                                                                                                index
+                                                                                            }
                                                                                         >
                                                                                             <div
                                                                                                 style={{
-                                                                                                    width: "150px",
-                                                                                                    height: "150px",
-                                                                                                    overflow: "hidden",
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    marginRight:
+                                                                                                        "35px",
                                                                                                     position:
-                                                                                                        "absolute",
+                                                                                                        "relative",
+                                                                                                }}
+                                                                                                className="d-flex align-items-center justify-content-center"
+                                                                                            >
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        width:
+                                                                                                            "150px",
+                                                                                                        height:
+                                                                                                            "150px",
+                                                                                                        overflow:
+                                                                                                            "hidden",
+                                                                                                        position:
+                                                                                                            "absolute",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    {fileExt ===
+                                                                                                    "pdf" ? (
+                                                                                                        <img
+                                                                                                            src={
+                                                                                                                imgFile
+                                                                                                            }
+                                                                                                            alt={
+                                                                                                                lampiran.name
+                                                                                                            }
+                                                                                                            style={{
+                                                                                                                width:
+                                                                                                                    "150px",
+                                                                                                                height:
+                                                                                                                    "150px",
+                                                                                                            }}
+                                                                                                            className="gnrm-media--image"
+                                                                                                        />
+                                                                                                    ) : (
+                                                                                                        <img
+                                                                                                            src={
+                                                                                                                objectURL
+                                                                                                            }
+                                                                                                            alt={
+                                                                                                                lampiran.name
+                                                                                                            }
+                                                                                                            className="gnrm-media--image"
+                                                                                                        />
+                                                                                                    )}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    marginTop:
+                                                                                                        "10px",
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "20px",
+                                                                                                    wordWrap:
+                                                                                                        "break-word",
+                                                                                                    lineHeight:
+                                                                                                        "20px",
                                                                                                 }}
                                                                                             >
-                                                                                                {fileExt === "pdf" ? (
-                                                                                                    <img
-                                                                                                        src={imgFile}
-                                                                                                        alt={
-                                                                                                            lampiran.name
-                                                                                                        }
-                                                                                                        style={{
-                                                                                                            width:
-                                                                                                                "150px",
-                                                                                                            height:
-                                                                                                                "150px",
-                                                                                                        }}
-                                                                                                        className="gnrm-media--image"
-                                                                                                    />
-                                                                                                ) : (
-                                                                                                    <img
-                                                                                                        src={objectURL}
-                                                                                                        alt={
-                                                                                                            lampiran.name
-                                                                                                        }
-                                                                                                        className="gnrm-media--image"
-                                                                                                    />
-                                                                                                )}
+                                                                                                <p className="gnrm-media--name">
+                                                                                                    {lampiran
+                                                                                                        .name
+                                                                                                        .length >
+                                                                                                    18
+                                                                                                        ? `${lampiran.name.substr(
+                                                                                                              0,
+                                                                                                              15
+                                                                                                          )}...`
+                                                                                                        : lampiran.name}
+                                                                                                </p>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div
-                                                                                            style={{
-                                                                                                marginTop: "10px",
-                                                                                                width: "150px",
-                                                                                                height: "20px",
-                                                                                                wordWrap: "break-word",
-                                                                                                lineHeight: "20px",
-                                                                                            }}
-                                                                                        >
-                                                                                            <p className="gnrm-media--name">
-                                                                                                {lampiran.name.length >
-                                                                                                18
-                                                                                                    ? `${lampiran.name.substr(
-                                                                                                          0,
-                                                                                                          15
-                                                                                                      )}...`
-                                                                                                    : lampiran.name}
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                )
-                                                                            })}
+                                                                                    )
+                                                                                }
+                                                                            )}
                                                                         </div>
                                                                     </div>
                                                                     <div>
                                                                         {SKSize > 26214400 ? (
                                                                             <div
                                                                                 style={{
-                                                                                    marginLeft: "217px",
+                                                                                    marginLeft:
+                                                                                        "217px",
                                                                                     color: "red",
                                                                                 }}
                                                                             >
-                                                                                Ukuran berkas melebihi ukuran maksimal
-                                                                                (25MB)!
+                                                                                Ukuran berkas
+                                                                                melebihi ukuran
+                                                                                maksimal (25MB)!
                                                                             </div>
                                                                         ) : (
                                                                             ""
@@ -1574,12 +1756,24 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="identitas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="identitas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="kegiatan" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="kegiatan"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -1605,7 +1799,9 @@ const FormGNRM = (props) => {
                                                     name="nama_program"
                                                     // placeholder='Tuliskan nama kegiatan sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                     value={kegiatan.nama_program}
-                                                    onChange={(event) => onChange(event, "kegiatan")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "kegiatan")
+                                                    }
                                                 />
                                             </div>
                                             <Fragment>
@@ -1626,12 +1822,18 @@ const FormGNRM = (props) => {
                                                                 kpOptions.map((kp, i) => (
                                                                     <option
                                                                         key={i}
-                                                                        selected={documentDetail.form.kp === kp && true}
+                                                                        selected={
+                                                                            documentDetail.form
+                                                                                .kp === kp && true
+                                                                        }
                                                                         title={kp}
                                                                         value={kp}
                                                                     >
                                                                         {kp.length > 113
-                                                                            ? `${kp.substr(0, 110)}...`
+                                                                            ? `${kp.substr(
+                                                                                  0,
+                                                                                  110
+                                                                              )}...`
                                                                             : kp}
                                                                     </option>
                                                                 ))}
@@ -1652,15 +1854,23 @@ const FormGNRM = (props) => {
                                                             }}
                                                         >
                                                             <option selected={true} hidden>
-                                                                Tuliskan Kegiatan Prioritas (KP) sesuai dengan
-                                                                program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN
-                                                                2020-2024
+                                                                Tuliskan Kegiatan Prioritas (KP)
+                                                                sesuai dengan program/kegiatan
+                                                                Kementerian/Lembaga/Daerah sesuai
+                                                                RPJMN 2020-2024
                                                             </option>
                                                             {kpOptions &&
                                                                 kpOptions.map((kp, i) => (
-                                                                    <option key={i} title={kp} value={kp}>
+                                                                    <option
+                                                                        key={i}
+                                                                        title={kp}
+                                                                        value={kp}
+                                                                    >
                                                                         {kp.length > 113
-                                                                            ? `${kp.substr(0, 110)}...`
+                                                                            ? `${kp.substr(
+                                                                                  0,
+                                                                                  110
+                                                                              )}...`
                                                                             : kp}
                                                                     </option>
                                                                 ))}
@@ -1684,19 +1894,26 @@ const FormGNRM = (props) => {
                                                                     <option
                                                                         key={i}
                                                                         selected={
-                                                                            documentDetail.form.prop === prop && true
+                                                                            documentDetail.form
+                                                                                .prop === prop &&
+                                                                            true
                                                                         }
                                                                         title={prop}
                                                                         value={prop}
                                                                     >
                                                                         {prop.length > 113
-                                                                            ? `${prop.substr(0, 110)}...`
+                                                                            ? `${prop.substr(
+                                                                                  0,
+                                                                                  110
+                                                                              )}...`
                                                                             : prop}
                                                                     </option>
                                                                 ))}
                                                             {!selectedKp && (
                                                                 <option>
-                                                                    {"Pilih Kegiatan Prioritas\n\nterlebih dahulu"}
+                                                                    {
+                                                                        "Pilih Kegiatan Prioritas\n\nterlebih dahulu"
+                                                                    }
                                                                 </option>
                                                             )}
                                                         </select>
@@ -1715,34 +1932,46 @@ const FormGNRM = (props) => {
                                                             }}
                                                         >
                                                             <option selected={true} hidden>
-                                                                Tuliskan Proyek Prioritas (PP) sesuai dengan
-                                                                program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN
-                                                                2020-2024
+                                                                Tuliskan Proyek Prioritas (PP)
+                                                                sesuai dengan program/kegiatan
+                                                                Kementerian/Lembaga/Daerah sesuai
+                                                                RPJMN 2020-2024
                                                             </option>
                                                             {propOptions &&
                                                                 propOptions.map((prop, i) => (
-                                                                    <option key={i} title={prop} value={prop}>
+                                                                    <option
+                                                                        key={i}
+                                                                        title={prop}
+                                                                        value={prop}
+                                                                    >
                                                                         {prop.length > 113
-                                                                            ? `${prop.substr(0, 110)}...`
+                                                                            ? `${prop.substr(
+                                                                                  0,
+                                                                                  110
+                                                                              )}...`
                                                                             : prop}
                                                                     </option>
                                                                 ))}
                                                             {!selectedKp && (
                                                                 <option>
-                                                                    {"Pilih Kegiatan Prioritas\n\nterlebih dahulu"}
+                                                                    {
+                                                                        "Pilih Kegiatan Prioritas\n\nterlebih dahulu"
+                                                                    }
                                                                 </option>
                                                             )}
                                                         </select>
                                                     )}
                                                 </div>
 
-                                                {selectedKp === "Pusat-pusat Perubahan Revolusi Mental" && (
+                                                {selectedKp ===
+                                                    "Pusat-pusat Perubahan Revolusi Mental" && (
                                                     <Fragment>
                                                         <div>
                                                             <label>Gerakan</label>
                                                             {isEditing &&
                                                             documentDetail.form.gerakan &&
-                                                            Object.values(selectedGerakan).length > 0 ? (
+                                                            Object.values(selectedGerakan).length >
+                                                                0 ? (
                                                                 <select
                                                                     onChange={onChange}
                                                                     className="gnrm-select"
@@ -1752,36 +1981,57 @@ const FormGNRM = (props) => {
                                                                     }}
                                                                 >
                                                                     <option
-                                                                        value={selectedGerakan["gerakan-0"]}
+                                                                        value={
+                                                                            selectedGerakan[
+                                                                                "gerakan-0"
+                                                                            ]
+                                                                        }
                                                                         defaultValue
                                                                     >
-                                                                        {selectedGerakan["gerakan-0"]}
+                                                                        {
+                                                                            selectedGerakan[
+                                                                                "gerakan-0"
+                                                                            ]
+                                                                        }
                                                                     </option>
                                                                     {gerakanOptions &&
-                                                                        gerakanOptions.map((gerakan, i) => {
-                                                                            let alreadySelected = false
-                                                                            Object.values(selectedGerakan).forEach(
-                                                                                (selected) => {
-                                                                                    if (gerakan === selected)
-                                                                                        alreadySelected = true
-                                                                                }
-                                                                            )
-                                                                            return (
-                                                                                <option
-                                                                                    key={i}
-                                                                                    value={gerakan}
-                                                                                    selected={
-                                                                                        gerakan ===
-                                                                                        selectedGerakan["gerakan-0"]
-                                                                                            ? true
-                                                                                            : false
+                                                                        gerakanOptions.map(
+                                                                            (gerakan, i) => {
+                                                                                let alreadySelected = false
+                                                                                Object.values(
+                                                                                    selectedGerakan
+                                                                                ).forEach(
+                                                                                    (selected) => {
+                                                                                        if (
+                                                                                            gerakan ===
+                                                                                            selected
+                                                                                        )
+                                                                                            alreadySelected = true
                                                                                     }
-                                                                                    hidden={alreadySelected}
-                                                                                >
-                                                                                    {gerakan}
-                                                                                </option>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                                return (
+                                                                                    <option
+                                                                                        key={i}
+                                                                                        value={
+                                                                                            gerakan
+                                                                                        }
+                                                                                        selected={
+                                                                                            gerakan ===
+                                                                                            selectedGerakan[
+                                                                                                "gerakan-0"
+                                                                                            ]
+                                                                                                ? true
+                                                                                                : false
+                                                                                        }
+                                                                                        hidden={
+                                                                                            alreadySelected
+                                                                                        }
+                                                                                    >
+                                                                                        {gerakan}
+                                                                                    </option>
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                 </select>
                                                             ) : (
                                                                 <select
@@ -1792,26 +2042,40 @@ const FormGNRM = (props) => {
                                                                         marginLeft: "145px",
                                                                     }}
                                                                 >
-                                                                    <option selected={true} hidden></option>
+                                                                    <option
+                                                                        selected={true}
+                                                                        hidden
+                                                                    ></option>
                                                                     {gerakanOptions &&
-                                                                        gerakanOptions.map((gerakan, i) => {
-                                                                            let alreadySelected = false
-                                                                            Object.values(selectedGerakan).forEach(
-                                                                                (selected) => {
-                                                                                    if (gerakan === selected)
-                                                                                        alreadySelected = true
-                                                                                }
-                                                                            )
-                                                                            return (
-                                                                                <option
-                                                                                    key={i}
-                                                                                    value={gerakan}
-                                                                                    hidden={alreadySelected}
-                                                                                >
-                                                                                    {gerakan}
-                                                                                </option>
-                                                                            )
-                                                                        })}
+                                                                        gerakanOptions.map(
+                                                                            (gerakan, i) => {
+                                                                                let alreadySelected = false
+                                                                                Object.values(
+                                                                                    selectedGerakan
+                                                                                ).forEach(
+                                                                                    (selected) => {
+                                                                                        if (
+                                                                                            gerakan ===
+                                                                                            selected
+                                                                                        )
+                                                                                            alreadySelected = true
+                                                                                    }
+                                                                                )
+                                                                                return (
+                                                                                    <option
+                                                                                        key={i}
+                                                                                        value={
+                                                                                            gerakan
+                                                                                        }
+                                                                                        hidden={
+                                                                                            alreadySelected
+                                                                                        }
+                                                                                    >
+                                                                                        {gerakan}
+                                                                                    </option>
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                 </select>
                                                             )}
                                                         </div>
@@ -1821,44 +2085,67 @@ const FormGNRM = (props) => {
                                                             ? Object.values(selectedGerakan)
                                                                   .filter(
                                                                       (selected) =>
-                                                                          selected !== selectedGerakan["gerakan-0"]
+                                                                          selected !==
+                                                                          selectedGerakan[
+                                                                              "gerakan-0"
+                                                                          ]
                                                                   )
                                                                   .map((_, index) => {
                                                                       return (
                                                                           <div>
                                                                               <label>Gerakan</label>
                                                                               <select
-                                                                                  onChange={onChangeGerakan}
+                                                                                  onChange={
+                                                                                      onChangeGerakan
+                                                                                  }
                                                                                   className="gnrm-select"
-                                                                                  name={`gerakan-${index + 1}`}
+                                                                                  name={`gerakan-${
+                                                                                      index + 1
+                                                                                  }`}
                                                                                   style={{
-                                                                                      marginLeft: "145px",
+                                                                                      marginLeft:
+                                                                                          "145px",
                                                                                   }}
                                                                               >
                                                                                   <option
                                                                                       value={_}
                                                                                       defaultValue
-                                                                                      hidden={_ === "" ? true : false}
+                                                                                      hidden={
+                                                                                          _ === ""
+                                                                                              ? true
+                                                                                              : false
+                                                                                      }
                                                                                   >
                                                                                       {_}
                                                                                   </option>
                                                                                   {gerakanOptions &&
                                                                                       gerakanOptions.map(
-                                                                                          (gerakan, i) => {
+                                                                                          (
+                                                                                              gerakan,
+                                                                                              i
+                                                                                          ) => {
                                                                                               let alreadySelected = false
                                                                                               Object.values(
                                                                                                   selectedGerakan
-                                                                                              ).forEach((selected) => {
-                                                                                                  if (
-                                                                                                      gerakan ===
+                                                                                              ).forEach(
+                                                                                                  (
                                                                                                       selected
-                                                                                                  )
-                                                                                                      alreadySelected = true
-                                                                                              })
+                                                                                                  ) => {
+                                                                                                      if (
+                                                                                                          gerakan ===
+                                                                                                          selected
+                                                                                                      )
+                                                                                                          alreadySelected = true
+                                                                                                  }
+                                                                                              )
                                                                                               return (
                                                                                                   <option
-                                                                                                      key={i}
-                                                                                                      value={gerakan}
+                                                                                                      key={
+                                                                                                          i
+                                                                                                      }
+                                                                                                      value={
+                                                                                                          gerakan
+                                                                                                      }
                                                                                                       selected={
                                                                                                           gerakan ===
                                                                                                           selectedGerakan[
@@ -1872,7 +2159,9 @@ const FormGNRM = (props) => {
                                                                                                           alreadySelected
                                                                                                       }
                                                                                                   >
-                                                                                                      {gerakan}
+                                                                                                      {
+                                                                                                          gerakan
+                                                                                                      }
                                                                                                   </option>
                                                                                               )
                                                                                           }
@@ -1881,10 +2170,15 @@ const FormGNRM = (props) => {
                                                                               <span
                                                                                   className="remove-form"
                                                                                   onClick={() =>
-                                                                                      onDeleteGerakanForm(index)
+                                                                                      onDeleteGerakanForm(
+                                                                                          index
+                                                                                      )
                                                                                   }
                                                                               >
-                                                                                  <i className=""> x </i>
+                                                                                  <i className="">
+                                                                                      {" "}
+                                                                                      x{" "}
+                                                                                  </i>
                                                                               </span>
                                                                           </div>
                                                                       )
@@ -1894,54 +2188,92 @@ const FormGNRM = (props) => {
                                                                       <div key={index}>
                                                                           <label>Gerakan</label>
                                                                           <select
-                                                                              onChange={onChangeGerakan}
+                                                                              onChange={
+                                                                                  onChangeGerakan
+                                                                              }
                                                                               className="gnrm-select"
-                                                                              name={`gerakan-${index + 1}`}
+                                                                              name={`gerakan-${
+                                                                                  index + 1
+                                                                              }`}
                                                                               style={{
-                                                                                  marginLeft: "145px",
+                                                                                  marginLeft:
+                                                                                      "145px",
                                                                               }}
                                                                           >
-                                                                              <option selected={true} hidden></option>
+                                                                              <option
+                                                                                  selected={true}
+                                                                                  hidden
+                                                                              ></option>
                                                                               {gerakanOptions &&
-                                                                                  gerakanOptions.map((gerakan, i) => {
-                                                                                      let alreadySelected = false
-                                                                                      Object.values(
-                                                                                          selectedGerakan
-                                                                                      ).forEach((selected) => {
-                                                                                          if (gerakan === selected)
-                                                                                              alreadySelected = true
-                                                                                      })
-                                                                                      return (
-                                                                                          <option
-                                                                                              key={i}
-                                                                                              value={gerakan}
-                                                                                              hidden={alreadySelected}
-                                                                                              selected={
-                                                                                                  gerakan ===
-                                                                                                  selectedGerakan[
-                                                                                                      `gerakan-${
-                                                                                                          index + 1
-                                                                                                      }`
-                                                                                                  ]
+                                                                                  gerakanOptions.map(
+                                                                                      (
+                                                                                          gerakan,
+                                                                                          i
+                                                                                      ) => {
+                                                                                          let alreadySelected = false
+                                                                                          Object.values(
+                                                                                              selectedGerakan
+                                                                                          ).forEach(
+                                                                                              (
+                                                                                                  selected
+                                                                                              ) => {
+                                                                                                  if (
+                                                                                                      gerakan ===
+                                                                                                      selected
+                                                                                                  )
+                                                                                                      alreadySelected = true
                                                                                               }
-                                                                                          >
-                                                                                              {gerakan}
-                                                                                          </option>
-                                                                                      )
-                                                                                  })}
+                                                                                          )
+                                                                                          return (
+                                                                                              <option
+                                                                                                  key={
+                                                                                                      i
+                                                                                                  }
+                                                                                                  value={
+                                                                                                      gerakan
+                                                                                                  }
+                                                                                                  hidden={
+                                                                                                      alreadySelected
+                                                                                                  }
+                                                                                                  selected={
+                                                                                                      gerakan ===
+                                                                                                      selectedGerakan[
+                                                                                                          `gerakan-${
+                                                                                                              index +
+                                                                                                              1
+                                                                                                          }`
+                                                                                                      ]
+                                                                                                  }
+                                                                                              >
+                                                                                                  {
+                                                                                                      gerakan
+                                                                                                  }
+                                                                                              </option>
+                                                                                          )
+                                                                                      }
+                                                                                  )}
                                                                           </select>
                                                                           <span
                                                                               className="remove-form"
-                                                                              onClick={() => onDeleteGerakanForm(index)}
+                                                                              onClick={() =>
+                                                                                  onDeleteGerakanForm(
+                                                                                      index
+                                                                                  )
+                                                                              }
                                                                           >
-                                                                              <i className=""> x </i>
+                                                                              <i className="">
+                                                                                  {" "}
+                                                                                  x{" "}
+                                                                              </i>
                                                                           </span>
                                                                       </div>
                                                                   )
                                                               })}
                                                         {formGerakan.length < 4 ? (
                                                             <div>
-                                                                <label className="tambah-lembaga">Tambah Gerakan</label>
+                                                                <label className="tambah-lembaga">
+                                                                    Tambah Gerakan
+                                                                </label>
                                                                 <img
                                                                     src={plus2}
                                                                     style={{
@@ -1980,18 +2312,32 @@ const FormGNRM = (props) => {
                                                     name="penjelasan_kegiatan"
                                                     placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                                                     value={kegiatan.penjelasan_kegiatan}
-                                                    onChange={(event) => onChange(event, "kegiatan")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "kegiatan")
+                                                    }
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="gugus_tugas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="gugus_tugas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="output" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="output"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -2079,7 +2425,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="kegiatan" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="kegiatan"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
@@ -2129,7 +2481,10 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div className="div_lampiran">
                                                 <label>Data Dukung</label>
-                                                <label htmlFor="testing2" className="label_lampiran">
+                                                <label
+                                                    htmlFor="testing2"
+                                                    className="label_lampiran"
+                                                >
                                                     <span
                                                         style={{
                                                             marginRight: "5px",
@@ -2173,93 +2528,129 @@ const FormGNRM = (props) => {
                                                         }}
                                                     >
                                                         {lampiranKondisi &&
-                                                            lampiranKondisi.map((lampiran, index) => {
-                                                                const fileType = isFileImage(lampiran)
-                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <div
-                                                                            style={{
-                                                                                width: "150px",
-                                                                                height: "150px",
-                                                                                marginRight: "35px",
-                                                                                position: "relative",
-                                                                            }}
-                                                                            className="d-flex align-items-center justify-content-center"
-                                                                        >
+                                                            lampiranKondisi.map(
+                                                                (lampiran, index) => {
+                                                                    const fileType = isFileImage(
+                                                                        lampiran
+                                                                    )
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
+                                                                    return (
+                                                                        <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
+                                                                                className="d-flex align-items-center justify-content-center"
                                                                             >
-                                                                                {!fileType ? (
-                                                                                    <img
-                                                                                        src={imgFile}
-                                                                                        alt={lampiran.name}
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                        }}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                ) : (
-                                                                                    <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                )}
+                                                                                <div
+                                                                                    style={{
+                                                                                        width:
+                                                                                            "150px",
+                                                                                        height:
+                                                                                            "150px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                    }}
+                                                                                >
+                                                                                    {!fileType ? (
+                                                                                        <img
+                                                                                            src={
+                                                                                                imgFile
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            style={{
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                            }}
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <img
+                                                                                            src={
+                                                                                                objectURL
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    )}
+                                                                                </div>
+                                                                                <div
+                                                                                    style={{
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                        backgroundColor:
+                                                                                            "#C04B3E",
+                                                                                        width:
+                                                                                            "25px",
+                                                                                        height:
+                                                                                            "25px",
+                                                                                        borderRadius:
+                                                                                            "50%",
+                                                                                        top: "-7px",
+                                                                                        right:
+                                                                                            "-7px",
+                                                                                        lineHeight:
+                                                                                            "25px",
+                                                                                        textAlign:
+                                                                                            "center",
+                                                                                        cursor:
+                                                                                            "pointer",
+                                                                                        color:
+                                                                                            "white",
+                                                                                    }}
+                                                                                    onClick={(e) =>
+                                                                                        onDeleteKondisi(
+                                                                                            true,
+                                                                                            lampiran.name,
+                                                                                            lampiran
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    {" "}
+                                                                                    X{" "}
+                                                                                </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
-                                                                                    width: "25px",
-                                                                                    height: "25px",
-                                                                                    borderRadius: "50%",
-                                                                                    top: "-7px",
-                                                                                    right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
-                                                                                    color: "white",
+                                                                                    marginTop:
+                                                                                        "10px",
+                                                                                    width: "150px",
+                                                                                    height: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
-                                                                                onClick={(e) =>
-                                                                                    onDeleteKondisi(
-                                                                                        true,
-                                                                                        lampiran.name,
-                                                                                        lampiran
-                                                                                    )
-                                                                                }
                                                                             >
-                                                                                {" "}
-                                                                                X{" "}
+                                                                                <p className="gnrm-media--name">
+                                                                                    {lampiran.name
+                                                                                        .length > 18
+                                                                                        ? `${lampiran.name.substr(
+                                                                                              0,
+                                                                                              15
+                                                                                          )}...`
+                                                                                        : lampiran.name}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
-                                                                        <div
-                                                                            style={{
-                                                                                marginTop: "10px",
-                                                                                width: "150px",
-                                                                                height: "20px",
-                                                                                wordWrap: "break-word",
-                                                                                lineHeight: "20px",
-                                                                            }}
-                                                                        >
-                                                                            <p className="gnrm-media--name">
-                                                                                {lampiran.name.length > 18
-                                                                                    ? `${lampiran.name.substr(
-                                                                                          0,
-                                                                                          15
-                                                                                      )}...`
-                                                                                    : lampiran.name}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })}
+                                                                    )
+                                                                }
+                                                            )}
                                                     </div>
                                                 ) : (
                                                     <div
@@ -2285,7 +2676,8 @@ const FormGNRM = (props) => {
                                                                                 width: "150px",
                                                                                 height: "150px",
                                                                                 marginRight: "35px",
-                                                                                position: "relative",
+                                                                                position:
+                                                                                    "relative",
                                                                             }}
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
@@ -2293,24 +2685,34 @@ const FormGNRM = (props) => {
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    overflow:
+                                                                                        "hidden",
+                                                                                    position:
+                                                                                        "absolute",
                                                                                 }}
                                                                             >
                                                                                 {!fileType ? (
                                                                                     <img
-                                                                                        src={imgFile}
-                                                                                        alt={getFileName(url)}
+                                                                                        src={
+                                                                                            imgFile
+                                                                                        }
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
+                                                                                            width:
+                                                                                                "150px",
+                                                                                            height:
+                                                                                                "150px",
                                                                                         }}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 ) : (
                                                                                     <img
                                                                                         src={url}
-                                                                                        alt={getFileName(url)}
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 )}
@@ -2318,22 +2720,30 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
+                                                                                    position:
+                                                                                        "absolute",
+                                                                                    backgroundColor:
+                                                                                        "#C04B3E",
                                                                                     width: "25px",
                                                                                     height: "25px",
-                                                                                    borderRadius: "50%",
+                                                                                    borderRadius:
+                                                                                        "50%",
                                                                                     top: "-7px",
                                                                                     right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
+                                                                                    lineHeight:
+                                                                                        "25px",
+                                                                                    textAlign:
+                                                                                        "center",
+                                                                                    cursor:
+                                                                                        "pointer",
                                                                                     color: "white",
                                                                                 }}
                                                                                 onClick={(e) =>
                                                                                     onDeleteKondisi(
                                                                                         false,
-                                                                                        getFileName(url)
+                                                                                        getFileName(
+                                                                                            url
+                                                                                        )
                                                                                     )
                                                                                 }
                                                                             >
@@ -2346,7 +2756,8 @@ const FormGNRM = (props) => {
                                                                                 marginTop: "10px",
                                                                                 width: "150px",
                                                                                 height: "20px",
-                                                                                wordWrap: "break-word",
+                                                                                wordWrap:
+                                                                                    "break-word",
                                                                                 lineHeight: "20px",
                                                                             }}
                                                                         >
@@ -2368,7 +2779,8 @@ const FormGNRM = (props) => {
                                                             color: "red",
                                                         }}
                                                     >
-                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                        Ukuran berkas melebihi ukuran maksimal
+                                                        (25MB)!
                                                     </div>
                                                 ) : (
                                                     ""
@@ -2377,12 +2789,24 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="output" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="output"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="anggaran"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -2408,7 +2832,9 @@ const FormGNRM = (props) => {
                                                     placeholder="Tuliskan rencana anggaran periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                     name="sumber_dana"
                                                     value={anggaran.sumber_dana}
-                                                    onChange={(event) => onChange(event, "anggaran")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "anggaran")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -2433,7 +2859,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="besar_anggaran"
                                                     value={anggaran.besar_anggaran}
-                                                    onChange={(event) => onChange(event, "anggaran")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "anggaran")
+                                                    }
                                                 />
                                             </div>
                                         </div>
@@ -2450,7 +2878,13 @@ const FormGNRM = (props) => {
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="proses"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -2461,7 +2895,9 @@ const FormGNRM = (props) => {
 
                                 <Element id="proses" name="proses">
                                     <div className="gnrm-container">
-                                        <div className="gnrm-title">PERKEMBANGAN PELAKSANAAN KEGIATAN</div>
+                                        <div className="gnrm-title">
+                                            PERKEMBANGAN PELAKSANAAN KEGIATAN
+                                        </div>
                                         <div className="form-gnrm">
                                             <div>
                                                 <label
@@ -2489,7 +2925,10 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div className="div_lampiran">
                                                 <label>Data Dukung</label>
-                                                <label htmlFor="testing3" className="label_lampiran">
+                                                <label
+                                                    htmlFor="testing3"
+                                                    className="label_lampiran"
+                                                >
                                                     <span
                                                         style={{
                                                             marginRight: "5px",
@@ -2533,94 +2972,130 @@ const FormGNRM = (props) => {
                                                         }}
                                                     >
                                                         {lampiranProses &&
-                                                            lampiranProses.map((lampiran, index) => {
-                                                                const fileType = isFileImage(lampiran)
-                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <div
-                                                                            style={{
-                                                                                width: "150px",
-                                                                                height: "150px",
-                                                                                marginRight: "35px",
-                                                                                position: "relative",
-                                                                            }}
-                                                                            className="d-flex align-items-center justify-content-center"
-                                                                        >
+                                                            lampiranProses.map(
+                                                                (lampiran, index) => {
+                                                                    const fileType = isFileImage(
+                                                                        lampiran
+                                                                    )
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
+                                                                    return (
+                                                                        <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
+                                                                                className="d-flex align-items-center justify-content-center"
                                                                             >
-                                                                                {!fileType ? (
-                                                                                    <img
-                                                                                        src={imgFile}
-                                                                                        alt={lampiran.name}
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                        }}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                ) : (
-                                                                                    <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                )}
-                                                                                {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                <div
+                                                                                    style={{
+                                                                                        width:
+                                                                                            "150px",
+                                                                                        height:
+                                                                                            "150px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                    }}
+                                                                                >
+                                                                                    {!fileType ? (
+                                                                                        <img
+                                                                                            src={
+                                                                                                imgFile
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            style={{
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                            }}
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <img
+                                                                                            src={
+                                                                                                objectURL
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    )}
+                                                                                    {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                </div>
+                                                                                <div
+                                                                                    style={{
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                        backgroundColor:
+                                                                                            "#C04B3E",
+                                                                                        width:
+                                                                                            "25px",
+                                                                                        height:
+                                                                                            "25px",
+                                                                                        borderRadius:
+                                                                                            "50%",
+                                                                                        top: "-7px",
+                                                                                        right:
+                                                                                            "-7px",
+                                                                                        lineHeight:
+                                                                                            "25px",
+                                                                                        textAlign:
+                                                                                            "center",
+                                                                                        cursor:
+                                                                                            "pointer",
+                                                                                        color:
+                                                                                            "white",
+                                                                                    }}
+                                                                                    onClick={(e) =>
+                                                                                        onDeleteProses(
+                                                                                            true,
+                                                                                            lampiran.name,
+                                                                                            lampiran
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    {" "}
+                                                                                    X{" "}
+                                                                                </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
-                                                                                    width: "25px",
-                                                                                    height: "25px",
-                                                                                    borderRadius: "50%",
-                                                                                    top: "-7px",
-                                                                                    right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
-                                                                                    color: "white",
+                                                                                    marginTop:
+                                                                                        "10px",
+                                                                                    width: "150px",
+                                                                                    height: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
-                                                                                onClick={(e) =>
-                                                                                    onDeleteProses(
-                                                                                        true,
-                                                                                        lampiran.name,
-                                                                                        lampiran
-                                                                                    )
-                                                                                }
                                                                             >
-                                                                                {" "}
-                                                                                X{" "}
+                                                                                <p className="gnrm-media--name">
+                                                                                    {lampiran.name
+                                                                                        .length > 18
+                                                                                        ? `${lampiran.name.substr(
+                                                                                              0,
+                                                                                              15
+                                                                                          )}...`
+                                                                                        : lampiran.name}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
-                                                                        <div
-                                                                            style={{
-                                                                                marginTop: "10px",
-                                                                                width: "150px",
-                                                                                height: "20px",
-                                                                                wordWrap: "break-word",
-                                                                                lineHeight: "20px",
-                                                                            }}
-                                                                        >
-                                                                            <p className="gnrm-media--name">
-                                                                                {lampiran.name.length > 18
-                                                                                    ? `${lampiran.name.substr(
-                                                                                          0,
-                                                                                          15
-                                                                                      )}...`
-                                                                                    : lampiran.name}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })}
+                                                                    )
+                                                                }
+                                                            )}
                                                     </div>
                                                 ) : (
                                                     <div
@@ -2646,7 +3121,8 @@ const FormGNRM = (props) => {
                                                                                 width: "150px",
                                                                                 height: "150px",
                                                                                 marginRight: "35px",
-                                                                                position: "relative",
+                                                                                position:
+                                                                                    "relative",
                                                                             }}
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
@@ -2654,24 +3130,34 @@ const FormGNRM = (props) => {
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    overflow:
+                                                                                        "hidden",
+                                                                                    position:
+                                                                                        "absolute",
                                                                                 }}
                                                                             >
                                                                                 {!fileType ? (
                                                                                     <img
-                                                                                        src={imgFile}
-                                                                                        alt={getFileName(url)}
+                                                                                        src={
+                                                                                            imgFile
+                                                                                        }
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
+                                                                                            width:
+                                                                                                "150px",
+                                                                                            height:
+                                                                                                "150px",
                                                                                         }}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 ) : (
                                                                                     <img
                                                                                         src={url}
-                                                                                        alt={getFileName(url)}
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 )}
@@ -2679,22 +3165,30 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
+                                                                                    position:
+                                                                                        "absolute",
+                                                                                    backgroundColor:
+                                                                                        "#C04B3E",
                                                                                     width: "25px",
                                                                                     height: "25px",
-                                                                                    borderRadius: "50%",
+                                                                                    borderRadius:
+                                                                                        "50%",
                                                                                     top: "-7px",
                                                                                     right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
+                                                                                    lineHeight:
+                                                                                        "25px",
+                                                                                    textAlign:
+                                                                                        "center",
+                                                                                    cursor:
+                                                                                        "pointer",
                                                                                     color: "white",
                                                                                 }}
                                                                                 onClick={(e) =>
                                                                                     onDeleteProses(
                                                                                         false,
-                                                                                        getFileName(url)
+                                                                                        getFileName(
+                                                                                            url
+                                                                                        )
                                                                                     )
                                                                                 }
                                                                             >
@@ -2707,7 +3201,8 @@ const FormGNRM = (props) => {
                                                                                 marginTop: "10px",
                                                                                 width: "150px",
                                                                                 height: "20px",
-                                                                                wordWrap: "break-word",
+                                                                                wordWrap:
+                                                                                    "break-word",
                                                                                 lineHeight: "20px",
                                                                             }}
                                                                         >
@@ -2729,7 +3224,8 @@ const FormGNRM = (props) => {
                                                             color: "red",
                                                         }}
                                                     >
-                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                        Ukuran berkas melebihi ukuran maksimal
+                                                        (25MB)!
                                                     </div>
                                                 ) : (
                                                     ""
@@ -2738,7 +3234,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="anggaran"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
@@ -2793,7 +3295,12 @@ const FormGNRM = (props) => {
                                                             name="lembaga"
                                                             value={data.pihak_terkait.lembaga}
                                                             onChange={(event) =>
-                                                                onChange(event, "pihak_terkait", true, 0)
+                                                                onChange(
+                                                                    event,
+                                                                    "pihak_terkait",
+                                                                    true,
+                                                                    0
+                                                                )
                                                             }
                                                         />
                                                     </div>
@@ -2817,19 +3324,28 @@ const FormGNRM = (props) => {
                                                             placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                             type="text"
                                                             name="penjelasan_pihak_terkait"
-                                                            value={data.pihak_terkait.penjelasan_pihak_terkait}
+                                                            value={
+                                                                data.pihak_terkait
+                                                                    .penjelasan_pihak_terkait
+                                                            }
                                                             onChange={(event) =>
-                                                                onChange(event, "pihak_terkait", true, 0)
+                                                                onChange(
+                                                                    event,
+                                                                    "pihak_terkait",
+                                                                    true,
+                                                                    0
+                                                                )
                                                             }
                                                         />
                                                     </div>
                                                 </Fragment>
                                             ) : (
                                                 documentDetail &&
-                                                documentDetail.form.pihak_terkait.map((pihak, index) => {
-                                                    return (
-                                                        <Fragment key={index}>
-                                                            {/* <div>
+                                                documentDetail.form.pihak_terkait.map(
+                                                    (pihak, index) => {
+                                                        return (
+                                                            <Fragment key={index}>
+                                                                {/* <div>
                                                                         <label>Peran Pihak Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
@@ -2844,60 +3360,81 @@ const FormGNRM = (props) => {
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
                                                                         />
                                                                     </div> */}
-                                                            <div>
-                                                                <label>K/L/D/Pihak Lainnya</label>
-                                                                <input
-                                                                    className="gnrm-terkait"
-                                                                    style={{
-                                                                        height: "42px",
-                                                                        marginLeft: "49px",
-                                                                        width: "955px",
-                                                                    }}
-                                                                    type="text"
-                                                                    placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
-                                                                    name="lembaga"
-                                                                    value={
-                                                                        data.pihak_terkait[index] &&
-                                                                        data.pihak_terkait[index].lembaga
-                                                                    }
-                                                                    onChange={(event) =>
-                                                                        onChange(event, "pihak_terkait", true, index)
-                                                                    }
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <label
-                                                                    style={{
-                                                                        textAlign: "right",
-                                                                        clear: "both",
-                                                                        float: "left",
-                                                                    }}
-                                                                >
-                                                                    Penjelasan
-                                                                </label>
-                                                                <textarea
-                                                                    className="gnrm-penjelasan"
-                                                                    style={{
-                                                                        height: "400px",
-                                                                        marginLeft: "127px",
-                                                                        width: "955px",
-                                                                    }}
-                                                                    placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
-                                                                    type="text"
-                                                                    name="penjelasan_pihak_terkait"
-                                                                    value={
-                                                                        data.pihak_terkait[index] &&
-                                                                        data.pihak_terkait[index]
-                                                                            .penjelasan_pihak_terkait
-                                                                    }
-                                                                    onChange={(event) =>
-                                                                        onChange(event, "pihak_terkait", true, index)
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </Fragment>
-                                                    )
-                                                })
+                                                                <div>
+                                                                    <label>
+                                                                        K/L/D/Pihak Lainnya
+                                                                    </label>
+                                                                    <input
+                                                                        className="gnrm-terkait"
+                                                                        style={{
+                                                                            height: "42px",
+                                                                            marginLeft: "49px",
+                                                                            width: "955px",
+                                                                        }}
+                                                                        type="text"
+                                                                        placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
+                                                                        name="lembaga"
+                                                                        value={
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ] &&
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ].lembaga
+                                                                        }
+                                                                        onChange={(event) =>
+                                                                            onChange(
+                                                                                event,
+                                                                                "pihak_terkait",
+                                                                                true,
+                                                                                index
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        style={{
+                                                                            textAlign: "right",
+                                                                            clear: "both",
+                                                                            float: "left",
+                                                                        }}
+                                                                    >
+                                                                        Penjelasan
+                                                                    </label>
+                                                                    <textarea
+                                                                        className="gnrm-penjelasan"
+                                                                        style={{
+                                                                            height: "400px",
+                                                                            marginLeft: "127px",
+                                                                            width: "955px",
+                                                                        }}
+                                                                        placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
+                                                                        type="text"
+                                                                        name="penjelasan_pihak_terkait"
+                                                                        value={
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ] &&
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ]
+                                                                                .penjelasan_pihak_terkait
+                                                                        }
+                                                                        onChange={(event) =>
+                                                                            onChange(
+                                                                                event,
+                                                                                "pihak_terkait",
+                                                                                true,
+                                                                                index
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                                )
                                             )}
                                             {form.map((form, index) => {
                                                 return (
@@ -2960,7 +3497,10 @@ const FormGNRM = (props) => {
                                                                 type="text"
                                                                 placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                 name="penjelasan_pihak_terkait"
-                                                                value={data.pihak_terkait.penjelasan_pihak_terkait}
+                                                                value={
+                                                                    data.pihak_terkait
+                                                                        .penjelasan_pihak_terkait
+                                                                }
                                                                 onChange={(event) =>
                                                                     onChange(
                                                                         event,
@@ -2976,7 +3516,9 @@ const FormGNRM = (props) => {
                                             })}
                                         </div>
                                         <div>
-                                            <label className="tambah-lembaga">Tambah K/L/D/Pihak Lainnya</label>
+                                            <label className="tambah-lembaga">
+                                                Tambah K/L/D/Pihak Lainnya
+                                            </label>
                                             <img
                                                 src={plus2}
                                                 style={{
@@ -2990,7 +3532,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="proses"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous">
                                                     <i
                                                         className="material-icons"
@@ -3204,7 +3752,10 @@ const FormGNRM = (props) => {
                                     </Element> */}
 
                                 <Element id="penanggung_jawab" name="penanggung_jawab">
-                                    <div className="gnrm-container" style={{ marginBottom: "130px" }}>
+                                    <div
+                                        className="gnrm-container"
+                                        style={{ marginBottom: "130px" }}
+                                    >
                                         <div className="monev-title">PENANGGUNG JAWAB</div>
                                         <div className="form-gnrm">
                                             <div>
@@ -3219,7 +3770,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="nama"
                                                     value={penanggung_jawab.nama}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -3234,7 +3787,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="jabatan"
                                                     value={penanggung_jawab.jabatan}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -3249,7 +3804,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="nip"
                                                     value={penanggung_jawab.nip}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -3317,7 +3874,10 @@ const FormGNRM = (props) => {
                                                         {pilihanTahun.map((tahun, i) => (
                                                             <option
                                                                 key={i}
-                                                                selected={documentDetail.form.tahun === tahun && true}
+                                                                selected={
+                                                                    documentDetail.form.tahun ===
+                                                                        tahun && true
+                                                                }
                                                                 title={tahun}
                                                                 value={tahun}
                                                             >
@@ -3333,7 +3893,11 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {pilihanTahun.map((tahun, i) => (
-                                                            <option key={i} title={tahun} value={tahun}>
+                                                            <option
+                                                                key={i}
+                                                                title={tahun}
+                                                                value={tahun}
+                                                            >
                                                                 {tahun}
                                                             </option>
                                                         ))}
@@ -3342,7 +3906,8 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div>
                                                 <label>Periode</label>
-                                                {documentDetail && documentDetail.form.id_program ? (
+                                                {documentDetail &&
+                                                documentDetail.form.id_program ? (
                                                     <select
                                                         onChange={(event) => onChange(event)}
                                                         className="monev-id-program"
@@ -3355,7 +3920,9 @@ const FormGNRM = (props) => {
                                                             <option
                                                                 key={i}
                                                                 selected={
-                                                                    documentDetail.form.id_program === periode && true
+                                                                    documentDetail.form
+                                                                        .id_program === periode &&
+                                                                    true
                                                                 }
                                                                 title={periode}
                                                                 value={periode}
@@ -3375,7 +3942,11 @@ const FormGNRM = (props) => {
                                                     >
                                                         <option selected={true} hidden></option>
                                                         {pilihanPeriode.map((periode, i) => (
-                                                            <option key={i} title={periode} value={periode}>
+                                                            <option
+                                                                key={i}
+                                                                title={periode}
+                                                                value={periode}
+                                                            >
                                                                 {periode}
                                                             </option>
                                                         ))}
@@ -3395,7 +3966,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="gugus_tugas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="gugus_tugas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward tes1">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -3442,11 +4019,16 @@ const FormGNRM = (props) => {
                                                                             className="input-radio"
                                                                             value={data.sk_status}
                                                                             checked={true}
-                                                                            onChange={onChangeButton}
+                                                                            onChange={
+                                                                                onChangeButton
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
-                                                                    <label htmlFor="belum" className="label-radio">
+                                                                    <label
+                                                                        htmlFor="belum"
+                                                                        className="label-radio"
+                                                                    >
                                                                         Belum
                                                                         <input
                                                                             type="radio"
@@ -3454,7 +4036,9 @@ const FormGNRM = (props) => {
                                                                             name="sk_status"
                                                                             className="input-radio"
                                                                             value={data.sk_status}
-                                                                            onChange={onChangeButtonFalse}
+                                                                            onChange={
+                                                                                onChangeButtonFalse
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
@@ -3475,11 +4059,16 @@ const FormGNRM = (props) => {
                                                                             name="sk_status"
                                                                             className="input-radio"
                                                                             value={data.sk_status}
-                                                                            onChange={onChangeButton}
+                                                                            onChange={
+                                                                                onChangeButton
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
-                                                                    <label htmlFor="belum" className="label-radio">
+                                                                    <label
+                                                                        htmlFor="belum"
+                                                                        className="label-radio"
+                                                                    >
                                                                         Belum
                                                                         <input
                                                                             type="radio"
@@ -3488,7 +4077,9 @@ const FormGNRM = (props) => {
                                                                             className="input-radio"
                                                                             value={data.sk_status}
                                                                             checked={true}
-                                                                            onChange={onChangeButtonFalse}
+                                                                            onChange={
+                                                                                onChangeButtonFalse
+                                                                            }
                                                                         />
                                                                         <span className="checked-radio"></span>
                                                                     </label>
@@ -3558,80 +4149,112 @@ const FormGNRM = (props) => {
                                                                             height: "fit-content",
                                                                             marginLeft: "210px",
                                                                             width: "767px",
-                                                                            border: "1px solid #ACACAC",
+                                                                            border:
+                                                                                "1px solid #ACACAC",
                                                                             borderRadius: "5px",
                                                                             padding: "10px",
                                                                             display: "flex",
                                                                             flexWrap: "wrap",
                                                                         }}
                                                                     >
-                                                                        {skFile.map((lampiran, index) => {
-                                                                            const fileExt = getFIleExtension(
-                                                                                lampiran.name
-                                                                            )
-                                                                            const objectURL = URL.createObjectURL(
-                                                                                lampiran
-                                                                            )
-                                                                            // cekEkstension(fileExt)
-                                                                            return (
-                                                                                <div key={index}>
+                                                                        {skFile.map(
+                                                                            (lampiran, index) => {
+                                                                                const fileExt = getFIleExtension(
+                                                                                    lampiran.name
+                                                                                )
+                                                                                const objectURL = URL.createObjectURL(
+                                                                                    lampiran
+                                                                                )
+                                                                                // cekEkstension(fileExt)
+                                                                                return (
                                                                                     <div
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                            marginRight: "35px",
-                                                                                            position: "relative",
-                                                                                        }}
-                                                                                        className="d-flex align-items-center justify-content-center"
+                                                                                        key={index}
                                                                                     >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                overflow: "hidden",
-                                                                                                position: "absolute",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                                marginRight:
+                                                                                                    "35px",
+                                                                                                position:
+                                                                                                    "relative",
+                                                                                            }}
+                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                        >
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    overflow:
+                                                                                                        "hidden",
+                                                                                                    position:
+                                                                                                        "absolute",
+                                                                                                }}
+                                                                                            >
+                                                                                                {fileExt ===
+                                                                                                "pdf" ? (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            imgFile
+                                                                                                        }
+                                                                                                        alt={
+                                                                                                            lampiran.name
+                                                                                                        }
+                                                                                                        style={{
+                                                                                                            width:
+                                                                                                                "150px",
+                                                                                                            height:
+                                                                                                                "150px",
+                                                                                                        }}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                ) : (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            objectURL
+                                                                                                        }
+                                                                                                        alt={
+                                                                                                            lampiran.name
+                                                                                                        }
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            style={{
+                                                                                                marginTop:
+                                                                                                    "10px",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "20px",
+                                                                                                wordWrap:
+                                                                                                    "break-word",
+                                                                                                lineHeight:
+                                                                                                    "20px",
                                                                                             }}
                                                                                         >
-                                                                                            {fileExt === "pdf" ? (
-                                                                                                <img
-                                                                                                    src={imgFile}
-                                                                                                    alt={lampiran.name}
-                                                                                                    style={{
-                                                                                                        width: "150px",
-                                                                                                        height: "150px",
-                                                                                                    }}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            ) : (
-                                                                                                <img
-                                                                                                    src={objectURL}
-                                                                                                    alt={lampiran.name}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            )}
+                                                                                            <p className="gnrm-media--name">
+                                                                                                {lampiran
+                                                                                                    .name
+                                                                                                    .length >
+                                                                                                18
+                                                                                                    ? `${lampiran.name.substr(
+                                                                                                          0,
+                                                                                                          15
+                                                                                                      )}...`
+                                                                                                    : lampiran.name}
+                                                                                            </p>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div
-                                                                                        style={{
-                                                                                            marginTop: "10px",
-                                                                                            width: "150px",
-                                                                                            height: "20px",
-                                                                                            wordWrap: "break-word",
-                                                                                            lineHeight: "20px",
-                                                                                        }}
-                                                                                    >
-                                                                                        <p className="gnrm-media--name">
-                                                                                            {lampiran.name.length > 18
-                                                                                                ? `${lampiran.name.substr(
-                                                                                                      0,
-                                                                                                      15
-                                                                                                  )}...`
-                                                                                                : lampiran.name}
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                     </div>
                                                                 ) : (
                                                                     <div
@@ -3639,81 +4262,114 @@ const FormGNRM = (props) => {
                                                                             height: "fit-content",
                                                                             marginLeft: "210px",
                                                                             width: "767px",
-                                                                            border: "1px solid #ACACAC",
+                                                                            border:
+                                                                                "1px solid #ACACAC",
                                                                             borderRadius: "5px",
                                                                             padding: "10px",
                                                                             display: "flex",
                                                                             flexWrap: "wrap",
                                                                         }}
                                                                     >
-                                                                        {skFileUrl.map((url, index) => {
-                                                                            const fileExt = getFIleExtension(
-                                                                                getFileName(url)
-                                                                            )
-                                                                            // cekEkstension(fileExt)
-                                                                            return (
-                                                                                <div key={index}>
+                                                                        {skFileUrl.map(
+                                                                            (url, index) => {
+                                                                                const fileExt = getFIleExtension(
+                                                                                    getFileName(url)
+                                                                                )
+                                                                                // cekEkstension(fileExt)
+                                                                                return (
                                                                                     <div
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                            marginRight: "35px",
-                                                                                            position: "relative",
-                                                                                        }}
-                                                                                        className="d-flex align-items-center justify-content-center"
+                                                                                        key={index}
                                                                                     >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                overflow: "hidden",
-                                                                                                position: "absolute",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                                marginRight:
+                                                                                                    "35px",
+                                                                                                position:
+                                                                                                    "relative",
+                                                                                            }}
+                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                        >
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    overflow:
+                                                                                                        "hidden",
+                                                                                                    position:
+                                                                                                        "absolute",
+                                                                                                }}
+                                                                                            >
+                                                                                                {fileExt ===
+                                                                                                "pdf" ? (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            imgFile
+                                                                                                        }
+                                                                                                        alt={getFileName(
+                                                                                                            url
+                                                                                                        )}
+                                                                                                        style={{
+                                                                                                            width:
+                                                                                                                "150px",
+                                                                                                            height:
+                                                                                                                "150px",
+                                                                                                        }}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                ) : (
+                                                                                                    <img
+                                                                                                        src={
+                                                                                                            url
+                                                                                                        }
+                                                                                                        alt={getFileName(
+                                                                                                            url
+                                                                                                        )}
+                                                                                                        className="gnrm-media--image"
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            style={{
+                                                                                                marginTop:
+                                                                                                    "10px",
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "20px",
+                                                                                                wordWrap:
+                                                                                                    "break-word",
+                                                                                                lineHeight:
+                                                                                                    "20px",
                                                                                             }}
                                                                                         >
-                                                                                            {fileExt === "pdf" ? (
-                                                                                                <img
-                                                                                                    src={imgFile}
-                                                                                                    alt={getFileName(
-                                                                                                        url
-                                                                                                    )}
-                                                                                                    style={{
-                                                                                                        width: "150px",
-                                                                                                        height: "150px",
-                                                                                                    }}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            ) : (
-                                                                                                <img
-                                                                                                    src={url}
-                                                                                                    alt={getFileName(
-                                                                                                        url
-                                                                                                    )}
-                                                                                                    className="gnrm-media--image"
-                                                                                                />
-                                                                                            )}
+                                                                                            <p className="gnrm-media--name">
+                                                                                                {getFileName(
+                                                                                                    url
+                                                                                                )
+                                                                                                    .length >
+                                                                                                18
+                                                                                                    ? `${getFileName(
+                                                                                                          url
+                                                                                                      ).substr(
+                                                                                                          0,
+                                                                                                          15
+                                                                                                      )}...`
+                                                                                                    : getFileName(
+                                                                                                          url
+                                                                                                      )}
+                                                                                            </p>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div
-                                                                                        style={{
-                                                                                            marginTop: "10px",
-                                                                                            width: "150px",
-                                                                                            height: "20px",
-                                                                                            wordWrap: "break-word",
-                                                                                            lineHeight: "20px",
-                                                                                        }}
-                                                                                    >
-                                                                                        <p className="gnrm-media--name">
-                                                                                            {getFileName(url).length >
-                                                                                            18
-                                                                                                ? `${getFileName(
-                                                                                                      url
-                                                                                                  ).substr(0, 15)}...`
-                                                                                                : getFileName(url)}
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                     </div>
                                                                 )}
                                                             </div>
@@ -3725,7 +4381,8 @@ const FormGNRM = (props) => {
                                                                             color: "red",
                                                                         }}
                                                                     >
-                                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                                        Ukuran berkas melebihi
+                                                                        ukuran maksimal (25MB)!
                                                                     </div>
                                                                 ) : (
                                                                     ""
@@ -3760,7 +4417,8 @@ const FormGNRM = (props) => {
                                                 </Fragment>
                                             ) : (
                                                 <Fragment>
-                                                    {instansiDetail.sk && instansiDetail.sk.status ? (
+                                                    {instansiDetail.sk &&
+                                                    instansiDetail.sk.status ? (
                                                         <Fragment>
                                                             <div>
                                                                 <label
@@ -3808,7 +4466,8 @@ const FormGNRM = (props) => {
                                                                                 src={skGambar}
                                                                                 alt={getFileName(
                                                                                     instansiDetail.sk &&
-                                                                                        instansiDetail.sk.foto
+                                                                                        instansiDetail
+                                                                                            .sk.foto
                                                                                 )}
                                                                                 style={{
                                                                                     width: "500px",
@@ -3827,7 +4486,9 @@ const FormGNRM = (props) => {
                                                                         }}
                                                                     >
                                                                         {getFileName(
-                                                                            instansiDetail.sk && instansiDetail.sk.foto
+                                                                            instansiDetail.sk &&
+                                                                                instansiDetail.sk
+                                                                                    .foto
                                                                         )}
                                                                     </div>
                                                                 </div>
@@ -3843,7 +4504,8 @@ const FormGNRM = (props) => {
                                                                         float: "left",
                                                                     }}
                                                                 >
-                                                                    Sudah Terbentuk <br /> Gugus Tugas?
+                                                                    Sudah Terbentuk <br /> Gugus
+                                                                    Tugas?
                                                                 </label>
                                                                 <div
                                                                     style={{
@@ -3856,7 +4518,8 @@ const FormGNRM = (props) => {
                                                                                 htmlFor="sudah"
                                                                                 className="label-radio"
                                                                                 style={{
-                                                                                    marginRight: "65px",
+                                                                                    marginRight:
+                                                                                        "65px",
                                                                                 }}
                                                                             >
                                                                                 Sudah
@@ -3865,9 +4528,13 @@ const FormGNRM = (props) => {
                                                                                     id="sudah"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
                                                                                     checked={true}
-                                                                                    onChange={onChangeButton}
+                                                                                    onChange={
+                                                                                        onChangeButton
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -3881,8 +4548,12 @@ const FormGNRM = (props) => {
                                                                                     id="belum"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
-                                                                                    onChange={onChangeButtonFalse}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
+                                                                                    onChange={
+                                                                                        onChangeButtonFalse
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -3893,7 +4564,8 @@ const FormGNRM = (props) => {
                                                                                 htmlFor="sudah"
                                                                                 className="label-radio"
                                                                                 style={{
-                                                                                    marginRight: "65px",
+                                                                                    marginRight:
+                                                                                        "65px",
                                                                                 }}
                                                                             >
                                                                                 Sudah
@@ -3902,8 +4574,12 @@ const FormGNRM = (props) => {
                                                                                     id="sudah"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
-                                                                                    onChange={onChangeButton}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
+                                                                                    onChange={
+                                                                                        onChangeButton
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -3917,9 +4593,13 @@ const FormGNRM = (props) => {
                                                                                     id="belum"
                                                                                     name="sk_status"
                                                                                     className="input-radio"
-                                                                                    value={data.sk_status}
+                                                                                    value={
+                                                                                        data.sk_status
+                                                                                    }
                                                                                     checked={true}
-                                                                                    onChange={onChangeButtonFalse}
+                                                                                    onChange={
+                                                                                        onChangeButtonFalse
+                                                                                    }
                                                                                 />
                                                                                 <span className="checked-radio"></span>
                                                                             </label>
@@ -3930,7 +4610,9 @@ const FormGNRM = (props) => {
                                                             {data.sk_status ? (
                                                                 <Fragment>
                                                                     <div>
-                                                                        <label>Input Nomor SK</label>
+                                                                        <label>
+                                                                            Input Nomor SK
+                                                                        </label>
                                                                         <input
                                                                             className="gnrm-sasaran"
                                                                             style={{
@@ -3958,7 +4640,8 @@ const FormGNRM = (props) => {
                                                                         >
                                                                             <span
                                                                                 style={{
-                                                                                    marginRight: "5px",
+                                                                                    marginRight:
+                                                                                        "5px",
                                                                                 }}
                                                                             >
                                                                                 +
@@ -3973,115 +4656,150 @@ const FormGNRM = (props) => {
                                                                                 marginLeft: "30px",
                                                                                 width: "767px",
                                                                             }}
-                                                                            onChange={onChangeSKFile}
+                                                                            onChange={
+                                                                                onChangeSKFile
+                                                                            }
                                                                             type="file"
                                                                             accept=".jpg,.png,.jpeg , application/pdf"
                                                                             name="media"
                                                                         />
                                                                         <h1 className="penjelasan_lampiran_doc">
-                                                                            (Ukuran maksimal berkas 25MB)
+                                                                            (Ukuran maksimal berkas
+                                                                            25MB)
                                                                         </h1>
                                                                     </div>
                                                                     <div>
                                                                         <div
                                                                             style={{
-                                                                                height: "fit-content",
+                                                                                height:
+                                                                                    "fit-content",
                                                                                 marginLeft: "210px",
                                                                                 width: "767px",
-                                                                                border: "1px solid #ACACAC",
+                                                                                border:
+                                                                                    "1px solid #ACACAC",
                                                                                 borderRadius: "5px",
                                                                                 padding: "10px",
                                                                                 display: "flex",
                                                                                 flexWrap: "wrap",
                                                                             }}
                                                                         >
-                                                                            {skFile.map((lampiran, index) => {
-                                                                                const fileExt = getFIleExtension(
-                                                                                    lampiran.name
-                                                                                )
-                                                                                const objectURL = URL.createObjectURL(
-                                                                                    lampiran
-                                                                                )
-                                                                                // cekEkstension(fileExt)
-                                                                                return (
-                                                                                    <div key={index}>
+                                                                            {skFile.map(
+                                                                                (
+                                                                                    lampiran,
+                                                                                    index
+                                                                                ) => {
+                                                                                    const fileExt = getFIleExtension(
+                                                                                        lampiran.name
+                                                                                    )
+                                                                                    const objectURL = URL.createObjectURL(
+                                                                                        lampiran
+                                                                                    )
+                                                                                    // cekEkstension(fileExt)
+                                                                                    return (
                                                                                         <div
-                                                                                            style={{
-                                                                                                width: "150px",
-                                                                                                height: "150px",
-                                                                                                marginRight: "35px",
-                                                                                                position: "relative",
-                                                                                            }}
-                                                                                            className="d-flex align-items-center justify-content-center"
+                                                                                            key={
+                                                                                                index
+                                                                                            }
                                                                                         >
                                                                                             <div
                                                                                                 style={{
-                                                                                                    width: "150px",
-                                                                                                    height: "150px",
-                                                                                                    overflow: "hidden",
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "150px",
+                                                                                                    marginRight:
+                                                                                                        "35px",
                                                                                                     position:
-                                                                                                        "absolute",
+                                                                                                        "relative",
+                                                                                                }}
+                                                                                                className="d-flex align-items-center justify-content-center"
+                                                                                            >
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        width:
+                                                                                                            "150px",
+                                                                                                        height:
+                                                                                                            "150px",
+                                                                                                        overflow:
+                                                                                                            "hidden",
+                                                                                                        position:
+                                                                                                            "absolute",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    {fileExt ===
+                                                                                                    "pdf" ? (
+                                                                                                        <img
+                                                                                                            src={
+                                                                                                                imgFile
+                                                                                                            }
+                                                                                                            alt={
+                                                                                                                lampiran.name
+                                                                                                            }
+                                                                                                            style={{
+                                                                                                                width:
+                                                                                                                    "150px",
+                                                                                                                height:
+                                                                                                                    "150px",
+                                                                                                            }}
+                                                                                                            className="gnrm-media--image"
+                                                                                                        />
+                                                                                                    ) : (
+                                                                                                        <img
+                                                                                                            src={
+                                                                                                                objectURL
+                                                                                                            }
+                                                                                                            alt={
+                                                                                                                lampiran.name
+                                                                                                            }
+                                                                                                            className="gnrm-media--image"
+                                                                                                        />
+                                                                                                    )}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    marginTop:
+                                                                                                        "10px",
+                                                                                                    width:
+                                                                                                        "150px",
+                                                                                                    height:
+                                                                                                        "20px",
+                                                                                                    wordWrap:
+                                                                                                        "break-word",
+                                                                                                    lineHeight:
+                                                                                                        "20px",
                                                                                                 }}
                                                                                             >
-                                                                                                {fileExt === "pdf" ? (
-                                                                                                    <img
-                                                                                                        src={imgFile}
-                                                                                                        alt={
-                                                                                                            lampiran.name
-                                                                                                        }
-                                                                                                        style={{
-                                                                                                            width:
-                                                                                                                "150px",
-                                                                                                            height:
-                                                                                                                "150px",
-                                                                                                        }}
-                                                                                                        className="gnrm-media--image"
-                                                                                                    />
-                                                                                                ) : (
-                                                                                                    <img
-                                                                                                        src={objectURL}
-                                                                                                        alt={
-                                                                                                            lampiran.name
-                                                                                                        }
-                                                                                                        className="gnrm-media--image"
-                                                                                                    />
-                                                                                                )}
+                                                                                                <p className="gnrm-media--name">
+                                                                                                    {lampiran
+                                                                                                        .name
+                                                                                                        .length >
+                                                                                                    18
+                                                                                                        ? `${lampiran.name.substr(
+                                                                                                              0,
+                                                                                                              15
+                                                                                                          )}...`
+                                                                                                        : lampiran.name}
+                                                                                                </p>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div
-                                                                                            style={{
-                                                                                                marginTop: "10px",
-                                                                                                width: "150px",
-                                                                                                height: "20px",
-                                                                                                wordWrap: "break-word",
-                                                                                                lineHeight: "20px",
-                                                                                            }}
-                                                                                        >
-                                                                                            <p className="gnrm-media--name">
-                                                                                                {lampiran.name.length >
-                                                                                                18
-                                                                                                    ? `${lampiran.name.substr(
-                                                                                                          0,
-                                                                                                          15
-                                                                                                      )}...`
-                                                                                                    : lampiran.name}
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                )
-                                                                            })}
+                                                                                    )
+                                                                                }
+                                                                            )}
                                                                         </div>
                                                                     </div>
                                                                     <div>
                                                                         {SKSize > 26214400 ? (
                                                                             <div
                                                                                 style={{
-                                                                                    marginLeft: "217px",
+                                                                                    marginLeft:
+                                                                                        "217px",
                                                                                     color: "red",
                                                                                 }}
                                                                             >
-                                                                                Ukuran berkas melebihi ukuran maksimal
-                                                                                (25MB)!
+                                                                                Ukuran berkas
+                                                                                melebihi ukuran
+                                                                                maksimal (25MB)!
                                                                             </div>
                                                                         ) : (
                                                                             ""
@@ -4120,12 +4838,24 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="identitas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="identitas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="kegiatan" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="kegiatan"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward1">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -4151,7 +4881,9 @@ const FormGNRM = (props) => {
                                                     name="nama_program"
                                                     // placeholder='Tuliskan nama kegiatan sesuai dengan matriks pembangunan RPJMN 2020-2024/Renstra K/LD. '
                                                     value={kegiatan.nama_program}
-                                                    onChange={(event) => onChange(event, "kegiatan")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "kegiatan")
+                                                    }
                                                 />
                                             </div>
                                             <Fragment>
@@ -4172,11 +4904,19 @@ const FormGNRM = (props) => {
                                                                 kpOptions.map((kp, i) => (
                                                                     <option
                                                                         key={i}
-                                                                        selected={documentDetail.form.kp === kp && true}
+                                                                        selected={
+                                                                            documentDetail.form
+                                                                                .kp === kp && true
+                                                                        }
                                                                         title={kp}
                                                                         value={kp}
                                                                     >
-                                                                        {kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}
+                                                                        {kp.length > 90
+                                                                            ? `${kp.substr(
+                                                                                  0,
+                                                                                  87
+                                                                              )}...`
+                                                                            : kp}
                                                                     </option>
                                                                 ))}
                                                         </select>
@@ -4196,14 +4936,24 @@ const FormGNRM = (props) => {
                                                             }}
                                                         >
                                                             <option selected={true} hidden>
-                                                                Tuliskan Kegiatan Prioritas (KP) sesuai dengan
-                                                                program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN
-                                                                2020-2024
+                                                                Tuliskan Kegiatan Prioritas (KP)
+                                                                sesuai dengan program/kegiatan
+                                                                Kementerian/Lembaga/Daerah sesuai
+                                                                RPJMN 2020-2024
                                                             </option>
                                                             {kpOptions &&
                                                                 kpOptions.map((kp, i) => (
-                                                                    <option key={i} title={kp} value={kp}>
-                                                                        {kp.length > 90 ? `${kp.substr(0, 87)}...` : kp}
+                                                                    <option
+                                                                        key={i}
+                                                                        title={kp}
+                                                                        value={kp}
+                                                                    >
+                                                                        {kp.length > 90
+                                                                            ? `${kp.substr(
+                                                                                  0,
+                                                                                  87
+                                                                              )}...`
+                                                                            : kp}
                                                                     </option>
                                                                 ))}
                                                         </select>
@@ -4226,19 +4976,26 @@ const FormGNRM = (props) => {
                                                                     <option
                                                                         key={i}
                                                                         selected={
-                                                                            documentDetail.form.prop === prop && true
+                                                                            documentDetail.form
+                                                                                .prop === prop &&
+                                                                            true
                                                                         }
                                                                         title={prop}
                                                                         value={prop}
                                                                     >
                                                                         {prop.length > 90
-                                                                            ? `${prop.substr(0, 87)}...`
+                                                                            ? `${prop.substr(
+                                                                                  0,
+                                                                                  87
+                                                                              )}...`
                                                                             : prop}
                                                                     </option>
                                                                 ))}
                                                             {!selectedKp && (
                                                                 <option>
-                                                                    {"Pilih Kegiatan Prioritas\n\nterlebih dahulu"}
+                                                                    {
+                                                                        "Pilih Kegiatan Prioritas\n\nterlebih dahulu"
+                                                                    }
                                                                 </option>
                                                             )}
                                                         </select>
@@ -4256,35 +5013,51 @@ const FormGNRM = (props) => {
                                                                 width: "767px",
                                                             }}
                                                         >
-                                                            <option className="test-red" selected={true} hidden>
-                                                                Tuliskan Proyek Prioritas (PP) sesuai dengan
-                                                                program/kegiatan Kementerian/Lembaga/Daerah sesuai RPJMN
-                                                                2020-2024
+                                                            <option
+                                                                className="test-red"
+                                                                selected={true}
+                                                                hidden
+                                                            >
+                                                                Tuliskan Proyek Prioritas (PP)
+                                                                sesuai dengan program/kegiatan
+                                                                Kementerian/Lembaga/Daerah sesuai
+                                                                RPJMN 2020-2024
                                                             </option>
                                                             {propOptions &&
                                                                 propOptions.map((prop, i) => (
-                                                                    <option key={i} title={prop} value={prop}>
+                                                                    <option
+                                                                        key={i}
+                                                                        title={prop}
+                                                                        value={prop}
+                                                                    >
                                                                         {prop.length > 90
-                                                                            ? `${prop.substr(0, 87)}...`
+                                                                            ? `${prop.substr(
+                                                                                  0,
+                                                                                  87
+                                                                              )}...`
                                                                             : prop}
                                                                     </option>
                                                                 ))}
                                                             {!selectedKp && (
                                                                 <option>
-                                                                    {"Pilih Kegiatan Prioritas\n\nterlebih dahulu"}
+                                                                    {
+                                                                        "Pilih Kegiatan Prioritas\n\nterlebih dahulu"
+                                                                    }
                                                                 </option>
                                                             )}
                                                         </select>
                                                     )}
                                                 </div>
 
-                                                {selectedKp === "Pusat-pusat Perubahan Revolusi Mental" && (
+                                                {selectedKp ===
+                                                    "Pusat-pusat Perubahan Revolusi Mental" && (
                                                     <Fragment>
                                                         <div>
                                                             <label>Gerakan</label>
                                                             {isEditing &&
                                                             documentDetail.form.gerakan &&
-                                                            Object.values(selectedGerakan).length > 0 ? (
+                                                            Object.values(selectedGerakan).length >
+                                                                0 ? (
                                                                 <select
                                                                     onChange={onChange}
                                                                     className="gnrm-select"
@@ -4294,36 +5067,57 @@ const FormGNRM = (props) => {
                                                                     }}
                                                                 >
                                                                     <option
-                                                                        value={selectedGerakan["gerakan-0"]}
+                                                                        value={
+                                                                            selectedGerakan[
+                                                                                "gerakan-0"
+                                                                            ]
+                                                                        }
                                                                         defaultValue
                                                                     >
-                                                                        {selectedGerakan["gerakan-0"]}
+                                                                        {
+                                                                            selectedGerakan[
+                                                                                "gerakan-0"
+                                                                            ]
+                                                                        }
                                                                     </option>
                                                                     {gerakanOptions &&
-                                                                        gerakanOptions.map((gerakan, i) => {
-                                                                            let alreadySelected = false
-                                                                            Object.values(selectedGerakan).forEach(
-                                                                                (selected) => {
-                                                                                    if (gerakan === selected)
-                                                                                        alreadySelected = true
-                                                                                }
-                                                                            )
-                                                                            return (
-                                                                                <option
-                                                                                    key={i}
-                                                                                    value={gerakan}
-                                                                                    selected={
-                                                                                        gerakan ===
-                                                                                        selectedGerakan["gerakan-0"]
-                                                                                            ? true
-                                                                                            : false
+                                                                        gerakanOptions.map(
+                                                                            (gerakan, i) => {
+                                                                                let alreadySelected = false
+                                                                                Object.values(
+                                                                                    selectedGerakan
+                                                                                ).forEach(
+                                                                                    (selected) => {
+                                                                                        if (
+                                                                                            gerakan ===
+                                                                                            selected
+                                                                                        )
+                                                                                            alreadySelected = true
                                                                                     }
-                                                                                    hidden={alreadySelected}
-                                                                                >
-                                                                                    {gerakan}
-                                                                                </option>
-                                                                            )
-                                                                        })}
+                                                                                )
+                                                                                return (
+                                                                                    <option
+                                                                                        key={i}
+                                                                                        value={
+                                                                                            gerakan
+                                                                                        }
+                                                                                        selected={
+                                                                                            gerakan ===
+                                                                                            selectedGerakan[
+                                                                                                "gerakan-0"
+                                                                                            ]
+                                                                                                ? true
+                                                                                                : false
+                                                                                        }
+                                                                                        hidden={
+                                                                                            alreadySelected
+                                                                                        }
+                                                                                    >
+                                                                                        {gerakan}
+                                                                                    </option>
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                 </select>
                                                             ) : (
                                                                 <select
@@ -4334,26 +5128,40 @@ const FormGNRM = (props) => {
                                                                         marginLeft: "145px",
                                                                     }}
                                                                 >
-                                                                    <option selected={true} hidden></option>
+                                                                    <option
+                                                                        selected={true}
+                                                                        hidden
+                                                                    ></option>
                                                                     {gerakanOptions &&
-                                                                        gerakanOptions.map((gerakan, i) => {
-                                                                            let alreadySelected = false
-                                                                            Object.values(selectedGerakan).forEach(
-                                                                                (selected) => {
-                                                                                    if (gerakan === selected)
-                                                                                        alreadySelected = true
-                                                                                }
-                                                                            )
-                                                                            return (
-                                                                                <option
-                                                                                    key={i}
-                                                                                    value={gerakan}
-                                                                                    hidden={alreadySelected}
-                                                                                >
-                                                                                    {gerakan}
-                                                                                </option>
-                                                                            )
-                                                                        })}
+                                                                        gerakanOptions.map(
+                                                                            (gerakan, i) => {
+                                                                                let alreadySelected = false
+                                                                                Object.values(
+                                                                                    selectedGerakan
+                                                                                ).forEach(
+                                                                                    (selected) => {
+                                                                                        if (
+                                                                                            gerakan ===
+                                                                                            selected
+                                                                                        )
+                                                                                            alreadySelected = true
+                                                                                    }
+                                                                                )
+                                                                                return (
+                                                                                    <option
+                                                                                        key={i}
+                                                                                        value={
+                                                                                            gerakan
+                                                                                        }
+                                                                                        hidden={
+                                                                                            alreadySelected
+                                                                                        }
+                                                                                    >
+                                                                                        {gerakan}
+                                                                                    </option>
+                                                                                )
+                                                                            }
+                                                                        )}
                                                                 </select>
                                                             )}
                                                         </div>
@@ -4363,44 +5171,67 @@ const FormGNRM = (props) => {
                                                             ? Object.values(selectedGerakan)
                                                                   .filter(
                                                                       (selected) =>
-                                                                          selected !== selectedGerakan["gerakan-0"]
+                                                                          selected !==
+                                                                          selectedGerakan[
+                                                                              "gerakan-0"
+                                                                          ]
                                                                   )
                                                                   .map((_, index) => {
                                                                       return (
                                                                           <div>
                                                                               <label>Gerakan</label>
                                                                               <select
-                                                                                  onChange={onChangeGerakan}
+                                                                                  onChange={
+                                                                                      onChangeGerakan
+                                                                                  }
                                                                                   className="gnrm-select"
-                                                                                  name={`gerakan-${index + 1}`}
+                                                                                  name={`gerakan-${
+                                                                                      index + 1
+                                                                                  }`}
                                                                                   style={{
-                                                                                      marginLeft: "145px",
+                                                                                      marginLeft:
+                                                                                          "145px",
                                                                                   }}
                                                                               >
                                                                                   <option
                                                                                       value={_}
                                                                                       defaultValue
-                                                                                      hidden={_ === "" ? true : false}
+                                                                                      hidden={
+                                                                                          _ === ""
+                                                                                              ? true
+                                                                                              : false
+                                                                                      }
                                                                                   >
                                                                                       {_}
                                                                                   </option>
                                                                                   {gerakanOptions &&
                                                                                       gerakanOptions.map(
-                                                                                          (gerakan, i) => {
+                                                                                          (
+                                                                                              gerakan,
+                                                                                              i
+                                                                                          ) => {
                                                                                               let alreadySelected = false
                                                                                               Object.values(
                                                                                                   selectedGerakan
-                                                                                              ).forEach((selected) => {
-                                                                                                  if (
-                                                                                                      gerakan ===
+                                                                                              ).forEach(
+                                                                                                  (
                                                                                                       selected
-                                                                                                  )
-                                                                                                      alreadySelected = true
-                                                                                              })
+                                                                                                  ) => {
+                                                                                                      if (
+                                                                                                          gerakan ===
+                                                                                                          selected
+                                                                                                      )
+                                                                                                          alreadySelected = true
+                                                                                                  }
+                                                                                              )
                                                                                               return (
                                                                                                   <option
-                                                                                                      key={i}
-                                                                                                      value={gerakan}
+                                                                                                      key={
+                                                                                                          i
+                                                                                                      }
+                                                                                                      value={
+                                                                                                          gerakan
+                                                                                                      }
                                                                                                       selected={
                                                                                                           gerakan ===
                                                                                                           selectedGerakan[
@@ -4414,7 +5245,9 @@ const FormGNRM = (props) => {
                                                                                                           alreadySelected
                                                                                                       }
                                                                                                   >
-                                                                                                      {gerakan}
+                                                                                                      {
+                                                                                                          gerakan
+                                                                                                      }
                                                                                                   </option>
                                                                                               )
                                                                                           }
@@ -4423,10 +5256,15 @@ const FormGNRM = (props) => {
                                                                               <span
                                                                                   className="remove-form"
                                                                                   onClick={() =>
-                                                                                      onDeleteGerakanForm(index)
+                                                                                      onDeleteGerakanForm(
+                                                                                          index
+                                                                                      )
                                                                                   }
                                                                               >
-                                                                                  <i className=""> x </i>
+                                                                                  <i className="">
+                                                                                      {" "}
+                                                                                      x{" "}
+                                                                                  </i>
                                                                               </span>
                                                                           </div>
                                                                       )
@@ -4436,54 +5274,92 @@ const FormGNRM = (props) => {
                                                                       <div key={index}>
                                                                           <label>Gerakan</label>
                                                                           <select
-                                                                              onChange={onChangeGerakan}
+                                                                              onChange={
+                                                                                  onChangeGerakan
+                                                                              }
                                                                               className="gnrm-select"
-                                                                              name={`gerakan-${index + 1}`}
+                                                                              name={`gerakan-${
+                                                                                  index + 1
+                                                                              }`}
                                                                               style={{
-                                                                                  marginLeft: "145px",
+                                                                                  marginLeft:
+                                                                                      "145px",
                                                                               }}
                                                                           >
-                                                                              <option selected={true} hidden></option>
+                                                                              <option
+                                                                                  selected={true}
+                                                                                  hidden
+                                                                              ></option>
                                                                               {gerakanOptions &&
-                                                                                  gerakanOptions.map((gerakan, i) => {
-                                                                                      let alreadySelected = false
-                                                                                      Object.values(
-                                                                                          selectedGerakan
-                                                                                      ).forEach((selected) => {
-                                                                                          if (gerakan === selected)
-                                                                                              alreadySelected = true
-                                                                                      })
-                                                                                      return (
-                                                                                          <option
-                                                                                              key={i}
-                                                                                              value={gerakan}
-                                                                                              hidden={alreadySelected}
-                                                                                              selected={
-                                                                                                  gerakan ===
-                                                                                                  selectedGerakan[
-                                                                                                      `gerakan-${
-                                                                                                          index + 1
-                                                                                                      }`
-                                                                                                  ]
+                                                                                  gerakanOptions.map(
+                                                                                      (
+                                                                                          gerakan,
+                                                                                          i
+                                                                                      ) => {
+                                                                                          let alreadySelected = false
+                                                                                          Object.values(
+                                                                                              selectedGerakan
+                                                                                          ).forEach(
+                                                                                              (
+                                                                                                  selected
+                                                                                              ) => {
+                                                                                                  if (
+                                                                                                      gerakan ===
+                                                                                                      selected
+                                                                                                  )
+                                                                                                      alreadySelected = true
                                                                                               }
-                                                                                          >
-                                                                                              {gerakan}
-                                                                                          </option>
-                                                                                      )
-                                                                                  })}
+                                                                                          )
+                                                                                          return (
+                                                                                              <option
+                                                                                                  key={
+                                                                                                      i
+                                                                                                  }
+                                                                                                  value={
+                                                                                                      gerakan
+                                                                                                  }
+                                                                                                  hidden={
+                                                                                                      alreadySelected
+                                                                                                  }
+                                                                                                  selected={
+                                                                                                      gerakan ===
+                                                                                                      selectedGerakan[
+                                                                                                          `gerakan-${
+                                                                                                              index +
+                                                                                                              1
+                                                                                                          }`
+                                                                                                      ]
+                                                                                                  }
+                                                                                              >
+                                                                                                  {
+                                                                                                      gerakan
+                                                                                                  }
+                                                                                              </option>
+                                                                                          )
+                                                                                      }
+                                                                                  )}
                                                                           </select>
                                                                           <span
                                                                               className="remove-form"
-                                                                              onClick={() => onDeleteGerakanForm(index)}
+                                                                              onClick={() =>
+                                                                                  onDeleteGerakanForm(
+                                                                                      index
+                                                                                  )
+                                                                              }
                                                                           >
-                                                                              <i className=""> x </i>
+                                                                              <i className="">
+                                                                                  {" "}
+                                                                                  x{" "}
+                                                                              </i>
                                                                           </span>
                                                                       </div>
                                                                   )
                                                               })}
                                                         {formGerakan.length < 4 ? (
                                                             <div>
-                                                                <label className="tambah-lembaga">Tambah Gerakan</label>
+                                                                <label className="tambah-lembaga">
+                                                                    Tambah Gerakan
+                                                                </label>
                                                                 <img
                                                                     src={plus2}
                                                                     style={{
@@ -4522,18 +5398,32 @@ const FormGNRM = (props) => {
                                                     placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                                                     name="penjelasan_kegiatan"
                                                     value={kegiatan.penjelasan_kegiatan}
-                                                    onChange={(event) => onChange(event, "kegiatan")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "kegiatan")
+                                                    }
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="gugus_tugas" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="gugus_tugas"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="output" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="output"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward1">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -4621,7 +5511,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="kegiatan" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="kegiatan"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
@@ -4671,7 +5567,10 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div className="div_lampiran">
                                                 <label>Data Dukung</label>
-                                                <label htmlFor="testing2" className="label_lampiran">
+                                                <label
+                                                    htmlFor="testing2"
+                                                    className="label_lampiran"
+                                                >
                                                     <span
                                                         style={{
                                                             marginRight: "5px",
@@ -4715,94 +5614,130 @@ const FormGNRM = (props) => {
                                                         }}
                                                     >
                                                         {lampiranKondisi &&
-                                                            lampiranKondisi.map((lampiran, index) => {
-                                                                const fileType = isFileImage(lampiran)
-                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <div
-                                                                            style={{
-                                                                                width: "150px",
-                                                                                height: "150px",
-                                                                                marginRight: "35px",
-                                                                                position: "relative",
-                                                                            }}
-                                                                            className="d-flex align-items-center justify-content-center"
-                                                                        >
+                                                            lampiranKondisi.map(
+                                                                (lampiran, index) => {
+                                                                    const fileType = isFileImage(
+                                                                        lampiran
+                                                                    )
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
+                                                                    return (
+                                                                        <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
+                                                                                className="d-flex align-items-center justify-content-center"
                                                                             >
-                                                                                {!fileType ? (
-                                                                                    <img
-                                                                                        src={imgFile}
-                                                                                        alt={lampiran.name}
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                        }}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                ) : (
-                                                                                    <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                )}
-                                                                                {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                <div
+                                                                                    style={{
+                                                                                        width:
+                                                                                            "150px",
+                                                                                        height:
+                                                                                            "150px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                    }}
+                                                                                >
+                                                                                    {!fileType ? (
+                                                                                        <img
+                                                                                            src={
+                                                                                                imgFile
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            style={{
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                            }}
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <img
+                                                                                            src={
+                                                                                                objectURL
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    )}
+                                                                                    {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                </div>
+                                                                                <div
+                                                                                    style={{
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                        backgroundColor:
+                                                                                            "#C04B3E",
+                                                                                        width:
+                                                                                            "25px",
+                                                                                        height:
+                                                                                            "25px",
+                                                                                        borderRadius:
+                                                                                            "50%",
+                                                                                        top: "-7px",
+                                                                                        right:
+                                                                                            "-7px",
+                                                                                        lineHeight:
+                                                                                            "25px",
+                                                                                        textAlign:
+                                                                                            "center",
+                                                                                        cursor:
+                                                                                            "pointer",
+                                                                                        color:
+                                                                                            "white",
+                                                                                    }}
+                                                                                    onClick={(e) =>
+                                                                                        onDeleteKondisi(
+                                                                                            true,
+                                                                                            lampiran.name,
+                                                                                            lampiran
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    {" "}
+                                                                                    X{" "}
+                                                                                </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
-                                                                                    width: "25px",
-                                                                                    height: "25px",
-                                                                                    borderRadius: "50%",
-                                                                                    top: "-7px",
-                                                                                    right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
-                                                                                    color: "white",
+                                                                                    marginTop:
+                                                                                        "10px",
+                                                                                    width: "150px",
+                                                                                    height: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
-                                                                                onClick={(e) =>
-                                                                                    onDeleteKondisi(
-                                                                                        true,
-                                                                                        lampiran.name,
-                                                                                        lampiran
-                                                                                    )
-                                                                                }
                                                                             >
-                                                                                {" "}
-                                                                                X{" "}
+                                                                                <p className="gnrm-media--name">
+                                                                                    {lampiran.name
+                                                                                        .length > 18
+                                                                                        ? `${lampiran.name.substr(
+                                                                                              0,
+                                                                                              15
+                                                                                          )}...`
+                                                                                        : lampiran.name}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
-                                                                        <div
-                                                                            style={{
-                                                                                marginTop: "10px",
-                                                                                width: "150px",
-                                                                                height: "20px",
-                                                                                wordWrap: "break-word",
-                                                                                lineHeight: "20px",
-                                                                            }}
-                                                                        >
-                                                                            <p className="gnrm-media--name">
-                                                                                {lampiran.name.length > 18
-                                                                                    ? `${lampiran.name.substr(
-                                                                                          0,
-                                                                                          15
-                                                                                      )}...`
-                                                                                    : lampiran.name}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })}
+                                                                    )
+                                                                }
+                                                            )}
                                                     </div>
                                                 ) : (
                                                     <div
@@ -4828,7 +5763,8 @@ const FormGNRM = (props) => {
                                                                                 width: "150px",
                                                                                 height: "150px",
                                                                                 marginRight: "35px",
-                                                                                position: "relative",
+                                                                                position:
+                                                                                    "relative",
                                                                             }}
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
@@ -4836,24 +5772,34 @@ const FormGNRM = (props) => {
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    overflow:
+                                                                                        "hidden",
+                                                                                    position:
+                                                                                        "absolute",
                                                                                 }}
                                                                             >
                                                                                 {!fileType ? (
                                                                                     <img
-                                                                                        src={imgFile}
-                                                                                        alt={getFileName(url)}
+                                                                                        src={
+                                                                                            imgFile
+                                                                                        }
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
+                                                                                            width:
+                                                                                                "150px",
+                                                                                            height:
+                                                                                                "150px",
                                                                                         }}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 ) : (
                                                                                     <img
                                                                                         src={url}
-                                                                                        alt={getFileName(url)}
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 )}
@@ -4861,22 +5807,30 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
+                                                                                    position:
+                                                                                        "absolute",
+                                                                                    backgroundColor:
+                                                                                        "#C04B3E",
                                                                                     width: "25px",
                                                                                     height: "25px",
-                                                                                    borderRadius: "50%",
+                                                                                    borderRadius:
+                                                                                        "50%",
                                                                                     top: "-7px",
                                                                                     right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
+                                                                                    lineHeight:
+                                                                                        "25px",
+                                                                                    textAlign:
+                                                                                        "center",
+                                                                                    cursor:
+                                                                                        "pointer",
                                                                                     color: "white",
                                                                                 }}
                                                                                 onClick={(e) =>
                                                                                     onDeleteKondisi(
                                                                                         false,
-                                                                                        getFileName(url)
+                                                                                        getFileName(
+                                                                                            url
+                                                                                        )
                                                                                     )
                                                                                 }
                                                                             >
@@ -4889,7 +5843,8 @@ const FormGNRM = (props) => {
                                                                                 marginTop: "10px",
                                                                                 width: "150px",
                                                                                 height: "20px",
-                                                                                wordWrap: "break-word",
+                                                                                wordWrap:
+                                                                                    "break-word",
                                                                                 lineHeight: "20px",
                                                                             }}
                                                                         >
@@ -4911,7 +5866,8 @@ const FormGNRM = (props) => {
                                                             color: "red",
                                                         }}
                                                     >
-                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                        Ukuran berkas melebihi ukuran maksimal
+                                                        (25MB)!
                                                     </div>
                                                 ) : (
                                                     ""
@@ -4920,12 +5876,24 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="output" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="output"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="anggaran"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward1">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -4951,7 +5919,9 @@ const FormGNRM = (props) => {
                                                     placeholder="Tuliskan rencana anggaran periodik yang disusun berdasarkan program/kegiatan yang telah disusun/disahkan berdasarkan dokumen perencanaan K/L/D"
                                                     name="sumber_dana"
                                                     value={anggaran.sumber_dana}
-                                                    onChange={(event) => onChange(event, "anggaran")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "anggaran")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -4976,7 +5946,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="besar_anggaran"
                                                     value={anggaran.besar_anggaran}
-                                                    onChange={(event) => onChange(event, "anggaran")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "anggaran")
+                                                    }
                                                 />
                                             </div>
                                         </div>
@@ -4993,7 +5965,13 @@ const FormGNRM = (props) => {
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
                                             </Link>
-                                            <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="proses"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="forward1">
                                                     <i className="material-icons">expand_more</i>
                                                 </button>
@@ -5004,7 +5982,9 @@ const FormGNRM = (props) => {
 
                                 <Element id="proses" name="proses">
                                     <div className="gnrm-container-off">
-                                        <div className="gnrm-title">PERKEMBANGAN PELAKSANAAN KEGIATAN</div>
+                                        <div className="gnrm-title">
+                                            PERKEMBANGAN PELAKSANAAN KEGIATAN
+                                        </div>
                                         <div className="form-gnrm">
                                             <div>
                                                 <label
@@ -5032,7 +6012,10 @@ const FormGNRM = (props) => {
                                             </div>
                                             <div className="div_lampiran">
                                                 <label>Data Dukung</label>
-                                                <label htmlFor="testing3" className="label_lampiran">
+                                                <label
+                                                    htmlFor="testing3"
+                                                    className="label_lampiran"
+                                                >
                                                     <span
                                                         style={{
                                                             marginRight: "5px",
@@ -5076,94 +6059,130 @@ const FormGNRM = (props) => {
                                                         }}
                                                     >
                                                         {lampiranProses &&
-                                                            lampiranProses.map((lampiran, index) => {
-                                                                const fileType = isFileImage(lampiran)
-                                                                const objectURL = URL.createObjectURL(lampiran)
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <div
-                                                                            style={{
-                                                                                width: "150px",
-                                                                                height: "150px",
-                                                                                marginRight: "35px",
-                                                                                position: "relative",
-                                                                            }}
-                                                                            className="d-flex align-items-center justify-content-center"
-                                                                        >
+                                                            lampiranProses.map(
+                                                                (lampiran, index) => {
+                                                                    const fileType = isFileImage(
+                                                                        lampiran
+                                                                    )
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
+                                                                    return (
+                                                                        <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
+                                                                                className="d-flex align-items-center justify-content-center"
                                                                             >
-                                                                                {!fileType ? (
-                                                                                    <img
-                                                                                        src={imgFile}
-                                                                                        alt={lampiran.name}
-                                                                                        style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
-                                                                                        }}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                ) : (
-                                                                                    <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
-                                                                                        className="gnrm-media--image"
-                                                                                    />
-                                                                                )}
-                                                                                {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                <div
+                                                                                    style={{
+                                                                                        width:
+                                                                                            "150px",
+                                                                                        height:
+                                                                                            "150px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                    }}
+                                                                                >
+                                                                                    {!fileType ? (
+                                                                                        <img
+                                                                                            src={
+                                                                                                imgFile
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            style={{
+                                                                                                width:
+                                                                                                    "150px",
+                                                                                                height:
+                                                                                                    "150px",
+                                                                                            }}
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    ) : (
+                                                                                        <img
+                                                                                            src={
+                                                                                                objectURL
+                                                                                            }
+                                                                                            alt={
+                                                                                                lampiran.name
+                                                                                            }
+                                                                                            className="gnrm-media--image"
+                                                                                        />
+                                                                                    )}
+                                                                                    {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
+                                                                                </div>
+                                                                                <div
+                                                                                    style={{
+                                                                                        position:
+                                                                                            "absolute",
+                                                                                        backgroundColor:
+                                                                                            "#C04B3E",
+                                                                                        width:
+                                                                                            "25px",
+                                                                                        height:
+                                                                                            "25px",
+                                                                                        borderRadius:
+                                                                                            "50%",
+                                                                                        top: "-7px",
+                                                                                        right:
+                                                                                            "-7px",
+                                                                                        lineHeight:
+                                                                                            "25px",
+                                                                                        textAlign:
+                                                                                            "center",
+                                                                                        cursor:
+                                                                                            "pointer",
+                                                                                        color:
+                                                                                            "white",
+                                                                                    }}
+                                                                                    onClick={(e) =>
+                                                                                        onDeleteProses(
+                                                                                            true,
+                                                                                            lampiran.name,
+                                                                                            lampiran
+                                                                                        )
+                                                                                    }
+                                                                                >
+                                                                                    {" "}
+                                                                                    X{" "}
+                                                                                </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
-                                                                                    width: "25px",
-                                                                                    height: "25px",
-                                                                                    borderRadius: "50%",
-                                                                                    top: "-7px",
-                                                                                    right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
-                                                                                    color: "white",
+                                                                                    marginTop:
+                                                                                        "10px",
+                                                                                    width: "150px",
+                                                                                    height: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
-                                                                                onClick={(e) =>
-                                                                                    onDeleteProses(
-                                                                                        true,
-                                                                                        lampiran.name,
-                                                                                        lampiran
-                                                                                    )
-                                                                                }
                                                                             >
-                                                                                {" "}
-                                                                                X{" "}
+                                                                                <p className="gnrm-media--name">
+                                                                                    {lampiran.name
+                                                                                        .length > 18
+                                                                                        ? `${lampiran.name.substr(
+                                                                                              0,
+                                                                                              15
+                                                                                          )}...`
+                                                                                        : lampiran.name}
+                                                                                </p>
                                                                             </div>
                                                                         </div>
-                                                                        <div
-                                                                            style={{
-                                                                                marginTop: "10px",
-                                                                                width: "150px",
-                                                                                height: "20px",
-                                                                                wordWrap: "break-word",
-                                                                                lineHeight: "20px",
-                                                                            }}
-                                                                        >
-                                                                            <p className="gnrm-media--name">
-                                                                                {lampiran.name.length > 18
-                                                                                    ? `${lampiran.name.substr(
-                                                                                          0,
-                                                                                          15
-                                                                                      )}...`
-                                                                                    : lampiran.name}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            })}
+                                                                    )
+                                                                }
+                                                            )}
                                                     </div>
                                                 ) : (
                                                     <div
@@ -5189,7 +6208,8 @@ const FormGNRM = (props) => {
                                                                                 width: "150px",
                                                                                 height: "150px",
                                                                                 marginRight: "35px",
-                                                                                position: "relative",
+                                                                                position:
+                                                                                    "relative",
                                                                             }}
                                                                             className="d-flex align-items-center justify-content-center"
                                                                         >
@@ -5197,24 +6217,34 @@ const FormGNRM = (props) => {
                                                                                 style={{
                                                                                     width: "150px",
                                                                                     height: "150px",
-                                                                                    overflow: "hidden",
-                                                                                    position: "absolute",
+                                                                                    overflow:
+                                                                                        "hidden",
+                                                                                    position:
+                                                                                        "absolute",
                                                                                 }}
                                                                             >
                                                                                 {!fileType ? (
                                                                                     <img
-                                                                                        src={imgFile}
-                                                                                        alt={getFileName(url)}
+                                                                                        src={
+                                                                                            imgFile
+                                                                                        }
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         style={{
-                                                                                            width: "150px",
-                                                                                            height: "150px",
+                                                                                            width:
+                                                                                                "150px",
+                                                                                            height:
+                                                                                                "150px",
                                                                                         }}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 ) : (
                                                                                     <img
                                                                                         src={url}
-                                                                                        alt={getFileName(url)}
+                                                                                        alt={getFileName(
+                                                                                            url
+                                                                                        )}
                                                                                         className="gnrm-media--image"
                                                                                     />
                                                                                 )}
@@ -5222,22 +6252,30 @@ const FormGNRM = (props) => {
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    position: "absolute",
-                                                                                    backgroundColor: "#C04B3E",
+                                                                                    position:
+                                                                                        "absolute",
+                                                                                    backgroundColor:
+                                                                                        "#C04B3E",
                                                                                     width: "25px",
                                                                                     height: "25px",
-                                                                                    borderRadius: "50%",
+                                                                                    borderRadius:
+                                                                                        "50%",
                                                                                     top: "-7px",
                                                                                     right: "-7px",
-                                                                                    lineHeight: "25px",
-                                                                                    textAlign: "center",
-                                                                                    cursor: "pointer",
+                                                                                    lineHeight:
+                                                                                        "25px",
+                                                                                    textAlign:
+                                                                                        "center",
+                                                                                    cursor:
+                                                                                        "pointer",
                                                                                     color: "white",
                                                                                 }}
                                                                                 onClick={(e) =>
                                                                                     onDeleteProses(
                                                                                         false,
-                                                                                        getFileName(url)
+                                                                                        getFileName(
+                                                                                            url
+                                                                                        )
                                                                                     )
                                                                                 }
                                                                             >
@@ -5250,7 +6288,8 @@ const FormGNRM = (props) => {
                                                                                 marginTop: "10px",
                                                                                 width: "150px",
                                                                                 height: "20px",
-                                                                                wordWrap: "break-word",
+                                                                                wordWrap:
+                                                                                    "break-word",
                                                                                 lineHeight: "20px",
                                                                             }}
                                                                         >
@@ -5272,7 +6311,8 @@ const FormGNRM = (props) => {
                                                             color: "red",
                                                         }}
                                                     >
-                                                        Ukuran berkas melebihi ukuran maksimal (25MB)!
+                                                        Ukuran berkas melebihi ukuran maksimal
+                                                        (25MB)!
                                                     </div>
                                                 ) : (
                                                     ""
@@ -5281,7 +6321,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="anggaran"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i className="material-icons">expand_less</i>
                                                 </button>
@@ -5336,7 +6382,12 @@ const FormGNRM = (props) => {
                                                             name="lembaga"
                                                             value={data.pihak_terkait.lembaga}
                                                             onChange={(event) =>
-                                                                onChange(event, "pihak_terkait", true, 0)
+                                                                onChange(
+                                                                    event,
+                                                                    "pihak_terkait",
+                                                                    true,
+                                                                    0
+                                                                )
                                                             }
                                                         />
                                                     </div>
@@ -5360,19 +6411,28 @@ const FormGNRM = (props) => {
                                                             type="text"
                                                             placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                             name="penjelasan_pihak_terkait"
-                                                            value={data.pihak_terkait.penjelasan_pihak_terkait}
+                                                            value={
+                                                                data.pihak_terkait
+                                                                    .penjelasan_pihak_terkait
+                                                            }
                                                             onChange={(event) =>
-                                                                onChange(event, "pihak_terkait", true, 0)
+                                                                onChange(
+                                                                    event,
+                                                                    "pihak_terkait",
+                                                                    true,
+                                                                    0
+                                                                )
                                                             }
                                                         />
                                                     </div>
                                                 </Fragment>
                                             ) : (
                                                 documentDetail &&
-                                                documentDetail.form.pihak_terkait.map((pihak, index) => {
-                                                    return (
-                                                        <Fragment key={index}>
-                                                            {/* <div>
+                                                documentDetail.form.pihak_terkait.map(
+                                                    (pihak, index) => {
+                                                        return (
+                                                            <Fragment key={index}>
+                                                                {/* <div>
                                                                         <label>Peran Pihak Terkait</label>
                                                                         <input
                                                                             className="gnrm-terkait"
@@ -5387,60 +6447,81 @@ const FormGNRM = (props) => {
                                                                             onChange={(event) => onChange(event, 'pihak_terkait', true, index)}
                                                                         />
                                                                     </div> */}
-                                                            <div>
-                                                                <label>K/L/D/Pihak Lainnya</label>
-                                                                <input
-                                                                    className="gnrm-terkait"
-                                                                    style={{
-                                                                        height: "42px",
-                                                                        marginLeft: "49px",
-                                                                        width: "767px",
-                                                                    }}
-                                                                    type="text"
-                                                                    placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
-                                                                    name="lembaga"
-                                                                    value={
-                                                                        data.pihak_terkait[index] &&
-                                                                        data.pihak_terkait[index].lembaga
-                                                                    }
-                                                                    onChange={(event) =>
-                                                                        onChange(event, "pihak_terkait", true, index)
-                                                                    }
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <label
-                                                                    style={{
-                                                                        textAlign: "right",
-                                                                        clear: "both",
-                                                                        float: "left",
-                                                                    }}
-                                                                >
-                                                                    Penjelasan
-                                                                </label>
-                                                                <textarea
-                                                                    className="gnrm-penjelasan"
-                                                                    style={{
-                                                                        height: "400px",
-                                                                        marginLeft: "127px",
-                                                                        width: "767px",
-                                                                    }}
-                                                                    placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
-                                                                    type="text"
-                                                                    name="penjelasan_pihak_terkait"
-                                                                    value={
-                                                                        data.pihak_terkait[index] &&
-                                                                        data.pihak_terkait[index]
-                                                                            .penjelasan_pihak_terkait
-                                                                    }
-                                                                    onChange={(event) =>
-                                                                        onChange(event, "pihak_terkait", true, index)
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </Fragment>
-                                                    )
-                                                })
+                                                                <div>
+                                                                    <label>
+                                                                        K/L/D/Pihak Lainnya
+                                                                    </label>
+                                                                    <input
+                                                                        className="gnrm-terkait"
+                                                                        style={{
+                                                                            height: "42px",
+                                                                            marginLeft: "49px",
+                                                                            width: "767px",
+                                                                        }}
+                                                                        type="text"
+                                                                        placeholder="Tuliskan semua pihak yang terlibat dalam pelaksanaan program K/L/D."
+                                                                        name="lembaga"
+                                                                        value={
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ] &&
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ].lembaga
+                                                                        }
+                                                                        onChange={(event) =>
+                                                                            onChange(
+                                                                                event,
+                                                                                "pihak_terkait",
+                                                                                true,
+                                                                                index
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                <div>
+                                                                    <label
+                                                                        style={{
+                                                                            textAlign: "right",
+                                                                            clear: "both",
+                                                                            float: "left",
+                                                                        }}
+                                                                    >
+                                                                        Penjelasan
+                                                                    </label>
+                                                                    <textarea
+                                                                        className="gnrm-penjelasan"
+                                                                        style={{
+                                                                            height: "400px",
+                                                                            marginLeft: "127px",
+                                                                            width: "767px",
+                                                                        }}
+                                                                        placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
+                                                                        type="text"
+                                                                        name="penjelasan_pihak_terkait"
+                                                                        value={
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ] &&
+                                                                            data.pihak_terkait[
+                                                                                index
+                                                                            ]
+                                                                                .penjelasan_pihak_terkait
+                                                                        }
+                                                                        onChange={(event) =>
+                                                                            onChange(
+                                                                                event,
+                                                                                "pihak_terkait",
+                                                                                true,
+                                                                                index
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </Fragment>
+                                                        )
+                                                    }
+                                                )
                                             )}
                                             {form.map((form, index) => {
                                                 return (
@@ -5503,7 +6584,10 @@ const FormGNRM = (props) => {
                                                                 placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                                                                 type="text"
                                                                 name="penjelasan_pihak_terkait"
-                                                                value={data.pihak_terkait.penjelasan_pihak_terkait}
+                                                                value={
+                                                                    data.pihak_terkait
+                                                                        .penjelasan_pihak_terkait
+                                                                }
                                                                 onChange={(event) =>
                                                                     onChange(
                                                                         event,
@@ -5519,7 +6603,9 @@ const FormGNRM = (props) => {
                                             })}
                                         </div>
                                         <div>
-                                            <label className="tambah-lembaga">Tambah K/L/D/Pihak Lainnya</label>
+                                            <label className="tambah-lembaga">
+                                                Tambah K/L/D/Pihak Lainnya
+                                            </label>
                                             <img
                                                 src={plus2}
                                                 style={{
@@ -5533,7 +6619,13 @@ const FormGNRM = (props) => {
                                         </div>
 
                                         <div className="gnrm-navigation-button">
-                                            <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                                            <Link
+                                                to="proses"
+                                                spy={true}
+                                                smooth={true}
+                                                duration={500}
+                                                offset={-30}
+                                            >
                                                 <button className="previous1">
                                                     <i
                                                         className="material-icons"
@@ -5747,7 +6839,10 @@ const FormGNRM = (props) => {
                                     </Element> */}
 
                                 <Element id="penanggung_jawab" name="penanggung_jawab">
-                                    <div className="gnrm-container-off" style={{ marginBottom: "130px" }}>
+                                    <div
+                                        className="gnrm-container-off"
+                                        style={{ marginBottom: "130px" }}
+                                    >
                                         <div className="monev-title">PENANGGUNG JAWAB</div>
                                         <div className="form-gnrm">
                                             <div>
@@ -5762,7 +6857,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="nama"
                                                     value={penanggung_jawab.nama}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -5777,7 +6874,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="jabatan"
                                                     value={penanggung_jawab.jabatan}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -5792,7 +6891,9 @@ const FormGNRM = (props) => {
                                                     type="text"
                                                     name="nip"
                                                     value={penanggung_jawab.nip}
-                                                    onChange={(event) => onChange(event, "penanggung_jawab")}
+                                                    onChange={(event) =>
+                                                        onChange(event, "penanggung_jawab")
+                                                    }
                                                 />
                                             </div>
                                             <div>
@@ -5882,6 +6983,7 @@ const FormGNRM = (props) => {
                                     padding: "43px 98px",
                                     marginLeft: "84px",
                                     marginRight: "20px",
+                                    fontSize: "14px",
                                 }}
                             >
                                 <div className="preview-header">
@@ -5896,7 +6998,6 @@ const FormGNRM = (props) => {
                                             {instansiDocumentDetail ? (
                                                 <tr
                                                     style={{
-                                                        fontSize: "12px",
                                                         height: "fit-content",
                                                     }}
                                                 >
@@ -5909,7 +7010,8 @@ const FormGNRM = (props) => {
                                                     >
                                                         <img
                                                             src={`https://api.simonev.revolusimental.go.id${
-                                                                instansiDocumentDetail && instansiDocumentDetail.logo
+                                                                instansiDocumentDetail &&
+                                                                instansiDocumentDetail.logo
                                                             }`}
                                                             style={{
                                                                 maxWidth: "93%",
@@ -5935,7 +7037,8 @@ const FormGNRM = (props) => {
                                                                 fontWeight: "bold",
                                                             }}
                                                         >
-                                                            {instansiDocumentDetail && instansiDocumentDetail.nama}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.nama}
                                                         </h1>
                                                         <h1
                                                             style={{
@@ -5943,23 +7046,28 @@ const FormGNRM = (props) => {
                                                                 width: "750px",
                                                             }}
                                                         >
-                                                            {instansiDocumentDetail && instansiDocumentDetail.alamat}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.alamat}
                                                             <br />
                                                             Telp{" "}
-                                                            {instansiDocumentDetail && instansiDocumentDetail.kontak};
-                                                            Fax {instansiDocumentDetail && instansiDocumentDetail.fax}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.kontak}
+                                                            ; Fax{" "}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.fax}
                                                             ; <br />
                                                             website :{" "}
-                                                            {instansiDocumentDetail && instansiDocumentDetail.website},
-                                                            email:{" "}
-                                                            {instansiDocumentDetail && instansiDocumentDetail.email}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.website}
+                                                            , email:{" "}
+                                                            {instansiDocumentDetail &&
+                                                                instansiDocumentDetail.email}
                                                         </h1>
                                                     </td>
                                                 </tr>
                                             ) : (
                                                 <tr
                                                     style={{
-                                                        fontSize: "12px",
                                                         height: "fit-content",
                                                     }}
                                                 >
@@ -5972,7 +7080,8 @@ const FormGNRM = (props) => {
                                                     >
                                                         <img
                                                             src={`https://api.simonev.revolusimental.go.id${
-                                                                instansiDetail && instansiDetail.logo
+                                                                instansiDetail &&
+                                                                instansiDetail.logo
                                                             }`}
                                                             style={{
                                                                 maxWidth: "93%",
@@ -6006,12 +7115,19 @@ const FormGNRM = (props) => {
                                                                 width: "750px",
                                                             }}
                                                         >
-                                                            {instansiDetail && instansiDetail.alamat}
+                                                            {instansiDetail &&
+                                                                instansiDetail.alamat}
                                                             <br />
-                                                            Telp {instansiDetail && instansiDetail.kontak}; Fax{" "}
+                                                            Telp{" "}
+                                                            {instansiDetail &&
+                                                                instansiDetail.kontak}
+                                                            ; Fax{" "}
                                                             {instansiDetail && instansiDetail.fax}
                                                             ; <br />
-                                                            website : {instansiDetail && instansiDetail.website}, email:{" "}
+                                                            website :{" "}
+                                                            {instansiDetail &&
+                                                                instansiDetail.website}
+                                                            , email:{" "}
                                                             {instansiDetail && instansiDetail.email}
                                                         </h1>
                                                     </td>
@@ -6025,7 +7141,6 @@ const FormGNRM = (props) => {
                                         className="judul-preview"
                                         style={{
                                             textAlign: "center",
-                                            fontSize: "12px",
                                         }}
                                     >
                                         <h1
@@ -6034,14 +7149,16 @@ const FormGNRM = (props) => {
                                                 fontWeight: "bold",
                                             }}
                                         >
-                                            Proteksi Input Program Gerakan Nasioal Revolusi Mental (GNRM) Tahun
+                                            Proteksi Input Program Gerakan Nasioal Revolusi Mental
+                                            (GNRM) Tahun
                                             <span> {data.tahun}</span>
                                         </h1>
 
                                         <h1 style={{ lineHeight: "15px" }}>
-                                            Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh isi laporan
-                                            ini dalam bentuk <br /> apapun kecuali oleh Koordinator Pelaksana Gerakan
-                                            (KPG) dan Sekretariat Revolusi Mental
+                                            Dilarang menyalin, menyimpan, memperbanyak sebagian atau
+                                            seluruh isi laporan ini dalam bentuk <br /> apapun
+                                            kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan
+                                            Sekretariat Revolusi Mental
                                         </h1>
                                         <br />
 
@@ -6062,7 +7179,10 @@ const FormGNRM = (props) => {
 
                                         <h1 style={{ lineHeight: "15px" }}>
                                             Program
-                                            <span> {documentDetail && documentDetail.instansi} </span>
+                                            <span>
+                                                {" "}
+                                                {documentDetail && documentDetail.instansi}{" "}
+                                            </span>
                                             GNRM TAHUN
                                             <span> {data.tahun}</span>
                                         </h1>
@@ -6074,7 +7194,7 @@ const FormGNRM = (props) => {
                                     style={{
                                         margin: "20px auto 0",
                                         width: "1042px",
-                                        fontSize: "12px",
+
                                         lineHeight: "16px",
                                     }}
                                 >
@@ -6110,7 +7230,8 @@ const FormGNRM = (props) => {
                                                             paddingBottom: "32px",
                                                         }}
                                                     >
-                                                        {instansiDocumentDetail && instansiDocumentDetail.nama}
+                                                        {instansiDocumentDetail &&
+                                                            instansiDocumentDetail.nama}
                                                     </td>
                                                 ) : (
                                                     <td
@@ -6156,9 +7277,13 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    {data.output.indikator_capaian} <br />
-                                                    {data.output.sasaran} <br />
-                                                    {data.output.target}
+                                                    <pre>
+                                                        {data.output.indikator_capaian} <br />
+                                                    </pre>
+                                                    <pre>
+                                                        {data.output.sasaran} <br />
+                                                    </pre>
+                                                    <pre>{data.output.target}</pre>
                                                 </td>
                                             </tr>
                                             <tr style={{ fontWeight: "bold" }}>
@@ -6173,7 +7298,7 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    {data.kondisi_awal}
+                                                    <pre>{data.kondisi_awal}</pre>
                                                     <br />
                                                 </td>
                                             </tr>
@@ -6198,55 +7323,79 @@ const FormGNRM = (props) => {
                                                     >
                                                         {lampiranKondisi &&
                                                             lampiranKondisi
-                                                                .filter((lampiran) => isFileImage(lampiran) === true)
+                                                                .filter(
+                                                                    (lampiran) =>
+                                                                        isFileImage(lampiran) ===
+                                                                        true
+                                                                )
                                                                 .map((lampiran, index) => {
-                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
                                                                     return (
                                                                         <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "420px",
                                                                                     height: "420px",
-                                                                                    marginRight: "35px",
-                                                                                    position: "relative",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
                                                                                 className="d-flex align-items-center justify-content-center"
                                                                             >
                                                                                 <div
                                                                                     style={{
-                                                                                        width: "420px",
-                                                                                        height: "420px",
-                                                                                        overflow: "hidden",
-                                                                                        position: "relative",
+                                                                                        width:
+                                                                                            "420px",
+                                                                                        height:
+                                                                                            "420px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "relative",
                                                                                     }}
                                                                                 >
                                                                                     <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
+                                                                                        src={
+                                                                                            objectURL
+                                                                                        }
+                                                                                        alt={
+                                                                                            lampiran.name
+                                                                                        }
                                                                                         style={{
-                                                                                            width: "420px",
-                                                                                            height: "420px",
-                                                                                            objectFit: "contain",
+                                                                                            width:
+                                                                                                "420px",
+                                                                                            height:
+                                                                                                "420px",
+                                                                                            objectFit:
+                                                                                                "contain",
                                                                                         }}
                                                                                     />
                                                                                 </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    marginTop: "10px",
+                                                                                    marginTop:
+                                                                                        "10px",
                                                                                     width: "420px",
                                                                                     height: "20px",
-                                                                                    wordWrap: "break-word",
-                                                                                    lineHeight: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
                                                                             >
                                                                                 <p
                                                                                     className="gnrm-media--name"
                                                                                     style={{
-                                                                                        textAlign: "center",
+                                                                                        textAlign:
+                                                                                            "center",
                                                                                     }}
                                                                                 >
-                                                                                    {lampiran.name.length > 40
+                                                                                    {lampiran.name
+                                                                                        .length > 40
                                                                                         ? `${lampiran.name.substr(
                                                                                               0,
                                                                                               37
@@ -6270,9 +7419,14 @@ const FormGNRM = (props) => {
                                                 >
                                                     {lampiranKondisi &&
                                                         lampiranKondisi
-                                                            .filter((lampiran) => isFileImage(lampiran) === false)
+                                                            .filter(
+                                                                (lampiran) =>
+                                                                    isFileImage(lampiran) === false
+                                                            )
                                                             .map((lampiran, index) => {
-                                                                const objectURL = URL.createObjectURL(lampiran)
+                                                                const objectURL = URL.createObjectURL(
+                                                                    lampiran
+                                                                )
                                                                 return (
                                                                     <p
                                                                         className="gnrm-media--name"
@@ -6298,7 +7452,7 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    {data.anggaran.sumber_dana}
+                                                    <pre>{data.anggaran.sumber_dana}</pre>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6309,7 +7463,7 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    {data.anggaran.besar_anggaran}
+                                                    <pre>{data.anggaran.besar_anggaran}</pre>
                                                 </td>
                                             </tr>
                                             <tr style={{ fontWeight: "bold" }}>
@@ -6324,7 +7478,7 @@ const FormGNRM = (props) => {
                                                         paddingBottom: "32px",
                                                     }}
                                                 >
-                                                    {data.proses}
+                                                    <pre>{data.proses}</pre>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -6348,55 +7502,79 @@ const FormGNRM = (props) => {
                                                     >
                                                         {lampiranProses &&
                                                             lampiranProses
-                                                                .filter((lampiran) => isFileImage(lampiran) === true)
+                                                                .filter(
+                                                                    (lampiran) =>
+                                                                        isFileImage(lampiran) ===
+                                                                        true
+                                                                )
                                                                 .map((lampiran, index) => {
-                                                                    const objectURL = URL.createObjectURL(lampiran)
+                                                                    const objectURL = URL.createObjectURL(
+                                                                        lampiran
+                                                                    )
                                                                     return (
                                                                         <div key={index}>
                                                                             <div
                                                                                 style={{
                                                                                     width: "420px",
                                                                                     height: "420px",
-                                                                                    marginRight: "35px",
-                                                                                    position: "relative",
+                                                                                    marginRight:
+                                                                                        "35px",
+                                                                                    position:
+                                                                                        "relative",
                                                                                 }}
                                                                                 className="d-flex align-items-center justify-content-center"
                                                                             >
                                                                                 <div
                                                                                     style={{
-                                                                                        width: "420px",
-                                                                                        height: "420px",
-                                                                                        overflow: "hidden",
-                                                                                        position: "relative",
+                                                                                        width:
+                                                                                            "420px",
+                                                                                        height:
+                                                                                            "420px",
+                                                                                        overflow:
+                                                                                            "hidden",
+                                                                                        position:
+                                                                                            "relative",
                                                                                     }}
                                                                                 >
                                                                                     <img
-                                                                                        src={objectURL}
-                                                                                        alt={lampiran.name}
+                                                                                        src={
+                                                                                            objectURL
+                                                                                        }
+                                                                                        alt={
+                                                                                            lampiran.name
+                                                                                        }
                                                                                         style={{
-                                                                                            width: "420px",
-                                                                                            height: "420px",
-                                                                                            objectFit: "contain",
+                                                                                            width:
+                                                                                                "420px",
+                                                                                            height:
+                                                                                                "420px",
+                                                                                            objectFit:
+                                                                                                "contain",
                                                                                         }}
                                                                                     />
                                                                                 </div>
                                                                             </div>
                                                                             <div
                                                                                 style={{
-                                                                                    marginTop: "10px",
+                                                                                    marginTop:
+                                                                                        "10px",
                                                                                     width: "420px",
                                                                                     height: "20px",
-                                                                                    wordWrap: "break-word",
-                                                                                    lineHeight: "20px",
+                                                                                    wordWrap:
+                                                                                        "break-word",
+                                                                                    lineHeight:
+                                                                                        "20px",
                                                                                 }}
                                                                             >
                                                                                 <p
                                                                                     className="gnrm-media--name"
                                                                                     style={{
-                                                                                        textAlign: "center",
+                                                                                        textAlign:
+                                                                                            "center",
                                                                                     }}
                                                                                 >
-                                                                                    {lampiran.name.length > 40
+                                                                                    {lampiran.name
+                                                                                        .length > 40
                                                                                         ? `${lampiran.name.substr(
                                                                                               0,
                                                                                               37
@@ -6420,9 +7598,14 @@ const FormGNRM = (props) => {
                                                 >
                                                     {lampiranProses &&
                                                         lampiranProses
-                                                            .filter((lampiran) => isFileImage(lampiran) === false)
+                                                            .filter(
+                                                                (lampiran) =>
+                                                                    isFileImage(lampiran) === false
+                                                            )
                                                             .map((lampiran, index) => {
-                                                                const objectURL = URL.createObjectURL(lampiran)
+                                                                const objectURL = URL.createObjectURL(
+                                                                    lampiran
+                                                                )
                                                                 return (
                                                                     <p
                                                                         className="gnrm-media--name"
@@ -6441,30 +7624,32 @@ const FormGNRM = (props) => {
                                                 <td>Pihak Terkait</td>
                                             </tr>
                                             {documentDetail
-                                                ? (documentDetail && documentDetail.form.pihak_terkait).map(
-                                                      (pihak, index) => {
-                                                          return (
-                                                              <tr key={index}>
-                                                                  <td></td>
-                                                                  <td
-                                                                      style={{
-                                                                          paddingTop: "12px",
-                                                                          paddingBottom: "32px",
-                                                                      }}
-                                                                  >
-                                                                      K/L/D/Pihak Lainnya :{" "}
-                                                                      {data.pihak_terkait[index] &&
-                                                                          data.pihak_terkait[index].lembaga}{" "}
-                                                                      <br />
-                                                                      Penjelasan :{" "}
-                                                                      {data.pihak_terkait[index] &&
-                                                                          data.pihak_terkait[index]
-                                                                              .penjelasan_pihak_terkait}
-                                                                  </td>
-                                                              </tr>
-                                                          )
-                                                      }
-                                                  )
+                                                ? (
+                                                      documentDetail &&
+                                                      documentDetail.form.pihak_terkait
+                                                  ).map((pihak, index) => {
+                                                      return (
+                                                          <tr key={index}>
+                                                              <td></td>
+                                                              <td
+                                                                  style={{
+                                                                      paddingTop: "12px",
+                                                                      paddingBottom: "32px",
+                                                                  }}
+                                                              >
+                                                                  K/L/D/Pihak Lainnya :{" "}
+                                                                  {data.pihak_terkait[index] &&
+                                                                      data.pihak_terkait[index]
+                                                                          .lembaga}{" "}
+                                                                  <br />
+                                                                  Penjelasan :{" "}
+                                                                  {data.pihak_terkait[index] &&
+                                                                      data.pihak_terkait[index]
+                                                                          .penjelasan_pihak_terkait}
+                                                              </td>
+                                                          </tr>
+                                                      )
+                                                  })
                                                 : ""}
                                             {/* <tr style={{ fontWeight: 'bold' }}>
                                     <td>8.</td>
@@ -6526,9 +7711,11 @@ const FormGNRM = (props) => {
                                                         paddingTop: "154px",
                                                     }}
                                                 >
-                                                    Demikian program ini disampaikan dan dapat dikoordinasikan untuk
-                                                    dilaksanakan sebagaimana mestinya, <br />
-                                                    atas perhatian dan kerja samanya diucapkan terimakasih.
+                                                    Demikian program ini disampaikan dan dapat
+                                                    dikoordinasikan untuk dilaksanakan sebagaimana
+                                                    mestinya, <br />
+                                                    atas perhatian dan kerja samanya diucapkan
+                                                    terimakasih.
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -6538,31 +7725,37 @@ const FormGNRM = (props) => {
                                     className="preview-ttd"
                                     style={{
                                         marginTop: "10px",
-                                        fontSize: "12px",
+
                                         textAlign: "right",
                                     }}
                                 >
                                     <div style={{ textAlign: "left" }}>
-                                        <h1 style={{ marginLeft: "893px" }}>Pengesahan</h1>
+                                        <h1 style={{ marginLeft: "860px" }}>Pengesahan</h1>
                                         {data.lokasi.length > 10 ? (
                                             <h1 style={{ textAlign: "right" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         ) : (
-                                            <h1 style={{ marginLeft: "893px" }}>
+                                            <h1 style={{ marginLeft: "860px" }}>
                                                 {data.lokasi}, {str2}
                                             </h1>
                                         )}
-                                        <h1 style={{ marginLeft: "893px" }}>{data.penanggung_jawab.jabatan}</h1>
+                                        <h1 style={{ marginLeft: "860px" }}>
+                                            {data.penanggung_jawab.jabatan}
+                                        </h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "893px" }}>TTD</h1>
+                                        <h1 style={{ marginLeft: "860px" }}>TTD</h1>
                                         <br />
                                         <br />
                                         <br />
-                                        <h1 style={{ marginLeft: "893px" }}>{data.penanggung_jawab.nama}</h1>
-                                        <h1 style={{ marginLeft: "893px" }}>NIP. {data.penanggung_jawab.nip}</h1>
+                                        <h1 style={{ marginLeft: "860px" }}>
+                                            {data.penanggung_jawab.nama}
+                                        </h1>
+                                        <h1 style={{ marginLeft: "860px" }}>
+                                            NIP. {data.penanggung_jawab.nip}
+                                        </h1>
                                     </div>
                                 </div>
                                 <hr

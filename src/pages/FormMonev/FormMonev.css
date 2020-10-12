@@ -1,4 +1,4 @@
-.title-form-monev{
+.title-form-monev {
     margin-left: 580px;
     margin-top: 23px;
     margin-bottom: 16px;
@@ -7,7 +7,7 @@
     letter-spacing: 0.1em;
 }
 
-.monev-container{
+.monev-container {
     width: 1238px;
     height: fit-content;
     margin-left: 100px;
@@ -15,16 +15,15 @@
     border: 1px solid black;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
-    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding-left: 34px;
     padding-top: 19px;
-    
 }
 
-.monev-container-off{
+.monev-container-off {
     width: 1050px;
     height: fit-content;
     margin-left: 100px;
@@ -32,46 +31,44 @@
     border: 1px solid black;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.4);
-    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+    font-family: "Open Sans", sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding-left: 34px;
     padding-top: 19px;
-    
 }
 
-.form-monev .gnrm-tahun{
+.form-monev .gnrm-tahun {
     margin-left: 162px;
     height: 42px;
     width: 183px;
 }
 
-
 .form-monev select {
-    border: 1px solid #ACACAC;
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding: 5px;
     height: 42px;
 }
 
-.monev-title{
+.monev-title {
     margin-bottom: 25px;
 }
 
-.form-monev div{
+.form-monev div {
     margin-bottom: 16px;
 }
 
-.form-monev input{
+.form-monev input {
     height: 42px;
-    border: 1px solid #ACACAC;
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding-left: 10px;
 }
 
-.form-monev textarea{
-    border: 1px solid #ACACAC;
+.form-monev textarea {
+    border: 1px solid #acacac;
     border-radius: 5px;
     padding: 5px;
     padding: 10px;
@@ -79,37 +76,37 @@
     line-height: 21px;
 }
 
-input::placeholder{
+input::placeholder {
     font-size: 16px;
     font-weight: normal;
 }
 
-.monev-tempat::placeholder{
+.monev-tempat::placeholder {
     font-size: 13.5px;
     font-weight: normal;
 }
 
-.monev-container-off .monev-tempat::placeholder{
+.monev-container-off .monev-tempat::placeholder {
     font-size: 11.2px;
     font-weight: normal;
 }
 
-.form-monev .monev-tahun{
+.form-monev .monev-tahun {
     margin-left: 162px;
     width: 183px;
 }
 
-.form-monev .monev-id-program{
+.form-monev .monev-id-program {
     margin-left: 123px;
-    width: 269px; 
+    width: 269px;
 }
 
-.form-monev .monev-instansi{
+.form-monev .monev-instansi {
     margin-left: 150px;
-    width: 366px; 
+    width: 366px;
 }
 
-.monev-navigation-button{
+.monev-navigation-button {
     display: flex;
     margin-top: 34px;
     margin-bottom: 23px;
@@ -124,10 +121,10 @@ input::placeholder{
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .forward {
@@ -137,7 +134,7 @@ input::placeholder{
 
 .forward:active,
 .previous:active {
-    background-color: #C04B3E;
+    background-color: #c04b3e;
 }
 
 .preview-monev,
@@ -148,10 +145,10 @@ input::placeholder{
     font-size: 16px;
     box-sizing: border-box;
     cursor: pointer;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
     margin-left: 16px;
     border-radius: 5px;
     font-weight: bold;
@@ -160,13 +157,13 @@ input::placeholder{
 
 .simpan-monev {
     background-color: white;
-    color: #D4362E;
+    color: #d4362e;
     box-sizing: border-box;
     font-weight: 900;
-    border: 2px solid #D4362E;
+    border: 2px solid #d4362e;
 }
 
-.previous-last-1{
+.previous-last-1 {
     width: 50px;
     height: 46px;
     padding: 0px;
@@ -174,13 +171,13 @@ input::placeholder{
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
-.previous-last-11{
+.previous-last-11 {
     width: 50px;
     height: 46px;
     padding: 0px;
@@ -188,10 +185,10 @@ input::placeholder{
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .previous1,
@@ -204,10 +201,10 @@ input::placeholder{
     box-sizing: border-box;
     cursor: pointer;
     border-radius: 5px 0 0 5px;
-    background-color: #D4362E;
+    background-color: #d4362e;
     color: white;
-    border:none;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .forward1 {
@@ -215,38 +212,39 @@ input::placeholder{
     border-radius: 0 5px 5px 0;
 }
 
-.preview-picture{
+.preview-picture {
     margin-left: 100px;
     margin-top: 16px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.button-action{
+.button-action {
     position: relative;
     bottom: 87px;
 }
 
 .button-edit-kembali,
-.button-unggah{
+.button-unggah {
     width: 225px;
     height: 46px;
     padding: 0px;
     box-sizing: border-box;
     cursor: pointer;
     color: white;
-    border:none;
-    font-family: 'Open Sans', sans-serif;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+    border: none;
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
     letter-spacing: 0.021em;
 }
 
-.button-edit-kembali{
+.button-edit-kembali {
     background-color: #848988;
     margin-left: 807px;
 }
-.button-unggah{
-    background-color: #FF3D37;
+.button-unggah {
+    background-color: #ff3d37;
     margin-left: 8px;
 }

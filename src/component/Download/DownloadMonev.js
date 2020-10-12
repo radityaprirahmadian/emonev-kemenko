@@ -219,6 +219,9 @@ const style = StyleSheet.create({
         left: 100,
         bottom: 0,
     },
+    width1: {
+        width: 100,
+    },
 })
 
 const DownloadMonev = (props) => {
@@ -266,8 +269,12 @@ const DownloadMonev = (props) => {
                     />
                     <View style={style.kop}>
                         <Text style={style.headerBold}>Gerakan Nasional Revolusi Mental</Text>
-                        <Text style={style.headerBold}>{props.data.instansi && props.data.instansi.nama}</Text>
-                        <Text style={style.alamat}>{props.data.instansi && props.data.instansi.alamat}</Text>
+                        <Text style={style.headerBold}>
+                            {props.data.instansi && props.data.instansi.nama}
+                        </Text>
+                        <Text style={style.alamat}>
+                            {props.data.instansi && props.data.instansi.alamat}
+                        </Text>
                         {/* <Text>
                                 Gedung Kementerian Koordinator Bidang Pembangunan Manusia & Kebudayaan
                             </Text> */}
@@ -287,13 +294,17 @@ const DownloadMonev = (props) => {
                     <Text style={style.headerMargBold}>Proteksi Hasil Monitoring dan Evaluasi</Text>
                     <Text style={style.headerBold}>
                         GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun{" "}
-                        <Text style={style.red}>{props.data.document1.form && props.data.document1.form.tahun}</Text>
+                        <Text style={style.red}>
+                            {props.data.document1.form && props.data.document1.form.tahun}
+                        </Text>
                     </Text>
                     <Text style={style.headerMargTop}>
-                        Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh laporan ini dalam bentuk
+                        Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh laporan ini
+                        dalam bentuk
                     </Text>
                     <Text style={style.headerMargBot}>
-                        apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sektretariat Revolusi Mentai
+                        apapun kecuali oleh Koordinator Pelaksana Gerakan (KPG) dan Sektretariat
+                        Revolusi Mentai
                     </Text>
                     <Text style={style.headerMargBold}>LAPORAN MONITORING DAN EVALUASI</Text>
                     <Text style={style.headerMargBold}>
@@ -301,8 +312,8 @@ const DownloadMonev = (props) => {
                     </Text>
                     <Text>Periode Laporan Program/Kegiatan</Text>
                     <Text style={style.headerMargTop}>
-                        Laporan {props.data.document1.form && props.data.document1.form.id_laporan} GNRM Tahun{" "}
-                        {props.data.document1.form && props.data.document1.form.tahun}
+                        Laporan {props.data.document1.form && props.data.document1.form.id_laporan}{" "}
+                        GNRM Tahun {props.data.document1.form && props.data.document1.form.tahun}
                     </Text>
                 </View>
 
@@ -315,20 +326,32 @@ const DownloadMonev = (props) => {
                     <View style={style.isi}>
                         <Text style={style.text}>
                             Nama Kegiatan :{" "}
-                            {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}.
+                            {props.data.document1.form &&
+                                props.data.document1.form.kegiatan.nama_program}
+                            .
                         </Text>
                         <Text style={style.text}>
-                            Kegiatan Prioritas : {props.data.document1.form && props.data.document1.form.kp}.
+                            Kegiatan Prioritas :{" "}
+                            {props.data.document1.form && props.data.document1.form.kp}.
                         </Text>
                         <Text style={style.text}>
-                            Program Prioritas : {props.data.document1.form && props.data.document1.form.prop}.
+                            Program Prioritas :{" "}
+                            {props.data.document1.form && props.data.document1.form.prop}.
                         </Text>
-                        <Text>{props.data.document1.form && props.data.document1.form.tujuan_pelaporan}.</Text>
+                        <Text>
+                            {props.data.document1.form &&
+                                props.data.document1.form.tujuan_pelaporan}
+                            .
+                        </Text>
                     </View>
                     <Text style={style.headerBold}>3. Waktu, Tempat, dan Monev</Text>
                     <View style={style.isi}>
-                        <Text style={style.text}>{props.data.document1.form && props.data.document1.form.waktu}</Text>
-                        <Text style={style.text}>{props.data.document1.form && props.data.document1.form.tempat}</Text>
+                        <Text style={style.text}>
+                            {props.data.document1.form && props.data.document1.form.waktu}
+                        </Text>
+                        <Text style={style.text}>
+                            {props.data.document1.form && props.data.document1.form.tempat}
+                        </Text>
                         <Text>{props.data.document1.form && props.data.document1.form.metode}</Text>
                     </View>
                     <View style={style.isiFlex}>
@@ -363,7 +386,9 @@ const DownloadMonev = (props) => {
                         4. Hasil Monitoring dan Kendala Program (Pelaporan Kinerja)
                     </Text>
                     <View style={style.isi}>
-                        <Text style={style.text}>{props.data.document1.form && props.data.document1.form.hasil}</Text>
+                        <Text style={style.text}>
+                            {props.data.document1.form && props.data.document1.form.hasil}
+                        </Text>
                         <Text style={style.text}>
                             {props.data.document1.form && props.data.document1.form.evaluasi}
                         </Text>
@@ -396,8 +421,12 @@ const DownloadMonev = (props) => {
                                     return <Text style={style.text}>{media.filename}</Text>
                                 })}
                     </View>
-                    <Text style={style.headerBoldBotFlex}>5. Ketercapaian Indikator dan Target (Pengukuran Kerja)</Text>
-                    <Text style={style.isi}>{props.data.document1.form && props.data.document1.form.ketercapaian}</Text>
+                    <Text style={style.headerBoldBotFlex}>
+                        5. Ketercapaian Indikator dan Target (Pengukuran Kerja)
+                    </Text>
+                    <Text style={style.isi}>
+                        {props.data.document1.form && props.data.document1.form.ketercapaian}
+                    </Text>
                     <View style={style.isiFlex}>
                         {props.data.document1.form &&
                             props.data.document1.form.lampiran.ketercapaian
@@ -426,7 +455,9 @@ const DownloadMonev = (props) => {
                                     return <Text style={style.text}>{media.filename}</Text>
                                 })}
                     </View>
-                    <Text style={style.headerBoldBotFlex}>6. Tindak Lanjut Hasil Monitoring dan Evaluasi</Text>
+                    <Text style={style.headerBoldBotFlex}>
+                        6. Tindak Lanjut Hasil Monitoring dan Evaluasi
+                    </Text>
                     <Text style={style.isi}>
                         {props.data.document1.form && props.data.document1.form.tindak_lanjut}
                     </Text>
@@ -468,38 +499,41 @@ const DownloadMonev = (props) => {
                     <View style={style.footer}>
                         <Text>
                             Demikian laporan monitoring dan evaluasi{" "}
-                            {props.data.document1.form && props.data.document1.form.id_laporan} GNRM ini disampaikan,
+                            {props.data.document1.form && props.data.document1.form.id_laporan} GNRM
+                            ini disampaikan,
                         </Text>
                         <Text>atas perhatian dan kerja samanya diucapkan terimakasih</Text>
                     </View>
 
                     <View style={style.signature} wrap={false}>
                         <Text style={style.testStyle}>Pengesahan Laporan</Text>
-                        {props.data.document1.form && props.data.document1.form.lokasi.length > 10 ? (
+                        {props.data.document1.form &&
+                        props.data.document1.form.lokasi.length > 10 ? (
                             <Text style={style.testStyle2}>
-                                {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                {props.data.document1.form && props.data.document1.form.lokasi} ,{" "}
+                                {str2}
                             </Text>
                         ) : (
                             <Text style={style.testStyle}>
-                                {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
+                                {props.data.document1.form && props.data.document1.form.lokasi} ,{" "}
+                                {str2}
                             </Text>
                         )}
-
-                        {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan.length > 30 ? (
-                            <Text style={style.testStyle3}>
-                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}
-                            </Text>
-                        ) : (
+                        <View style={style.width1}>
                             <Text style={style.testStyle}>
-                                {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}
+                                {props.data.document1.form &&
+                                    props.data.document1.form.penanggung_jawab.jabatan}
                             </Text>
-                        )}
+                        </View>
                         <Text style={style.ttd}>TTD</Text>
                         <Text style={style.testStyle}>
-                            {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}
+                            {props.data.document1.form &&
+                                props.data.document1.form.penanggung_jawab.nama}
                         </Text>
                         <Text style={style.testStyle}>
-                            NIP. {props.data.document1.form && props.data.document1.form.penanggung_jawab.nip}
+                            NIP.{" "}
+                            {props.data.document1.form &&
+                                props.data.document1.form.penanggung_jawab.nip}
                         </Text>
                     </View>
                 </View>
