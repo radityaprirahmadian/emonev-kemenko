@@ -13,6 +13,8 @@ import Gallery from "../../component/Gallery/Gallery"
 import { BrowserRouter as Router, Route, Link, NavLink, useLocation } from "react-router-dom"
 import exclude from "../../assets/Exclude.png"
 import exclude2 from "../../assets/Exclude2.png"
+import linkTerkait1 from "../../assets/logo_link_terkait_1.png"
+import linkTerkait2 from "../../assets/logo_link_terkait_2.png"
 import { Bar } from "react-chartjs-2"
 import StatistikGNRM from "../../component/Statistik/StatistikGNRM"
 import Spinner from "../../component/Spinner/Spinner"
@@ -611,9 +613,19 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <img src={exclude} className="curves_home"></img>
+                    <img src={exclude2} className="curves_home"></img>
                 </div>
-
+                <div className="link-terkait-section">
+                    <div className="title">Link Terkait</div>
+                    <div className="image">
+                        <Link to={{pathname: 'http://revolusimental.id/'}} target="_blank">
+                            <img src={linkTerkait1} className="image-1" alt="gerakan nasional revolusi mental"></img>
+                        </Link>
+                        <Link to={{pathname: 'http://aksinyata.kemenkopmk.go.id/'}} target="_blank">
+                            <img src={linkTerkait2} className="image-2" alt="sepuluh juta pohon"></img>
+                        </Link>
+                    </div>
+                </div>
                 <div className="home-section-2 center">
                     <div className="container">
                         <div className="d-flex justify-content-between mb-3">

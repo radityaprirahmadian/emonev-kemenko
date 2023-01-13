@@ -16,8 +16,7 @@ const Notification = () => {
     const [hide,setHide] = useState(true)
     const [ reminderRev,setReminderRev ] = useState([])
     const history = useHistory()
-
-    console.log(allReminder)
+    
     const onClick = (e) => {
         getReminder(token)
         e.preventDefault()

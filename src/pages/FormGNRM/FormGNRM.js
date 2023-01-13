@@ -349,7 +349,7 @@ const FormGNRM = (props) => {
         history.push(
             `/${
                 userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
-            }/rencana-pelaksanaan-program`
+            }/rencana-dan-laporan?active=rencana-pelaksanaan-program`
         )
         setLoadingFalse()
     }
@@ -406,7 +406,7 @@ const FormGNRM = (props) => {
             history.push(
                 `/${
                     userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
-                }/rencana-pelaksanaan-program`
+                }/rencana-dan-laporan?active=rencana-pelaksanaan-program`
             )
             alert(res.data.message)
             resetDocument()
@@ -476,7 +476,7 @@ const FormGNRM = (props) => {
             history.push(
                 `/${
                     userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
-                }/rencana-pelaksanaan-program`
+                }/rencana-dan-laporan?active=rencana-pelaksanaan-program`
             )
             alert(res.data.message)
             resetDocument()

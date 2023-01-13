@@ -18,7 +18,7 @@ import FilterMonev from "../../component/FilterMonev/FilterMonev";
 import TabelGNRM from "../../component/TabelGNRM/TabelGNRM";
 import Pagination from "../../component/Pagination/Pagination";
 import TabelMonev from "../../component/TabelMonev/TabelMonev";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Notification from "../../component/Notification/Notification";
 import Popup from "../../component/Popup/Popup";
 import bg_1 from "../../assets/decoration/bg_1.png";
@@ -29,6 +29,7 @@ import { LayoutContext } from "../../context/Layout/LayoutContext";
 import Spinner from "../../component/Spinner/Spinner";
 
 const Monev = (props) => {
+    const history = useHistory()
     const {
         resetDocument,
         editDocumentFalse,
@@ -122,7 +123,6 @@ const Monev = (props) => {
 
     return (
         <Fragment>
-            <SideBarOff setId={props.setId} />
             <Popup notif={props.notif} />
             <div className="background-after-login">
                 <img
@@ -162,33 +162,56 @@ const Monev = (props) => {
                             : { transition: "all 0.3s ease-in-out" }
                     }
                 >
-                    <div className="input-dan-tajuk">
+                    <div className="toggle-laporan">
                         <Link
-                            to={`/${
-                                userDetail && userDetail.role === "owner"
-                                    ? "super-admin"
-                                    : "admin"
-                            }/formulir-monev`}
+                            to={`/${userDetail && userDetail.role === "owner"
+                                        ? "super-admin"
+                                        : "admin"
+                                }/rencana-dan-laporan?active=rencana-pelaksanaan-program`}
+                            className={`item ${history.location.search.split('=')[1] === 'rencana-pelaksanaan-program' ? 'active' : ''}`}                     
                         >
-                            <button
-                                className="tambah-program"
-                                onClick={() => handleReset()}
-                            >
-                                <img src={plus}></img>
-                                <div className="spacer"></div>
-                                <p className="text-input-program">
-                                    Input Laporan
-                                </p>
-                            </button>
+                            Rencana
+                        </Link>
+                        <Link
+                            to={`/${userDetail && userDetail.role === "owner"
+                                        ? "super-admin"
+                                        : "admin"
+                                }/rencana-dan-laporan?active=laporan-monev`}
+                                className={`item ${history.location.search.split('=')[1] === 'laporan-monev' ? 'active' : ''}`}                  
+                        >
+                            Laporan
                         </Link>
                     </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <FilterMonev
+                            getDocument={getAllDocument}
+                            setFilterDoc={setFilter}
+                            filterValue={filterValue}
+                            filterDoc={filter}
+                        />
 
-                    <FilterMonev
-                        getDocument={getAllDocument}
-                        setFilterDoc={setFilter}
-                        filterValue={filterValue}
-                        filterDoc={filter}
-                    />
+                        <div className="input-dan-tajuk">
+                            <Link
+                                to={`/${
+                                    userDetail && userDetail.role === "owner"
+                                        ? "super-admin"
+                                        : "admin"
+                                }/formulir-monev`}
+                            >
+                                <button
+                                    className="tambah-program"
+                                    onClick={() => handleReset()}
+                                >
+                                    <img src={plus}></img>
+                                    <div className="spacer"></div>
+                                    <p className="text-input-program">
+                                        Input Laporan
+                                    </p>
+                                </button>
+                            </Link>
+                        </div>
+
+                    </div>
 
                     <div className="table-container">
                         <table

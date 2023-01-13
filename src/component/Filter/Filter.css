@@ -1,109 +1,127 @@
-.filter-container{
-    width: 724px;
-    height: 52px;
-    padding-bottom: 10px;
-    background-color: white;
-    box-shadow: 0px 5px 5px rgba(0,0,0,0.3);
-    /* border: 1px solid black; */
-    margin-left: 84px;
-    margin-top: 8px;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
-    font-size: 12px;
-    position: relative;
-    border: 2px solid black;
-    border-radius: 5px;
+.filter-container {
+  width: 724px;
+  height: 52px;
+  padding-bottom: 10px;
+  background-color: white;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  /* border: 1px solid black; */
+  margin-left: 84px;
+  margin-top: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  position: relative;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
-.filter-container div{
-    display: inline-block;
+.filter-container div {
+  display: inline-block;
 }
 
-.filter-tahun{
-    width: 90px;
-    height: 38px;
-    margin-left: 17px;
-    box-sizing: border-box;
-
-    /* border: 1px solid black; */
+.filter-container.pelaporan {
+  width: 924px;
+  display: flex;
+  padding: 5px 10px;
 }
 
-.filter-instansi{
-    width: 200px;
-    height: 38px;
-    margin-top: 4px;
-    margin-left: 32px;
-    /* border: 1px solid black; */
+.filter-container.pelaporan .pelaporan-search {
+  display: flex;
+  align-items: center;
+  width: 245px;
+  border-radius: 5px;
+  font-size: 12px;
+  border: 1px solid #acacac;
+  padding: 0 10px;
+  height: 100%;
 }
 
-.filter-pelaporan{
-    width: 200px;
-    height: 38px;
-    margin-top: 4px;
-    margin-left: 32px;
-    /* border: 1px solid black; */
-}
-.nama-filter{
-    margin-top: 4px;
-
-    margin-bottom: 4px;
+.filter-container.pelaporan .pelaporan-search input {
+  border: none;
+  width: 100%;
 }
 
-.input-filter-tahun{
-    width: 90px;
-    height: 18px;
-    border-radius: 5px;
-    border: 1px solid #ACACAC;
+.filter-tahun {
+  width: 90px;
+  height: 38px;
+  margin-left: 17px;
+  box-sizing: border-box;
+
+  /* border: 1px solid black; */
 }
 
-.input-filter-instansi{
-    width: 200px;
-    height: 18px;
-    border-radius: 5px;
-    border: 1px solid #ACACAC;
+.filter-instansi {
+  width: 200px;
+  height: 38px;
+  margin-left: 32px;
+  /* border: 1px solid black; */
 }
 
-.input-filter-pelaporan{
-    width: 200px;
-    height: 18px;
-    border-radius: 5px;
-    border: 1px solid #ACACAC;
+.filter-pelaporan {
+  width: 200px;
+  height: 38px;
+  margin-left: 32px;
+  /* border: 1px solid black; */
+}
+.nama-filter {
+  margin-bottom: 4px;
 }
 
-.button-submit-filter-admin{
-    position: absolute;
-    top: 17px;
-    right: 14px;
-    width: 64px;
-    height: 24px;
-    padding: 0px;
-    margin-left: 76px;
-    box-sizing: border-box;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #424FC8;
-    font-weight: bold;
-    color: white;
-    border:none;
-    letter-spacing: 0.02em;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+.input-filter-tahun {
+  width: 90px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #acacac;
+}
+
+.input-filter-instansi {
+  width: 200px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #acacac;
+}
+
+.input-filter-pelaporan {
+  width: 200px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #acacac;
+}
+
+.button-submit-filter-admin {
+  position: absolute;
+  top: 17px;
+  right: 14px;
+  width: 64px;
+  height: 24px;
+  padding: 0px;
+  margin-left: 76px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #424fc8;
+  font-weight: bold;
+  color: white;
+  border: none;
+  letter-spacing: 0.02em;
+  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .button-submit-filter-info {
-    position: absolute;
-    top: 17px;
-    right: 14px;
-    width: 64px;
-    height: 24px;
-    padding: 0px;
-    margin-left: 76px;
-    box-sizing: border-box;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #424FC8;
-    font-weight: bold;
-    color: white;
-    border:none;
-    letter-spacing: 0.02em;
-    box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 17px;
+  right: 14px;
+  width: 64px;
+  height: 24px;
+  padding: 0px;
+  margin-left: 76px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #424fc8;
+  font-weight: bold;
+  color: white;
+  border: none;
+  letter-spacing: 0.02em;
+  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
 }

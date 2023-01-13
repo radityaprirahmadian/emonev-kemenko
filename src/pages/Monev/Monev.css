@@ -1,52 +1,75 @@
 .input-dan-tajuk {
-    margin-left: 84px;
-    display: flex;
+  margin-left: 84px;
+  display: flex;
 }
 
 .input-dan-tajuk button {
-    font-family: 'Open Sans', sans-serif;
-    box-sizing: border-box;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #8E4134;
-    color: white;
-    width: 225px;
-    height: 46px;
-    border:none;
-    padding: 0px;
-    letter-spacing: 0.02em;
-    display: flex;
-    align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #8e4134;
+  color: white;
+  width: 225px;
+  height: 46px;
+  border: none;
+  padding: 0px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
 }
 
 /* .clear{
     clear: both;
 } */
 
-.input-dan-tajuk .tambah-laporan img{
-    width: 24px;
-    height: 24px;
-    margin-left: 17px;
-    
+.input-dan-tajuk .tambah-laporan img {
+  width: 24px;
+  height: 24px;
+  margin-left: 17px;
 }
 
-.input-dan-tajuk button p{
-    font-weight: bold;
-    font-size: 16px;
-    margin-right: 45px;    
+.input-dan-tajuk button p {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 45px;
 }
 
-.spacer{
-    flex: 1;
+.spacer {
+  flex: 1;
 }
 
-.tajuk-monev{
-    margin-right: 28px;
-    margin-top: 7px;
+.tajuk-monev {
+  margin-right: 28px;
+  margin-top: 7px;
 }
 
-.tajuk-monev p{
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+.tajuk-monev p {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.toggle-laporan {
+  margin-left: 84px;
+  margin-bottom: 19px;
+  display: flex;
+  background: white;
+  font-family: 'Open Sans', sans-serif;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.toggle-laporan .item {
+  padding: 15px 25px;
+  font-weight: 600;
+  color: gray;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.toggle-laporan .item.active {
+  color: #e76975;
+  border-bottom: 4px solid #e76975;
+  opacity: 1;
 }

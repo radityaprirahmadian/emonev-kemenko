@@ -118,7 +118,6 @@ const GNRM = (props) => {
     // if (!loading) {
     return (
         <Fragment>
-            <SideBarOff setId={props.setId} />
             <div className="background-after-login">
                 <img
                     src={bg_1}
@@ -158,25 +157,47 @@ const GNRM = (props) => {
                             : { transition: "all 0.3s ease-in-out" }
                     }
                 >
-                    <div className="input-dan-tajuk">
-                        <button
-                            className="tambah-program"
-                            onClick={() => handleReset()}
+                    <div className="toggle-laporan">
+                        <Link
+                            to={`/${userDetail && userDetail.role === "owner"
+                                        ? "super-admin"
+                                        : "admin"
+                                }/rencana-dan-laporan?active=rencana-pelaksanaan-program`}
+                            className={`item ${history.location.search.split('=')[1] === 'rencana-pelaksanaan-program' ? 'active' : ''}`}                     
                         >
-                            <img src={plus}></img>
-                            <div className="spacer"></div>
-                            <h1 className="text-input-program">
-                                Input Program
-                            </h1>
-                        </button>
+                            Rencana
+                        </Link>
+                        <Link
+                            to={`/${userDetail && userDetail.role === "owner"
+                                        ? "super-admin"
+                                        : "admin"
+                                }/rencana-dan-laporan?active=laporan-monev`}
+                                className={`item ${history.location.search.split('=')[1] === 'laporan-monev' ? 'active' : ''}`}                  
+                        >
+                            Laporan
+                        </Link>
                     </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <Filter
+                            filterValue={filterValue}
+                            getDocument={getAllDocument}
+                            setFilterDoc={setFilter}
+                            filterDoc={filter}
+                        />
 
-                    <Filter
-                        filterValue={filterValue}
-                        getDocument={getAllDocument}
-                        setFilterDoc={setFilter}
-                        filterDoc={filter}
-                    />
+                        <div className="input-dan-tajuk">
+                            <button
+                                className="tambah-program"
+                                onClick={() => handleReset()}
+                            >
+                                <img src={plus}></img>
+                                <div className="spacer"></div>
+                                <h1 className="text-input-program">
+                                    Input Program
+                                </h1>
+                            </button>
+                        </div>
+                    </div>
 
                     <div className="table-container">
                         <table className="table-gnrm">

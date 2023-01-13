@@ -371,7 +371,7 @@ const FormMonev = (props) => {
             history.push(
                 `/${
                     userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
-                }/laporan-monev`
+                }/rencana-dan-laporan?active=laporan-monev`
             )
         } catch (err) {
             alert(err.response.data.message)
@@ -455,7 +455,7 @@ const FormMonev = (props) => {
             history.push(
                 `/${
                     userDetail && userDetail.role === "owner" ? "super-admin" : "admin"
-                }/laporan-monev`
+                }/rencana-dan-laporan?active=laporan-monev`
             )
 
             editDocumentFalse()

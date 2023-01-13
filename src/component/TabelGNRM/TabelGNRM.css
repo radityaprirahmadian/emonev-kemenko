@@ -1,58 +1,56 @@
 .table-gnrm {
-    margin-left: 84px;
-    margin-top: 19px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    background-color: white;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+  width: 100%;
+  margin-top: 19px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.table-head th{
-    padding-left: 16px;
-    padding-top: 22px;
-    padding-bottom: 10px;
-    overflow: auto;
-    font-weight: bold;
-    background-color: white;
+.table-head th {
+  padding-left: 16px;
+  padding-top: 22px;
+  padding-bottom: 10px;
+  overflow: auto;
+  font-weight: bold;
+  background-color: white;
 }
 
 .table-body tr,
-.table-body tr{
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-    background-color: white;
-    overflow: auto;
+.table-body tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: white;
+  overflow: auto;
 }
 
-.table-body td{
-    background-color: white;
-    padding-left: 16px;
-    overflow: auto;
-    line-height: 48px;    
+.table-body td {
+  background-color: white;
+  padding-left: 16px;
+  overflow: auto;
+  line-height: 48px;
 }
 
-.table-body td.logo{
-    padding:0px;
+.table-body td.logo {
+  padding: 0px;
 }
 
 .popup_delete {
-    font-family: 'Montserrat' , sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
-.table-body td img{
-    padding:0px;
-    background-color: none;
-}
-
-button.button-download{
-    position: relative;
-    bottom: -4px;
-    height: 15px;
-    width: 12px;
-    border: none;
-    background-color: white;
-    line-height: 0px;
-    padding: 0px;
-    margin-left: 0px;
-
+.table-body td img {
+  padding: 0px;
+  background-color: none;
 }
 
+button.button-download {
+  position: relative;
+  bottom: -4px;
+  height: 15px;
+  width: 12px;
+  border: none;
+  background-color: white;
+  line-height: 0px;
+  padding: 0px;
+  margin-left: 0px;
+}
