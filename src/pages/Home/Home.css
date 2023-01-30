@@ -25,10 +25,26 @@
   font-weight: 700;
 }
 
-.link-terkait-section .image {
+.link-terkait-section .image-instansi,
+.link-terkait-section .image-landing {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.link-terkait-section .image-instansi {
+  gap: 40px;
+}
+
+.link-terkait-section .image-landing a {
+  object-fit: contain;
+  display: inline-block;
+  text-align: center;
+  width: 20%;
+}
+
+.link-terkait-section .image-landing a img {
+  width: 100%;
 }
 
 .keterangan {

@@ -15,6 +15,11 @@ import exclude from "../../assets/Exclude.png"
 import exclude2 from "../../assets/Exclude2.png"
 import linkTerkait1 from "../../assets/logo_link_terkait_1.png"
 import linkTerkait2 from "../../assets/logo_link_terkait_2.png"
+import linkInstansi1 from "../../assets/logo_terkait_1.png"
+import linkInstansi2 from "../../assets/logo_terkait_2.png"
+import linkInstansi3 from "../../assets/logo_terkait_3.png"
+import linkInstansi4 from "../../assets/logo_terkait_4.png"
+import linkInstansi5 from "../../assets/logo_terkait_5.png"
 import { Bar } from "react-chartjs-2"
 import StatistikGNRM from "../../component/Statistik/StatistikGNRM"
 import Spinner from "../../component/Spinner/Spinner"
@@ -27,7 +32,7 @@ const Home = () => {
 
     const getAllDocument = async () => {
         try {
-            const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar`)
+            const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/kabar`)
             setDocuments(res.data.kabar)
         } catch (err) {
             console.log(err)
@@ -48,7 +53,7 @@ const Home = () => {
     const getDocumentCardLength = async () => {
         try {
             const res = await axios.get(
-                `https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${nama_instansi}`
+                `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?instansi=${nama_instansi}`
             )
             setDocumentCardLength(res.data.total)
         } catch (err) {
@@ -58,7 +63,7 @@ const Home = () => {
 
     // const Statistika = async () => {
     //     try {
-    //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
+    //         const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/statistik?select=Kemendagri,Kemenko PMK,Kemenpan RB,Kemenko Maritim,Kemenko Polhukam,Kemenko Perekonomian&type=gnrm`)
     //         console.log(res.data.statistik)
     //     }
     //     catch (err) {
@@ -70,7 +75,7 @@ const Home = () => {
         setLoading(true)
         try {
             const res = await axios.get(
-                `https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=2&page=${page}&instansi=${nama_instansi}`
+                `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?limit=2&page=${page}&instansi=${nama_instansi}`
             )
             setDocumentCard(res.data.kabar)
         } catch (err) {
@@ -99,7 +104,7 @@ const Home = () => {
         getAllDocument()
         getDocumentCard()
         getDocumentCardLength()
-    }, [filterCard])
+    }, [filterCard, getDocumentCard, getDocumentCardLength])
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -112,7 +117,7 @@ const Home = () => {
 
     useEffect(() => {
         axios
-            .get("https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Kementerian")
+            .get("http://api.simonev.revolusimental.go.id:8882/api/v1/instansi?jenis=Kementerian")
             .then((res) => {
                 setInstansi(res.data.instansi)
             })
@@ -121,7 +126,7 @@ const Home = () => {
             })
 
         axios
-            .get("https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Lembaga")
+            .get("http://api.simonev.revolusimental.go.id:8882/api/v1/instansi?jenis=Lembaga")
             .then((res) => {
                 setLembaga(res.data.instansi)
             })
@@ -130,7 +135,7 @@ const Home = () => {
             })
 
         axios
-            .get("https://api.simonev.revolusimental.go.id/api/v1/instansi?jenis=Pemerintah Daerah")
+            .get("http://api.simonev.revolusimental.go.id:8882/api/v1/instansi?jenis=Pemerintah Daerah")
             .then((res) => {
                 setInstansiDaerah(res.data.instansi)
             })
@@ -298,7 +303,7 @@ const Home = () => {
                     {documents && documents.length > 6
                         ? documents.slice(0, 7).map((document, index) => {
                               const i = document.gambar.map(
-                                  (infografis) => `https://api.simonev.revolusimental.go.id${infografis.path}`
+                                  (infografis) => `http://api.simonev.revolusimental.go.id:8882${infografis.path}`
                               )
                               return (
                                   <Fragment>
@@ -311,7 +316,7 @@ const Home = () => {
                           })
                         : documents.slice(0, documents.length).map((document, index) => {
                               const i = document.gambar.map(
-                                  (infografis) => `https://api.simonev.revolusimental.go.id${infografis.path}`
+                                  (infografis) => `http://api.simonev.revolusimental.go.id:8882${infografis.path}`
                               )
                               return (
                                   <Fragment>
@@ -375,7 +380,7 @@ const Home = () => {
                         <div className="home-other">
                             {documents && documents.length > 6
                                 ? documents.slice(0, 7).map((document, index) => {
-                                      const i = `https://api.simonev.revolusimental.go.id${document.instansi.logo}`
+                                      const i = `http://api.simonev.revolusimental.go.id:8882${document.instansi.logo}`
                                       return (
                                           <Fragment>
                                               <Link
@@ -419,7 +424,7 @@ const Home = () => {
                                       )
                                   })
                                 : documents.slice(0, documents.length).map((document, index) => {
-                                      const i = `https://api.simonev.revolusimental.go.id${document.instansi.logo}`
+                                      const i = `http://api.simonev.revolusimental.go.id:8882${document.instansi.logo}`
                                       return (
                                           <Fragment>
                                               <Link
@@ -616,8 +621,24 @@ const Home = () => {
                     <img src={exclude2} className="curves_home"></img>
                 </div>
                 <div className="link-terkait-section">
-                    <div className="title">Link Terkait</div>
-                    <div className="image">
+                    <div className="image-instansi">
+                        <Link to={{pathname: 'https://www.kemendagri.go.id/'}} target="_blank">
+                            <img src={linkInstansi1} className="image-1" alt="kemendagri"></img>
+                        </Link>
+                        <Link to={{pathname: 'https://polkam.go.id/'}} target="_blank">
+                            <img src={linkInstansi2} className="image-2" alt="polkam"></img>
+                        </Link>
+                        <Link to={{pathname: 'https://maritim.go.id/'}} target="_blank">
+                            <img src={linkInstansi3} className="image-1" alt="maritim"></img>
+                        </Link>
+                        <Link to={{pathname: 'https://www.ekon.go.id/'}} target="_blank">
+                            <img src={linkInstansi4} className="image-2" alt="ekon"></img>
+                        </Link>
+                        <Link to={{pathname: 'https://menpan.go.id/site/'}} target="_blank">
+                            <img src={linkInstansi5} className="image-2" alt="menpan"></img>
+                        </Link>
+                    </div>
+                    <div className="image-landing">
                         <Link to={{pathname: 'http://revolusimental.id/'}} target="_blank">
                             <img src={linkTerkait1} className="image-1" alt="gerakan nasional revolusi mental"></img>
                         </Link>
