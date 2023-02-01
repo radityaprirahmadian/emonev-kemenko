@@ -1,224 +1,251 @@
-.tajuk-page1 p{
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 39px;
-    text-align: right;
-    margin-right: 64px;
-    letter-spacing: 0.1em;
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-    color: black;
-    font-weight: 900;
+.tajuk-page1 p {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 39px;
+  text-align: right;
+  margin-right: 64px;
+  letter-spacing: 0.1em;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  color: black;
+  font-weight: 900;
 }
 
 .tajuk-page2 p {
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 87px;
-    margin-bottom: 32px;
-    text-align: right;
-    margin-right: 64px;
-    letter-spacing: 0.1em;
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-    color: black;
-    font-weight: 900;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 120px;
+  margin-bottom: 32px;
+  text-align: right;
+  margin-right: 64px;
+  letter-spacing: 0.1em;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  color: black;
+  font-weight: 900;
 }
 
 .tajuk-page3 p {
-    font-size: 24px;
-    font-weight: 600;
-    margin-top: 72px;
-    text-align: right;
-    margin-right: 64px;
-    letter-spacing: 0.1em;
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-    color: black;
-    font-weight: 900;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 72px;
+  text-align: right;
+  margin-right: 64px;
+  letter-spacing: 0.1em;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  color: black;
+  font-weight: 900;
 }
 
-
-.notification button{
-    border: none;
-    background-color: white;
+.notification button {
+  border: none;
+  background-color: white;
 }
-
 
 .notification-counter {
-    width: 20px;
-    height: 20px;
-    background-color: #C04B3E;
-    position: absolute;
-    top : -7px;
-    right: -4px;
-    border-radius: 50%;
-    color: white;
-    font-size: 12px;
-    line-height: 20px;
-    text-align: center;
+  width: 20px;
+  height: 20px;
+  background-color: #c04b3e;
+  position: absolute;
+  top: -7px;
+  right: -4px;
+  border-radius: 50%;
+  color: white;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
 }
 .drop-down-menu {
-    display: flex;
-    font-size:12px;
+  display: flex;
+  font-size: 12px;
 }
-.spacer{
-    flex: 1;
+.spacer {
+  flex: 1;
 }
 .drop-down-kementrian {
-    margin-left: 100px;
+  margin-left: 100px;
 }
 
 .drop-down-jangka {
-    margin-right: 38px;
+  margin-right: 38px;
 }
 
 .drop-down-waktu {
-    margin-right: 32px;
+  margin-right: 32px;
 }
 
-.drop-down-kementrian option{
-    position: absolute;
-    bottom: 30px;
+.drop-down-kementrian option {
+  position: absolute;
+  bottom: 30px;
 }
 
-.drop-down-kementrian select{
-    height: 25px;
-    width: 200px;
-    color: white;
-    font-weight: bold;
-    background-color:#343A40;
-    border-radius: 0px 0px 5px 5px; 
+.drop-down-kementrian select {
+  height: 25px;
+  width: 200px;
+  color: white;
+  font-weight: bold;
+  background-color: #343a40;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .drop-down-kementrian label,
 .drop-down-waktu label,
 .drop-down-jangka label {
-    margin-top: 6px;
-    margin-left: 4px;
+  margin-top: 6px;
+  margin-left: 4px;
 }
 
 .drop-down-waktu select,
 .drop-down-jangka select {
-    height: 25px;
-    width: 103px;
-    color: white;
-    font-weight: bold;
-    background-color:#343A40;
-    border-radius: 0px 0px 5px 5px;
+  height: 25px;
+  width: 103px;
+  color: white;
+  font-weight: bold;
+  background-color: #343a40;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .drop-down-jangka select {
-    width: 200px;
+  width: 200px;
 }
 
 .material-icons {
-    color: #C04B3E;
+  color: #c04b3e;
 }
 
 .infografik-statistik {
-    border-radius: 10px;
-    margin: 32px auto 0;
-    background-color: white;
-    height: 60vh;
-    width: 125vh;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
-    border: 2px solid black;
+  border-radius: 10px;
+  margin: 32px auto 0;
+  background-color: white;
+  height: 60vh;
+  width: 125vh;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.5);
+  border: 2px solid black;
 }
 
-.dashboard-section{
-    margin-left: 100px;
+.dashboard-section {
+  margin-left: 100px;
 }
 
 .select-waktu-periode {
-    margin: 0 12px;
+  margin: 0 12px;
 }
 
 .select-waktu-periode select {
-    border-radius: 10px;
-    padding: 5px;
-    width: 175px;
-    font-weight: bold;
-    border: 2px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  width: 175px;
+  font-weight: bold;
+  border: 2px solid black;
 }
 
 .select-waktu-periode label {
-    font-weight: bold;
-    margin-left: 10px;
-    margin-bottom: 10px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .infografik-statistik .keterangan {
-    font-weight: bold;
-    text-align: right;
-    font-size: 0.7em;
-    padding: 0 20px 20px 20px;
-    line-height: initial;
+  font-weight: bold;
+  text-align: right;
+  font-size: 0.7em;
+  padding: 0 20px 20px 20px;
+  line-height: initial;
 }
 
 .slider-dashboard {
-    width: fit-content;
-    height: fit-content;
-    margin: 16px auto 0;
+  width: fit-content;
+  height: fit-content;
+  margin: 16px auto 0;
 }
 
 .slider-dashboard div {
-    display: inline-block;
+  display: inline-block;
 }
 
 .active-slider-dashboard {
-    width: 50px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: #E76975;
-    margin-right: 12px;
-    margin-left: 12px;
+  width: 50px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #e76975;
+  margin-right: 12px;
+  margin-left: 12px;
 }
 
 .nonactive-slider-dashboard {
-    width: 50px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: white;
+  width: 50px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: white;
 }
 
 .button-home-prev2,
 .button-home-prev3 {
-    width: 5vh;
-    height: 5vh;
-    text-align: center;
-    position: absolute;
-    left: -6vh;
-    top: 40%; 
-    cursor: pointer;
-    background-color: rgba(0,0,0,0.7);
-    border-radius: 50%;
+  width: 5vh;
+  height: 5vh;
+  text-align: center;
+  position: absolute;
+  left: -6vh;
+  top: 40%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
 }
 
 .button-home-prev2 {
-    left: -6vh;
-    top: 40%;
+  left: -6vh;
+  top: 40%;
 }
 
 .button-home-next2,
 .button-home-next3 {
-    width: 5vh;
-    height: 5vh;
-    text-align: center;
-    position: absolute;
-    right: -3vh;
-    top: 40%; 
-    cursor: pointer;
-    background-color: rgba(0,0,0,0.7);
-    border-radius: 50%;
+  width: 5vh;
+  height: 5vh;
+  text-align: center;
+  position: absolute;
+  right: -3vh;
+  top: 40%;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
 }
 
 .button-home-next2 {
-    right: -6vh;
-    top: 40%; 
+  right: -6vh;
+  top: 40%;
 }
 
 .button-home-prev2 .material-icons,
 .button-home-next3 .material-icons,
 .button-home-prev3 .material-icons,
 .button-home-next2 .material-icons {
-    font-size: 3vh;
-    line-height: 5vh;
+  font-size: 3vh;
+  line-height: 5vh;
+}
+
+.statistik-gnrm-filter {
+  display: flex;
+  gap: 24px;
+}
+
+.statistik-gnrm-filter .select-waktu-periode {
+  margin: 0px;
+}
+
+.drop-down-menu.gnrm {
+  margin-top: 50px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.drop-down-menu.gnrm .button-download-statistik {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #e76975;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 12px 18px;
+}
+
+.drop-down-menu.gnrm a {
+  text-decoration: none;
 }

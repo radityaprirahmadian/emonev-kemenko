@@ -70,7 +70,7 @@ const SideBarOff = (props) => {
       };
       try {
         const res = await axios.get(
-          `https://api.simonev.revolusimental.go.id/api/v1/instansi/${
+          `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${
             userDetail && userDetail.instansi._id
           }`,
           config,
@@ -85,28 +85,33 @@ const SideBarOff = (props) => {
   }, [userDetail]);
 
   useEffect(() => {
-    if (pathname != `/admin/profile-instansi/${instansiDetail && instansiDetail._id}`) {
-      if (pathname != `/admin/edit-profile-instansi/${instansiDetail && instansiDetail._id}`) {
-        if (
-          instansiDetail.alamat === '' ||
-          instansiDetail.kontak === '' ||
-          instansiDetail.website === '' ||
-          instansiDetail.fax === '' ||
-          instansiDetail.nama === '' ||
-          instansiDetail.nama_pendek === '' ||
-          instansiDetail.email === '' ||
-          instansiDetail.logo === ''
-        ) {
-          setHide(false);
-        } else {
-          setHide(true);
-        }
+    if (
+      pathname === `/admin/profile-instansi/${instansiDetail && instansiDetail._id}` ||
+      pathname === `/super-admin/profile-instansi/${instansiDetail && instansiDetail._id}` ||
+      pathname === `/admin/edit-profile-instansi/${instansiDetail && instansiDetail._id}` ||
+      pathname === `/super-admin/edit-profile-instansi/${instansiDetail && instansiDetail._id}`
+    ) {
+      setHide(true);
+    } else {
+      if (
+        instansiDetail.alamat === '' ||
+        instansiDetail.kontak === '' ||
+        instansiDetail.website === '' ||
+        instansiDetail.fax === '' ||
+        instansiDetail.nama === '' ||
+        instansiDetail.nama_pendek === '' ||
+        instansiDetail.email === '' ||
+        instansiDetail.logo === ''
+      ) {
+        setHide(false);
+      } else {
+        setHide(true);
       }
     }
   }, [instansiDetail, pathname]);
 
   useEffect(() => {
-    const wow = `https://api.simonev.revolusimental.go.id${userDetail && userDetail.foto}`;
+    const wow = `http://api.simonev.revolusimental.go.id:8882${userDetail && userDetail.foto}`;
     setAvatar(wow);
   }, [userDetail]);
 
@@ -153,7 +158,7 @@ const SideBarOff = (props) => {
               {userDetail && userDetail.instansi.logo ? (
                 <img
                   src={
-                    'https://api.simonev.revolusimental.go.id' +
+                    'http://api.simonev.revolusimental.go.id:8882' +
                     (userDetail && userDetail.instansi.logo)
                   }
                   className="logo-instansi-user"
@@ -233,7 +238,9 @@ const SideBarOff = (props) => {
                   </li>
                 </NavLink> */}
                 <NavLink
-                  to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-dan-laporan?active=laporan-monev`}
+                  to={`/${
+                    user && user.role === 'owner' ? 'super-admin' : 'admin'
+                  }/rencana-dan-laporan?active=laporan-monev`}
                   activeClassName="active"
                 >
                   <li className="side-bar-item">
@@ -388,7 +395,7 @@ const SideBarOff = (props) => {
             {userDetail && userDetail.instansi.logo ? (
               <img
                 src={
-                  'https://api.simonev.revolusimental.go.id' +
+                  'http://api.simonev.revolusimental.go.id:8882' +
                   (userDetail && userDetail.instansi.logo)
                 }
                 className="logo-instansi-user-off"
@@ -452,7 +459,9 @@ const SideBarOff = (props) => {
                   </li>
                 </NavLink> */}
                 <NavLink
-                  to={`/${user && user.role === 'owner' ? 'super-admin' : 'admin'}/rencana-dan-laporan?active=laporan-monev`}
+                  to={`/${
+                    user && user.role === 'owner' ? 'super-admin' : 'admin'
+                  }/rencana-dan-laporan?active=laporan-monev`}
                   activeClassName="active"
                 >
                   <li className="side-bar-item">

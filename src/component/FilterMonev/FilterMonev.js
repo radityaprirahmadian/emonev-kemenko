@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState, useEffect, useContext } from 'react';
+import React, { Component, Fragment, useState, useEffect, useContext, useRef } from 'react';
 import '../Filter/Filter.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/Auth/AuthContext.js';
@@ -7,6 +7,9 @@ import searchIcon from '../../assets/search_icon.png';
 const FilterMonev = (props) => {
   const { token, user } = useContext(AuthContext);
   const [keyword, setKeyword] = useState('');
+  const [suggestionOpen, setSuggestionOpen] = useState(false);
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   const onChange = (e) => {
     return props.setFilterDoc({
@@ -20,16 +23,60 @@ const FilterMonev = (props) => {
     props.getDocument();
   };
 
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setSuggestionOpen(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [ref]);
+  }
+
   return (
     <Fragment>
       <div className="filter-container pelaporan">
-        <div className="pelaporan-search">
+        <div
+          className="pelaporan-search"
+          ref={wrapperRef}
+          // onBlur={() => setTimeout(setSuggestionOpen(false), 10000)}
+        >
           <img src={searchIcon} alt="search"></img>
           <input
-            value={keyword}
+            value={props.filterDoc.keyword}
+            name="keyword"
             placeholder="Cari nama laporan"
-            onChange={(e) => setKeyword(e.target.value)}
+            onChange={(e) => onChange(e)}
+            onFocus={() => setSuggestionOpen(true)}
+            // onBlur={() => setSuggestionOpen(false)}
           ></input>
+          {suggestionOpen && (
+            <div className="suggestion-laporan">
+              {props.suggestion.map((item, index) => {
+                return (
+                  <div
+                    className="item"
+                    key={index}
+                    onClick={() => {
+                      onChange({ target: { name: 'keyword', value: item } });
+                      setSuggestionOpen(false);
+                    }}
+                  >
+                    {item}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
         <div className="filter-tahun">
           <label className="nama-filter">Tahun</label>

@@ -3,59 +3,24 @@ import { Bar } from 'react-chartjs-2';
 
 import Spinner from '../Spinner/Spinner';
 
-export default function StatistikGNRM(props) {
-  const [statistik, setStatistik] = useState(null);
-  const [tahun, setTahun] = useState(null);
-  const [periode, setPeriode] = useState(null);
-  const [instansi, setInstansi] = useState(null);
-  const [waktu, setWaktu] = useState(null);
-
-  useEffect(() => {
-    setTahun(props.tahun);
-    setPeriode(props.periode);
-    setWaktu(props.waktu);
-    setInstansi(props.instansi);
-    return () => {
-      setStatistik(null);
-      setData(null);
-      setTahun(null);
-      setPeriode(null);
-      setWaktu(null);
-    };
-  }, []);
-
-  useEffect(() => {
-    setTahun(props.tahun);
-    setInstansi(props.instansi);
-    if (props.periode && props.waktu) {
-      setPeriode(props.periode);
-      setWaktu(props.waktu);
-    }
-  }, [props]);
+export default function StatistikKabarGNRM(props) {
+  const [statistik, setStatistik] = useState([]);
 
   useEffect(() => {
     setData(null);
     setStatistik(null);
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v1/statistik/gnrm?instansi=${
-      instansi || ''
-    }&tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`;
+    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gnrm/count`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setStatistik(data.statistik);
+        setStatistik(data.gnrm);
       });
-  }, [instansi, tahun, periode && waktu]);
+  }, []);
 
   useEffect(() => {
     if (statistik) {
-      let chartData = Object.values(statistik);
-
-      let chartLabel = [];
-
-      Object.keys(statistik).forEach((label) => {
-        const splitLabel = label.split(' ');
-        chartLabel.push(splitLabel);
-      });
+      let chartData = statistik.map((data) => data.provinsi);
+      let chartLabel = statistik.map((data) => data.tahun);
 
       let chart = {
         labels: chartLabel,
@@ -93,6 +58,7 @@ export default function StatistikGNRM(props) {
           ticks: {
             fontColor: '#000000',
             min: 0,
+            max: 500,
             callback: (value) => {
               if (value % 1 === 0) {
                 return value;
