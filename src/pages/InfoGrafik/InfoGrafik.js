@@ -194,7 +194,6 @@ const Dashboard = (props) => {
         const res = await axios.get(
           `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gerakan/download?tahun=${filterStatistikGerakan.tahun}&periode=${filterStatistikGerakan.periode}`,
         );
-        console.log(res);
         setDataToBeDownloaded(res.data.results);
         setLoadingDownload(false);
       } catch (err) {
@@ -373,19 +372,19 @@ const Dashboard = (props) => {
 
           <div className="dashboard-section">
             <div className="tajuk-page2">
-              <p>KABAR GNRM TERKINI</p>
+              <p>PEMBENTUKAN GUGUS TUGAS DAERAH</p>
             </div>
             <div className="infografik-statistik" style={{ position: 'relative' }}>
               <StatistikKabarGNRM color="#8380EA" />
             </div>
           </div>
 
-          <div style={{ marginLeft: '80px', marginBottom: '80px' }}>
+          {/* <div style={{ marginLeft: '80px', marginBottom: '80px' }}>
             <div className="tajuk-page3">
               <p>GALERI</p>
             </div>
             <Gallery pagination={true} logged_in={true} />
-          </div>
+          </div> */}
         </div>
       </div>
     </Fragment>

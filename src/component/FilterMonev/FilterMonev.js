@@ -54,6 +54,8 @@ const FilterMonev = (props) => {
           <input
             value={props.filterDoc.keyword}
             name="keyword"
+            autoComplete='off'
+            autoCorrect='off'
             placeholder="Cari nama laporan"
             onChange={(e) => onChange(e)}
             onFocus={() => setSuggestionOpen(true)}
@@ -71,7 +73,7 @@ const FilterMonev = (props) => {
                       setSuggestionOpen(false);
                     }}
                   >
-                    {item}
+                    {item.length > 30 ? `${item.substr(0, 31)}...` : item}
                   </div>
                 );
               })}

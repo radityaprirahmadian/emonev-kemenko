@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext, useEffect } from 'react';
 import './FormGNRM.css';
 import logo_kemenko from '../../assets/logo_kemenko.png';
 import images from '../../assets/image.png';
-import logo_footer from '../../assets/logo_footer.png';
+import logo_footer from '../../assets/logo_link_terkait_1.png';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -19,6 +19,7 @@ import bg_2 from '../../assets/decoration/bg_2.png';
 import bg_3 from '../../assets/decoration/bg_3.png';
 import bg_4 from '../../assets/decoration/bg_4.png';
 import { LayoutContext } from '../../context/Layout/LayoutContext';
+import { totalWordInSentenceCounter } from '../../utils/totalWordInSentenceCounter';
 
 const FormGNRM = (props) => {
   const {
@@ -49,6 +50,7 @@ const FormGNRM = (props) => {
   const [data, setData] = useState({
     tahun: '',
     id_program: '',
+    periode: '',
     instansi: '',
     kp: '',
     prop: '',
@@ -82,6 +84,7 @@ const FormGNRM = (props) => {
       nama: '',
       jabatan: '',
       nip: '',
+      instansi: '',
     },
     lokasi: '',
     deleted_media: [],
@@ -89,13 +92,23 @@ const FormGNRM = (props) => {
     deleted_kondisi: [],
   });
 
+  const [wordLength, setWordLength] = useState({
+    sk_kendala: 0,
+    penjelasan_kegiatan: 0,
+    indikator_capaian: 0,
+    sasaran: 0,
+    target: 0,
+    kondisi_awal: 0,
+  });
+
+
   const pilihanTahun = [];
   const todaysYear = new Date().getFullYear();
   for (let year = todaysYear; year >= 2020; year--) {
     pilihanTahun.push(year);
   }
 
-  const pilihanPeriode = ['Tahunan', 'Caturwulan'];
+  const pilihanPeriode = ['Jan-Mei', 'Jul-Nov'];
   const {
     tahun,
     id_program,
@@ -271,7 +284,8 @@ const FormGNRM = (props) => {
   };
 
   const onChangeSK = (e) => {
-    return setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value });
+    setWordLength({ ...wordLength, [e.target.name]: totalWordInSentenceCounter(e.target.value) });
   };
 
   const onChangeSKFile = (event) => {
@@ -294,7 +308,17 @@ const FormGNRM = (props) => {
     event.target.value = null;
   };
 
-  const onChange = (event, property, array = false, index) => {
+  const onChange = (event, property, array = false, index, isWordCount) => {
+    if(isWordCount) {
+      setWordLength({
+        ...wordLength,
+        [event.target.name]: !array ? totalWordInSentenceCounter(event.target.value) : {
+          ...wordLength[event.target.name],
+          [index]: totalWordInSentenceCounter(event.target.value)
+      }
+      });
+    }
+
     if (event.target.name === 'kp') setSelectedKp(event.target.value);
 
     if (property)
@@ -369,51 +393,73 @@ const FormGNRM = (props) => {
   };
 
   const onSubmit = async (event) => {
-    event.preventDefault();
-    setLoadingTrue();
-    const formData = objectToFormData(data);
+    let error = false;
+    let errorAnggaran = false;
 
-    for (let i = 0; i < media.length; i++) {
-      formData.append(`media`, media[i]);
-    }
-    for (let i = 0; i < lampiranProses.length; i++) {
-      formData.append(`lampiran_proses`, lampiranProses[i]);
-    }
-    for (let i = 0; i < lampiranKondisi.length; i++) {
-      formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i]);
-    }
-    for (let i = 0; i < skFile.length; i++) {
-      formData.append(`sk`, skFile[i]);
+    for (let key in wordLength) {
+      if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
     }
 
-    // for (let pair of formData.entries()) {
-    //     console.log(pair[0] + ', ' + pair[1])
-    // }
+    if(data.anggaran.sumber_dana === '') errorAnggaran = true;
+    if(data.anggaran.besar_anggaran === '') errorAnggaran = true;
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'X-Auth-Token': `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const res = await axios.post(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=gnrm',
-        formData,
-        config,
+    if (error) {
+      alert(
+        'Jumlah kata harus lebih dari 50 dan kurang dari 1000 kata. Harap perbaiki kembali perencanaan!',
       );
-      history.push(
-        `/${
-          userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'
-        }/rencana-dan-laporan?active=rencana-pelaksanaan-program`,
+      event.preventDefault();
+    } else if(errorAnggaran) {
+      alert(
+       'Anggaran harus diisi, harap perbaiki kembali perencanaan!'
       );
-      alert(res.data.message);
-      resetDocument();
-      setLoadingFalse();
-    } catch (err) {
-      alert(err.response.data.message);
-      setLoadingFalse();
+      event.preventDefault();
+    } else {
+      event.preventDefault();
+      setLoadingTrue();
+      const formData = objectToFormData(data);
+  
+      for (let i = 0; i < media.length; i++) {
+        formData.append(`media`, media[i]);
+      }
+      for (let i = 0; i < lampiranProses.length; i++) {
+        formData.append(`lampiran_proses`, lampiranProses[i]);
+      }
+      for (let i = 0; i < lampiranKondisi.length; i++) {
+        formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i]);
+      }
+      for (let i = 0; i < skFile.length; i++) {
+        formData.append(`sk`, skFile[i]);
+      }
+  
+      // for (let pair of formData.entries()) {
+      //     console.log(pair[0] + ', ' + pair[1])
+      // }
+  
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-Auth-Token': `Bearer ${token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.post(
+          'http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=gnrm',
+          formData,
+          config,
+        );
+        history.push(
+          `/${
+            userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'
+          }/rencana-dan-laporan?active=rencana-pelaksanaan-program`,
+        );
+        alert(res.data.message);
+        resetDocument();
+        setLoadingFalse();
+      } catch (err) {
+        alert(err.response.data.message);
+        setLoadingFalse();
+      }
     }
   };
 
@@ -423,68 +469,90 @@ const FormGNRM = (props) => {
   };
 
   const onEdit = async (event) => {
-    event.preventDefault();
-    setLoadingTrue();
+    let error = false;
+    let errorAnggaran = false;
 
-    const formData = objectToFormData(data);
-
-    if (lampiranProses.length > 0) {
-      for (let i = 0; i < lampiranProses.length; i++) {
-        formData.append(`lampiran_proses`, lampiranProses[i]);
-      }
-    } else {
-      formData.append('lampiran_proses', new File([null], 'blob'));
+    for (let key in wordLength) {
+      if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
     }
 
-    if (media.length > 0) {
-      for (let i = 0; i < media.length; i++) {
-        formData.append(`media`, media[i]);
-      }
-    } else {
-      formData.append('media', new File([null], 'blob'));
-    }
+    if(data.anggaran.sumber_dana === '') errorAnggaran = true;
+    if(data.anggaran.besar_anggaran === '') errorAnggaran = true;
 
-    if (lampiranKondisi.length > 0) {
-      for (let i = 0; i < lampiranKondisi.length; i++) {
-        formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i]);
-      }
-    } else {
-      formData.append('lampiran_kondisi_awal', new File([null], 'blob'));
-    }
-
-    if (skFile.length > 0) {
-      formData.append(`sk`, skFile[0]);
-    }
-
-    // for (letaa pair of formData.entries()) {
-    //     console.log(pair[0] + ', ' + pair[1])
-    // }
-
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'X-Auth-Token': `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=gnrm`,
-        formData,
-        config,
+    if (error) {
+      alert(
+        'Jumlah kata harus lebih dari 50 dan kurang dari 1000 kata. Harap perbaiki kembali perencanaan!',
       );
-      history.push(
-        `/${
-          userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'
-        }/rencana-dan-laporan?active=rencana-pelaksanaan-program`,
+      event.preventDefault();
+    } else if(errorAnggaran) {
+      alert(
+       'Anggaran harus diisi, harap perbaiki kembali perencanaan!'
       );
-      alert(res.data.message);
-      resetDocument();
-      editDocumentFalse();
-    } catch (err) {
-      alert(err.response.data.message);
+      event.preventDefault();
+    } else {
+      event.preventDefault();
+      setLoadingTrue();
+  
+      const formData = objectToFormData(data);
+  
+      if (lampiranProses.length > 0) {
+        for (let i = 0; i < lampiranProses.length; i++) {
+          formData.append(`lampiran_proses`, lampiranProses[i]);
+        }
+      } else {
+        formData.append('lampiran_proses', new File([null], 'blob'));
+      }
+  
+      if (media.length > 0) {
+        for (let i = 0; i < media.length; i++) {
+          formData.append(`media`, media[i]);
+        }
+      } else {
+        formData.append('media', new File([null], 'blob'));
+      }
+  
+      if (lampiranKondisi.length > 0) {
+        for (let i = 0; i < lampiranKondisi.length; i++) {
+          formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i]);
+        }
+      } else {
+        formData.append('lampiran_kondisi_awal', new File([null], 'blob'));
+      }
+  
+      if (skFile.length > 0) {
+        formData.append(`sk`, skFile[0]);
+      }
+  
+      // for (letaa pair of formData.entries()) {
+      //     console.log(pair[0] + ', ' + pair[1])
+      // }
+  
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-Auth-Token': `Bearer ${token}`,
+        },
+      };
+  
+      try {
+        const res = await axios.put(
+          `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=gnrm`,
+          formData,
+          config,
+        );
+        history.push(
+          `/${
+            userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'
+          }/rencana-dan-laporan?active=rencana-pelaksanaan-program`,
+        );
+        alert(res.data.message);
+        resetDocument();
+        editDocumentFalse();
+      } catch (err) {
+        alert(err.response.data.message);
+      }
+      setLoadingFalse();
     }
-    setLoadingFalse();
   };
 
   useEffect(() => {
@@ -558,6 +626,11 @@ const FormGNRM = (props) => {
         sk_kendala: instansiDetail.sk && instansiDetail.sk.kendala,
       });
 
+      setWordLength({
+        ...wordLength,
+        sk_kendala: instansiDetail?.sk && totalWordInSentenceCounter(instansiDetail?.sk?.kendala),
+      });
+
       const gambar = `http://api.simonev.revolusimental.go.id:8882${
         instansiDetail.sk && instansiDetail.sk.foto
       }`;
@@ -614,6 +687,14 @@ const FormGNRM = (props) => {
       setLampiranProses(documentDetail.form.lampiran.proses);
       setPanjang(documentDetail && documentDetail.form.pihak_terkait.length);
       setSelectedKp(documentDetail.form.kp);
+      setWordLength({
+        ...wordLength,
+        penjelasan_kegiatan: totalWordInSentenceCounter(documentDetail && documentDetail?.form.kegiatan.penjelasan_kegiatan),
+        indikator_capaian: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.indikator_capaian),
+        sasaran: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.sasaran),
+        target: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.target),
+        kondisi_awal: totalWordInSentenceCounter(documentDetail && documentDetail?.form.kondisi_awal),
+      });
 
       const gerakanArray = documentDetail.form.gerakan.split(',');
       const gerakanObj = {};
@@ -809,11 +890,11 @@ const FormGNRM = (props) => {
                       </div>
                       <div>
                         <label>Periode</label>
-                        {documentDetail && documentDetail.form.id_program ? (
+                        {documentDetail && documentDetail.form.periode ? (
                           <select
                             onChange={(event) => onChange(event)}
                             className="monev-id-program"
-                            name="id_program"
+                            name="periode"
                             style={{
                               marginLeft: '150px',
                             }}
@@ -821,7 +902,7 @@ const FormGNRM = (props) => {
                             {pilihanPeriode.map((periode, i) => (
                               <option
                                 key={i}
-                                selected={documentDetail.form.id_program === periode && true}
+                                selected={documentDetail.form.periode === periode && true}
                                 title={periode}
                                 value={periode}
                               >
@@ -833,7 +914,7 @@ const FormGNRM = (props) => {
                           <select
                             onChange={(event) => onChange(event)}
                             className="monev-id-laporan"
-                            name="id_program"
+                            name="periode"
                             style={{
                               marginLeft: '150px',
                             }}
@@ -1182,6 +1263,7 @@ const FormGNRM = (props) => {
                               </div>
                             </Fragment>
                           ) : (
+                            <>
                             <div>
                               <label
                                 style={{
@@ -1205,6 +1287,10 @@ const FormGNRM = (props) => {
                                 onChange={onChangeSK}
                               />
                             </div>
+                            <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                              {wordLength.sk_kendala}/1000
+                            </div>
+                            </>
                           )}
                         </Fragment>
                       ) : (
@@ -1513,6 +1599,7 @@ const FormGNRM = (props) => {
                                   </div>
                                 </Fragment>
                               ) : (
+                                <>
                                 <div>
                                   <label
                                     style={{
@@ -1536,6 +1623,10 @@ const FormGNRM = (props) => {
                                     onChange={onChangeSK}
                                   />
                                 </div>
+                                <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                  {wordLength.sk_kendala}/1000
+                                </div>
+                                </>
                               )}
                             </Fragment>
                           )}
@@ -1563,12 +1654,12 @@ const FormGNRM = (props) => {
                     <div className="gnrm-title">KEGIATAN</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Nama Kegiatan</label>
+                        <label>Nama Program</label>
                         <input
                           className="gnrm-nama-program"
                           style={{
                             height: '42px',
-                            marginLeft: '91px',
+                            marginLeft: '93px',
                             width: '955px',
                           }}
                           type="text"
@@ -1579,7 +1670,7 @@ const FormGNRM = (props) => {
                         />
                       </div>
                       <Fragment>
-                        <div>
+                        {/* <div>
                           <label>Kegiatan Prioritas</label>
                           {documentDetail && documentDetail.form.kp ? (
                             <select
@@ -1686,9 +1777,9 @@ const FormGNRM = (props) => {
                               )}
                             </select>
                           )}
-                        </div>
+                        </div> */}
 
-                        {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && (
+                        {/* {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && ( */}
                           <Fragment>
                             <div>
                               <label>Gerakan</label>
@@ -1848,7 +1939,7 @@ const FormGNRM = (props) => {
                                     </div>
                                   );
                                 })}
-                            {formGerakan.length < 4 ? (
+                            {/* {formGerakan.length < 4 ? (
                               <div>
                                 <label className="tambah-lembaga">Tambah Gerakan</label>
                                 <img
@@ -1864,9 +1955,9 @@ const FormGNRM = (props) => {
                               </div>
                             ) : (
                               ''
-                            )}
+                            )} */}
                           </Fragment>
-                        )}
+                        {/* )} */}
                       </Fragment>
                       <div>
                         <label
@@ -1889,8 +1980,11 @@ const FormGNRM = (props) => {
                           name="penjelasan_kegiatan"
                           placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                           value={kegiatan.penjelasan_kegiatan}
-                          onChange={(event) => onChange(event, 'kegiatan')}
+                          onChange={(event) => onChange(event, 'kegiatan', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.penjelasan_kegiatan}/1000
                       </div>
                     </div>
 
@@ -1934,8 +2028,11 @@ const FormGNRM = (props) => {
                           name="indikator_capaian"
                           placeholder="Tuliskan indikator capaian yang menggambarkan output dan outcome dalam program/kegiatan K/L/D terkait dengan GNRM. Capaian outcome juga harus berkolerasi terhadap lima dimensi GNRM yang sifatnya terukur dan berkontribusi pada peningkatan hasil Indeks Capaian Revolusi Mental (ICRM)"
                           value={output.indikator_capaian}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.indikator_capaian}/1000
                       </div>
                       <div>
                         <label
@@ -1958,8 +2055,11 @@ const FormGNRM = (props) => {
                           placeholder="Tuliskan sasaran yang akan dicapai dalam setiap pelaksanaan program/kegiatan dari masing-masing K/L/D."
                           name="sasaran"
                           value={output.sasaran}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.sasaran}/1000
                       </div>
                       <div>
                         <label
@@ -1982,8 +2082,11 @@ const FormGNRM = (props) => {
                           type="text"
                           name="target"
                           value={output.target}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.target}/1000
                       </div>
                     </div>
 
@@ -2027,8 +2130,11 @@ const FormGNRM = (props) => {
                           placeholder="Tuliskan informasi dasar yang dihimpun sebelum suatu program dari masing-masing K/L/D dilaksanaan bisa berupa data baseline jika program tersebut berupa program lanjutan dan komplementer atau penggambaran kondisi eksisting apabila program/kegiatan K/LD merupakan program/kegiatan baru dan belum pernah di intervensi. Data ini dapat digunakan sebagai acuan untuk meningkatan capaian target program/kegiatan K/L/D secara maksimal"
                           name="kondisi_awal"
                           value={kondisi_awal}
-                          onChange={(event) => onChange(event)}
+                          onChange={(event) => onChange(event, '', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.kondisi_awal}/1000
                       </div>
                       <div className="div_lampiran">
                         <label>Data Dukung</label>
@@ -2280,10 +2386,10 @@ const FormGNRM = (props) => {
 
                 <Element id="anggaran" name="anggaran">
                   <div className="gnrm-container">
-                    <div className="gnrm-title">ANGGARAN</div>
+                    <div className="gnrm-title">ANGGARAN*</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Sumber Anggaran</label>
+                        <label>Sumber Anggaran<span style={{color: '#D4362E'}}>*</span></label>
                         <input
                           className="gnrm-pendanaan"
                           style={{
@@ -2300,7 +2406,7 @@ const FormGNRM = (props) => {
                       </div>
                       <div>
                         <label>
-                          Besaran Anggaran{' '}
+                          Besaran Anggaran<span style={{color: '#D4362E'}}>*</span>{' '}
                           <span
                             style={{
                               marginLeft: '36px',
@@ -2331,7 +2437,7 @@ const FormGNRM = (props) => {
                           <i className="material-icons">expand_less</i>
                         </button>
                       </Link>
-                      <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                      <Link to="pihak_terkait" spy={true} smooth={true} duration={500} offset={-30}>
                         <button className="forward">
                           <i className="material-icons">expand_more</i>
                         </button>
@@ -2340,7 +2446,7 @@ const FormGNRM = (props) => {
                   </div>
                 </Element>
 
-                <Element id="proses" name="proses">
+                {/* <Element id="proses" name="proses">
                   <div className="gnrm-container">
                     <div className="gnrm-title">PERKEMBANGAN PELAKSANAAN KEGIATAN</div>
                     <div className="form-gnrm">
@@ -2451,7 +2557,6 @@ const FormGNRM = (props) => {
                                             className="gnrm-media--image"
                                           />
                                         )}
-                                        {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
                                       </div>
                                       <div
                                         style={{
@@ -2547,7 +2652,7 @@ const FormGNRM = (props) => {
                                             className="gnrm-media--image"
                                           />
                                         )}
-                                        {/* <img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
+                                        
                                       </div>
                                       <div
                                         style={{
@@ -2615,7 +2720,7 @@ const FormGNRM = (props) => {
                       </Link>
                     </div>
                   </div>
-                </Element>
+                </Element> */}
 
                 <Element name="pihak_terkait" id="pihak_terkait">
                   <div className="gnrm-container">
@@ -2675,13 +2780,13 @@ const FormGNRM = (props) => {
                               type="text"
                               name="penjelasan_pihak_terkait"
                               value={data.pihak_terkait.penjelasan_pihak_terkait}
-                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
+                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0, true)}
                             />
                           </div>
                         </Fragment>
                       ) : (
                         documentDetail &&
-                        documentDetail.form.pihak_terkait.map((pihak, index) => {
+                        documentDetail.form && documentDetail.form.pihak_terkait.map((pihak, index) => {
                           return (
                             <Fragment key={index}>
                               {/* <div>
@@ -2744,7 +2849,7 @@ const FormGNRM = (props) => {
                                     data.pihak_terkait[index].penjelasan_pihak_terkait
                                   }
                                   onChange={(event) =>
-                                    onChange(event, 'pihak_terkait', true, index)
+                                    onChange(event, 'pihak_terkait', true, index, true)
                                   }
                                 />
                               </div>
@@ -2810,7 +2915,7 @@ const FormGNRM = (props) => {
                                 name="penjelasan_pihak_terkait"
                                 value={data.pihak_terkait.penjelasan_pihak_terkait}
                                 onChange={(event) =>
-                                  onChange(event, 'pihak_terkait', true, index + panjang)
+                                  onChange(event, 'pihak_terkait', true, index + panjang, true)
                                 }
                               />
                             </div>
@@ -2833,7 +2938,7 @@ const FormGNRM = (props) => {
                     </div>
 
                     <div className="gnrm-navigation-button">
-                      <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                      <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
                         <button className="previous">
                           <i
                             className="material-icons"
@@ -3096,18 +3201,18 @@ const FormGNRM = (props) => {
                         />
                       </div>
                       <div>
-                        <label>Kota/Kabupaten</label>
+                        <label>Instansi</label>
                         <input
                           className="monev-nip"
                           style={{
                             height: '42px',
                             width: '955px',
-                            marginLeft: '81px',
+                            marginLeft: '149px',
                           }}
                           type="text"
-                          name="lokasi"
-                          value={lokasi}
-                          onChange={(event) => onChange(event)}
+                          name="instansi"
+                          value={penanggung_jawab.instansi}
+                          onChange={(event) => onChange(event, 'penanggung_jawab')}
                         />
                       </div>
                     </div>
@@ -3183,7 +3288,7 @@ const FormGNRM = (props) => {
                           <select
                             onChange={(event) => onChange(event)}
                             className="monev-id-program"
-                            name="id_program"
+                            name="periode"
                             style={{
                               marginLeft: '150px',
                             }}
@@ -3191,7 +3296,7 @@ const FormGNRM = (props) => {
                             {pilihanPeriode.map((periode, i) => (
                               <option
                                 key={i}
-                                selected={documentDetail.form.id_program === periode && true}
+                                selected={documentDetail.form.periode === periode && true}
                                 title={periode}
                                 value={periode}
                               >
@@ -3203,7 +3308,7 @@ const FormGNRM = (props) => {
                           <select
                             onChange={(event) => onChange(event)}
                             className="monev-id-laporan"
-                            name="id_program"
+                            name="periode"
                             style={{
                               marginLeft: '150px',
                             }}
@@ -3552,6 +3657,7 @@ const FormGNRM = (props) => {
                               </div>
                             </Fragment>
                           ) : (
+                            <>
                             <div>
                               <label
                                 style={{
@@ -3575,6 +3681,10 @@ const FormGNRM = (props) => {
                                 onChange={onChangeSK}
                               />
                             </div>
+                            <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                              {wordLength.sk_kendala}/1000
+                            </div>
+                            </>
                           )}
                         </Fragment>
                       ) : (
@@ -3883,6 +3993,7 @@ const FormGNRM = (props) => {
                                   </div>
                                 </Fragment>
                               ) : (
+                                <>
                                 <div>
                                   <label
                                     style={{
@@ -3906,6 +4017,10 @@ const FormGNRM = (props) => {
                                     onChange={onChangeSK}
                                   />
                                 </div>
+                                <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                  {wordLength.sk_kendala}/1000
+                                </div>
+                                </>
                               )}
                             </Fragment>
                           )}
@@ -3933,12 +4048,12 @@ const FormGNRM = (props) => {
                     <div className="gnrm-title">KEGIATAN</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Nama Kegiatan</label>
+                        <label>Nama Program</label>
                         <input
                           className="gnrm-nama-program"
                           style={{
                             height: '42px',
-                            marginLeft: '91px',
+                            marginLeft: '93px',
                             width: '767px',
                           }}
                           type="text"
@@ -3949,7 +4064,7 @@ const FormGNRM = (props) => {
                         />
                       </div>
                       <Fragment>
-                        <div>
+                        {/* <div>
                           <label>Kegiatan Prioritas</label>
                           {documentDetail && documentDetail.form.kp ? (
                             <select
@@ -4056,9 +4171,9 @@ const FormGNRM = (props) => {
                               )}
                             </select>
                           )}
-                        </div>
+                        </div> */}
 
-                        {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && (
+                        {/* {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && ( */}
                           <Fragment>
                             <div>
                               <label>Gerakan</label>
@@ -4209,16 +4324,16 @@ const FormGNRM = (props) => {
                                             );
                                           })}
                                       </select>
-                                      <span
+                                      {/* <span
                                         className="remove-form"
                                         onClick={() => onDeleteGerakanForm(index)}
                                       >
                                         <i className=""> x </i>
-                                      </span>
+                                      </span> */}
                                     </div>
                                   );
                                 })}
-                            {formGerakan.length < 4 ? (
+                            {/* {formGerakan.length < 4 ? (
                               <div>
                                 <label className="tambah-lembaga">Tambah Gerakan</label>
                                 <img
@@ -4234,9 +4349,9 @@ const FormGNRM = (props) => {
                               </div>
                             ) : (
                               ''
-                            )}
+                            )} */}
                           </Fragment>
-                        )}
+                        {/* )} */}
                       </Fragment>
                       <div>
                         <label
@@ -4259,8 +4374,11 @@ const FormGNRM = (props) => {
                           placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
                           name="penjelasan_kegiatan"
                           value={kegiatan.penjelasan_kegiatan}
-                          onChange={(event) => onChange(event, 'kegiatan')}
+                          onChange={(event) => onChange(event, 'kegiatan', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.penjelasan_kegiatan}/1000
                       </div>
                     </div>
 
@@ -4304,8 +4422,11 @@ const FormGNRM = (props) => {
                           name="indikator_capaian"
                           placeholder="Tuliskan indikator capaian yang menggambarkan output dan outcome dalam program/kegiatan K/L/D terkait dengan GNRM. Capaian outcome juga harus berkolerasi terhadap lima dimensi GNRM yang sifatnya terukur dan berkontribusi pada peningkatan hasil Indeks Capaian Revolusi Mental (ICRM)"
                           value={output.indikator_capaian}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.indikator_capaian}/1000
                       </div>
                       <div>
                         <label
@@ -4328,8 +4449,11 @@ const FormGNRM = (props) => {
                           name="sasaran"
                           placeholder="Tuliskan sasaran yang akan dicapai dalam setiap pelaksanaan program/kegiatan dari masing-masing K/L/D."
                           value={output.sasaran}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.sasaran}/1000
                       </div>
                       <div>
                         <label
@@ -4352,8 +4476,11 @@ const FormGNRM = (props) => {
                           type="text"
                           name="target"
                           value={output.target}
-                          onChange={(event) => onChange(event, 'output')}
+                          onChange={(event) => onChange(event, 'output', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.target}/1000
                       </div>
                     </div>
 
@@ -4397,8 +4524,11 @@ const FormGNRM = (props) => {
                           name="kondisi_awal"
                           placeholder="Tuliskan informasi dasar yang dihimpun sebelum suatu program dari masing-masing K/L/D dilaksanaan bisa berupa data baseline jika program tersebut berupa program lanjutan dan komplementer atau penggambaran kondisi eksisting apabila program/kegiatan K/LD merupakan program/kegiatan baru dan belum pernah di intervensi. Data ini dapat digunakan sebagai acuan untuk meningkatan capaian target program/kegiatan K/L/D secara maksimal"
                           value={kondisi_awal}
-                          onChange={(event) => onChange(event)}
+                          onChange={(event) => onChange(event, '', false, 0, true)}
                         />
+                      </div>
+                      <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                        {wordLength.kondisi_awal}/1000
                       </div>
                       <div className="div_lampiran">
                         <label>Data Dukung</label>
@@ -4651,10 +4781,10 @@ const FormGNRM = (props) => {
 
                 <Element id="anggaran" name="anggaran">
                   <div className="gnrm-container-off">
-                    <div className="gnrm-title">ANGGARAN</div>
+                    <div className="gnrm-title">ANGGARAN*</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Sumber Anggaran</label>
+                        <label>Sumber Anggaran<span style={{color: '#D4362E'}}>*</span></label>
                         <input
                           className="gnrm-pendanaan off"
                           style={{
@@ -4671,7 +4801,7 @@ const FormGNRM = (props) => {
                       </div>
                       <div>
                         <label>
-                          Besaran Anggaran{' '}
+                          Besaran Anggaran<span style={{color: '#D4362E'}}>*</span>{' '}
                           <span
                             style={{
                               marginLeft: '36px',
@@ -4702,7 +4832,7 @@ const FormGNRM = (props) => {
                           <i className="material-icons">expand_less</i>
                         </button>
                       </Link>
-                      <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                      <Link to="pihak_terkait" spy={true} smooth={true} duration={500} offset={-30}>
                         <button className="forward1">
                           <i className="material-icons">expand_more</i>
                         </button>
@@ -4711,7 +4841,7 @@ const FormGNRM = (props) => {
                   </div>
                 </Element>
 
-                <Element id="proses" name="proses">
+                {/* <Element id="proses" name="proses">
                   <div className="gnrm-container-off">
                     <div className="gnrm-title">PERKEMBANGAN PELAKSANAAN KEGIATAN</div>
                     <div className="form-gnrm">
@@ -4822,7 +4952,6 @@ const FormGNRM = (props) => {
                                             className="gnrm-media--image"
                                           />
                                         )}
-                                        {/* <img src={objectURL} alt={lampiran.name} className="gnrm-media--image" /> */}
                                       </div>
                                       <div
                                         style={{
@@ -4918,7 +5047,6 @@ const FormGNRM = (props) => {
                                             className="gnrm-media--image"
                                           />
                                         )}
-                                        {/* img src={url} alt={getFileName(url)} className="gnrm-media--image" /> */}
                                       </div>
                                       <div
                                         style={{
@@ -4986,7 +5114,7 @@ const FormGNRM = (props) => {
                       </Link>
                     </div>
                   </div>
-                </Element>
+                </Element> */}
 
                 <Element name="pihak_terkait" id="pihak_terkait">
                   <div className="gnrm-container-off">
@@ -5046,13 +5174,13 @@ const FormGNRM = (props) => {
                               placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                               name="penjelasan_pihak_terkait"
                               value={data.pihak_terkait.penjelasan_pihak_terkait}
-                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
+                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0, true)}
                             />
                           </div>
                         </Fragment>
                       ) : (
                         documentDetail &&
-                        documentDetail.form.pihak_terkait.map((pihak, index) => {
+                        documentDetail.form && documentDetail.form.pihak_terkait.map((pihak, index) => {
                           return (
                             <Fragment key={index}>
                               {/* <div>
@@ -5115,7 +5243,7 @@ const FormGNRM = (props) => {
                                     data.pihak_terkait[index].penjelasan_pihak_terkait
                                   }
                                   onChange={(event) =>
-                                    onChange(event, 'pihak_terkait', true, index)
+                                    onChange(event, 'pihak_terkait', true, index, true)
                                   }
                                 />
                               </div>
@@ -5181,7 +5309,7 @@ const FormGNRM = (props) => {
                                 name="penjelasan_pihak_terkait"
                                 value={data.pihak_terkait.penjelasan_pihak_terkait}
                                 onChange={(event) =>
-                                  onChange(event, 'pihak_terkait', true, index + panjang)
+                                  onChange(event, 'pihak_terkait', true, index + panjang, true)
                                 }
                               />
                             </div>
@@ -5204,7 +5332,7 @@ const FormGNRM = (props) => {
                     </div>
 
                     <div className="gnrm-navigation-button">
-                      <Link to="proses" spy={true} smooth={true} duration={500} offset={-30}>
+                      <Link to="anggaran" spy={true} smooth={true} duration={500} offset={-30}>
                         <button className="previous1">
                           <i
                             className="material-icons"
@@ -5467,18 +5595,18 @@ const FormGNRM = (props) => {
                         />
                       </div>
                       <div>
-                        <label>Kota/Kabupaten</label>
+                        <label>Instansi</label>
                         <input
                           className="monev-nip"
                           style={{
                             height: '42px',
                             width: '767px',
-                            marginLeft: '81px',
+                            marginLeft: '149px',
                           }}
                           type="text"
-                          name="lokasi"
-                          value={lokasi}
-                          onChange={(event) => onChange(event)}
+                          name="instansi"
+                          value={penanggung_jawab.instansi}
+                          onChange={(event) => onChange(event, 'penanggung_jawab')}
                         />
                       </div>
                     </div>
@@ -5694,47 +5822,26 @@ const FormGNRM = (props) => {
                         fontWeight: 'bold',
                       }}
                     >
-                      Proteksi Input Program Gerakan Nasioal Revolusi Mental (GNRM) Tahun
-                      <span> {data.tahun}</span>
+                      PROGRAM PELAKSANAAN
                     </h1>
-
-                    <h1 style={{ lineHeight: '15px' }}>
-                      Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh isi laporan
-                      ini dalam bentuk <br /> apapun kecuali oleh Koordinator Pelaksana Gerakan
-                      (KPG) dan Sekretariat Revolusi Mental
-                    </h1>
-                    <br />
-
                     <h1
                       style={{
-                        lineHeight: '35px',
+                        lineHeight: '25px',
                         fontWeight: 'bold',
                       }}
                     >
-                      PROGRAM PELAKSANAAN GNRM
-                      <span> {data.tahun}</span>
+                      GERAKAN NASIONAL REVOLUSI MENTAL Tahun {data.tahun}
                     </h1>
-
-                    <h1 style={{ lineHeight: '15px' }}>
-                      Periode Perancanaan Program:
-                      <span> {data.id_program}</span>
-                    </h1>
-
-                    <h1 style={{ lineHeight: '15px' }}>
-                      Program
-                      <span> {documentDetail && documentDetail.instansi} </span>
-                      GNRM TAHUN
-                      <span> {data.tahun}</span>
-                    </h1>
+                    <h1 style={{lineHeight: '25px'}}>Periode Perencanaan Program: {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}</h1>
                   </div>
                 </div>
 
                 <div
                   className="preview-body"
                   style={{
-                    margin: '20px auto 0',
+                    margin: '100px auto 0',
                     width: '1042px',
-
+                    textAlign: 'justify',
                     lineHeight: '16px',
                   }}
                 >
@@ -5746,43 +5853,119 @@ const FormGNRM = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td></td>
-                        <td
-                          style={{
-                            paddingTop: '12px',
-                            paddingBottom: '32px',
-                          }}
-                        >
-                          Waktu Unggah : {str}
-                        </td>
-                      </tr>
                       <tr style={{ fontWeight: 'bold' }}>
                         <td>1.</td>
-                        <td>Nama Instansi</td>
+                        <td>Gugus Tugas GNRM</td>
                       </tr>
-                      <tr>
-                        <td></td>
-                        {instansiDocumentDetail ? (
-                          <td
-                            style={{
-                              paddingTop: '12px',
-                              paddingBottom: '32px',
-                            }}
-                          >
-                            {instansiDocumentDetail && instansiDocumentDetail.nama}
-                          </td>
-                        ) : (
-                          <td
-                            style={{
-                              paddingTop: '12px',
-                              paddingBottom: '32px',
-                            }}
-                          >
-                            {instansiDetail && instansiDetail.nama}
-                          </td>
-                        )}
-                      </tr>
+                      {
+                        data.sk_no ? (
+                          <>
+                            <tr>
+                              <td></td>
+                              <td
+                                style={{
+                                  paddingTop: '12px',
+                                  paddingBottom: '32px',
+                                }}
+                              >
+                                Nomor SK: {data.sk_no}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td
+                                style={{
+                                  paddingTop: '12px',
+                                  paddingBottom: '32px',
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    height: 'fit-content',
+                                    width: '955px',
+                                    borderRadius: '5px',
+                                    padding: '10px',
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    overflow: 'hidden',
+                                  }}
+                                >
+                                  {skFile &&
+                                    skFile
+                                      .filter((lampiran) => isFileImage(lampiran) === true)
+                                      .map((lampiran, index) => {
+                                        const objectURL = URL.createObjectURL(lampiran);
+                                        return (
+                                          <div key={index}>
+                                            <div
+                                              style={{
+                                                width: '420px',
+                                                height: '420px',
+                                                marginRight: '35px',
+                                                position: 'relative',
+                                              }}
+                                              className="d-flex align-items-center justify-content-center"
+                                            >
+                                              <div
+                                                style={{
+                                                  width: '420px',
+                                                  height: '420px',
+                                                  overflow: 'hidden',
+                                                  position: 'relative',
+                                                }}
+                                              >
+                                                <img
+                                                  src={objectURL}
+                                                  alt={lampiran.name}
+                                                  style={{
+                                                    width: '420px',
+                                                    height: '420px',
+                                                    objectFit: 'contain',
+                                                  }}
+                                                />
+                                              </div>
+                                            </div>
+                                            <div
+                                              style={{
+                                                marginTop: '10px',
+                                                width: '420px',
+                                                height: '20px',
+                                                wordWrap: 'break-word',
+                                                lineHeight: '20px',
+                                              }}
+                                            >
+                                              <p
+                                                className="gnrm-media--name"
+                                                style={{
+                                                  textAlign: 'center',
+                                                }}
+                                              >
+                                                {lampiran.name.length > 40
+                                                  ? `${lampiran.name.substr(0, 37)}...`
+                                                  : lampiran.name}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                </div>
+                              </td>
+                            </tr>
+                          </>
+                        )  : (
+                          <tr>
+                            <td></td>
+                            <td
+                              style={{
+                                paddingTop: '12px',
+                                paddingBottom: '32px',
+                              }}
+                            >
+                              Belum ada
+                            </td>
+                          </tr>
+                        )
+                      }
                       <tr style={{ fontWeight: 'bold' }}>
                         <td>2.</td>
                         <td>Kegiatan</td>
@@ -5795,13 +5978,11 @@ const FormGNRM = (props) => {
                             paddingBottom: '32px',
                           }}
                         >
-                          Nama Kegiatan : {data.kegiatan.nama_program}
+                          <div>Nama Kegiatan : {data.kegiatan.nama_program}</div>
                           <br />
-                          Kegiatan Prioritas : {data.kp}
+                          <div>Pemilihan 5 Gerakan : {data.gerakan}</div>
                           <br />
-                          Program Prioritas: {data.prop}
-                          <br />
-                          Penjelasan : {data.kegiatan.penjelasan_kegiatan}
+                          <pre>{data.kegiatan.penjelasan_kegiatan}</pre>
                         </td>
                       </tr>
                       <tr style={{ fontWeight: 'bold' }}>
@@ -5816,10 +5997,13 @@ const FormGNRM = (props) => {
                             paddingBottom: '32px',
                           }}
                         >
+                          <div>Indikator Capaian:</div>
                           <pre>{data.output.indikator_capaian}</pre>
                           <br />
+                          <div>Sasaran:</div>
                           <pre>{data.output.sasaran}</pre>
                           <br />
+                          <div>Target:</div>
                           <pre>{data.output.target}</pre>
                         </td>
                       </tr>
@@ -5954,9 +6138,8 @@ const FormGNRM = (props) => {
                         <td
                           style={{
                             paddingTop: '12px',
-                            paddingBottom: '32px',
                           }}
-                        >
+                        > <div>Sumber Pendanaan:</div>
                           <pre>{data.anggaran.sumber_dana}</pre>
                         </td>
                       </tr>
@@ -5968,132 +6151,11 @@ const FormGNRM = (props) => {
                             paddingBottom: '32px',
                           }}
                         >
-                          <pre>{data.anggaran.besar_anggaran}</pre>
+                          <pre>Besaran Anggaran: Rp. {data.anggaran.besar_anggaran}</pre>
                         </td>
                       </tr>
                       <tr style={{ fontWeight: 'bold' }}>
                         <td>6.</td>
-                        <td>Perkembangan Pelaksanaan Kegiatan</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td
-                          style={{
-                            paddingTop: '12px',
-                            paddingBottom: '32px',
-                          }}
-                        >
-                          <pre>{data.proses}</pre>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td
-                          style={{
-                            paddingTop: '12px',
-                            paddingBottom: '32px',
-                          }}
-                        >
-                          <div
-                            style={{
-                              height: 'fit-content',
-                              width: '955px',
-                              borderRadius: '5px',
-                              padding: '10px',
-                              display: 'flex',
-                              flexWrap: 'wrap',
-                              overflow: 'hidden',
-                            }}
-                          >
-                            {lampiranProses &&
-                              lampiranProses
-                                .filter((lampiran) => isFileImage(lampiran) === true)
-                                .map((lampiran, index) => {
-                                  const objectURL = URL.createObjectURL(lampiran);
-                                  return (
-                                    <div key={index}>
-                                      <div
-                                        style={{
-                                          width: '420px',
-                                          height: '420px',
-                                          marginRight: '35px',
-                                          position: 'relative',
-                                        }}
-                                        className="d-flex align-items-center justify-content-center"
-                                      >
-                                        <div
-                                          style={{
-                                            width: '420px',
-                                            height: '420px',
-                                            overflow: 'hidden',
-                                            position: 'relative',
-                                          }}
-                                        >
-                                          <img
-                                            src={objectURL}
-                                            alt={lampiran.name}
-                                            style={{
-                                              width: '420px',
-                                              height: '420px',
-                                              objectFit: 'contain',
-                                            }}
-                                          />
-                                        </div>
-                                      </div>
-                                      <div
-                                        style={{
-                                          marginTop: '10px',
-                                          width: '420px',
-                                          height: '20px',
-                                          wordWrap: 'break-word',
-                                          lineHeight: '20px',
-                                        }}
-                                      >
-                                        <p
-                                          className="gnrm-media--name"
-                                          style={{
-                                            textAlign: 'center',
-                                          }}
-                                        >
-                                          {lampiran.name.length > 40
-                                            ? `${lampiran.name.substr(0, 37)}...`
-                                            : lampiran.name}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td
-                          style={{
-                            paddingTop: '12px',
-                            paddingBottom: '32px',
-                          }}
-                        >
-                          {lampiranProses &&
-                            lampiranProses
-                              .filter((lampiran) => isFileImage(lampiran) === false)
-                              .map((lampiran, index) => {
-                                const objectURL = URL.createObjectURL(lampiran);
-                                return (
-                                  <p
-                                    className="gnrm-media--name"
-                                    style={{
-                                      textAlign: 'left',
-                                    }}
-                                  >
-                                    {lampiran.name}
-                                  </p>
-                                );
-                              })}
-                        </td>
-                      </tr>
-                      <tr style={{ fontWeight: 'bold' }}>
-                        <td>7.</td>
                         <td>Pihak Terkait</td>
                       </tr>
                       {documentDetail
@@ -6177,7 +6239,7 @@ const FormGNRM = (props) => {
                         <td></td>
                         <td
                           style={{
-                            paddingTop: '154px',
+                            paddingTop: '20px',
                           }}
                         >
                           Demikian program ini disampaikan dan dapat dikoordinasikan untuk
@@ -6192,21 +6254,12 @@ const FormGNRM = (props) => {
                   className="preview-ttd"
                   style={{
                     marginTop: '10px',
-
                     textAlign: 'right',
                   }}
                 >
                   <div style={{ textAlign: 'left' }}>
-                    <h1 style={{ marginLeft: '840px' }}>Pengesahan</h1>
-                    {data.lokasi.length > 10 ? (
-                      <h1 style={{ textAlign: 'right' }}>
-                        {data.lokasi}, {str2}
-                      </h1>
-                    ) : (
-                      <h1 style={{ marginLeft: '840px' }}>
-                        {data.lokasi}, {str2}
-                      </h1>
-                    )}
+                    <h1 style={{ marginLeft: '840px' }}>Pengesahan Laporan</h1>
+                    <h1 style={{ marginLeft: '840px' }}>Jakarta, {str2}</h1>
                     <h1 style={{ marginLeft: '840px' }}>{data.penanggung_jawab.jabatan}</h1>
                     <br />
                     <br />
@@ -6227,11 +6280,19 @@ const FormGNRM = (props) => {
                 />
                 <div className="preview-footer" style={{ marginBottom: '119px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <img src={logo_footer} />
+                    <img src={logo_footer} style={{width: 120}}/>
+                  </div>
+                  <div style={{ margin: '0px 30px' }}>
+                    Waktu Unggah : {str}
+                    <h1 style={{ marginTop: '10px' }}>
+                      Dilarang menyalin, menyimpan, memperbanyak sebagian atau seluruh isi laporan
+                      ini dalam bentuk <br /> apapun kecuali oleh Koordinator Pelaksana Gerakan
+                      (KPG) dan Sekretariat Revolusi Mental
+                    </h1>
                   </div>
                   <div className="spacer"></div>
                   <div style={{ textAlign: 'right' }}>
-                    <img src={logo_footer} />
+                    <img src={logo_footer} style={{width: 120}}/>
                   </div>
                 </div>
 

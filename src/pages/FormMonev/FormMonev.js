@@ -2,7 +2,7 @@ import React, { Component, Fragment, useState, useContext, useEffect } from 'rea
 import './FormMonev.css';
 import logo_kemenko from '../../assets/logo_kemenko.png';
 import SideBarOff from '../../component/SideBarOff/SideBarOff';
-import logo_footer from '../../assets/logo_footer.png';
+import logo_footer from '../../assets/logo_link_terkait_1.png';
 import images from '../../assets/image.png';
 import imgFile from '../../assets/file.png';
 import { Link, useHistory } from 'react-router-dom';
@@ -84,6 +84,7 @@ const FormMonev = (props) => {
   const [data, setData] = useState({
     tahun: '',
     id_laporan: '',
+    periode: '',
     tujuan_pelaporan: '',
     identifikasi_kondisi: '',
     jumlah_peserta: '',
@@ -1349,7 +1350,7 @@ const FormMonev = (props) => {
                       <div style={{ textAlign: 'right', paddingRight: 35 }}>
                         {wordLength.hambatan}/1000
                       </div>
-                      <div>
+                      <div style={{position: 'relative'}}>
                         <label>Dokumentasi</label>
                         <label
                           htmlFor="testing"
@@ -1372,6 +1373,9 @@ const FormMonev = (props) => {
                           name="media"
                           multiple
                         />
+                        <h1 className="penjelasan_lampiran_doc">
+                          (Ukuran maksimal berkas 25MB)
+                        </h1>
                       </div>
                       <div>
                         {dokumentasi && dokumentasi.length > 0 ? (
@@ -2082,7 +2086,7 @@ const FormMonev = (props) => {
                       <div style={{ textAlign: 'right', paddingRight: 35 }}>
                         {wordLength.hambatan}/1000
                       </div>
-                      <div>
+                      <div style={{position: 'relative'}}>
                         <label>Dokumentasi</label>
                         <label
                           htmlFor="testing"
@@ -2105,6 +2109,9 @@ const FormMonev = (props) => {
                           name="media"
                           multiple
                         />
+                        <h1 className="penjelasan_lampiran_doc">
+                          (Ukuran maksimal berkas 25MB)
+                        </h1>
                       </div>
 
                       <div>
@@ -2602,48 +2609,24 @@ const FormMonev = (props) => {
                         fontWeight: 'bold',
                       }}
                     >
-                      Proteksi Hasil Monitoring dan Evaluasi
+                      LAPORAN MONITORING DAN EVALUASI
                     </h1>
-
                     <h1
                       style={{
                         lineHeight: '25px',
                         fontWeight: 'bold',
                       }}
                     >
-                      GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun {data.tahun}
+                      GERAKAN NASIONAL REVOLUSI MENTAL Tahun {data.tahun}
                     </h1>
-                    <h1
-                      style={{
-                        lineHeight: '35px',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      LAPORAN MONITORING DAN EVALUASI
-                    </h1>
-                    <h1
-                      style={{
-                        lineHeight: '35px',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      GNRM {data.tahun}
-                    </h1>
-                    <br />
-
-                    <h1>Periode Laporan Program/Kegiatan</h1>
-
-                    <h1>
-                      Laporan {data.id_laporan} GNRM Tahun {data.tahun} <br />
-                      {instansiDocumentDetail && instansiDocumentDetail.nama}
-                    </h1>
+                    <h1 style={{lineHeight: '25px'}}>Periode Laporan Program/Kegiatan: {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}</h1>
                   </div>
                 </div>
 
                 <div
                   className="preview-body"
                   style={{
-                    margin: '20px auto 0',
+                    margin: '100px auto 0',
                     lineHeight: '16px',
                   }}
                 >
@@ -2853,27 +2836,6 @@ const FormMonev = (props) => {
                                   );
                                 })}
                           </div>
-                        </td>
-                      </tr>
-                      <tr style={{ fontWeight: 'bold' }}>
-                        <td>8.</td>
-                        <td>Penanggung Jawab</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td
-                          style={{
-                            paddingTop: '12px',
-                            paddingBottom: '32px',
-                            textAlign: 'justify',
-                          }}
-                        >
-                          <div>Nama: {data.penanggung_jawab.nama ?? ''}</div>
-                          <br />
-                          <div>Jabatan: {data.penanggung_jawab.jabatan ?? ''}</div>
-                          <br /> <div>NIP: {data.penanggung_jawab.nip ?? ''}</div>
-                          <br />
-                          <div>Instansi: {data.penanggung_jawab.instansi ?? ''}</div>
                         </td>
                       </tr>
                       <tr>

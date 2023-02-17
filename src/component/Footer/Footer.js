@@ -188,7 +188,7 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <img src={subtract} className="curve_footer"></img>
+                    {/* <img src={subtract} className="curve_footer"></img> */}
                 </div>
             </Fragment>
         );

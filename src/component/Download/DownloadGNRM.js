@@ -4,7 +4,7 @@ import { ArtikelContext } from '../../context/Artikel/artikelContext';
 import axios from 'axios';
 import logo_kemenko from '../../assets/logo_kemenko.png';
 import line2 from '../../assets/line2.png';
-import logo_footer from '../../assets/logo_footer.png';
+import logo_footer from '../../assets/logo_link_terkait_1.png';
 import image from '../../assets/image.png';
 
 Font.register({
@@ -28,6 +28,7 @@ const style = StyleSheet.create({
 
   header: {
     textAlign: 'center',
+    marginBottom: 40,
   },
 
   headerBold: {
@@ -36,7 +37,6 @@ const style = StyleSheet.create({
 
   headerBoldBotFlex: {
     fontFamily: 'Open Sans',
-    marginTop: 20,
   },
 
   isi: {
@@ -68,7 +68,7 @@ const style = StyleSheet.create({
   },
 
   footer: {
-    marginTop: 30,
+    marginTop: 20,
   },
 
   footer2: {
@@ -82,7 +82,7 @@ const style = StyleSheet.create({
   notesFooter: {
     position: 'absolute',
     left: 75,
-    bottom: -20,
+    bottom: -10,
     width: 250,
   },
 
@@ -174,6 +174,10 @@ const style = StyleSheet.create({
     textAlign: 'right',
     position: 'relative',
     right: -20,
+  },
+
+  hasMarginTop: {
+    marginTop: 8,
   },
 
   red: {
@@ -274,63 +278,64 @@ const DownloadGNRM = (props) => {
         </View>
         {/*Header*/}
         <View style={style.header}>
+          <Text style={style.headerMargBold}>RANCANGAN PROGRAM</Text>
           <Text style={style.headerBold}>
-            Proteksi Input Program Gerakan Nasional Revolusi Mental (GNRM) Tahun{' '}
+            GERAKAN NASIONAL REVOLUSI MENTAL Tahun{' '}
             <Text style={style.red}>
               {props.data.document1.form && props.data.document1.form.tahun}
             </Text>
           </Text>
-          <Text style={style.headerMargBold}>
-            PROGRAM PELAKSANAAN GNRM{' '}
-            <Text style={style.red}>
-              {props.data.document1.form && props.data.document1.form.tahun}
-            </Text>
-          </Text>
-          <Text>
-            Periode Perencanaan Program :{' '}
-            <Text style={style.red}>
-              {props.data.document1.form && props.data.document1.form.id_program}
-            </Text>
-          </Text>
-          <Text style={style.headerMargTop}>
-            Program <Text style={style.red}>{props.data.document1.instansi}</Text> GNRM Tahun{' '}
-            <Text style={style.red}>
-              {props.data.document1.form && props.data.document1.form.tahun}
-            </Text>
+          <Text style={style.hasMarginTop}>
+            Periode Laporan Program/Kegiatan:{' '}
+            {props.data.document1.form && props.data.document1.form.periode === 'Jan-Mei'
+              ? 'Januari-Mei'
+              : 'Juli-November'}
           </Text>
         </View>
 
         {/*Body*/}
         <View style={style.headerMargTop}>
-          <Text style={style.headerBold}>1. Nama Instansi</Text>
-          <Text style={style.isi}>{props.data.instansi.nama}</Text>
+          <Text style={style.headerBold}>1. Gugus Tugas GNRM</Text>
+          {props.data.sk_no ? (
+            <>
+              <Text style={style.isi}>Nomor SK: {props.data.sk_no ?? 'Belum Ada'}</Text>
+              <View style={style.isi}>
+                {props.data.document1.form &&
+                  props.data.document1.form.lampiran.proses
+                    .filter((media) => isFileImage(media) === false)
+                    .map((media, index) => {
+                      return <Text style={style.text}>{media.filename}</Text>;
+                    })}
+              </View>
+            </>
+          ) : (
+            <Text style={style.isi}>{'Belum Ada'}</Text>
+          )}
           <Text style={style.headerBold}>2. Kegiatan</Text>
           <View style={style.isi}>
             <Text style={style.text}>
-              Nama Kegiatan :{' '}
+              Nama Kegiatan:{' '}
               {props.data.document1.form && props.data.document1.form.kegiatan.nama_program}.
             </Text>
             <Text style={style.text}>
-              Kegiatan Prioritas : {props.data.document1.form && props.data.document1.form.kp}.
-            </Text>
-            <Text style={style.text}>
-              Program Prioritas : {props.data.document1.form && props.data.document1.form.prop}.
+              Pemilihan 5 Gerakan: {props.data.document1.form && props.data.document1.form.gerakan}
             </Text>
             <Text>
-              Penjelasan :{' '}
               {props.data.document1.form && props.data.document1.form.kegiatan.penjelasan_kegiatan}
             </Text>
           </View>
           <Text style={style.headerBold}>3. Output</Text>
           <View style={style.isi}>
+            <Text style={style.text}>Sasaran:</Text>
             <Text style={style.text}>
-              Sasaran : {props.data.document1.form && props.data.document1.form.output.sasaran}
+              {props.data.document1.form && props.data.document1.form.output.sasaran}
             </Text>
+            <Text style={style.text}>Target:</Text>
             <Text style={style.text}>
-              Target : {props.data.document1.form && props.data.document1.form.output.target}
+              {props.data.document1.form && props.data.document1.form.output.target}
             </Text>
+            <Text style={style.text}>Indikator Capaian:</Text>
             <Text>
-              Indikator Capaian :{' '}
               {props.data.document1.form && props.data.document1.form.output.indikator_capaian}
             </Text>
           </View>
@@ -368,48 +373,16 @@ const DownloadGNRM = (props) => {
           </View>
           <Text style={style.headerBoldBotFlex}>5. Anggaran</Text>
           <View style={style.isi}>
-            <Text>
-              Sumber Anggaran :{' '}
+            <Text>Sumber Pendanaan :</Text>
+            <Text style={style.text}>
               {props.data.document1.form && props.data.document1.form.anggaran.sumber_dana}
             </Text>
-            <Text style={style.text}>
-              Besar Anggaran :{' '}
+            <Text>
+              Besar Anggaran : Rp.{' '}
               {props.data.document1.form && props.data.document1.form.anggaran.besar_anggaran}
             </Text>
           </View>
-          <Text style={style.headerBold}>6. Perkembangan Pelaksanaan Kegiatan</Text>
-          <Text style={style.isiFix}>
-            {props.data.document1.form && props.data.document1.form.proses}
-          </Text>
-          <View style={style.isiFlex}>
-            {props.data.document1.form &&
-              props.data.document1.form.lampiran.proses
-                .filter((media) => isFileImage(media) === true)
-                .map((media, index) => {
-                  return (
-                    <View style={style.isiimage} wrap={false}>
-                      <Image
-                        style={style.images}
-                        source={`http://api.simonev.revolusimental.go.id:8882${media.path}`}
-                      />
-                      <Text style={style.textimage}>
-                        {media.filename.length > 40
-                          ? `${media.filename.substr(0, 37)}...`
-                          : media.filename}
-                      </Text>
-                    </View>
-                  );
-                })}
-          </View>
-          <View style={style.isi}>
-            {props.data.document1.form &&
-              props.data.document1.form.lampiran.proses
-                .filter((media) => isFileImage(media) === false)
-                .map((media, index) => {
-                  return <Text style={style.text}>{media.filename}</Text>;
-                })}
-          </View>
-          <Text style={style.headerBoldBotFlex}>7. Pihak Terkait</Text>
+          <Text style={style.headerBoldBotFlex}>6. Pihak Terkait</Text>
           <View style={style.isi}>
             {(props.data.document1.form && props.data.document1.form.pihak_terkait).map(
               (pihak, index) => {
@@ -453,15 +426,7 @@ const DownloadGNRM = (props) => {
 
           <View style={style.signature} wrap={false}>
             <Text style={style.testStyle}>Pengesahan</Text>
-            {props.data.document1.form && props.data.document1.form.lokasi.length > 10 ? (
-              <Text style={style.testStyle2}>
-                {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
-              </Text>
-            ) : (
-              <Text style={style.testStyle}>
-                {props.data.document1.form && props.data.document1.form.lokasi} , {str2}
-              </Text>
-            )}
+            <Text style={style.testStyle}>Jakarta , {str2}</Text>
             <View style={style.width1}>
               <Text style={style.testStyle}>
                 {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}

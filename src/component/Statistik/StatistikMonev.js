@@ -135,7 +135,7 @@ export default function StatistikMonev(props) {
   return (
     <div
       className="chart d-flex justify-content-center align-items-center"
-      style={{ height: '54vh', maxWidth: '100%' }}
+      style={{ height: '54vh', maxWidth: '100%', paddingTop: 50, marginBottom: 15 }}
     >
       {statistik && data ? (
         <Line data={data} options={chartOptions} />

@@ -142,7 +142,7 @@ export default function StatistikGNRM(props) {
   return (
     <div
       className="chart d-flex justify-content-center align-items-center"
-      style={{ height: props.height || '54vh', width: '100%' }}
+      style={{ height: props.height || '54vh', width: '100%', paddingTop: 50, marginBottom: 15 }}
     >
       {statistik && data ? (
         <Bar data={data} options={chartOptions} height={null} width={null} />

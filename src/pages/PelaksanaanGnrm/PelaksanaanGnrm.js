@@ -197,20 +197,20 @@ const GNRM = (props) => {
                 <tr>
                   <th width="70px">Tahun</th>
                   <th
-                    width={sidebar ? '216px' : '276px'}
+                    width={sidebar ? '206px' : '276px'}
                     style={{
                       transition: 'all 0.3s ease-in-out',
                     }}
                   >
-                    Kegiatan Prioritas
+                    Nama Gerakan
                   </th>
                   <th
-                    width={sidebar ? '216px' : '276px'}
+                    width={sidebar ? '163px' : '193px'}
                     style={{
                       transition: 'all 0.3s ease-in-out',
                     }}
                   >
-                    Proyek Prioritas
+                    Judul Kegiatan
                   </th>
                   <th
                     width={sidebar ? '160px' : '193px'}
@@ -242,8 +242,8 @@ const GNRM = (props) => {
                       <TabelGNRM
                         document={document}
                         key={index}
-                        kp={document.form.kp}
-                        prop={document.form.prop}
+                        nama_gerakan={document.form.gerakan ?? ''}
+                        nama_program={document.form.kegiatan.nama_program ?? ''}
                         id={document._id}
                         tahun={document.form.tahun}
                         instansi={document.instansi}

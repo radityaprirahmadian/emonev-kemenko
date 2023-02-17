@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Spinner from '../Spinner/Spinner';
 
 export default function StatistikGNRM(props) {
@@ -45,9 +45,7 @@ export default function StatistikGNRM(props) {
   useEffect(() => {
     setData(null);
     setStatistik(null);
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gerakan/count?&tahun=${tahun}&periode=${
-      periode || 'Jan-Mei'
-    }`;
+    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gerakan/count?&tahun=${tahun}&periode=${periode}`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
@@ -71,7 +69,7 @@ export default function StatistikGNRM(props) {
           {
             label: '',
             borderWidth: 0,
-            barThickness: 15,
+            barThickness: 50,
             backgroundColor: props.color || '#E76975',
             borderColor: props.color || '#E76975',
             data: chartData,
@@ -91,6 +89,16 @@ export default function StatistikGNRM(props) {
     aspectRatio: props.aspect || 2,
     legend: {
       display: false,
+    },
+    plugins: {
+      datalabels: {
+        display: true,
+        color: 'black',
+        formatter: Math.round,
+        anchor: 'end',
+        offset: -35,
+        align: 'start',
+      },
     },
     layout: {
       padding: 50,
@@ -151,10 +159,16 @@ export default function StatistikGNRM(props) {
   return (
     <div
       className="chart d-flex justify-content-center align-items-center"
-      style={{ height: props.height || '54vh', width: '100%' }}
+      style={{ height: props.height || '54vh', width: '100%', paddingTop: props.padding || 50, marginBottom: 15 }}
     >
       {statistik && data ? (
-        <Bar data={data} options={chartOptions} height={null} width={null} />
+        <Bar
+          data={data}
+          options={chartOptions}
+          height={null}
+          width={null}
+          plugins={[ChartDataLabels]}
+        />
       ) : (
         <Spinner color={props.color || '#E76975'} />
       )}

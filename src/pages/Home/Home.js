@@ -21,8 +21,9 @@ import linkInstansi3 from "../../assets/logo_terkait_3.png"
 import linkInstansi4 from "../../assets/logo_terkait_4.png"
 import linkInstansi5 from "../../assets/logo_terkait_5.png"
 import { Bar } from "react-chartjs-2"
-import StatistikGNRM from "../../component/Statistik/StatistikGNRM"
+import StatistikGNRM from "../../component/Statistik/StatistikGNRMAfterLogin"
 import Spinner from "../../component/Spinner/Spinner"
+import NewFooter from "../../component/Footer/NewFooter"
 
 const Home = () => {
     const [loading, setLoading] = useState(false)
@@ -101,10 +102,10 @@ const Home = () => {
 
     useEffect(() => {
         // Statistika()
-        getAllDocument()
+        // getAllDocument()
         getDocumentCard()
         getDocumentCardLength()
-    }, [filterCard, getDocumentCard, getDocumentCardLength])
+    }, [filterCard])
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -667,25 +668,27 @@ const Home = () => {
                             </select>
                         </div>
                         <div className="home-statistik mt-3" style={{ width: "100%" }}>
-                            <StatistikGNRM color="#8380EA" tahun={tahun} aspect={2.8} />
+                            {/* <StatistikGNRM color="#8380EA" tahun={tahun} aspect={2.8} /> */}
+                            <StatistikGNRM color="#8380EA" filter={{tahun: tahun, periode: ''}} height={'500px'}/>
                             <div className="keterangan">
                                 <p className="">Keterangan :</p>
-                                <p className="">Sumbu vertikal merupakan jumlah kegiatan</p>
+                                <p className="">Sumbu vertikal merupakan jumlah gerakan</p>
                             </div>
                         </div>
                     </div>
-                    <img src={exclude2} className="curves_home"></img>
+                    {/* <img src={exclude2} className="curves_home"></img> */}
                 </div>
 
-                <div style={{ position: "relative" }}>
+                {/* <div style={{ position: "relative" }}>
                     <div className="home-section-3">
                         <div className="home-section-3-title">Galeri</div>
 
                         <Gallery pagination={false} logged_in={false} />
                     </div>
-                </div>
+                </div> */}
 
-                <Footer />
+                {/* <Footer /> */}
+                <NewFooter/>
             </div>
         </Fragment>
     )

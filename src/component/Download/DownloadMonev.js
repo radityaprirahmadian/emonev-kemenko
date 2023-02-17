@@ -5,7 +5,7 @@ import axios from 'axios';
 import logo_kemenko from '../../assets/logo_kemenko.png';
 import line2 from '../../assets/line2.png';
 import image from '../../assets/image.png';
-import logo_footer from '../../assets/logo_footer.png';
+import logo_footer from '../../assets/logo_link_terkait_1.png';
 
 Font.register({
   family: 'Open Sans',
@@ -24,6 +24,7 @@ const style = StyleSheet.create({
 
   header: {
     textAlign: 'center',
+    marginBottom: 40,
   },
 
   headerBold: {
@@ -73,7 +74,7 @@ const style = StyleSheet.create({
   },
 
   footer: {
-    marginTop: 30,
+    marginTop: 20,
   },
 
   footer2: {
@@ -145,21 +146,21 @@ const style = StyleSheet.create({
   logoFooter1: {
     position: 'absolute',
     right: 0,
-    bottom: -20,
+    bottom: 0,
     width: 70,
   },
 
   logoFooter2: {
     position: 'absolute',
     left: 0,
-    bottom: -20,
+    bottom: 0,
     width: 70,
   },
 
   notesFooter: {
     position: 'absolute',
     left: 75,
-    bottom: -20,
+    bottom: -10,
     width: 250,
   },
 
@@ -170,6 +171,14 @@ const style = StyleSheet.create({
 
   text: {
     marginBottom: 10,
+  },
+
+  hasMarginTop: {
+    marginTop: 8,
+  },
+
+  marginBottomWide: {
+    marginBottom: 20,
   },
 
   signature: {
@@ -300,21 +309,18 @@ const DownloadMonev = (props) => {
         </View>
         {/*Header*/}
         <View style={style.header}>
-          <Text style={style.headerMargBold}>Proteksi Hasil Monitoring dan Evaluasi</Text>
+          <Text style={style.headerMargBold}>LAPORAN MONITORING DAN EVALUASI</Text>
           <Text style={style.headerBold}>
-            GERAKAN NASIONAL REVOLUSI MENTAL (GNRM) Tahun{' '}
+            GERAKAN NASIONAL REVOLUSI MENTAL Tahun{' '}
             <Text style={style.red}>
               {props.data.document1.form && props.data.document1.form.tahun}
             </Text>
           </Text>
-          <Text style={style.headerMargBold}>LAPORAN MONITORING DAN EVALUASI</Text>
-          <Text style={style.headerMargBold}>
-            GNRM {props.data.document1.form && props.data.document1.form.tahun}
-          </Text>
-          <Text>Periode Laporan Program/Kegiatan</Text>
-          <Text style={style.headerMargTop}>
-            Laporan {props.data.document1.form && props.data.document1.form.id_laporan} GNRM Tahun{' '}
-            {props.data.document1.form && props.data.document1.form.tahun}
+          <Text style={style.hasMarginTop}>
+            Periode Laporan Program/Kegiatan:{' '}
+            {props.data.document1.form && props.data.document1.form.periode === 'Jan-Mei'
+              ? 'Januari-Mei'
+              : 'Juli-November'}
           </Text>
         </View>
 
@@ -380,23 +386,6 @@ const DownloadMonev = (props) => {
                 .map((media, index) => {
                   return <Text style={style.text}>{media.filename}</Text>;
                 })}
-          </View>
-          <Text style={style.headerBold}>9. Penanggung Jawab</Text>
-          <View style={style.isi}>
-            <Text style={style.text}>
-              Nama : {props.data.document1.form && props.data.document1.form.penanggung_jawab.nama}.
-            </Text>
-            <Text style={style.text}>
-              Jabatan :{' '}
-              {props.data.document1.form && props.data.document1.form.penanggung_jawab.jabatan}.
-            </Text>
-            <Text style={style.text}>
-              NIP : {props.data.document1.form && props.data.document1.form.penanggung_jawab.nip}.
-            </Text>
-            <Text>
-              Instansi :{' '}
-              {props.data.document1.form && props.data.document1.form.penanggung_jawab.instansi}
-            </Text>
           </View>
         </View>
 
