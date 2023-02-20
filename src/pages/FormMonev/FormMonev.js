@@ -2883,7 +2883,7 @@ const FormMonev = (props) => {
                 />
                 <div className="preview-footer" style={{ marginBottom: '119px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <img src={logo_footer} />
+                    <img src={logo_footer} style={{width: 120}}/>
                   </div>
                   <div style={{ margin: '0px 30px' }}>
                     Waktu Unggah : {str}
@@ -2895,7 +2895,7 @@ const FormMonev = (props) => {
                   </div>
                   <div className="spacer"></div>
                   <div style={{ textAlign: 'right' }}>
-                    <img src={logo_footer} />
+                    <img src={logo_footer} style={{width: 120}}/>
                   </div>
                 </div>
 
