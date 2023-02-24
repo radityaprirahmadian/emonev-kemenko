@@ -156,6 +156,9 @@ const FormGNRM = (props) => {
   const [deletedLampiranProses, setDeletedLampiranProses] = useState([]);
   const [deletedLampiranKondisi, setDeletedLampiranKondisi] = useState([]);
 
+  const [loadingDocument, setLoadingDocument] = useState(false);
+  const [loadingDokumentasi, setLoadingDokumentasi] = useState(false);
+
   const nol = (i) => {
     if (i < 10) {
       i = '0' + i;
@@ -553,7 +556,6 @@ const FormGNRM = (props) => {
   };
 
   useEffect(() => {
-    resetDocument();
     (async () => {
       const proyekData = await axios.get(
         'http://api.simonev.revolusimental.go.id:8882/api/v1/proyek',
@@ -570,10 +572,12 @@ const FormGNRM = (props) => {
   useEffect(() => {
     if (props.match.params.id) {
       editDocument();
+      setLoadingDocument(true);
       getDocumentDetail({ id, type });
       if (isPreviewing) {
         preview();
       }
+      setLoadingDocument(false);
     } else {
       editDocumentFalse();
     }
@@ -581,7 +585,6 @@ const FormGNRM = (props) => {
 
   useEffect(() => {
     const getInstansiDetail = async () => {
-      setLoadingTrue();
       const config = {
         headers: {
           'X-Auth-Token': `Bearer ${token}`,
@@ -606,7 +609,6 @@ const FormGNRM = (props) => {
       } catch (err) {
         console.log(err);
       }
-      setLoadingFalse();
     };
     getInstansiDetail();
   }, [userDetail, props.match.params.id]);
@@ -678,9 +680,10 @@ const FormGNRM = (props) => {
 
   useEffect(() => {
     if (documentDetail) {
+      setLoadingDokumentasi(true);
       setData(documentDetail && documentDetail.form);
       setMedia(documentDetail.form.lampiran.media);
-      setLampiranKondisi(documentDetail.form.lampiran.kondisi_awal);
+      // setLampiranKondisi(documentDetail.form.lampiran.kondisi_awal);
       setLampiranProses(documentDetail.form.lampiran.proses);
       setPanjang(documentDetail && documentDetail.form.pihak_terkait.length);
       setSelectedKp(documentDetail.form.kp);
@@ -699,7 +702,7 @@ const FormGNRM = (props) => {
         ),
       });
 
-      const gerakanArray = documentDetail.form.gerakan.split(',');
+      const gerakanArray = documentDetail?.form.gerakan.split(',');
       const gerakanObj = {};
 
       gerakanArray.forEach((gerakan, i) => {
@@ -731,14 +734,32 @@ const FormGNRM = (props) => {
           (kondisi_awal) => `http://api.simonev.revolusimental.go.id:8882${kondisi_awal.path}`,
         );
       const files2 = [];
-      mediaFileUrl2.forEach((url) => {
-        fetch(url)
-          .then((res) => res.blob())
-          .then((blob) => {
-            const objectURL = URL.createObjectURL(blob);
-            blob.name = getFileName(url);
-            files2.push(blob);
-          });
+      // mediaFileUrl2.forEach((url) => {
+      //   fetch(url)
+      //     .then((res) => res.blob())
+      //     .then((blob) => {
+      //       const objectURL = URL.createObjectURL(blob);
+      //       blob.name = getFileName(url);
+      //       files2.push(blob);
+      //       setLoadingDokumentasi(false);
+      //     });
+      // });
+
+      const readerPromises = mediaFileUrl2.map((url) => {
+        return new Promise((resolve) => {
+          fetch(url)
+            .then((res) => res.blob())
+            .then((blob) => {
+              const objectURL = URL.createObjectURL(blob);
+              blob.name = getFileName(url);
+              resolve(blob);
+            });
+        });
+      });
+
+      Promise.all(readerPromises).then((results) => {
+        setLampiranKondisi(results);
+        setLoadingDokumentasi(false);
       });
 
       const mediaFileUrl3 =
@@ -758,7 +779,7 @@ const FormGNRM = (props) => {
       });
 
       setMedia(files);
-      setLampiranKondisi(files2);
+      // setLampiranKondisi(files2);
       setLampiranProses(files3);
       setMediaUrl(mediaFileUrl);
       setLampiranKondisiUrl(mediaFileUrl2);
@@ -820,7 +841,7 @@ const FormGNRM = (props) => {
           <h1> FORMULIR RENCANA PELAKSANAAN PROGRAM</h1>
         </div>
 
-        {loading ? (
+        {loading || loadingDocument || loadingDokumentasi ? (
           <div style={{ marginLeft: '68px' }}>
             <div
               className="d-flex justify-content-center align-items-center"
@@ -1787,7 +1808,7 @@ const FormGNRM = (props) => {
                           <div>
                             <label>Gerakan</label>
                             {isEditing &&
-                            documentDetail.form.gerakan &&
+                            documentDetail?.form.gerakan &&
                             Object.values(selectedGerakan).length > 0 ? (
                               <select
                                 onChange={onChange}
@@ -1846,7 +1867,7 @@ const FormGNRM = (props) => {
                             )}
                           </div>
                           {isEditing &&
-                          documentDetail.form.gerakan &&
+                          documentDetail?.form.gerakan &&
                           Object.values(selectedGerakan).length > 0
                             ? Object.values(selectedGerakan)
                                 .filter((selected) => selected !== selectedGerakan['gerakan-0'])
@@ -4183,7 +4204,7 @@ const FormGNRM = (props) => {
                           <div>
                             <label>Gerakan</label>
                             {isEditing &&
-                            documentDetail.form.gerakan &&
+                            documentDetail?.form.gerakan &&
                             Object.values(selectedGerakan).length > 0 ? (
                               <select
                                 onChange={onChange}
@@ -4242,7 +4263,7 @@ const FormGNRM = (props) => {
                             )}
                           </div>
                           {isEditing &&
-                          documentDetail.form.gerakan &&
+                          documentDetail?.form.gerakan &&
                           Object.values(selectedGerakan).length > 0
                             ? Object.values(selectedGerakan)
                                 .filter((selected) => selected !== selectedGerakan['gerakan-0'])

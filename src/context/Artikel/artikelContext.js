@@ -32,14 +32,16 @@ const ArtikelState = (props) => {
     setLoadingTrue();
     const config = {
       headers: {
-        'X-Auth-Token': `Bearer ${state.token}`,
+        'X-Auth-Token': `Bearer ${localStorage.getItem('token')}`,
       },
     };
+
     try {
       const res = await axios.get(
         `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${data.id}?type=${data.type}`,
         config,
       );
+
       dispatch({
         type: 'GET_DOCUMENT_DETAIL',
         payload: res.data,

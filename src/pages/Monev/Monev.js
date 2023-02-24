@@ -124,6 +124,9 @@ const Monev = (props) => {
   const handleReset = () => {
     editDocumentFalse();
     resetDocument();
+    history.push(
+      `/${userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'}/formulir-monev`,
+    );
   };
 
   useEffect(() => {
@@ -192,17 +195,11 @@ const Monev = (props) => {
             />
 
             <div className="input-dan-tajuk">
-              <Link
-                to={`/${
-                  userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'
-                }/formulir-monev`}
-              >
-                <button className="tambah-program" onClick={() => handleReset()}>
-                  <img src={plus}></img>
-                  <div className="spacer"></div>
-                  <p className="text-input-program">Input Laporan</p>
-                </button>
-              </Link>
+              <button className="tambah-program" onClick={() => handleReset()}>
+                <img src={plus}></img>
+                <div className="spacer"></div>
+                <p className="text-input-program">Input Laporan</p>
+              </button>
             </div>
           </div>
 

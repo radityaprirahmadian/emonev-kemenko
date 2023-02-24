@@ -52,6 +52,7 @@ const TabelMonev = (props) => {
   }, []);
 
   const onClickEdit = () => {
+    resetDocument();
     history.push(
       `/${
         userDetail && userDetail.role === 'owner' ? 'super-admin' : 'admin'

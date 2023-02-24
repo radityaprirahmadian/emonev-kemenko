@@ -20,6 +20,7 @@ const TabelGNRM = (props) => {
   const type = 'gnrm';
 
   const onClickEdit = () => {
+    resetDocument();
     history.push(`./formulir-gnrm-edit/${props.id}`);
   };
 

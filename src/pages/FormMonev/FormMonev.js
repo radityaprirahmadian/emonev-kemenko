@@ -43,6 +43,9 @@ const FormMonev = (props) => {
   const id = props.match.params.id;
   const type = 'monev';
 
+  const [loadingDocument, setLoadingDocument] = useState(false);
+  const [loadingDokumentasi, setLoadingDokumentasi] = useState(false);
+
   const [instansi, setInstansi] = useState('');
   const pilihanTahun = [];
   const todaysYear = new Date().getFullYear();
@@ -595,6 +598,7 @@ const FormMonev = (props) => {
         // setSKFile(files)
         setSkFileUrl(mediaFileUrl);
       }
+    } else {
     }
   }, [instansiDetail]);
 
@@ -614,7 +618,6 @@ const FormMonev = (props) => {
   // }, [data.sk_status])
 
   useEffect(() => {
-    resetDocument();
     window.scrollTo(0, 0);
     (async () => {
       const proyekData = await axios.get(
@@ -632,10 +635,12 @@ const FormMonev = (props) => {
   useEffect(() => {
     if (props.match.params.id) {
       // editDocument();
+      setLoadingDocument(true);
       getDocumentDetail({ id, type });
       if (isPreviewing) {
         preview();
       }
+      setLoadingDocument(false);
     } else {
       editDocumentFalse();
     }
@@ -643,7 +648,6 @@ const FormMonev = (props) => {
 
   useEffect(() => {
     const getInstansiDetail = async () => {
-      setLoadingTrue();
       const config = {
         headers: {
           'X-Auth-Token': `Bearer ${token}`,
@@ -668,7 +672,6 @@ const FormMonev = (props) => {
       } catch (err) {
         console.log(err);
       }
-      setLoadingFalse();
     };
     getInstansiDetail();
   }, [userDetail, props.match.params.id]);
@@ -693,7 +696,7 @@ const FormMonev = (props) => {
 
   useEffect(() => {
     if (documentDetail) {
-      setLoadingTrue();
+      setLoadingDokumentasi(true);
       setData(documentDetail && documentDetail.form);
       setWordLength({
         identifikasi_kondisi: totalWordInSentenceCounter(
@@ -810,14 +813,32 @@ const FormMonev = (props) => {
         );
 
       const files6 = [];
-      mediaFileUrl6.forEach((url) => {
-        fetch(url)
-          .then((res) => res.blob())
-          .then((blob) => {
-            const objectURL = URL.createObjectURL(blob);
-            blob.name = getFileName(url);
-            files6.push(blob);
-          });
+      // mediaFileUrl6.forEach((url) => {
+      //   fetch(url)
+      //     .then((res) => res.blob())
+      //     .then((blob) => {
+      //       const objectURL = URL.createObjectURL(blob);
+      //       blob.name = getFileName(url);
+      //       files6.push(blob);
+      //       setLoadingDokumentasi(false);
+      //     });
+      // });
+
+      const readerPromises = mediaFileUrl6.map((url) => {
+        return new Promise((resolve) => {
+          fetch(url)
+            .then((res) => res.blob())
+            .then((blob) => {
+              const objectURL = URL.createObjectURL(blob);
+              blob.name = getFileName(url);
+              resolve(blob);
+            });
+        });
+      });
+
+      Promise.all(readerPromises).then((results) => {
+        setDokumentasi(results);
+        setLoadingDokumentasi(false);
       });
 
       setMedia(files);
@@ -825,7 +846,6 @@ const FormMonev = (props) => {
       setLampiranTempat(files3);
       setLampiranHasil(files4);
       setLampiranKetercapaian(files5);
-      setDokumentasi(files6);
 
       setMediaUrl(mediaFileUrl);
       setBerkasUrl(mediaFileUrl2);
@@ -833,7 +853,6 @@ const FormMonev = (props) => {
       setLampiranHasilUrl(mediaFileUrl4);
       setLampiranKetercapaianUrl(mediaFileUrl5);
       setDokumentasiUrl(mediaFileUrl6);
-      setLoadingFalse();
     }
   }, [documentDetail]);
 
@@ -921,7 +940,7 @@ const FormMonev = (props) => {
         <div className="tajuk-page">
           <h1> FORMULIR LAPORAN MONITORING DAN EVALUASI GNRM</h1>
         </div>
-        {loading ? (
+        {loading || loadingDocument || loadingDokumentasi ? (
           <div style={{ marginLeft: '68px' }}>
             <div
               className="d-flex justify-content-center align-items-center"
