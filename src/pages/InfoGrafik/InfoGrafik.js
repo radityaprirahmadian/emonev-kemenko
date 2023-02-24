@@ -374,8 +374,46 @@ const Dashboard = (props) => {
             <div className="tajuk-page2">
               <p>PEMBENTUKAN GUGUS TUGAS DAERAH</p>
             </div>
-            <div className="infografik-statistik" style={{ position: 'relative' }}>
+            <div
+              className="infografik-statistik"
+              style={{ position: 'relative', height: 'fit-content' }}
+            >
               <StatistikKabarGNRM color="#8380EA" />
+              <div className="keterangan">
+                <p className="">Keterangan :</p>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    flexDirection: 'column',
+                    gap: 5,
+                    marginTop: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      width: 100,
+                    }}
+                  >
+                    <div style={{ width: 20, height: 20, background: 'rgba(66,79,200,1)' }}></div>
+                    <div>Provinsi</div>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      width: 100,
+                    }}
+                  >
+                    <div style={{ width: 20, height: 20, background: 'rgba(253,228,127,1)' }}></div>
+                    <div>Kab/Kota</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

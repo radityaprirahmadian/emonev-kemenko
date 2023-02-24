@@ -614,6 +614,7 @@ const FormMonev = (props) => {
   // }, [data.sk_status])
 
   useEffect(() => {
+    resetDocument();
     window.scrollTo(0, 0);
     (async () => {
       const proyekData = await axios.get(
@@ -630,8 +631,7 @@ const FormMonev = (props) => {
 
   useEffect(() => {
     if (props.match.params.id) {
-      resetDocument();
-      editDocument();
+      // editDocument();
       getDocumentDetail({ id, type });
       if (isPreviewing) {
         preview();
@@ -693,6 +693,7 @@ const FormMonev = (props) => {
 
   useEffect(() => {
     if (documentDetail) {
+      setLoadingTrue();
       setData(documentDetail && documentDetail.form);
       setWordLength({
         identifikasi_kondisi: totalWordInSentenceCounter(
@@ -706,7 +707,7 @@ const FormMonev = (props) => {
       setInstansi(documentDetail.instansi);
       setMedia(documentDetail?.form.lampiran.media);
       setBerkas(documentDetail?.form.lampiran.berkas);
-      setDokumentasi(documentDetail?.form.lampiran.dokumentasi);
+      // setDokumentasi(documentDetail?.form.lampiran.dokumentasi);
       setLampiranTempat(documentDetail?.form.lampiran.tempat);
       setLampiranHasil(documentDetail?.form.lampiran.hasil);
       setLampiranKetercapaian(documentDetail?.form.lampiran.ketercapaian);
@@ -807,6 +808,7 @@ const FormMonev = (props) => {
         documentDetail?.form.lampiran.dokumentasi.map(
           (dokumentasi) => `http://api.simonev.revolusimental.go.id:8882${dokumentasi.path}`,
         );
+
       const files6 = [];
       mediaFileUrl6.forEach((url) => {
         fetch(url)
@@ -814,7 +816,7 @@ const FormMonev = (props) => {
           .then((blob) => {
             const objectURL = URL.createObjectURL(blob);
             blob.name = getFileName(url);
-            files5.push(blob);
+            files6.push(blob);
           });
       });
 
@@ -831,6 +833,7 @@ const FormMonev = (props) => {
       setLampiranHasilUrl(mediaFileUrl4);
       setLampiranKetercapaianUrl(mediaFileUrl5);
       setDokumentasiUrl(mediaFileUrl6);
+      setLoadingFalse();
     }
   }, [documentDetail]);
 
@@ -1126,6 +1129,7 @@ const FormMonev = (props) => {
                                     <div>
                                       <label>Pemilihan 5 Gerakan</label>
                                       <select
+                                        id="id"
                                         onChange={onChangeGerakan}
                                         className="gnrm-select"
                                         name={`gerakan-${index + 1}`}
@@ -1350,7 +1354,7 @@ const FormMonev = (props) => {
                       <div style={{ textAlign: 'right', paddingRight: 35 }}>
                         {wordLength.hambatan}/1000
                       </div>
-                      <div style={{position: 'relative'}}>
+                      <div style={{ position: 'relative' }}>
                         <label>Dokumentasi</label>
                         <label
                           htmlFor="testing"
@@ -1373,9 +1377,7 @@ const FormMonev = (props) => {
                           name="media"
                           multiple
                         />
-                        <h1 className="penjelasan_lampiran_doc">
-                          (Ukuran maksimal berkas 25MB)
-                        </h1>
+                        <h1 className="penjelasan_lampiran_doc">(Ukuran maksimal berkas 25MB)</h1>
                       </div>
                       <div>
                         {dokumentasi && dokumentasi.length > 0 ? (
@@ -1459,7 +1461,6 @@ const FormMonev = (props) => {
                                     style={{
                                       marginTop: '10px',
                                       width: '150px',
-                                      height: '20px',
                                       wordWrap: 'break-word',
                                       lineHeight: '20px',
                                       textAlign: 'center',
@@ -1555,7 +1556,6 @@ const FormMonev = (props) => {
                                     style={{
                                       marginTop: '10px',
                                       width: '150px',
-                                      height: '20px',
                                       wordWrap: 'break-word',
                                       lineHeight: '20px',
                                       textAlign: 'center',
@@ -2086,7 +2086,7 @@ const FormMonev = (props) => {
                       <div style={{ textAlign: 'right', paddingRight: 35 }}>
                         {wordLength.hambatan}/1000
                       </div>
-                      <div style={{position: 'relative'}}>
+                      <div style={{ position: 'relative' }}>
                         <label>Dokumentasi</label>
                         <label
                           htmlFor="testing"
@@ -2109,9 +2109,7 @@ const FormMonev = (props) => {
                           name="media"
                           multiple
                         />
-                        <h1 className="penjelasan_lampiran_doc">
-                          (Ukuran maksimal berkas 25MB)
-                        </h1>
+                        <h1 className="penjelasan_lampiran_doc">(Ukuran maksimal berkas 25MB)</h1>
                       </div>
 
                       <div>
@@ -2196,7 +2194,6 @@ const FormMonev = (props) => {
                                     style={{
                                       marginTop: '10px',
                                       width: '150px',
-                                      height: '20px',
                                       wordWrap: 'break-word',
                                       lineHeight: '20px',
                                       textAlign: 'center',
@@ -2292,7 +2289,7 @@ const FormMonev = (props) => {
                                     style={{
                                       marginTop: '10px',
                                       width: '150px',
-                                      height: '20px',
+                                      // height: '20px',
                                       wordWrap: 'break-word',
                                       lineHeight: '20px',
                                       textAlign: 'center',
@@ -2619,7 +2616,10 @@ const FormMonev = (props) => {
                     >
                       GERAKAN NASIONAL REVOLUSI MENTAL Tahun {data.tahun}
                     </h1>
-                    <h1 style={{lineHeight: '25px'}}>Periode Laporan Program/Kegiatan: {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}</h1>
+                    <h1 style={{ lineHeight: '25px' }}>
+                      Periode Laporan Program/Kegiatan:{' '}
+                      {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}
+                    </h1>
                   </div>
                 </div>
 
@@ -2842,6 +2842,32 @@ const FormMonev = (props) => {
                         <td></td>
                         <td
                           style={{
+                            paddingTop: '12px',
+                            paddingBottom: '32px',
+                          }}
+                        >
+                          {dokumentasi &&
+                            dokumentasi
+                              .filter((lampiran) => isFileImage(lampiran) === false)
+                              .map((lampiran, index) => {
+                                return (
+                                  <p
+                                    key={index}
+                                    className="gnrm-media--name"
+                                    style={{
+                                      textAlign: 'left',
+                                    }}
+                                  >
+                                    {lampiran.name}
+                                  </p>
+                                );
+                              })}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td
+                          style={{
                             paddingTop: '20px',
                           }}
                         >
@@ -2883,7 +2909,7 @@ const FormMonev = (props) => {
                 />
                 <div className="preview-footer" style={{ marginBottom: '119px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <img src={logo_footer} style={{width: 120}}/>
+                    <img src={logo_footer} style={{ width: 120 }} />
                   </div>
                   <div style={{ margin: '0px 30px' }}>
                     Waktu Unggah : {str}
@@ -2895,7 +2921,7 @@ const FormMonev = (props) => {
                   </div>
                   <div className="spacer"></div>
                   <div style={{ textAlign: 'right' }}>
-                    <img src={logo_footer} style={{width: 120}}/>
+                    <img src={logo_footer} style={{ width: 120 }} />
                   </div>
                 </div>
 

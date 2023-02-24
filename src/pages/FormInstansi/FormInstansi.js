@@ -33,7 +33,6 @@ const FormInstansi = (props) => {
     jenis: '',
     kontak: '',
     alamat: '',
-    fax: '',
     email: '',
     website: '',
     user_nama: '',
@@ -208,7 +207,6 @@ const FormInstansi = (props) => {
         nama_pendek: instansiDetail.nama_pendek,
         kontak: instansiDetail.kontak,
         alamat: instansiDetail.alamat,
-        fax: instansiDetail.fax,
         email: instansiDetail.email,
         website: instansiDetail.website,
       });
@@ -644,22 +642,6 @@ const FormInstansi = (props) => {
                           width: '955px',
                           height: '84px',
                           transition: 'all 0.3s ease-in-out',
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <label>Fax</label>
-                      <input
-                        className="admin-username"
-                        type="text"
-                        name="fax"
-                        onKeyPress={onKeyPress}
-                        tabIndex="7"
-                        value={newInstansi.fax}
-                        onChange={onChangeInstansi}
-                        style={{
-                          marginLeft: '186px',
-                          width: '366px',
                         }}
                       />
                     </div>
@@ -1215,21 +1197,6 @@ const FormInstansi = (props) => {
                           width: '767px',
                           height: '84px',
                           transition: 'all 0.3s ease-in-out',
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <label>Fax</label>
-                      <input
-                        className="admin-username"
-                        type="text"
-                        name="fax"
-                        value={newInstansi.fax}
-                        onKeyPress={onKeyPress}
-                        onChange={onChangeInstansi}
-                        style={{
-                          marginLeft: '186px',
-                          width: '366px',
                         }}
                       />
                     </div>

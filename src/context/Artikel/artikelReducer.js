@@ -4,7 +4,6 @@ export default (state, action) => {
             return {
                 ...state,
                 isEditing: true,
-                loading: false,
                 documentDetail: action.payload && action.payload.document,
                 instansiDocumentDetail : action.payload && action.payload.instansi
             }

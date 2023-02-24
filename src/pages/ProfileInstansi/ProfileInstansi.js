@@ -201,20 +201,6 @@ const ProfileInstansi = (props) => {
                                 marginTop: '64px',
                               }}
                             >
-                              Fax
-                            </label>
-                            <br />
-                            <div className="show-profile" type="text">
-                              {instansiDetail && instansiDetail.fax}
-                            </div>
-                          </div>
-
-                          <div className="data">
-                            <label
-                              style={{
-                                marginTop: '64px',
-                              }}
-                            >
                               Website
                             </label>
                             <br />
@@ -308,26 +294,6 @@ const ProfileInstansi = (props) => {
                               }}
                             >
                               {instansiDetail && instansiDetail.alamat}
-                            </div>
-                          </div>
-
-                          <div className="data">
-                            <label
-                              style={{
-                                marginTop: '64px',
-                              }}
-                            >
-                              Fax
-                            </label>
-                            <br />
-                            <div
-                              className="show-profile"
-                              style={{
-                                width: '466px',
-                              }}
-                              type="text"
-                            >
-                              {instansiDetail && instansiDetail.fax}
                             </div>
                           </div>
 

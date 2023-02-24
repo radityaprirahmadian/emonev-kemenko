@@ -4,43 +4,54 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Spinner from '../Spinner/Spinner';
 
 export default function StatistikKabarGNRM(props) {
-  const [statistik, setStatistik] = useState([]);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    setData(null);
-    setStatistik(null);
     const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gnrm/count`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
-        setStatistik(data.gnrm);
+        const chartData = data.gnrm.map((data) => data.provinsi);
+        const chartDataKab = data.gnrm.map((data) => data.kabkota);
+        const chartLabel = data.gnrm.map((data) => data.tahun);
+
+        const chart = {
+          labels: chartLabel,
+          datasets: [
+            {
+              label: 'provinsi',
+              borderWidth: 0,
+              barThickness: 30,
+              backgroundColor: (context) => {
+                const ctx = context.chart.ctx;
+                const gradient = ctx.createLinearGradient(0, 300, 0, 450);
+                gradient.addColorStop(0, 'rgba(66,79,200,1)');
+                gradient.addColorStop(1, 'rgba(131,128,234,0.9)');
+                return gradient;
+              },
+              borderColor: '#FDE47F',
+              data: chartData,
+            },
+            {
+              label: 'kabupaten/kota',
+              borderWidth: 0,
+              barThickness: 30,
+              backgroundColor: (context) => {
+                const ctx = context.chart.ctx;
+                const gradient = ctx.createLinearGradient(0, 300, 0, 450);
+                gradient.addColorStop(0, 'rgba(253,228,127,1)');
+                gradient.addColorStop(1, 'rgba(243,224,145,0.7)');
+                return gradient;
+              },
+              borderColor: '#E76975',
+              data: chartDataKab,
+            },
+          ],
+        };
+
+        setData(chart);
       });
   }, []);
-
-  useEffect(() => {
-    if (statistik) {
-      let chartData = statistik.map((data) => data.provinsi);
-      let chartLabel = statistik.map((data) => data.tahun);
-
-      let chart = {
-        labels: chartLabel,
-        datasets: [
-          {
-            label: '',
-            borderWidth: 0,
-            barThickness: 50,
-            backgroundColor: props.color || '#E76975',
-            borderColor: props.color || '#E76975',
-            data: chartData,
-          },
-        ],
-      };
-
-      setData(chart);
-    }
-  }, [statistik]);
-
-  const [data, setData] = useState(null);
 
   const chartOptions = {
     defaultFontStyle: 'bold',
@@ -49,6 +60,7 @@ export default function StatistikKabarGNRM(props) {
     legend: {
       display: false,
     },
+    type: 'bar',
     plugins: {
       datalabels: {
         display: true,
@@ -99,14 +111,14 @@ export default function StatistikKabarGNRM(props) {
       yAlign: 'bottom',
       xAlign: 'center',
       caretSize: 7,
-      backgroundColor: props.color || '#E76975',
+      backgroundColor: '#E76975',
       displayColors: false,
       bodyAlign: 'center',
       xPadding: 10,
       yPadding: 10,
       callbacks: {
         label: (tooltipItem, data) => {
-          let label = data.datasets[tooltipItem.datasetIndex].label || '';
+          let label = '';
           label += Math.round(tooltipItem.yLabel * 100) / 100;
           return label;
         },
@@ -120,7 +132,7 @@ export default function StatistikKabarGNRM(props) {
       className="chart d-flex justify-content-center align-items-center"
       style={{ height: props.height || '56vh', width: '100%', paddingTop: 50, marginBottom: 15 }}
     >
-      {statistik && data ? (
+      {data ? (
         <Bar
           data={data}
           options={chartOptions}

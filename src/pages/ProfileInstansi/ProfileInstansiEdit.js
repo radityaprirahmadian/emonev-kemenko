@@ -29,7 +29,6 @@ const ProfileInstansiEdit = (props) => {
     // jenis: '',
     kontak: '',
     alamat: '',
-    fax: '',
     email: '',
     website: '',
   });
@@ -127,7 +126,6 @@ const ProfileInstansiEdit = (props) => {
         // nama_pendek: instansiDetail.nama_pendek,
         kontak: instansiDetail.kontak,
         alamat: instansiDetail.alamat,
-        fax: instansiDetail.fax,
         email: instansiDetail.email,
         website: instansiDetail.website,
       });
@@ -281,24 +279,6 @@ const ProfileInstansiEdit = (props) => {
                                 marginTop: '64px',
                               }}
                             >
-                              Fax
-                            </label>
-                            <br />
-                            <input
-                              className="show-profile"
-                              type="text"
-                              name="fax"
-                              value={newInstansi.fax}
-                              onChange={onChangeInstansi}
-                            ></input>
-                          </div>
-
-                          <div className="data">
-                            <label
-                              style={{
-                                marginTop: '64px',
-                              }}
-                            >
                               Website
                             </label>
                             <br />
@@ -409,27 +389,6 @@ const ProfileInstansiEdit = (props) => {
                               value={newInstansi.alamat}
                               onChange={onChangeInstansi}
                             ></textarea>
-                          </div>
-
-                          <div className="data">
-                            <label
-                              style={{
-                                marginTop: '64px',
-                              }}
-                            >
-                              Fax
-                            </label>
-                            <br />
-                            <input
-                              className="show-profile"
-                              style={{
-                                width: '466px',
-                              }}
-                              type="text"
-                              name="fax"
-                              value={newInstansi.fax}
-                              onChange={onChangeInstansi}
-                            ></input>
                           </div>
 
                           <div className="data">

@@ -101,7 +101,6 @@ const FormGNRM = (props) => {
     kondisi_awal: 0,
   });
 
-
   const pilihanTahun = [];
   const todaysYear = new Date().getFullYear();
   for (let year = todaysYear; year >= 2020; year--) {
@@ -309,13 +308,15 @@ const FormGNRM = (props) => {
   };
 
   const onChange = (event, property, array = false, index, isWordCount) => {
-    if(isWordCount) {
+    if (isWordCount) {
       setWordLength({
         ...wordLength,
-        [event.target.name]: !array ? totalWordInSentenceCounter(event.target.value) : {
-          ...wordLength[event.target.name],
-          [index]: totalWordInSentenceCounter(event.target.value)
-      }
+        [event.target.name]: !array
+          ? totalWordInSentenceCounter(event.target.value)
+          : {
+              ...wordLength[event.target.name],
+              [index]: totalWordInSentenceCounter(event.target.value),
+            },
       });
     }
 
@@ -400,24 +401,22 @@ const FormGNRM = (props) => {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
     }
 
-    if(data.anggaran.sumber_dana === '') errorAnggaran = true;
-    if(data.anggaran.besar_anggaran === '') errorAnggaran = true;
+    if (data.anggaran.sumber_dana === '') errorAnggaran = true;
+    if (data.anggaran.besar_anggaran === '') errorAnggaran = true;
 
     if (error) {
       alert(
         'Jumlah kata harus lebih dari 50 dan kurang dari 1000 kata. Harap perbaiki kembali perencanaan!',
       );
       event.preventDefault();
-    } else if(errorAnggaran) {
-      alert(
-       'Anggaran harus diisi, harap perbaiki kembali perencanaan!'
-      );
+    } else if (errorAnggaran) {
+      alert('Anggaran harus diisi, harap perbaiki kembali perencanaan!');
       event.preventDefault();
     } else {
       event.preventDefault();
       setLoadingTrue();
       const formData = objectToFormData(data);
-  
+
       for (let i = 0; i < media.length; i++) {
         formData.append(`media`, media[i]);
       }
@@ -430,18 +429,18 @@ const FormGNRM = (props) => {
       for (let i = 0; i < skFile.length; i++) {
         formData.append(`sk`, skFile[i]);
       }
-  
+
       // for (let pair of formData.entries()) {
       //     console.log(pair[0] + ', ' + pair[1])
       // }
-  
+
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
           'X-Auth-Token': `Bearer ${token}`,
         },
       };
-  
+
       try {
         const res = await axios.post(
           'http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=gnrm',
@@ -476,25 +475,23 @@ const FormGNRM = (props) => {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
     }
 
-    if(data.anggaran.sumber_dana === '') errorAnggaran = true;
-    if(data.anggaran.besar_anggaran === '') errorAnggaran = true;
+    if (data.anggaran.sumber_dana === '') errorAnggaran = true;
+    if (data.anggaran.besar_anggaran === '') errorAnggaran = true;
 
     if (error) {
       alert(
         'Jumlah kata harus lebih dari 50 dan kurang dari 1000 kata. Harap perbaiki kembali perencanaan!',
       );
       event.preventDefault();
-    } else if(errorAnggaran) {
-      alert(
-       'Anggaran harus diisi, harap perbaiki kembali perencanaan!'
-      );
+    } else if (errorAnggaran) {
+      alert('Anggaran harus diisi, harap perbaiki kembali perencanaan!');
       event.preventDefault();
     } else {
       event.preventDefault();
       setLoadingTrue();
-  
+
       const formData = objectToFormData(data);
-  
+
       if (lampiranProses.length > 0) {
         for (let i = 0; i < lampiranProses.length; i++) {
           formData.append(`lampiran_proses`, lampiranProses[i]);
@@ -502,7 +499,7 @@ const FormGNRM = (props) => {
       } else {
         formData.append('lampiran_proses', new File([null], 'blob'));
       }
-  
+
       if (media.length > 0) {
         for (let i = 0; i < media.length; i++) {
           formData.append(`media`, media[i]);
@@ -510,7 +507,7 @@ const FormGNRM = (props) => {
       } else {
         formData.append('media', new File([null], 'blob'));
       }
-  
+
       if (lampiranKondisi.length > 0) {
         for (let i = 0; i < lampiranKondisi.length; i++) {
           formData.append(`lampiran_kondisi_awal`, lampiranKondisi[i]);
@@ -518,22 +515,22 @@ const FormGNRM = (props) => {
       } else {
         formData.append('lampiran_kondisi_awal', new File([null], 'blob'));
       }
-  
+
       if (skFile.length > 0) {
         formData.append(`sk`, skFile[0]);
       }
-  
+
       // for (letaa pair of formData.entries()) {
       //     console.log(pair[0] + ', ' + pair[1])
       // }
-  
+
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
           'X-Auth-Token': `Bearer ${token}`,
         },
       };
-  
+
       try {
         const res = await axios.put(
           `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=gnrm`,
@@ -556,6 +553,7 @@ const FormGNRM = (props) => {
   };
 
   useEffect(() => {
+    resetDocument();
     (async () => {
       const proyekData = await axios.get(
         'http://api.simonev.revolusimental.go.id:8882/api/v1/proyek',
@@ -571,7 +569,6 @@ const FormGNRM = (props) => {
 
   useEffect(() => {
     if (props.match.params.id) {
-      resetDocument();
       editDocument();
       getDocumentDetail({ id, type });
       if (isPreviewing) {
@@ -689,11 +686,17 @@ const FormGNRM = (props) => {
       setSelectedKp(documentDetail.form.kp);
       setWordLength({
         ...wordLength,
-        penjelasan_kegiatan: totalWordInSentenceCounter(documentDetail && documentDetail?.form.kegiatan.penjelasan_kegiatan),
-        indikator_capaian: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.indikator_capaian),
+        penjelasan_kegiatan: totalWordInSentenceCounter(
+          documentDetail && documentDetail?.form.kegiatan.penjelasan_kegiatan,
+        ),
+        indikator_capaian: totalWordInSentenceCounter(
+          documentDetail && documentDetail?.form.output.indikator_capaian,
+        ),
         sasaran: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.sasaran),
         target: totalWordInSentenceCounter(documentDetail && documentDetail?.form.output.target),
-        kondisi_awal: totalWordInSentenceCounter(documentDetail && documentDetail?.form.kondisi_awal),
+        kondisi_awal: totalWordInSentenceCounter(
+          documentDetail && documentDetail?.form.kondisi_awal,
+        ),
       });
 
       const gerakanArray = documentDetail.form.gerakan.split(',');
@@ -1264,32 +1267,32 @@ const FormGNRM = (props) => {
                             </Fragment>
                           ) : (
                             <>
-                            <div>
-                              <label
-                                style={{
-                                  textAlign: 'right',
-                                  clear: 'both',
-                                  float: 'left',
-                                }}
-                              >
-                                Kendala
-                              </label>
-                              <textarea
-                                className="gnrm-nama-program"
-                                style={{
-                                  height: '300px',
-                                  marginLeft: '140px',
-                                  width: '955px',
-                                }}
-                                type="text"
-                                name="sk_kendala"
-                                value={data.sk_kendala}
-                                onChange={onChangeSK}
-                              />
-                            </div>
-                            <div style={{ textAlign: 'right', paddingRight: 35 }}>
-                              {wordLength.sk_kendala}/1000
-                            </div>
+                              <div>
+                                <label
+                                  style={{
+                                    textAlign: 'right',
+                                    clear: 'both',
+                                    float: 'left',
+                                  }}
+                                >
+                                  Kendala
+                                </label>
+                                <textarea
+                                  className="gnrm-nama-program"
+                                  style={{
+                                    height: '300px',
+                                    marginLeft: '140px',
+                                    width: '955px',
+                                  }}
+                                  type="text"
+                                  name="sk_kendala"
+                                  value={data.sk_kendala}
+                                  onChange={onChangeSK}
+                                />
+                              </div>
+                              <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                {wordLength.sk_kendala}/1000
+                              </div>
                             </>
                           )}
                         </Fragment>
@@ -1600,32 +1603,32 @@ const FormGNRM = (props) => {
                                 </Fragment>
                               ) : (
                                 <>
-                                <div>
-                                  <label
-                                    style={{
-                                      textAlign: 'right',
-                                      clear: 'both',
-                                      float: 'left',
-                                    }}
-                                  >
-                                    Kendala
-                                  </label>
-                                  <textarea
-                                    className="gnrm-nama-program"
-                                    style={{
-                                      height: '300px',
-                                      marginLeft: '140px',
-                                      width: '955px',
-                                    }}
-                                    type="text"
-                                    name="sk_kendala"
-                                    value={data.sk_kendala}
-                                    onChange={onChangeSK}
-                                  />
-                                </div>
-                                <div style={{ textAlign: 'right', paddingRight: 35 }}>
-                                  {wordLength.sk_kendala}/1000
-                                </div>
+                                  <div>
+                                    <label
+                                      style={{
+                                        textAlign: 'right',
+                                        clear: 'both',
+                                        float: 'left',
+                                      }}
+                                    >
+                                      Kendala
+                                    </label>
+                                    <textarea
+                                      className="gnrm-nama-program"
+                                      style={{
+                                        height: '300px',
+                                        marginLeft: '140px',
+                                        width: '955px',
+                                      }}
+                                      type="text"
+                                      name="sk_kendala"
+                                      value={data.sk_kendala}
+                                      onChange={onChangeSK}
+                                    />
+                                  </div>
+                                  <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                    {wordLength.sk_kendala}/1000
+                                  </div>
                                 </>
                               )}
                             </Fragment>
@@ -1780,125 +1783,76 @@ const FormGNRM = (props) => {
                         </div> */}
 
                         {/* {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && ( */}
-                          <Fragment>
-                            <div>
-                              <label>Gerakan</label>
-                              {isEditing &&
-                              documentDetail.form.gerakan &&
-                              Object.values(selectedGerakan).length > 0 ? (
-                                <select
-                                  onChange={onChange}
-                                  className="gnrm-select"
-                                  name="gerakan-0"
-                                  style={{
-                                    marginLeft: '145px',
-                                  }}
-                                >
-                                  <option value={selectedGerakan['gerakan-0']} defaultValue>
-                                    {selectedGerakan['gerakan-0']}
-                                  </option>
-                                  {gerakanOptions &&
-                                    gerakanOptions.map((gerakan, i) => {
-                                      let alreadySelected = false;
-                                      Object.values(selectedGerakan).forEach((selected) => {
-                                        if (gerakan === selected) alreadySelected = true;
-                                      });
-                                      return (
-                                        <option
-                                          key={i}
-                                          value={gerakan}
-                                          selected={
-                                            gerakan === selectedGerakan['gerakan-0'] ? true : false
-                                          }
-                                          hidden={alreadySelected}
-                                        >
-                                          {gerakan}
-                                        </option>
-                                      );
-                                    })}
-                                </select>
-                              ) : (
-                                <select
-                                  onChange={onChangeGerakan}
-                                  className="gnrm-select"
-                                  name="gerakan-0"
-                                  style={{
-                                    marginLeft: '145px',
-                                  }}
-                                >
-                                  <option selected={true} hidden></option>
-                                  {gerakanOptions &&
-                                    gerakanOptions.map((gerakan, i) => {
-                                      let alreadySelected = false;
-                                      Object.values(selectedGerakan).forEach((selected) => {
-                                        if (gerakan === selected) alreadySelected = true;
-                                      });
-                                      return (
-                                        <option key={i} value={gerakan} hidden={alreadySelected}>
-                                          {gerakan}
-                                        </option>
-                                      );
-                                    })}
-                                </select>
-                              )}
-                            </div>
+                        <Fragment>
+                          <div>
+                            <label>Gerakan</label>
                             {isEditing &&
                             documentDetail.form.gerakan &&
-                            Object.values(selectedGerakan).length > 0
-                              ? Object.values(selectedGerakan)
-                                  .filter((selected) => selected !== selectedGerakan['gerakan-0'])
-                                  .map((_, index) => {
+                            Object.values(selectedGerakan).length > 0 ? (
+                              <select
+                                onChange={onChange}
+                                className="gnrm-select"
+                                name="gerakan-0"
+                                style={{
+                                  marginLeft: '145px',
+                                }}
+                              >
+                                <option value={selectedGerakan['gerakan-0']} defaultValue>
+                                  {selectedGerakan['gerakan-0']}
+                                </option>
+                                {gerakanOptions &&
+                                  gerakanOptions.map((gerakan, i) => {
+                                    let alreadySelected = false;
+                                    Object.values(selectedGerakan).forEach((selected) => {
+                                      if (gerakan === selected) alreadySelected = true;
+                                    });
                                     return (
-                                      <div>
-                                        <label>Gerakan</label>
-                                        <select
-                                          onChange={onChangeGerakan}
-                                          className="gnrm-select"
-                                          name={`gerakan-${index + 1}`}
-                                          style={{
-                                            marginLeft: '145px',
-                                          }}
-                                        >
-                                          <option
-                                            value={_}
-                                            defaultValue
-                                            hidden={_ === '' ? true : false}
-                                          >
-                                            {_}
-                                          </option>
-                                          {gerakanOptions &&
-                                            gerakanOptions.map((gerakan, i) => {
-                                              let alreadySelected = false;
-                                              Object.values(selectedGerakan).forEach((selected) => {
-                                                if (gerakan === selected) alreadySelected = true;
-                                              });
-                                              return (
-                                                <option
-                                                  key={i}
-                                                  value={gerakan}
-                                                  selected={
-                                                    gerakan ===
-                                                    selectedGerakan[`gerakan-${index + 1}`]
-                                                  }
-                                                  hidden={alreadySelected}
-                                                >
-                                                  {gerakan}
-                                                </option>
-                                              );
-                                            })}
-                                        </select>
-                                        <span
-                                          className="remove-form"
-                                          onClick={() => onDeleteGerakanForm(index)}
-                                        >
-                                          <i className=""> x </i>
-                                        </span>
-                                      </div>
+                                      <option
+                                        key={i}
+                                        value={gerakan}
+                                        selected={
+                                          gerakan === selectedGerakan['gerakan-0'] ? true : false
+                                        }
+                                        hidden={alreadySelected}
+                                      >
+                                        {gerakan}
+                                      </option>
                                     );
-                                  })
-                              : formGerakan.map((form, index) => {
+                                  })}
+                              </select>
+                            ) : (
+                              <select
+                                onChange={onChangeGerakan}
+                                className="gnrm-select"
+                                name="gerakan-0"
+                                style={{
+                                  marginLeft: '145px',
+                                }}
+                              >
+                                <option selected={true} hidden></option>
+                                {gerakanOptions &&
+                                  gerakanOptions.map((gerakan, i) => {
+                                    let alreadySelected = false;
+                                    Object.values(selectedGerakan).forEach((selected) => {
+                                      if (gerakan === selected) alreadySelected = true;
+                                    });
+                                    return (
+                                      <option key={i} value={gerakan} hidden={alreadySelected}>
+                                        {gerakan}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+                            )}
+                          </div>
+                          {isEditing &&
+                          documentDetail.form.gerakan &&
+                          Object.values(selectedGerakan).length > 0
+                            ? Object.values(selectedGerakan)
+                                .filter((selected) => selected !== selectedGerakan['gerakan-0'])
+                                .map((_, index) => {
                                   return (
-                                    <div key={index}>
+                                    <div>
                                       <label>Gerakan</label>
                                       <select
                                         onChange={onChangeGerakan}
@@ -1908,7 +1862,13 @@ const FormGNRM = (props) => {
                                           marginLeft: '145px',
                                         }}
                                       >
-                                        <option selected={true} hidden></option>
+                                        <option
+                                          value={_}
+                                          defaultValue
+                                          hidden={_ === '' ? true : false}
+                                        >
+                                          {_}
+                                        </option>
                                         {gerakanOptions &&
                                           gerakanOptions.map((gerakan, i) => {
                                             let alreadySelected = false;
@@ -1919,11 +1879,11 @@ const FormGNRM = (props) => {
                                               <option
                                                 key={i}
                                                 value={gerakan}
-                                                hidden={alreadySelected}
                                                 selected={
                                                   gerakan ===
                                                   selectedGerakan[`gerakan-${index + 1}`]
                                                 }
+                                                hidden={alreadySelected}
                                               >
                                                 {gerakan}
                                               </option>
@@ -1938,8 +1898,50 @@ const FormGNRM = (props) => {
                                       </span>
                                     </div>
                                   );
-                                })}
-                            {/* {formGerakan.length < 4 ? (
+                                })
+                            : formGerakan.map((form, index) => {
+                                return (
+                                  <div key={index}>
+                                    <label>Gerakan</label>
+                                    <select
+                                      onChange={onChangeGerakan}
+                                      className="gnrm-select"
+                                      name={`gerakan-${index + 1}`}
+                                      style={{
+                                        marginLeft: '145px',
+                                      }}
+                                    >
+                                      <option selected={true} hidden></option>
+                                      {gerakanOptions &&
+                                        gerakanOptions.map((gerakan, i) => {
+                                          let alreadySelected = false;
+                                          Object.values(selectedGerakan).forEach((selected) => {
+                                            if (gerakan === selected) alreadySelected = true;
+                                          });
+                                          return (
+                                            <option
+                                              key={i}
+                                              value={gerakan}
+                                              hidden={alreadySelected}
+                                              selected={
+                                                gerakan === selectedGerakan[`gerakan-${index + 1}`]
+                                              }
+                                            >
+                                              {gerakan}
+                                            </option>
+                                          );
+                                        })}
+                                    </select>
+                                    <span
+                                      className="remove-form"
+                                      onClick={() => onDeleteGerakanForm(index)}
+                                    >
+                                      <i className=""> x </i>
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                          {/* {formGerakan.length < 4 ? (
                               <div>
                                 <label className="tambah-lembaga">Tambah Gerakan</label>
                                 <img
@@ -1956,7 +1958,7 @@ const FormGNRM = (props) => {
                             ) : (
                               ''
                             )} */}
-                          </Fragment>
+                        </Fragment>
                         {/* )} */}
                       </Fragment>
                       <div>
@@ -1978,7 +1980,7 @@ const FormGNRM = (props) => {
                           }}
                           type="text"
                           name="penjelasan_kegiatan"
-                          placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
+                          placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan gerakan yang telah dipilih "
                           value={kegiatan.penjelasan_kegiatan}
                           onChange={(event) => onChange(event, 'kegiatan', false, 0, true)}
                         />
@@ -2389,7 +2391,9 @@ const FormGNRM = (props) => {
                     <div className="gnrm-title">ANGGARAN*</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Sumber Anggaran<span style={{color: '#D4362E'}}>*</span></label>
+                        <label>
+                          Sumber Anggaran<span style={{ color: '#D4362E' }}>*</span>
+                        </label>
                         <input
                           className="gnrm-pendanaan"
                           style={{
@@ -2406,7 +2410,7 @@ const FormGNRM = (props) => {
                       </div>
                       <div>
                         <label>
-                          Besaran Anggaran<span style={{color: '#D4362E'}}>*</span>{' '}
+                          Besaran Anggaran<span style={{ color: '#D4362E' }}>*</span>{' '}
                           <span
                             style={{
                               marginLeft: '36px',
@@ -2786,7 +2790,8 @@ const FormGNRM = (props) => {
                         </Fragment>
                       ) : (
                         documentDetail &&
-                        documentDetail.form && documentDetail.form.pihak_terkait.map((pihak, index) => {
+                        documentDetail.form &&
+                        documentDetail.form?.pihak_terkait.map((pihak, index) => {
                           return (
                             <Fragment key={index}>
                               {/* <div>
@@ -3658,32 +3663,32 @@ const FormGNRM = (props) => {
                             </Fragment>
                           ) : (
                             <>
-                            <div>
-                              <label
-                                style={{
-                                  textAlign: 'right',
-                                  clear: 'both',
-                                  float: 'left',
-                                }}
-                              >
-                                Kendala
-                              </label>
-                              <textarea
-                                className="gnrm-nama-program"
-                                style={{
-                                  height: '300px',
-                                  marginLeft: '140px',
-                                  width: '767px',
-                                }}
-                                type="text"
-                                name="sk_kendala"
-                                value={data.sk_kendala}
-                                onChange={onChangeSK}
-                              />
-                            </div>
-                            <div style={{ textAlign: 'right', paddingRight: 35 }}>
-                              {wordLength.sk_kendala}/1000
-                            </div>
+                              <div>
+                                <label
+                                  style={{
+                                    textAlign: 'right',
+                                    clear: 'both',
+                                    float: 'left',
+                                  }}
+                                >
+                                  Kendala
+                                </label>
+                                <textarea
+                                  className="gnrm-nama-program"
+                                  style={{
+                                    height: '300px',
+                                    marginLeft: '140px',
+                                    width: '767px',
+                                  }}
+                                  type="text"
+                                  name="sk_kendala"
+                                  value={data.sk_kendala}
+                                  onChange={onChangeSK}
+                                />
+                              </div>
+                              <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                {wordLength.sk_kendala}/1000
+                              </div>
                             </>
                           )}
                         </Fragment>
@@ -3994,32 +3999,32 @@ const FormGNRM = (props) => {
                                 </Fragment>
                               ) : (
                                 <>
-                                <div>
-                                  <label
-                                    style={{
-                                      textAlign: 'right',
-                                      clear: 'both',
-                                      float: 'left',
-                                    }}
-                                  >
-                                    Kendala
-                                  </label>
-                                  <textarea
-                                    className="gnrm-nama-program"
-                                    style={{
-                                      height: '300px',
-                                      marginLeft: '140px',
-                                      width: '767px',
-                                    }}
-                                    type="text"
-                                    name="sk_kendala"
-                                    value={data.sk_kendala}
-                                    onChange={onChangeSK}
-                                  />
-                                </div>
-                                <div style={{ textAlign: 'right', paddingRight: 35 }}>
-                                  {wordLength.sk_kendala}/1000
-                                </div>
+                                  <div>
+                                    <label
+                                      style={{
+                                        textAlign: 'right',
+                                        clear: 'both',
+                                        float: 'left',
+                                      }}
+                                    >
+                                      Kendala
+                                    </label>
+                                    <textarea
+                                      className="gnrm-nama-program"
+                                      style={{
+                                        height: '300px',
+                                        marginLeft: '140px',
+                                        width: '767px',
+                                      }}
+                                      type="text"
+                                      name="sk_kendala"
+                                      value={data.sk_kendala}
+                                      onChange={onChangeSK}
+                                    />
+                                  </div>
+                                  <div style={{ textAlign: 'right', paddingRight: 35 }}>
+                                    {wordLength.sk_kendala}/1000
+                                  </div>
                                 </>
                               )}
                             </Fragment>
@@ -4174,125 +4179,76 @@ const FormGNRM = (props) => {
                         </div> */}
 
                         {/* {selectedKp === 'Pusat-pusat Perubahan Revolusi Mental' && ( */}
-                          <Fragment>
-                            <div>
-                              <label>Gerakan</label>
-                              {isEditing &&
-                              documentDetail.form.gerakan &&
-                              Object.values(selectedGerakan).length > 0 ? (
-                                <select
-                                  onChange={onChange}
-                                  className="gnrm-select"
-                                  name="gerakan-0"
-                                  style={{
-                                    marginLeft: '145px',
-                                  }}
-                                >
-                                  <option value={selectedGerakan['gerakan-0']} defaultValue>
-                                    {selectedGerakan['gerakan-0']}
-                                  </option>
-                                  {gerakanOptions &&
-                                    gerakanOptions.map((gerakan, i) => {
-                                      let alreadySelected = false;
-                                      Object.values(selectedGerakan).forEach((selected) => {
-                                        if (gerakan === selected) alreadySelected = true;
-                                      });
-                                      return (
-                                        <option
-                                          key={i}
-                                          value={gerakan}
-                                          selected={
-                                            gerakan === selectedGerakan['gerakan-0'] ? true : false
-                                          }
-                                          hidden={alreadySelected}
-                                        >
-                                          {gerakan}
-                                        </option>
-                                      );
-                                    })}
-                                </select>
-                              ) : (
-                                <select
-                                  onChange={onChangeGerakan}
-                                  className="gnrm-select"
-                                  name="gerakan-0"
-                                  style={{
-                                    marginLeft: '145px',
-                                  }}
-                                >
-                                  <option selected={true} hidden></option>
-                                  {gerakanOptions &&
-                                    gerakanOptions.map((gerakan, i) => {
-                                      let alreadySelected = false;
-                                      Object.values(selectedGerakan).forEach((selected) => {
-                                        if (gerakan === selected) alreadySelected = true;
-                                      });
-                                      return (
-                                        <option key={i} value={gerakan} hidden={alreadySelected}>
-                                          {gerakan}
-                                        </option>
-                                      );
-                                    })}
-                                </select>
-                              )}
-                            </div>
+                        <Fragment>
+                          <div>
+                            <label>Gerakan</label>
                             {isEditing &&
                             documentDetail.form.gerakan &&
-                            Object.values(selectedGerakan).length > 0
-                              ? Object.values(selectedGerakan)
-                                  .filter((selected) => selected !== selectedGerakan['gerakan-0'])
-                                  .map((_, index) => {
+                            Object.values(selectedGerakan).length > 0 ? (
+                              <select
+                                onChange={onChange}
+                                className="gnrm-select"
+                                name="gerakan-0"
+                                style={{
+                                  marginLeft: '145px',
+                                }}
+                              >
+                                <option value={selectedGerakan['gerakan-0']} defaultValue>
+                                  {selectedGerakan['gerakan-0']}
+                                </option>
+                                {gerakanOptions &&
+                                  gerakanOptions.map((gerakan, i) => {
+                                    let alreadySelected = false;
+                                    Object.values(selectedGerakan).forEach((selected) => {
+                                      if (gerakan === selected) alreadySelected = true;
+                                    });
                                     return (
-                                      <div>
-                                        <label>Gerakan</label>
-                                        <select
-                                          onChange={onChangeGerakan}
-                                          className="gnrm-select"
-                                          name={`gerakan-${index + 1}`}
-                                          style={{
-                                            marginLeft: '145px',
-                                          }}
-                                        >
-                                          <option
-                                            value={_}
-                                            defaultValue
-                                            hidden={_ === '' ? true : false}
-                                          >
-                                            {_}
-                                          </option>
-                                          {gerakanOptions &&
-                                            gerakanOptions.map((gerakan, i) => {
-                                              let alreadySelected = false;
-                                              Object.values(selectedGerakan).forEach((selected) => {
-                                                if (gerakan === selected) alreadySelected = true;
-                                              });
-                                              return (
-                                                <option
-                                                  key={i}
-                                                  value={gerakan}
-                                                  selected={
-                                                    gerakan ===
-                                                    selectedGerakan[`gerakan-${index + 1}`]
-                                                  }
-                                                  hidden={alreadySelected}
-                                                >
-                                                  {gerakan}
-                                                </option>
-                                              );
-                                            })}
-                                        </select>
-                                        <span
-                                          className="remove-form"
-                                          onClick={() => onDeleteGerakanForm(index)}
-                                        >
-                                          <i className=""> x </i>
-                                        </span>
-                                      </div>
+                                      <option
+                                        key={i}
+                                        value={gerakan}
+                                        selected={
+                                          gerakan === selectedGerakan['gerakan-0'] ? true : false
+                                        }
+                                        hidden={alreadySelected}
+                                      >
+                                        {gerakan}
+                                      </option>
                                     );
-                                  })
-                              : formGerakan.map((form, index) => {
+                                  })}
+                              </select>
+                            ) : (
+                              <select
+                                onChange={onChangeGerakan}
+                                className="gnrm-select"
+                                name="gerakan-0"
+                                style={{
+                                  marginLeft: '145px',
+                                }}
+                              >
+                                <option selected={true} hidden></option>
+                                {gerakanOptions &&
+                                  gerakanOptions.map((gerakan, i) => {
+                                    let alreadySelected = false;
+                                    Object.values(selectedGerakan).forEach((selected) => {
+                                      if (gerakan === selected) alreadySelected = true;
+                                    });
+                                    return (
+                                      <option key={i} value={gerakan} hidden={alreadySelected}>
+                                        {gerakan}
+                                      </option>
+                                    );
+                                  })}
+                              </select>
+                            )}
+                          </div>
+                          {isEditing &&
+                          documentDetail.form.gerakan &&
+                          Object.values(selectedGerakan).length > 0
+                            ? Object.values(selectedGerakan)
+                                .filter((selected) => selected !== selectedGerakan['gerakan-0'])
+                                .map((_, index) => {
                                   return (
-                                    <div key={index}>
+                                    <div>
                                       <label>Gerakan</label>
                                       <select
                                         onChange={onChangeGerakan}
@@ -4302,7 +4258,13 @@ const FormGNRM = (props) => {
                                           marginLeft: '145px',
                                         }}
                                       >
-                                        <option selected={true} hidden></option>
+                                        <option
+                                          value={_}
+                                          defaultValue
+                                          hidden={_ === '' ? true : false}
+                                        >
+                                          {_}
+                                        </option>
                                         {gerakanOptions &&
                                           gerakanOptions.map((gerakan, i) => {
                                             let alreadySelected = false;
@@ -4313,27 +4275,69 @@ const FormGNRM = (props) => {
                                               <option
                                                 key={i}
                                                 value={gerakan}
-                                                hidden={alreadySelected}
                                                 selected={
                                                   gerakan ===
                                                   selectedGerakan[`gerakan-${index + 1}`]
                                                 }
+                                                hidden={alreadySelected}
                                               >
                                                 {gerakan}
                                               </option>
                                             );
                                           })}
                                       </select>
-                                      {/* <span
+                                      <span
+                                        className="remove-form"
+                                        onClick={() => onDeleteGerakanForm(index)}
+                                      >
+                                        <i className=""> x </i>
+                                      </span>
+                                    </div>
+                                  );
+                                })
+                            : formGerakan.map((form, index) => {
+                                return (
+                                  <div key={index}>
+                                    <label>Gerakan</label>
+                                    <select
+                                      onChange={onChangeGerakan}
+                                      className="gnrm-select"
+                                      name={`gerakan-${index + 1}`}
+                                      style={{
+                                        marginLeft: '145px',
+                                      }}
+                                    >
+                                      <option selected={true} hidden></option>
+                                      {gerakanOptions &&
+                                        gerakanOptions.map((gerakan, i) => {
+                                          let alreadySelected = false;
+                                          Object.values(selectedGerakan).forEach((selected) => {
+                                            if (gerakan === selected) alreadySelected = true;
+                                          });
+                                          return (
+                                            <option
+                                              key={i}
+                                              value={gerakan}
+                                              hidden={alreadySelected}
+                                              selected={
+                                                gerakan === selectedGerakan[`gerakan-${index + 1}`]
+                                              }
+                                            >
+                                              {gerakan}
+                                            </option>
+                                          );
+                                        })}
+                                    </select>
+                                    {/* <span
                                         className="remove-form"
                                         onClick={() => onDeleteGerakanForm(index)}
                                       >
                                         <i className=""> x </i>
                                       </span> */}
-                                    </div>
-                                  );
-                                })}
-                            {/* {formGerakan.length < 4 ? (
+                                  </div>
+                                );
+                              })}
+                          {/* {formGerakan.length < 4 ? (
                               <div>
                                 <label className="tambah-lembaga">Tambah Gerakan</label>
                                 <img
@@ -4350,7 +4354,7 @@ const FormGNRM = (props) => {
                             ) : (
                               ''
                             )} */}
-                          </Fragment>
+                        </Fragment>
                         {/* )} */}
                       </Fragment>
                       <div>
@@ -4371,7 +4375,7 @@ const FormGNRM = (props) => {
                             width: '767px',
                           }}
                           type="text"
-                          placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan  KP dan ProP yang telah dipilih "
+                          placeholder="Tuliskan penjabaran program K/L/D yang akan dilaksanakan sesuai dengan gerakan yang telah dipilih "
                           name="penjelasan_kegiatan"
                           value={kegiatan.penjelasan_kegiatan}
                           onChange={(event) => onChange(event, 'kegiatan', false, 0, true)}
@@ -4784,7 +4788,9 @@ const FormGNRM = (props) => {
                     <div className="gnrm-title">ANGGARAN*</div>
                     <div className="form-gnrm">
                       <div>
-                        <label>Sumber Anggaran<span style={{color: '#D4362E'}}>*</span></label>
+                        <label>
+                          Sumber Anggaran<span style={{ color: '#D4362E' }}>*</span>
+                        </label>
                         <input
                           className="gnrm-pendanaan off"
                           style={{
@@ -4801,7 +4807,7 @@ const FormGNRM = (props) => {
                       </div>
                       <div>
                         <label>
-                          Besaran Anggaran<span style={{color: '#D4362E'}}>*</span>{' '}
+                          Besaran Anggaran<span style={{ color: '#D4362E' }}>*</span>{' '}
                           <span
                             style={{
                               marginLeft: '36px',
@@ -5180,7 +5186,8 @@ const FormGNRM = (props) => {
                         </Fragment>
                       ) : (
                         documentDetail &&
-                        documentDetail.form && documentDetail.form.pihak_terkait.map((pihak, index) => {
+                        documentDetail.form &&
+                        documentDetail.form?.pihak_terkait.map((pihak, index) => {
                           return (
                             <Fragment key={index}>
                               {/* <div>
@@ -5832,7 +5839,10 @@ const FormGNRM = (props) => {
                     >
                       GERAKAN NASIONAL REVOLUSI MENTAL Tahun {data.tahun}
                     </h1>
-                    <h1 style={{lineHeight: '25px'}}>Periode Perencanaan Program: {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}</h1>
+                    <h1 style={{ lineHeight: '25px' }}>
+                      Periode Perencanaan Program:{' '}
+                      {data.periode === 'Jan-Mei' ? 'Januari-Mei' : 'Juli-November'}
+                    </h1>
                   </div>
                 </div>
 
@@ -5857,102 +5867,8 @@ const FormGNRM = (props) => {
                         <td>1.</td>
                         <td>Gugus Tugas GNRM</td>
                       </tr>
-                      {
-                        data.sk_no ? (
-                          <>
-                            <tr>
-                              <td></td>
-                              <td
-                                style={{
-                                  paddingTop: '12px',
-                                  paddingBottom: '32px',
-                                }}
-                              >
-                                Nomor SK: {data.sk_no}
-                              </td>
-                            </tr>
-                            <tr>
-                              <td></td>
-                              <td
-                                style={{
-                                  paddingTop: '12px',
-                                  paddingBottom: '32px',
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    height: 'fit-content',
-                                    width: '955px',
-                                    borderRadius: '5px',
-                                    padding: '10px',
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                    overflow: 'hidden',
-                                  }}
-                                >
-                                  {skFile &&
-                                    skFile
-                                      .filter((lampiran) => isFileImage(lampiran) === true)
-                                      .map((lampiran, index) => {
-                                        const objectURL = URL.createObjectURL(lampiran);
-                                        return (
-                                          <div key={index}>
-                                            <div
-                                              style={{
-                                                width: '420px',
-                                                height: '420px',
-                                                marginRight: '35px',
-                                                position: 'relative',
-                                              }}
-                                              className="d-flex align-items-center justify-content-center"
-                                            >
-                                              <div
-                                                style={{
-                                                  width: '420px',
-                                                  height: '420px',
-                                                  overflow: 'hidden',
-                                                  position: 'relative',
-                                                }}
-                                              >
-                                                <img
-                                                  src={objectURL}
-                                                  alt={lampiran.name}
-                                                  style={{
-                                                    width: '420px',
-                                                    height: '420px',
-                                                    objectFit: 'contain',
-                                                  }}
-                                                />
-                                              </div>
-                                            </div>
-                                            <div
-                                              style={{
-                                                marginTop: '10px',
-                                                width: '420px',
-                                                height: '20px',
-                                                wordWrap: 'break-word',
-                                                lineHeight: '20px',
-                                              }}
-                                            >
-                                              <p
-                                                className="gnrm-media--name"
-                                                style={{
-                                                  textAlign: 'center',
-                                                }}
-                                              >
-                                                {lampiran.name.length > 40
-                                                  ? `${lampiran.name.substr(0, 37)}...`
-                                                  : lampiran.name}
-                                              </p>
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                </div>
-                              </td>
-                            </tr>
-                          </>
-                        )  : (
+                      {data.sk_no ? (
+                        <>
                           <tr>
                             <td></td>
                             <td
@@ -5961,11 +5877,103 @@ const FormGNRM = (props) => {
                                 paddingBottom: '32px',
                               }}
                             >
-                              Belum ada
+                              Nomor SK: {data.sk_no}
                             </td>
                           </tr>
-                        )
-                      }
+                          <tr>
+                            <td></td>
+                            <td
+                              style={{
+                                paddingTop: '12px',
+                                paddingBottom: '32px',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  height: 'fit-content',
+                                  width: '955px',
+                                  borderRadius: '5px',
+                                  padding: '10px',
+                                  display: 'flex',
+                                  flexWrap: 'wrap',
+                                  overflow: 'hidden',
+                                }}
+                              >
+                                {skFile &&
+                                  skFile
+                                    .filter((lampiran) => isFileImage(lampiran) === true)
+                                    .map((lampiran, index) => {
+                                      const objectURL = URL.createObjectURL(lampiran);
+                                      return (
+                                        <div key={index}>
+                                          <div
+                                            style={{
+                                              width: '420px',
+                                              height: '420px',
+                                              marginRight: '35px',
+                                              position: 'relative',
+                                            }}
+                                            className="d-flex align-items-center justify-content-center"
+                                          >
+                                            <div
+                                              style={{
+                                                width: '420px',
+                                                height: '420px',
+                                                overflow: 'hidden',
+                                                position: 'relative',
+                                              }}
+                                            >
+                                              <img
+                                                src={objectURL}
+                                                alt={lampiran.name}
+                                                style={{
+                                                  width: '420px',
+                                                  height: '420px',
+                                                  objectFit: 'contain',
+                                                }}
+                                              />
+                                            </div>
+                                          </div>
+                                          <div
+                                            style={{
+                                              marginTop: '10px',
+                                              width: '420px',
+                                              height: '20px',
+                                              wordWrap: 'break-word',
+                                              lineHeight: '20px',
+                                            }}
+                                          >
+                                            <p
+                                              className="gnrm-media--name"
+                                              style={{
+                                                textAlign: 'center',
+                                              }}
+                                            >
+                                              {lampiran.name.length > 40
+                                                ? `${lampiran.name.substr(0, 37)}...`
+                                                : lampiran.name}
+                                            </p>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      ) : (
+                        <tr>
+                          <td></td>
+                          <td
+                            style={{
+                              paddingTop: '12px',
+                              paddingBottom: '32px',
+                            }}
+                          >
+                            Belum ada
+                          </td>
+                        </tr>
+                      )}
                       <tr style={{ fontWeight: 'bold' }}>
                         <td>2.</td>
                         <td>Kegiatan</td>
@@ -6139,7 +6147,9 @@ const FormGNRM = (props) => {
                           style={{
                             paddingTop: '12px',
                           }}
-                        > <div>Sumber Pendanaan:</div>
+                        >
+                          {' '}
+                          <div>Sumber Pendanaan:</div>
                           <pre>{data.anggaran.sumber_dana}</pre>
                         </td>
                       </tr>
@@ -6280,7 +6290,7 @@ const FormGNRM = (props) => {
                 />
                 <div className="preview-footer" style={{ marginBottom: '119px' }}>
                   <div style={{ textAlign: 'left' }}>
-                    <img src={logo_footer} style={{width: 120}}/>
+                    <img src={logo_footer} style={{ width: 120 }} />
                   </div>
                   <div style={{ margin: '0px 30px' }}>
                     Waktu Unggah : {str}
@@ -6292,7 +6302,7 @@ const FormGNRM = (props) => {
                   </div>
                   <div className="spacer"></div>
                   <div style={{ textAlign: 'right' }}>
-                    <img src={logo_footer} style={{width: 120}}/>
+                    <img src={logo_footer} style={{ width: 120 }} />
                   </div>
                 </div>
 
