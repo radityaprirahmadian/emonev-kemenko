@@ -63,7 +63,7 @@ const FormInstansi = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => {
         setAllInstansi(res.data.instansi);
       })
@@ -82,7 +82,7 @@ const FormInstansi = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,
         config,
       );
       setInstansiDetail(res.data.instansi);
@@ -113,7 +113,7 @@ const FormInstansi = (props) => {
 
     try {
       const res = await axios.post(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/instansi',
+        'https://api.simonev.revolusimental.go.id/api/v1/instansi',
         formData,
         config,
       );
@@ -150,7 +150,7 @@ const FormInstansi = (props) => {
     };
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,
         formData,
         config,
       );
@@ -212,7 +212,7 @@ const FormInstansi = (props) => {
       });
 
       if (instansiDetail.logo) {
-        const mediaFileUrl = [`http://api.simonev.revolusimental.go.id:8882${instansiDetail.logo}`];
+        const mediaFileUrl = [`https://api.simonev.revolusimental.go.id${instansiDetail.logo}`];
         const files = [];
         mediaFileUrl.forEach((url) => {
           fetch(url)

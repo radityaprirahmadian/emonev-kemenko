@@ -29,7 +29,7 @@ const ProfileInstansi = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,
         config,
       );
       setInstansiDetail(res.data.instansi);
@@ -61,9 +61,7 @@ const ProfileInstansi = (props) => {
   // },[instansiDetail])
 
   useEffect(() => {
-    const wow = `http://api.simonev.revolusimental.go.id:8882${
-      instansiDetail && instansiDetail.logo
-    }`;
+    const wow = `https://api.simonev.revolusimental.go.id${instansiDetail && instansiDetail.logo}`;
     setFoto(wow);
   }, [instansiDetail]);
 

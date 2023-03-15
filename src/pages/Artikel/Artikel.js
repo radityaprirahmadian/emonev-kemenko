@@ -46,7 +46,7 @@ const Artikel = (props) => {
   const getAllDocument = async () => {
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?instansi=${
+        `https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${
           infografisDetail && infografisDetail.instansi.nama_pendek
         }`,
       );
@@ -58,7 +58,7 @@ const Artikel = (props) => {
   const download = async () => {
     setTimeout(() => {
       const response = {
-        file: `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar/${props.match.params.id}/download`,
+        file: `https://api.simonev.revolusimental.go.id/api/v1/kabar/${props.match.params.id}/download`,
       };
       window.open(response.file);
     }, 100);
@@ -97,7 +97,7 @@ const Artikel = (props) => {
     const wow =
       infografisDetail &&
       infografisDetail.gambar.map(
-        (infografis) => `http://api.simonev.revolusimental.go.id:8882${infografis.path}`,
+        (infografis) => `https://api.simonev.revolusimental.go.id${infografis.path}`,
       );
     setGambar(wow);
     setLoadingFalse();
@@ -122,7 +122,7 @@ const Artikel = (props) => {
             {infografisDetail && infografisDetail.judul}
             <div className="logo-artikel">
               <img
-                src={`http://api.simonev.revolusimental.go.id:8882${
+                src={`https://api.simonev.revolusimental.go.id${
                   infografisDetail && infografisDetail.instansi.logo
                 }`}
                 alt="logo_kementerian"
@@ -267,7 +267,7 @@ const Artikel = (props) => {
             <div className="artikel-terkait-news">
               {infografisRelated.slice(0, 3).map((info, index) => {
                 const wow = info.gambar.map(
-                  (infografis) => `http://api.simonev.revolusimental.go.id:8882${infografis.path}`,
+                  (infografis) => `https://api.simonev.revolusimental.go.id${infografis.path}`,
                 );
                 return (
                   <Link to={`/artikel/${info._id}`}>
@@ -286,7 +286,7 @@ const Artikel = (props) => {
                         style={{ width: '300px', height: '150px' }}
                       />
                       <img
-                        src={`http://api.simonev.revolusimental.go.id:8882${info.instansi.logo}`}
+                        src={`https://api.simonev.revolusimental.go.id${info.instansi.logo}`}
                         alt="infografis-logo-instansi"
                         style={{
                           width: '75px',

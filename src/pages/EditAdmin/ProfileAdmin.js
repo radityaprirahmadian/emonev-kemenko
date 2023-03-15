@@ -31,13 +31,13 @@ const ProfileAdmin = (props) => {
       };
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,
           config,
         );
         setUserDetail(res.data.user);
 
         if (res.data.user.foto) {
-          const wow = `http://api.simonev.revolusimental.go.id:8882${res.data.user.foto}`;
+          const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`;
           setAvatar(wow);
         }
       } catch (err) {

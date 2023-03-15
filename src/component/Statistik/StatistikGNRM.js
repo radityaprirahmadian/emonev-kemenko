@@ -36,7 +36,7 @@ export default function StatistikGNRM(props) {
   useEffect(() => {
     setData(null);
     setStatistik(null);
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v1/statistik/gnrm?instansi=${
+    const endpoint = `https://api.simonev.revolusimental.go.id/api/v1/statistik/gnrm?instansi=${
       instansi || ''
     }&tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`;
     fetch(endpoint)

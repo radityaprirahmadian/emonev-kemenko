@@ -48,11 +48,11 @@ const FormReminder = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user?select=_id,nama&instansi=${nama_pendek}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama&instansi=${nama_pendek}`,
         config,
       );
       const res1 = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user?select=_id,nama`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama`,
         config,
       );
       setTotalUsers(res1.data.total);
@@ -66,7 +66,7 @@ const FormReminder = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => {
         setAllInstansi(res.data.filter.reminder);
       })
@@ -115,7 +115,7 @@ const FormReminder = (props) => {
       };
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/user?select=_id,nama&instansi=${e.target.value}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/user?select=_id,nama&instansi=${e.target.value}`,
           config,
         );
         setUserNew({ ...userNew, [pengguna]: res.data.users });
@@ -190,7 +190,7 @@ const FormReminder = (props) => {
 
   useEffect(() => {
     return () => {
-      const socket = io('http://api.simonev.revolusimental.go.id:8882');
+      const socket = io('https://api.simonev.revolusimental.go.id');
       socket.close();
     };
   }, []);
@@ -205,13 +205,13 @@ const FormReminder = (props) => {
     };
     try {
       const res = await axios.post(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/notifikasi`,
+        `https://api.simonev.revolusimental.go.id/api/v1/notifikasi`,
         formData,
         config,
       );
       alert(res.data.message);
       if (res.data.success) {
-        const socket = io('http://api.simonev.revolusimental.go.id:8882');
+        const socket = io('https://api.simonev.revolusimental.go.id');
         socket.on('connect', () => {
           socket.emit('notif_send', formData);
         });

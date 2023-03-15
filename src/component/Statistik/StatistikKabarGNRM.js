@@ -7,7 +7,7 @@ export default function StatistikKabarGNRM(props) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gnrm/count`;
+    const endpoint = `https://api.simonev.revolusimental.go.id/api/v2/charts/gnrm/count`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {

@@ -35,35 +35,35 @@ const Gallery = (props) => {
       if (userDetail) {
         if (userDetail.role === 'admin') {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/galeri?instansi=${
+            `https://api.simonev.revolusimental.go.id/api/v1/galeri?instansi=${
               userDetail && userDetail.instansi.nama_pendek
             }&page=${pages}&limit=${limit}`,
           );
           setTotal(res.data.total_gnrm);
           setPage(Math.ceil(res.data.total / 9));
           const wowo = res.data.galeri.map((galeri) =>
-            galeri.media.map((galeri) => `http://api.simonev.revolusimental.go.id:8882${galeri}`),
+            galeri.media.map((galeri) => `https://api.simonev.revolusimental.go.id${galeri}`),
           );
           setGallery(res.data.galeri);
         } else {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/galeri?page=${pages}&limit=${limit}`,
+            `https://api.simonev.revolusimental.go.id/api/v1/galeri?page=${pages}&limit=${limit}`,
           );
           setTotal(res.data.total_gnrm);
           setPage(Math.ceil(res.data.total / 9));
           const wowo = res.data.galeri.map((galeri) =>
-            galeri.media.map((galeri) => `http://api.simonev.revolusimental.go.id:8882${galeri}`),
+            galeri.media.map((galeri) => `https://api.simonev.revolusimental.go.id${galeri}`),
           );
           setGallery(res.data.galeri);
         }
       } else {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/galeri?page=${pages}&limit=${limit}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/galeri?page=${pages}&limit=${limit}`,
         );
         setTotal(res.data.total_gnrm);
         setPage(Math.ceil(res.data.total / 9));
         const wowo = res.data.galeri.map((galeri) =>
-          galeri.media.map((galeri) => `http://api.simonev.revolusimental.go.id:8882${galeri}`),
+          galeri.media.map((galeri) => `https://api.simonev.revolusimental.go.id${galeri}`),
         );
         setGallery(res.data.galeri);
       }
@@ -85,14 +85,13 @@ const Gallery = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/galeri/${identifier}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/galeri/${identifier}`,
         config,
       );
       setGambar(
         gambar.filter(
           (gambar) =>
-            gambar !==
-            `http://api.simonev.revolusimental.go.id:8882/public/uploads/gnrm/${identifier}`,
+            gambar !== `https://api.simonev.revolusimental.go.id/public/uploads/gnrm/${identifier}`,
         ),
       );
       setGalleriIndex(0);
@@ -160,13 +159,13 @@ const Gallery = (props) => {
             >
               {gallery.map((galleri, index) => {
                 const wowo = galleri.media.map(
-                  (galeri) => `http://api.simonev.revolusimental.go.id:8882${galeri}`,
+                  (galeri) => `https://api.simonev.revolusimental.go.id${galeri}`,
                 );
                 return (
                   <Fragment>
                     <div className="gallery-item" onClick={(e) => onOpen(e, index, wowo)}>
                       <img
-                        src={`http://api.simonev.revolusimental.go.id:8882${galleri.media[0]}`}
+                        src={`https://api.simonev.revolusimental.go.id${galleri.media[0]}`}
                         alt={`gallery-${index}`}
                         style={{ cursor: 'pointer' }}
                         className="test_gambar_gallery"

@@ -86,7 +86,7 @@ const FormInfografis = (props) => {
 
     try {
       const res = await axios.post(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar/`,
+        `https://api.simonev.revolusimental.go.id/api/v1/kabar/`,
         formData,
         config,
       );
@@ -128,7 +128,7 @@ const FormInfografis = (props) => {
 
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/kabar/${props.match.params.id}`,
         formData,
         config,
       );
@@ -192,7 +192,7 @@ const FormInfografis = (props) => {
       });
 
       const mediaFileUrl = infografisDetail.gambar.map(
-        (gambar) => `http://api.simonev.revolusimental.go.id:8882${gambar.path}`,
+        (gambar) => `https://api.simonev.revolusimental.go.id${gambar.path}`,
       );
       const files = [];
       mediaFileUrl.forEach((url) => {

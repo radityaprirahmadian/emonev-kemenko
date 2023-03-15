@@ -69,7 +69,7 @@ const Dashboard = (props) => {
 
   // const getDocumentCardLength = async () => {
   //     try {
-  //         const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
+  //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${userDetail.instansi.nama_pendek}`)
   //         setDocumentCardLength(res.data.total)
   //     }
   //     catch (err) {
@@ -82,13 +82,13 @@ const Dashboard = (props) => {
     try {
       if (userDetail.role === 'admin') {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}&instansi=${userDetail.instansi.nama_pendek}`,
         );
         setDocumentCard(res.data.kabar);
         setDocumentCardLength(res.data.total);
       } else {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?limit=3&page=${page}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/kabar?limit=3&page=${page}`,
         );
         setDocumentCard(res.data.kabar);
         setDocumentCardLength(res.data.total);
@@ -107,7 +107,7 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+    fetch('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => res.json())
       .then((data) => setInstansiData(data.instansi));
   }, []);
@@ -192,7 +192,7 @@ const Dashboard = (props) => {
       setLoadingDownload(true);
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gerakan/download?tahun=${filterStatistikGerakan.tahun}&periode=${filterStatistikGerakan.periode}`,
+          `https://api.simonev.revolusimental.go.id/api/v2/charts/gerakan/download?tahun=${filterStatistikGerakan.tahun}&periode=${filterStatistikGerakan.periode}`,
         );
         setDataToBeDownloaded(res.data.results);
         setLoadingDownload(false);

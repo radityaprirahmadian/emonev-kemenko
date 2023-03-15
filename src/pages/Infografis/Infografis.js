@@ -41,11 +41,11 @@ const Infografis = (props) => {
   //     }
   //     try {
   //         if(user && user.role === 'owner') {
-  //             const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?`, config)
+  //             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?`, config)
   //             setFilterValue(res.data.filter)
   //             setFilter({...filter, totalDoc: res.data.kabar.length})
   //         } else {
-  //             const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?instansi=${user && user.instansi.nama_pendek}`, config)
+  //             const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/kabar?instansi=${user && user.instansi.nama_pendek}`, config)
   //             setFilterValue(res.data.filter)
   //             setFilter({...filter, totalDoc: res.data.kabar.length})
   //         }
@@ -65,7 +65,7 @@ const Infografis = (props) => {
     try {
       if (user && user.role === 'owner') {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${instansi}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${instansi}`,
           config,
         );
         setDocuments(res.data.kabar);
@@ -74,7 +74,7 @@ const Infografis = (props) => {
         setLoading(false);
       } else {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${
+          `https://api.simonev.revolusimental.go.id/api/v1/kabar?tahun=${tahun}&page=${page}&limit=${limit}&instansi=${
             user && user.instansi.nama_pendek
           }`,
           config,
@@ -98,7 +98,7 @@ const Infografis = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/kabar/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/kabar/${id}`,
         config,
       );
       alert(res.data.message);

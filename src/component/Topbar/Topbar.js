@@ -22,7 +22,7 @@ const Topbar = (props) => {
   const getAllDocument = async () => {
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/infografis?status=true`,
+        `https://api.simonev.revolusimental.go.id/api/v1/infografis?status=true`,
       );
       setDocuments(res.data.infografis);
     } catch (err) {
@@ -38,7 +38,7 @@ const Topbar = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/pelaksanaan')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/pelaksanaan')
       .then((res) => {
         setInstansi(res.data.instansi);
       })
@@ -119,7 +119,7 @@ const Topbar = (props) => {
                               {instansi.logo ? (
                                 <div className="logo-megamenu">
                                   <img
-                                    src={`http://api.simonev.revolusimental.go.id:8882${instansi.logo}`}
+                                    src={`https://api.simonev.revolusimental.go.id${instansi.logo}`}
                                     className="logo-in-megamenu"
                                     alt="logo"
                                   />

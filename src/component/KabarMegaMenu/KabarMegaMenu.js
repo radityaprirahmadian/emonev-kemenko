@@ -11,7 +11,7 @@ const KabarMegaMenu = (props) => {
 
   useEffect(() => {
     const gambar = props.kabar.gambar.map(
-      (gambar) => `http://api.simonev.revolusimental.go.id:8882${gambar.path}`,
+      (gambar) => `https://api.simonev.revolusimental.go.id${gambar.path}`,
     );
     setDocuments(gambar);
   }, []);

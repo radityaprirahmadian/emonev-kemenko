@@ -32,7 +32,7 @@ export default function StatistikGNRM(props) {
   // useEffect(() => {
   //   setData(null);
   //   setStatistik(null);
-  //   const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v1/statistik/gnrm?instansi=${
+  //   const endpoint = `https://api.simonev.revolusimental.go.id/api/v1/statistik/gnrm?instansi=${
   //     instansi || ''
   //   }&tahun=${tahun}&periode=${periode || ''}&waktu=${waktu || ''}`;
   //   fetch(endpoint)
@@ -45,7 +45,7 @@ export default function StatistikGNRM(props) {
   useEffect(() => {
     setData(null);
     setStatistik(null);
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v2/charts/gerakan/count?&tahun=${tahun}&periode=${periode}`;
+    const endpoint = `https://api.simonev.revolusimental.go.id/api/v2/charts/gerakan/count?&tahun=${tahun}&periode=${periode}`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => {
@@ -159,7 +159,12 @@ export default function StatistikGNRM(props) {
   return (
     <div
       className="chart d-flex justify-content-center align-items-center"
-      style={{ height: props.height || '54vh', width: '100%', paddingTop: props.padding || 50, marginBottom: 15 }}
+      style={{
+        height: props.height || '54vh',
+        width: '100%',
+        paddingTop: props.padding || 50,
+        marginBottom: 15,
+      }}
     >
       {statistik && data ? (
         <Bar

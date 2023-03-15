@@ -37,7 +37,7 @@ const LupaPassword = (props) => {
     };
     try {
       const res = await axios.post(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/lupa-password`,
+        `https://api.simonev.revolusimental.go.id/api/v1/lupa-password`,
         data,
       );
       alert(res.data.message);
@@ -61,10 +61,7 @@ const LupaPassword = (props) => {
       },
     };
     try {
-      const res = await axios.get(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/auth',
-        config,
-      );
+      const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/auth', config);
       setUser(res.data.user);
     } catch (err) {
       alert('TOKEN KADALUARSA');
@@ -125,7 +122,7 @@ const LupaPassword = (props) => {
 
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${user && user._id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${user && user._id}`,
         formData,
         config,
       );

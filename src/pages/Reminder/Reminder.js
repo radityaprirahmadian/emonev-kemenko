@@ -41,7 +41,7 @@ const Reminder = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/notifikasi/tabel?page=${page}&limit=${limit}`,
         config,
       );
       console.log(res);
@@ -62,7 +62,7 @@ const Reminder = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/notifikasi/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`,
         config,
       );
       alert(res.data.message);

@@ -13,7 +13,7 @@ const FilterAdmin = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => {
         setAllInstansi(res.data.instansi);
       })

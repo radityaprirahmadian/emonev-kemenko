@@ -39,7 +39,7 @@ const Instansi = (props) => {
   //         }
   //     }
   //     try {
-  //         const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/instansi`, config)
+  //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/instansi`, config)
   //         setFilter({...filter, totalDoc: res.data.instansi.length})
   //     }
   //     catch (err) {
@@ -55,7 +55,7 @@ const Instansi = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi?nama=${nama}&jenis=${jenis}&limit=${limit}&page=${page}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi?nama=${nama}&jenis=${jenis}&limit=${limit}&page=${page}`,
         config,
       );
       setInstansi(res.data.instansi);
@@ -75,7 +75,7 @@ const Instansi = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${id}`,
         config,
       );
       alert(res.data.message);

@@ -5,7 +5,7 @@ import { AuthContext } from '../Auth/AuthContext';
 export const SocketContext = createContext();
 
 const SocketState = (props) => {
-  const socket = io('http://api.simonev.revolusimental.go.id:8882');
+  const socket = io('https://api.simonev.revolusimental.go.id');
   const [notifs, setNotifs] = useState([]);
 
   const getNotif = (id) => {

@@ -47,7 +47,7 @@ const Admin = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user?limit=${limit}&page=${page}&nama=${nama}&username=&instansi=${instansi}`,
         config,
       );
       setUsers(res.data.users);
@@ -67,7 +67,7 @@ const Admin = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,
         config,
       );
       alert(res.data.message);

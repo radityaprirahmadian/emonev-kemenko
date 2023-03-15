@@ -58,7 +58,7 @@ const FormAdmin = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => {
         setAllInstansi(res.data.instansi);
       })
@@ -77,7 +77,7 @@ const FormAdmin = (props) => {
     };
     try {
       const res = await axios.post(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user`,
         formData,
         config,
       );

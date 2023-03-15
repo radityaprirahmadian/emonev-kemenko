@@ -51,7 +51,7 @@ const App = () => {
   useEffect(() => {
     let cleanup = false;
     if (!cleanup) {
-      const socket = io('http://api.simonev.revolusimental.go.id:8882');
+      const socket = io('https://api.simonev.revolusimental.go.id');
       socket.on('connect', () => {
         socket.emit('notif_subscribe', { user: id });
       });

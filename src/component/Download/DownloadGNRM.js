@@ -254,7 +254,7 @@ const DownloadGNRM = (props) => {
         <View fixed>
           <Image
             style={style.image}
-            source={`http://api.simonev.revolusimental.go.id:8882${
+            source={`https://api.simonev.revolusimental.go.id${
               props.data.instansi && props.data.instansi.logo
             }`}
           />
@@ -352,7 +352,7 @@ const DownloadGNRM = (props) => {
                     <View style={style.isiimage} wrap={false}>
                       <Image
                         style={style.images}
-                        source={`http://api.simonev.revolusimental.go.id:8882${media.path}`}
+                        source={`https://api.simonev.revolusimental.go.id${media.path}`}
                       />
                       <Text style={style.textimage}>
                         {media.filename.length > 40
@@ -403,7 +403,7 @@ const DownloadGNRM = (props) => {
                                 props.data.document1.form && props.data.document1.form.lampiran.media.map((media,index) => {
                                     return(
                                         <View style={style.isiimage} wrap={false}>
-                                            <Image style={style.images} source={`http://api.simonev.revolusimental.go.id:8882${media.path}`}/>
+                                            <Image style={style.images} source={`https://api.simonev.revolusimental.go.id${media.path}`}/>
                                             <Text style={style.textimage}>
                                                 {media.filename.length > 40 ? `${media.filename.substr(0,37)}...` : media.filename}
                                             </Text>

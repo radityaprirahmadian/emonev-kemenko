@@ -27,7 +27,7 @@ const Profile = (props) => {
   }, [props.match.params.id]);
 
   useEffect(() => {
-    const wow = `http://api.simonev.revolusimental.go.id:8882${userDetail && userDetail.foto}`;
+    const wow = `https://api.simonev.revolusimental.go.id${userDetail && userDetail.foto}`;
     setFoto(wow);
   }, [userDetail]);
 

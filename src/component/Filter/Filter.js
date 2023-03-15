@@ -40,9 +40,7 @@ const Filter = (props) => {
 
   useEffect(() => {
     (async () => {
-      const proyekData = await axios.get(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/proyek',
-      );
+      const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek');
 
       const { proyek } = proyekData.data;
 
@@ -75,8 +73,8 @@ const Filter = (props) => {
           <input
             value={props.filterDoc.keyword}
             name="keyword"
-            autoComplete='off'
-            autoCorrect='off'
+            autoComplete="off"
+            autoCorrect="off"
             placeholder="Cari nama laporan"
             onChange={(e) => onChange(e)}
             onFocus={() => setSuggestionOpen(true)}

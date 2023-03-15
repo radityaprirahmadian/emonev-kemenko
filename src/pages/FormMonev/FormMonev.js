@@ -429,7 +429,7 @@ const FormMonev = (props) => {
 
       try {
         const res = await axios.post(
-          'http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=monev',
+          'https://api.simonev.revolusimental.go.id/api/v1/document?type=monev',
           formData,
           config,
         );
@@ -534,7 +534,7 @@ const FormMonev = (props) => {
 
       try {
         const res = await axios.put(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=monev`,
+          `https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,
           formData,
           config,
         );
@@ -571,7 +571,7 @@ const FormMonev = (props) => {
         sk_kendala: instansiDetail.sk && instansiDetail.sk.kendala,
       });
 
-      const gambar = `http://api.simonev.revolusimental.go.id:8882${
+      const gambar = `https://api.simonev.revolusimental.go.id${
         instansiDetail.sk && instansiDetail.sk.foto
       }`;
       setSkGambar(gambar);
@@ -580,9 +580,7 @@ const FormMonev = (props) => {
 
       if (instansiDetail.sk && instansiDetail.sk.foto) {
         const mediaFileUrl = [
-          `http://api.simonev.revolusimental.go.id:8882${
-            instansiDetail.sk && instansiDetail.sk.foto
-          }`,
+          `https://api.simonev.revolusimental.go.id${instansiDetail.sk && instansiDetail.sk.foto}`,
         ];
         const files = [];
         mediaFileUrl.forEach((url) => {
@@ -603,7 +601,7 @@ const FormMonev = (props) => {
   }, [instansiDetail]);
 
   // useEffect(() => {
-  //     const mediaFileUrl = [`http://api.simonev.revolusimental.go.id:8882${instansiDetail.sk&&instansiDetail.sk.foto}`]
+  //     const mediaFileUrl = [`https://api.simonev.revolusimental.go.id${instansiDetail.sk&&instansiDetail.sk.foto}`]
   //     const files = []
   //     mediaFileUrl.forEach(url => {
   //         fetch(url).then(res => res.blob()).then(blob => {
@@ -620,9 +618,7 @@ const FormMonev = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
     (async () => {
-      const proyekData = await axios.get(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/proyek',
-      );
+      const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek');
 
       const { proyek, gerakan } = proyekData.data;
 
@@ -656,13 +652,13 @@ const FormMonev = (props) => {
       try {
         if (props.match.params.id) {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=monev`,
+            `https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=monev`,
             config,
           );
           setInstansiDetail(res.data.instansi);
         } else {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${
+            `https://api.simonev.revolusimental.go.id/api/v1/instansi/${
               userDetail && userDetail.instansi._id
             }`,
             config,
@@ -729,7 +725,7 @@ const FormMonev = (props) => {
       const mediaFileUrl =
         documentDetail &&
         documentDetail?.form.lampiran.media.map(
-          (media) => `http://api.simonev.revolusimental.go.id:8882${media.path}`,
+          (media) => `https://api.simonev.revolusimental.go.id${media.path}`,
         );
       const files = [];
       mediaFileUrl.forEach((url) => {
@@ -745,7 +741,7 @@ const FormMonev = (props) => {
       const mediaFileUrl2 =
         documentDetail &&
         documentDetail?.form.lampiran.berkas.map(
-          (berkas) => `http://api.simonev.revolusimental.go.id:8882${berkas.path}`,
+          (berkas) => `https://api.simonev.revolusimental.go.id${berkas.path}`,
         );
       const files2 = [];
       mediaFileUrl2.forEach((url) => {
@@ -761,7 +757,7 @@ const FormMonev = (props) => {
       const mediaFileUrl3 =
         documentDetail &&
         documentDetail?.form.lampiran.tempat.map(
-          (tempat) => `http://api.simonev.revolusimental.go.id:8882${tempat.path}`,
+          (tempat) => `https://api.simonev.revolusimental.go.id${tempat.path}`,
         );
       const files3 = [];
       mediaFileUrl3.forEach((url) => {
@@ -777,7 +773,7 @@ const FormMonev = (props) => {
       const mediaFileUrl4 =
         documentDetail &&
         documentDetail?.form.lampiran.hasil.map(
-          (hasil) => `http://api.simonev.revolusimental.go.id:8882${hasil.path}`,
+          (hasil) => `https://api.simonev.revolusimental.go.id${hasil.path}`,
         );
       const files4 = [];
       mediaFileUrl4.forEach((url) => {
@@ -793,7 +789,7 @@ const FormMonev = (props) => {
       const mediaFileUrl5 =
         documentDetail &&
         documentDetail?.form.lampiran.ketercapaian.map(
-          (ketercapaian) => `http://api.simonev.revolusimental.go.id:8882${ketercapaian.path}`,
+          (ketercapaian) => `https://api.simonev.revolusimental.go.id${ketercapaian.path}`,
         );
       const files5 = [];
       mediaFileUrl5.forEach((url) => {
@@ -809,7 +805,7 @@ const FormMonev = (props) => {
       const mediaFileUrl6 =
         documentDetail &&
         documentDetail?.form.lampiran.dokumentasi.map(
-          (dokumentasi) => `http://api.simonev.revolusimental.go.id:8882${dokumentasi.path}`,
+          (dokumentasi) => `https://api.simonev.revolusimental.go.id${dokumentasi.path}`,
         );
 
       const files6 = [];
@@ -2503,7 +2499,7 @@ const FormMonev = (props) => {
                             }}
                           >
                             <img
-                              src={`http://api.simonev.revolusimental.go.id:8882${
+                              src={`https://api.simonev.revolusimental.go.id${
                                 instansiDocumentDetail && instansiDocumentDetail.logo
                               }`}
                               style={{
@@ -2562,7 +2558,7 @@ const FormMonev = (props) => {
                             }}
                           >
                             <img
-                              src={`http://api.simonev.revolusimental.go.id:8882${
+                              src={`https://api.simonev.revolusimental.go.id${
                                 instansiDetail && instansiDetail.logo
                               }`}
                               style={{

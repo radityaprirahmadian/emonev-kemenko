@@ -70,7 +70,7 @@ const SideBarOff = (props) => {
       };
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${
+          `https://api.simonev.revolusimental.go.id/api/v1/instansi/${
             userDetail && userDetail.instansi._id
           }`,
           config,
@@ -111,7 +111,7 @@ const SideBarOff = (props) => {
   }, [instansiDetail, pathname]);
 
   useEffect(() => {
-    const wow = `http://api.simonev.revolusimental.go.id:8882${userDetail && userDetail.foto}`;
+    const wow = `https://api.simonev.revolusimental.go.id${userDetail && userDetail.foto}`;
     setAvatar(wow);
   }, [userDetail]);
 
@@ -158,7 +158,7 @@ const SideBarOff = (props) => {
               {userDetail && userDetail.instansi.logo ? (
                 <img
                   src={
-                    'http://api.simonev.revolusimental.go.id:8882' +
+                    'https://api.simonev.revolusimental.go.id' +
                     (userDetail && userDetail.instansi.logo)
                   }
                   className="logo-instansi-user"
@@ -395,7 +395,7 @@ const SideBarOff = (props) => {
             {userDetail && userDetail.instansi.logo ? (
               <img
                 src={
-                  'http://api.simonev.revolusimental.go.id:8882' +
+                  'https://api.simonev.revolusimental.go.id' +
                   (userDetail && userDetail.instansi.logo)
                 }
                 className="logo-instansi-user-off"

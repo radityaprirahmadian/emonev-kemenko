@@ -44,7 +44,7 @@ const EditAdmin = (props) => {
 
   useEffect(() => {
     axios
-      .get('http://api.simonev.revolusimental.go.id:8882/api/v1/instansi')
+      .get('https://api.simonev.revolusimental.go.id/api/v1/instansi')
       .then((res) => {
         setAllInstansi(res.data.instansi);
       })
@@ -63,7 +63,7 @@ const EditAdmin = (props) => {
       };
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,
           config,
         );
         setUserData({
@@ -76,7 +76,7 @@ const EditAdmin = (props) => {
         });
 
         if (res.data.user.foto) {
-          const wow = `http://api.simonev.revolusimental.go.id:8882${res.data.user.foto}`;
+          const wow = `https://api.simonev.revolusimental.go.id${res.data.user.foto}`;
           setAvatar(wow);
         }
       } catch (err) {
@@ -104,7 +104,7 @@ const EditAdmin = (props) => {
     };
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,
         formData,
         config,
       );
@@ -136,7 +136,7 @@ const EditAdmin = (props) => {
   //         }
   //     }
   //     try {
-  //         const res = await axios.put(`http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}/foto`,formData,config)
+  //         const res = await axios.put(`https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,formData,config)
   //     }
   //     catch (err) {
   //         console.log(err.data)

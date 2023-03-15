@@ -28,7 +28,7 @@ const Download = (props) => {
       };
       try {
         const res = await axios.get(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${id}?type=${type}`,
+          `https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=${type}`,
           config,
         );
         setDocument({

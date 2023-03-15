@@ -30,7 +30,7 @@ export default function StatistikMonev(props) {
   useEffect(() => {
     setStatistik(null);
     setData(null);
-    const endpoint = `http://api.simonev.revolusimental.go.id:8882/api/v1/statistik/monev?periode=${
+    const endpoint = `https://api.simonev.revolusimental.go.id/api/v1/statistik/monev?periode=${
       periode || ''
     }&select=${instansi || ''}`;
     fetch(endpoint)

@@ -53,7 +53,7 @@ const GNRM = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}&keyword=${keyword}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&kp=${kp}&keyword=${keyword}`,
         config,
       );
       setDocuments(res.data.document);
@@ -73,7 +73,7 @@ const GNRM = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document/gnrm/suggestion?keyword=${keyword}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document/gnrm/suggestion?keyword=${keyword}`,
         config,
       );
       setSuggestion(res.data.keywords);
@@ -91,7 +91,7 @@ const GNRM = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${id}?type=gnrm`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=gnrm`,
         config,
       );
       alert(res.data.message);

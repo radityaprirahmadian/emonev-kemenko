@@ -79,7 +79,7 @@ const ProfileEdit = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,
         config,
       );
       setUserData({
@@ -106,7 +106,7 @@ const ProfileEdit = (props) => {
   };
 
   useEffect(() => {
-    const wow = `http://api.simonev.revolusimental.go.id:8882${userDetail && userDetail.foto}`;
+    const wow = `https://api.simonev.revolusimental.go.id${userDetail && userDetail.foto}`;
     setFotos(wow);
   }, [userDetail]);
 
@@ -120,7 +120,7 @@ const ProfileEdit = (props) => {
     };
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}`,
         formData,
         config,
       );
@@ -169,7 +169,7 @@ const ProfileEdit = (props) => {
     };
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}/foto`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,
         formData,
         config,
       );
@@ -221,7 +221,7 @@ const ProfileEdit = (props) => {
         };
         try {
           const res = await axios.put(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${props.match.params.id}/foto`,
+            `https://api.simonev.revolusimental.go.id/api/v1/user/${props.match.params.id}/foto`,
             formData,
             config,
           );

@@ -48,7 +48,7 @@ const Notification = () => {
     };
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/notifikasi/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/notifikasi/${id}`,
         data,
         config,
       );

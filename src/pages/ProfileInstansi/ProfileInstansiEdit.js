@@ -51,7 +51,7 @@ const ProfileInstansiEdit = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,
         config,
       );
       setInstansiDetail(res.data.instansi);
@@ -82,7 +82,7 @@ const ProfileInstansiEdit = (props) => {
 
     try {
       const res = await axios.put(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${props.match.params.id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/instansi/${props.match.params.id}`,
         formData,
         config,
       );
@@ -130,7 +130,7 @@ const ProfileInstansiEdit = (props) => {
         website: instansiDetail.website,
       });
 
-      const wow = `http://api.simonev.revolusimental.go.id:8882${
+      const wow = `https://api.simonev.revolusimental.go.id${
         instansiDetail && instansiDetail.logo
       }`;
       setFotos(wow);

@@ -285,7 +285,7 @@ const DownloadMonev = (props) => {
         <View fixed>
           <Image
             style={style.image}
-            source={`http://api.simonev.revolusimental.go.id:8882${
+            source={`https://api.simonev.revolusimental.go.id${
               props.data.instansi && props.data.instansi.logo
             }`}
           />
@@ -368,7 +368,7 @@ const DownloadMonev = (props) => {
                     <View style={style.isiimage} wrap={false}>
                       <Image
                         style={style.images}
-                        source={`http://api.simonev.revolusimental.go.id:8882${media.path}`}
+                        source={`https://api.simonev.revolusimental.go.id${media.path}`}
                       />
                       <Text style={style.textimage}>
                         {media.filename.length > 40

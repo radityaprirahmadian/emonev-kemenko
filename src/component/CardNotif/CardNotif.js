@@ -41,13 +41,13 @@ const CardNotif = (props) => {
                 style={{ width: '80px', height: '80px', borderRadius: '50%', overflow: 'hidden' }}
               >
                 <img
-                  src={`http://api.simonev.revolusimental.go.id:8882${props.foto}`}
+                  src={`https://api.simonev.revolusimental.go.id${props.foto}`}
                   alt="user-avatar"
                   className="avatar-notif"
                 />
               </div>
               <img
-                src={`http://api.simonev.revolusimental.go.id:8882${props.logo}`}
+                src={`https://api.simonev.revolusimental.go.id${props.logo}`}
                 alt="user-logo"
                 className="logo-notif"
               />

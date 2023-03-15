@@ -32,7 +32,7 @@ const TabelInfografis = (props) => {
     e.preventDefault();
     setOpen(true);
     const gams = props.gambar.map(
-      (gambar) => `http://api.simonev.revolusimental.go.id:8882${gambar.path}`,
+      (gambar) => `https://api.simonev.revolusimental.go.id${gambar.path}`,
     );
     setGambar(gams);
   };

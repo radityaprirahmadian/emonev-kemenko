@@ -16,7 +16,7 @@ const Card = (props) => {
   useEffect(() => {
     truncate(props.doc.judul, 30);
     const i = props.doc.gambar.map(
-      (infografis) => `http://api.simonev.revolusimental.go.id:8882${infografis.path}`,
+      (infografis) => `https://api.simonev.revolusimental.go.id${infografis.path}`,
     );
     setGambar(i);
   }, [props]);

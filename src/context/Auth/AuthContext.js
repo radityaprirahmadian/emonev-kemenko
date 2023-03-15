@@ -35,10 +35,7 @@ const AuthState = (props) => {
       },
     };
     try {
-      const res = await axios.get(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/auth',
-        config,
-      );
+      const res = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/auth', config);
       dispatch({
         type: 'USER_LOADED',
         payload: res.data.user,
@@ -62,7 +59,7 @@ const AuthState = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/user/${id}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/user/${id}`,
         config,
       );
       dispatch({
@@ -86,7 +83,7 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.post(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/auth?remember=${ingat}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/auth?remember=${ingat}`,
         formData,
         config,
       );

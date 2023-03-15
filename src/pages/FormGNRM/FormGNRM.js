@@ -368,7 +368,7 @@ const FormGNRM = (props) => {
       },
     };
     const res = await axios.put(
-      `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${
+      `https://api.simonev.revolusimental.go.id/api/v1/instansi/${
         userDetail.instansi && userDetail.instansi._id
       }`,
       formData,
@@ -446,7 +446,7 @@ const FormGNRM = (props) => {
 
       try {
         const res = await axios.post(
-          'http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=gnrm',
+          'https://api.simonev.revolusimental.go.id/api/v1/document?type=gnrm',
           formData,
           config,
         );
@@ -536,7 +536,7 @@ const FormGNRM = (props) => {
 
       try {
         const res = await axios.put(
-          `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=gnrm`,
+          `https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,
           formData,
           config,
         );
@@ -557,9 +557,7 @@ const FormGNRM = (props) => {
 
   useEffect(() => {
     (async () => {
-      const proyekData = await axios.get(
-        'http://api.simonev.revolusimental.go.id:8882/api/v1/proyek',
-      );
+      const proyekData = await axios.get('https://api.simonev.revolusimental.go.id/api/v1/proyek');
 
       const { proyek, gerakan } = proyekData.data;
 
@@ -593,13 +591,13 @@ const FormGNRM = (props) => {
       try {
         if (props.match.params.id) {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${props.match.params.id}?type=gnrm`,
+            `https://api.simonev.revolusimental.go.id/api/v1/document/${props.match.params.id}?type=gnrm`,
             config,
           );
           setInstansiDetail(res.data.instansi);
         } else {
           const res = await axios.get(
-            `http://api.simonev.revolusimental.go.id:8882/api/v1/instansi/${
+            `https://api.simonev.revolusimental.go.id/api/v1/instansi/${
               userDetail && userDetail.instansi._id
             }`,
             config,
@@ -630,7 +628,7 @@ const FormGNRM = (props) => {
         sk_kendala: instansiDetail?.sk && totalWordInSentenceCounter(instansiDetail?.sk?.kendala),
       });
 
-      const gambar = `http://api.simonev.revolusimental.go.id:8882${
+      const gambar = `https://api.simonev.revolusimental.go.id${
         instansiDetail.sk && instansiDetail.sk.foto
       }`;
       const fileExt = getFIleExtension(gambar);
@@ -640,9 +638,7 @@ const FormGNRM = (props) => {
 
     if (instansiDetail.sk && instansiDetail.sk.foto) {
       const mediaFileUrl = [
-        `http://api.simonev.revolusimental.go.id:8882${
-          instansiDetail.sk && instansiDetail.sk.foto
-        }`,
+        `https://api.simonev.revolusimental.go.id${instansiDetail.sk && instansiDetail.sk.foto}`,
       ];
       const files = [];
       mediaFileUrl.forEach((url) => {
@@ -715,7 +711,7 @@ const FormGNRM = (props) => {
       const mediaFileUrl =
         documentDetail &&
         documentDetail.form.lampiran.media.map(
-          (media) => `http://api.simonev.revolusimental.go.id:8882${media.path}`,
+          (media) => `https://api.simonev.revolusimental.go.id${media.path}`,
         );
       const files = [];
       mediaFileUrl.forEach((url) => {
@@ -731,7 +727,7 @@ const FormGNRM = (props) => {
       const mediaFileUrl2 =
         documentDetail &&
         documentDetail.form.lampiran.kondisi_awal.map(
-          (kondisi_awal) => `http://api.simonev.revolusimental.go.id:8882${kondisi_awal.path}`,
+          (kondisi_awal) => `https://api.simonev.revolusimental.go.id${kondisi_awal.path}`,
         );
       const files2 = [];
       // mediaFileUrl2.forEach((url) => {
@@ -765,7 +761,7 @@ const FormGNRM = (props) => {
       const mediaFileUrl3 =
         documentDetail &&
         documentDetail.form.lampiran.proses.map(
-          (proses) => `http://api.simonev.revolusimental.go.id:8882${proses.path}`,
+          (proses) => `https://api.simonev.revolusimental.go.id${proses.path}`,
         );
       const files3 = [];
       mediaFileUrl3.forEach((url) => {
@@ -5729,7 +5725,7 @@ const FormGNRM = (props) => {
                             }}
                           >
                             <img
-                              src={`http://api.simonev.revolusimental.go.id:8882${
+                              src={`https://api.simonev.revolusimental.go.id${
                                 instansiDocumentDetail && instansiDocumentDetail.logo
                               }`}
                               style={{
@@ -5788,7 +5784,7 @@ const FormGNRM = (props) => {
                             }}
                           >
                             <img
-                              src={`http://api.simonev.revolusimental.go.id:8882${
+                              src={`https://api.simonev.revolusimental.go.id${
                                 instansiDetail && instansiDetail.logo
                               }`}
                               style={{

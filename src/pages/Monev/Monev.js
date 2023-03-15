@@ -51,7 +51,7 @@ const Monev = (props) => {
   //         }
   //     }
   //     try {
-  //         const res = await axios.get(`http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=monev`, config)
+  //         const res = await axios.get(`https://api.simonev.revolusimental.go.id/api/v1/document?type=monev`, config)
   //         setFilter({...filter, totalDoc: res.data.document.length})
   //     }
   //     catch (err) {
@@ -68,7 +68,7 @@ const Monev = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}&keyword=${keyword}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document?type=monev&tahun=${tahun}&instansi=${instansi}&limit=${limit}&page=${page}&periode=${periode}&keyword=${keyword}`,
         config,
       );
       setDocuments(res.data.document);
@@ -88,7 +88,7 @@ const Monev = (props) => {
     };
     try {
       const res = await axios.get(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document/monev/suggestion?keyword=${keyword}`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document/monev/suggestion?keyword=${keyword}`,
         config,
       );
       setSuggestion(res.data.keywords);
@@ -110,7 +110,7 @@ const Monev = (props) => {
     };
     try {
       const res = await axios.delete(
-        `http://api.simonev.revolusimental.go.id:8882/api/v1/document/${id}?type=monev`,
+        `https://api.simonev.revolusimental.go.id/api/v1/document/${id}?type=monev`,
         config,
       );
       alert(res.data.message);
