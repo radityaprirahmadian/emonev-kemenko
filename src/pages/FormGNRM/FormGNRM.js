@@ -287,7 +287,9 @@ const FormGNRM = (props) => {
 
   const onChangeSK = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    setWordLength({ ...wordLength, [e.target.name]: totalWordInSentenceCounter(e.target.value) });
+    if (e.target.name === 'sk_kendala') {
+      setWordLength({ ...wordLength, [e.target.name]: totalWordInSentenceCounter(e.target.value) });
+    }
   };
 
   const onChangeSKFile = (event) => {
@@ -400,6 +402,8 @@ const FormGNRM = (props) => {
     let error = false;
     let errorAnggaran = false;
 
+    if (sk.sk_status) delete wordLength.sk_kendala;
+
     for (let key in wordLength) {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
     }
@@ -473,6 +477,8 @@ const FormGNRM = (props) => {
   const onEdit = async (event) => {
     let error = false;
     let errorAnggaran = false;
+
+    if (sk.sk_status) delete wordLength.sk_kendala;
 
     for (let key in wordLength) {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
@@ -2801,7 +2807,7 @@ const FormGNRM = (props) => {
                               type="text"
                               name="penjelasan_pihak_terkait"
                               value={data.pihak_terkait.penjelasan_pihak_terkait}
-                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0, true)}
+                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
                             />
                           </div>
                         </Fragment>
@@ -2937,7 +2943,7 @@ const FormGNRM = (props) => {
                                 name="penjelasan_pihak_terkait"
                                 value={data.pihak_terkait.penjelasan_pihak_terkait}
                                 onChange={(event) =>
-                                  onChange(event, 'pihak_terkait', true, index + panjang, true)
+                                  onChange(event, 'pihak_terkait', true, index + panjang)
                                 }
                               />
                             </div>
@@ -5197,7 +5203,7 @@ const FormGNRM = (props) => {
                               placeholder="Tuliskan mengenai kontribusi dari masing-masing pihak yang terlibat dalam mencapai hasil yang diharapkan"
                               name="penjelasan_pihak_terkait"
                               value={data.pihak_terkait.penjelasan_pihak_terkait}
-                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0, true)}
+                              onChange={(event) => onChange(event, 'pihak_terkait', true, 0)}
                             />
                           </div>
                         </Fragment>
@@ -5333,7 +5339,7 @@ const FormGNRM = (props) => {
                                 name="penjelasan_pihak_terkait"
                                 value={data.pihak_terkait.penjelasan_pihak_terkait}
                                 onChange={(event) =>
-                                  onChange(event, 'pihak_terkait', true, index + panjang, true)
+                                  onChange(event, 'pihak_terkait', true, index + panjang)
                                 }
                               />
                             </div>
