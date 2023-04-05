@@ -298,7 +298,9 @@ const DownloadGNRM = (props) => {
           <Text style={style.headerBold}>1. Gugus Tugas GNRM</Text>
           {props.data.sk_no ? (
             <>
-              <Text style={style.isi}>Nomor SK: {props.data.sk_no ?? 'Belum Ada'}</Text>
+              <Text style={style.isi}>
+                Nomor SK: {props.data.instansi.sk && (props.data.instansi.sk.sk_no ?? 'Belum Ada')}
+              </Text>
               <View style={style.isi}>
                 {props.data.document1.form &&
                   props.data.document1.form.lampiran.proses

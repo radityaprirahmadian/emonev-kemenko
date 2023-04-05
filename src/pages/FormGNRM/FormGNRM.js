@@ -402,7 +402,7 @@ const FormGNRM = (props) => {
     let error = false;
     let errorAnggaran = false;
 
-    if (sk.sk_status) delete wordLength.sk_kendala;
+    if (sk.sk_status || data.sk_status) delete wordLength.sk_kendala;
 
     for (let key in wordLength) {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
@@ -478,7 +478,7 @@ const FormGNRM = (props) => {
     let error = false;
     let errorAnggaran = false;
 
-    if (sk.sk_status) delete wordLength.sk_kendala;
+    if (sk.sk_status || data.sk_status) delete wordLength.sk_kendala;
 
     for (let key in wordLength) {
       if (Number(wordLength[key]) < 50 || Number(wordLength[key]) > 1000) error = true;
@@ -925,16 +925,18 @@ const FormGNRM = (props) => {
                               marginLeft: '150px',
                             }}
                           >
-                            {pilihanPeriode.map((periode, i) => (
-                              <option
-                                key={i}
-                                selected={documentDetail.form.periode === periode && true}
-                                title={periode}
-                                value={periode}
-                              >
-                                {periode}
-                              </option>
-                            ))}
+                            {pilihanPeriode.map((periode, i) => {
+                              return (
+                                <option
+                                  key={i}
+                                  selected={documentDetail.form.periode === periode && true}
+                                  title={periode}
+                                  value={periode}
+                                >
+                                  {periode}
+                                </option>
+                              );
+                            })}
                           </select>
                         ) : (
                           <select

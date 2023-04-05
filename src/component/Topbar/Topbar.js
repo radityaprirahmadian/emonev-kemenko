@@ -130,7 +130,7 @@ const Topbar = (props) => {
                                 </div>
                               )}
                               <div className="sub-menu-kementrian">
-                                <div className="topbar-kabar">
+                                {/* <div className="topbar-kabar">
                                   <div className="topbar-kabar-head">
                                     <h1 className="topbar-head-head">KABAR GNRM</h1>
                                   </div>
@@ -139,7 +139,7 @@ const Topbar = (props) => {
                                       return <KabarMegaMenu key={index} kabar={kabar} />;
                                     })}
                                   </ul>
-                                </div>
+                                </div> */}
                                 <div className="topbar-program">
                                   {instansi.gerakan ? (
                                     <div className="topbar-kabar-head">

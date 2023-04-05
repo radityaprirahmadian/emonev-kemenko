@@ -348,8 +348,6 @@ const FormMonev = (props) => {
         [event.target.name]: event.target.value,
       });
   };
-
-  useEffect(() => {}, [wordLength]);
   // const cekEkstension = (ext) => {
   //     if(ext !== 'pdf' || ext !== 'jpeg' || ext !== 'jpg' || ext !== 'png'){
   //         alert('Anda memasukkan file dengan eksensi yang salah!')
